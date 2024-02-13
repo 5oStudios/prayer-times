@@ -5,8 +5,23 @@ import { button as buttonStyles } from '@nextui-org/theme';
 import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
+import { DefaultService } from '../../../../api-sdk';
 
 export default function Home() {
+  const test = DefaultService.getCalendar({
+    year: 2022,
+    month: 1,
+    latitude: 12.9715987,
+    longitude: 77.5945667,
+  });
+  console.log(
+    test.then((res) => {
+      const data = res.data;
+      data.forEach((item) => {
+        console.log(item.timings);
+      });
+    })
+  );
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-lg text-center justify-center">
