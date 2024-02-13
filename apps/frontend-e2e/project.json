@@ -1,12 +1,12 @@
 {
-  "name": "prayer-times-e2e",
+  "name": "frontend-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/prayer-times-e2e/src",
+  "sourceRoot": "apps/frontend-e2e/src",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
     }
   },
   "tags": [],
-  "implicitDependencies": ["prayer-times"]
+  "implicitDependencies": ["frontend"]
 }

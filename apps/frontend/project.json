@@ -1,7 +1,7 @@
 {
-  "name": "prayer-times",
+  "name": "frontend",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/prayer-times",
+  "sourceRoot": "apps/frontend",
   "projectType": "application",
   "targets": {},
   "tags": []
