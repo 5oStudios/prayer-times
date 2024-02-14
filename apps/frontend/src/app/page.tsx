@@ -1,3 +1,4 @@
+'use client';
 import { Link } from '@nextui-org/link';
 import { Snippet } from '@nextui-org/snippet';
 import { Code } from '@nextui-org/code';
@@ -5,25 +6,31 @@ import { button as buttonStyles } from '@nextui-org/theme';
 import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
-import { DefaultService } from '../../../../api-sdk';
+import dynamic from 'next/dynamic';
 
 export default function Home() {
-  const test = DefaultService.getCalendar({
-    year: 2022,
-    month: 1,
-    latitude: 12.9715987,
-    longitude: 77.5945667,
+  // const test = DefaultService.getCalendar({
+  //   year: 2022,
+  //   month: 1,
+  //   latitude: 12.9715987,
+  //   longitude: 77.5945667,
+  // });
+  // console.log(
+  //   test.then((res) => {
+  //     const data = res.data;
+  //     data.forEach((item) => {
+  //       console.log(item.timings);
+  //     });
+  //   })
+  // );
+  //
+  const Spreadsheets = dynamic(() => import('../components/prayer-times'), {
+    ssr: false,
   });
-  console.log(
-    test.then((res) => {
-      const data = res.data;
-      data.forEach((item) => {
-        console.log(item.timings);
-      });
-    })
-  );
+
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <Spreadsheets />
       <div className="inline-block max-w-lg text-center justify-center">
         <h1 className={title()}>Make&nbsp;</h1>
         <h1 className={title({ color: 'violet' })}>beautiful&nbsp;</h1>
