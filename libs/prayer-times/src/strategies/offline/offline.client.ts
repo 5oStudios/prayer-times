@@ -4,7 +4,7 @@ import {
 } from './adhan/adhan-package.strategy';
 import { CalculationMethod, PrayerTimes } from 'adhan';
 
-interface OfflineClientProps {
+export interface OfflineClientProps {
   param: OfflineCalculationMethod;
 }
 export class OfflineClient {

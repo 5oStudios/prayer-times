@@ -7,29 +7,12 @@ import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
 import { PrayerTimesClient } from 'prayer-times';
-import { Schools } from '../../../../libs/prayer-times/src/interfaces/schools.interface';
 
 export default function Home() {
-  // const test = DefaultService.getCalendar({
-  //   year: 2022,
-  //   month: 1,
-  //   latitude: 31.111704,
-  //   longitude: 29.790397,
-  // });
-  // console.log(
-  //   test.then((res) => {
-  //     const data = res.data;
-  //     data.forEach((item) => {
-  //       console.log(item.timings);
-  //     });
-  //   })
-  // );
-  //
-
   const onlineClient = new PrayerTimesClient({
-    strategy: 'OFFLINE',
-    region: 'Egyptian',
-    school: Schools.HANAFI,
+    strategy: 'ONLINE',
+    region: 'Egyptian_General_Authority_of_Survey',
+    school: 'HANAFI',
   });
   onlineClient
     .getTimings({
@@ -46,7 +29,7 @@ export default function Home() {
   const offlineClient = new PrayerTimesClient({
     strategy: 'OFFLINE',
     region: 'Egyptian',
-    school: Schools.HANAFI,
+    school: 'HANAFI',
   });
   offlineClient
     .getTimings({
@@ -55,6 +38,9 @@ export default function Home() {
     })
     .then((offlineTimings: any) => {
       console.log('Offline timings:', offlineTimings);
+    })
+    .catch((error) => {
+      console.error('Error fetching offline timings:', error);
     });
 
   return (
