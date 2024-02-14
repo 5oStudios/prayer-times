@@ -1,22 +1,26 @@
 import { PrayerTimes } from 'adhan';
 import { MuslimPrayers, OfflinePrayerTimesStrategy } from '../../../interfaces';
 
+export type OfflineCalculationMethod = ConstructorParameters<
+  typeof PrayerTimes
+>[2]['method'];
+
 export class AdhanPackageStrategy implements OfflinePrayerTimesStrategy {
   private readonly adhanService: PrayerTimes | undefined;
   constructor(
-    private readonly coordinates: Pick<
+    readonly coordinates: Pick<
       ConstructorParameters<typeof PrayerTimes>[0],
       'latitude' | 'longitude'
     >,
-    private readonly date: ConstructorParameters<typeof PrayerTimes>[1],
-    private readonly param: ConstructorParameters<typeof PrayerTimes>[2]
+    readonly date: ConstructorParameters<typeof PrayerTimes>[1],
+    readonly param: ConstructorParameters<typeof PrayerTimes>[2]
   ) {
     this.adhanService = new PrayerTimes(coordinates, date, param);
   }
 
   getTimings() {
     if (!this.adhanService) {
-      throw new Error('Adhan Offline Service not initialized');
+      throw new Error('Adhan Offline Service not available');
     }
     return {
       [MuslimPrayers.FAJR]: this.dateToTime(this.adhanService.fajr),

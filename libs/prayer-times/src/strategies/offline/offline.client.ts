@@ -1,12 +1,16 @@
-import { AdhanPackageStrategy } from './adhan/adhanPackageStrategy';
-import { PrayerTimes } from 'adhan';
+import {
+  AdhanPackageStrategy,
+  OfflineCalculationMethod,
+} from './adhan/adhan-package.strategy';
+import { CalculationMethod, PrayerTimes } from 'adhan';
 
 interface OfflineClientProps {
-  param: ConstructorParameters<typeof PrayerTimes>[2];
+  param: OfflineCalculationMethod;
 }
 export class OfflineClient {
+  private readonly params: ConstructorParameters<typeof PrayerTimes>[2];
   constructor(private readonly props: OfflineClientProps) {
-    console.log('OfflineClient', props);
+    this.params = CalculationMethod[props.param ?? 'Egyptian']();
   }
   getTimings({
     date,
@@ -18,7 +22,7 @@ export class OfflineClient {
     return new AdhanPackageStrategy(
       coordinates,
       date,
-      this.props.param
+      this.params
     ).getTimings();
   }
 }

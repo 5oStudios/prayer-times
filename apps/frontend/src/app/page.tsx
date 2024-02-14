@@ -7,7 +7,6 @@ import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
 import { PrayerTimesClient } from 'prayer-times';
-import { Strategies } from '../../../../libs/prayer-times/src/interfaces/strategies.interface';
 import { Schools } from '../../../../libs/prayer-times/src/interfaces/schools.interface';
 
 export default function Home() {
@@ -28,8 +27,8 @@ export default function Home() {
   //
 
   const onlineClient = new PrayerTimesClient({
-    strategy: Strategies.ONLINE,
-    region: 'Egyptian',
+    strategy: 'ONLINE',
+    region: 'Egyptian_General_Authority_of_Survey',
     school: Schools.HANAFI,
   });
   const onlineTimingsPromise = onlineClient.getTimings({
@@ -39,22 +38,22 @@ export default function Home() {
 
   onlineTimingsPromise
     .then((onlineTimings: any) => {
-      console.log(onlineTimings);
+      console.log('Online timings:', onlineTimings);
     })
     .catch((error) => {
       console.error('Error fetching online timings:', error);
     });
 
   const offlineClient = new PrayerTimesClient({
-    strategy: Strategies.OFFLINE,
-    region: 'Egyptian',
+    strategy: 'OFFLINE',
+    region: 'Egyptian_General_Authority_of_Survey',
     school: Schools.HANAFI,
   });
   const timingsOffline = offlineClient.getTimings({
     date: new Date(),
     coordinates: { latitude: 31.111704, longitude: 29.790397 },
   });
-  console.log(timingsOffline);
+  console.log('Offline timings:', timingsOffline);
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">

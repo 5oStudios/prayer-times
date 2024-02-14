@@ -1,6 +1,6 @@
 export enum Strategies {
-  OFFLINE,
-  ONLINE,
+  OFFLINE = 'OFFLINE',
+  ONLINE = 'ONLINE',
 }
 
 export interface PrayerTimesStrategyInterface {

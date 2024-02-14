@@ -1,35 +1,31 @@
-import { CalculationMethod, Coordinates, PrayerTimes } from 'adhan';
-import { AdhanPackageStrategy } from '../strategies/offline/adhan/adhanPackageStrategy';
-import { Strategies } from '../interfaces/strategies.interface';
+import { PrayerTimes } from 'adhan';
+import { Strategies } from '../interfaces';
 import { Schools } from '../interfaces/schools.interface';
 import { OfflineClient, OnlineClient } from '../strategies';
+import { OnlineCalculationMethod } from '../strategies/online/aladhan/aladhan-api.strategy';
+import { OfflineCalculationMethod } from '../strategies/offline/adhan/adhan-package.strategy';
 
-export function prayerTimes(): string {
-  const coordinates = new Coordinates(12.9715987, 77.5945667);
-  const params = CalculationMethod.Kuwait();
-  const date = new Date();
-  const prayerTimes = new AdhanPackageStrategy(coordinates, date, params);
-  console.log(prayerTimes);
-  return 'Prayer Times';
-}
-
-export class PrayerTimesClient {
-  private readonly clients: {
-    [K in Strategies]: OfflineClient | OnlineClient;
-  };
+export class PrayerTimesClient<T extends keyof typeof Strategies> {
+  private readonly client: OnlineClient | OfflineClient | undefined;
   constructor(
     private readonly props: {
-      strategy: Strategies;
-      region: ConstructorParameters<typeof PrayerTimes>[2]['method'];
+      strategy: T;
+      region: T extends Strategies.OFFLINE
+        ? OfflineCalculationMethod
+        : OnlineCalculationMethod;
       school: Schools;
     }
   ) {
-    this.clients = {
-      [Strategies.OFFLINE]: new OfflineClient({
-        param: CalculationMethod[this.props.region ?? 'Egyptian'](),
-      }),
-      [Strategies.ONLINE]: new OnlineClient(),
-    };
+    console.log('PrayerTimesClient', props);
+
+    switch (props.strategy) {
+      case 'ONLINE':
+        this.client = new OnlineClient(props.region);
+        break;
+      case 'OFFLINE':
+        this.client = new OfflineClient(props.region);
+        break;
+    }
   }
 
   getTimings({
@@ -39,7 +35,10 @@ export class PrayerTimesClient {
     coordinates: ConstructorParameters<typeof PrayerTimes>[0];
     date: ConstructorParameters<typeof PrayerTimes>[1];
   }) {
-    return this.clients[this.props.strategy].getTimings({
+    if (!this.client) {
+      throw new Error('Client not available');
+    }
+    return this.client.getTimings({
       date,
       coordinates,
       method: 1,
