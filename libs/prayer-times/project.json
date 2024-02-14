@@ -1,0 +1,23 @@
+{
+  "name": "prayer-times",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/prayer-times/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/prayer-times",
+        "main": "libs/prayer-times/src/index.ts",
+        "tsConfig": "libs/prayer-times/tsconfig.lib.json",
+        "assets": ["libs/prayer-times/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs prayer-times {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}

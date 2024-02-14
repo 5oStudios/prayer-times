@@ -6,14 +6,16 @@ import { button as buttonStyles } from '@nextui-org/theme';
 import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
-import dynamic from 'next/dynamic';
+import { PrayerTimesClient } from 'prayer-times';
+import { Strategies } from '../../../../libs/prayer-times/src/interfaces/strategies.interface';
+import { Schools } from '../../../../libs/prayer-times/src/interfaces/schools.interface';
 
 export default function Home() {
   // const test = DefaultService.getCalendar({
   //   year: 2022,
   //   month: 1,
-  //   latitude: 12.9715987,
-  //   longitude: 77.5945667,
+  //   latitude: 31.111704,
+  //   longitude: 29.790397,
   // });
   // console.log(
   //   test.then((res) => {
@@ -24,13 +26,38 @@ export default function Home() {
   //   })
   // );
   //
-  const Spreadsheets = dynamic(() => import('../components/prayer-times'), {
-    ssr: false,
+
+  const onlineClient = new PrayerTimesClient({
+    strategy: Strategies.ONLINE,
+    region: 'Egyptian',
+    school: Schools.HANAFI,
   });
+  const onlineTimingsPromise = onlineClient.getTimings({
+    date: new Date(),
+    coordinates: { latitude: 31.111704, longitude: 29.790397 },
+  });
+
+  onlineTimingsPromise
+    .then((onlineTimings: any) => {
+      console.log(onlineTimings);
+    })
+    .catch((error) => {
+      console.error('Error fetching online timings:', error);
+    });
+
+  const offlineClient = new PrayerTimesClient({
+    strategy: Strategies.OFFLINE,
+    region: 'Egyptian',
+    school: Schools.HANAFI,
+  });
+  const timingsOffline = offlineClient.getTimings({
+    date: new Date(),
+    coordinates: { latitude: 31.111704, longitude: 29.790397 },
+  });
+  console.log(timingsOffline);
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <Spreadsheets />
       <div className="inline-block max-w-lg text-center justify-center">
         <h1 className={title()}>Make&nbsp;</h1>
         <h1 className={title({ color: 'violet' })}>beautiful&nbsp;</h1>
