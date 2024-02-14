@@ -33,19 +33,22 @@ export class AladhanApiStrategy implements OnlinePrayerTimesStrategy {
       latitude: number;
       longitude: number;
     };
-    method: CalculationMethod;
+    method: OnlineCalculationMethod;
     date: Date;
   }) {
     const { data } = await aladanService.getTimings({
       latitude: coordinates.latitude,
       longitude: coordinates.longitude,
       date: this.formatDate(date),
-      method,
+      method: OnlineCalculationEnum[method],
     });
 
     if (!data?.timings) {
-      throw new Error('AlAdan Online Service not available');
+      throw new Error(
+        'AlAdan Online API Service (aladhan.com) is not available.'
+      );
     }
+
     return {
       [MuslimPrayers.FAJR]: data.timings['Fajr'],
       [MuslimPrayers.SUNRISE]: data.timings['Sunrise'],

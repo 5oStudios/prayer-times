@@ -9,10 +9,10 @@ interface OfflineClientProps {
 }
 export class OfflineClient {
   private readonly params: ConstructorParameters<typeof PrayerTimes>[2];
-  constructor(private readonly props: OfflineClientProps) {
+  constructor(readonly props: OfflineClientProps) {
     this.params = CalculationMethod[props.param ?? 'Egyptian']();
   }
-  getTimings({
+  public async getTimings({
     date,
     coordinates,
   }: {

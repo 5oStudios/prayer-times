@@ -1,9 +1,9 @@
 import { PrayerTimes } from 'adhan';
 import { MuslimPrayers, OfflinePrayerTimesStrategy } from '../../../interfaces';
 
-export type OfflineCalculationMethod = ConstructorParameters<
-  typeof PrayerTimes
->[2]['method'];
+export type OfflineCalculationMethod = NonNullable<
+  ConstructorParameters<typeof PrayerTimes>[2]['method']
+>;
 
 export class AdhanPackageStrategy implements OfflinePrayerTimesStrategy {
   private readonly adhanService: PrayerTimes | undefined;
@@ -22,7 +22,7 @@ export class AdhanPackageStrategy implements OfflinePrayerTimesStrategy {
     if (!this.adhanService) {
       throw new Error('Adhan Offline Service not available');
     }
-    return {
+    return Promise.resolve({
       [MuslimPrayers.FAJR]: this.dateToTime(this.adhanService.fajr),
       [MuslimPrayers.SUNRISE]: this.dateToTime(this.adhanService.sunrise),
       [MuslimPrayers.DHUHR]: this.dateToTime(this.adhanService.dhuhr),
@@ -30,7 +30,7 @@ export class AdhanPackageStrategy implements OfflinePrayerTimesStrategy {
       [MuslimPrayers.SUNSET]: this.dateToTime(this.adhanService.sunset),
       [MuslimPrayers.MAGHRIB]: this.dateToTime(this.adhanService.maghrib),
       [MuslimPrayers.ISHA]: this.dateToTime(this.adhanService.isha),
-    };
+    });
   }
 
   private dateToTime(inputDatetime: Date): string {

@@ -1,18 +1,19 @@
-import { PrayerTimes } from 'adhan';
 import { Strategies } from '../interfaces';
 import { Schools } from '../interfaces/schools.interface';
 import { OfflineClient, OnlineClient } from '../strategies';
 import { OnlineCalculationMethod } from '../strategies/online/aladhan/aladhan-api.strategy';
 import { OfflineCalculationMethod } from '../strategies/offline/adhan/adhan-package.strategy';
 
+interface CalculationMethod {
+  ONLINE: OnlineCalculationMethod;
+  OFFLINE: OfflineCalculationMethod;
+}
 export class PrayerTimesClient<T extends keyof typeof Strategies> {
   private readonly client: OnlineClient | OfflineClient | undefined;
   constructor(
     private readonly props: {
       strategy: T;
-      region: T extends Strategies.OFFLINE
-        ? OfflineCalculationMethod
-        : OnlineCalculationMethod;
+      region: CalculationMethod[T];
       school: Schools;
     }
   ) {
@@ -28,12 +29,15 @@ export class PrayerTimesClient<T extends keyof typeof Strategies> {
     }
   }
 
-  getTimings({
+  async getTimings({
     date,
     coordinates,
   }: {
-    coordinates: ConstructorParameters<typeof PrayerTimes>[0];
-    date: ConstructorParameters<typeof PrayerTimes>[1];
+    coordinates: {
+      latitude: number;
+      longitude: number;
+    };
+    date: Date;
   }) {
     if (!this.client) {
       throw new Error('Client not available');
@@ -41,7 +45,7 @@ export class PrayerTimesClient<T extends keyof typeof Strategies> {
     return this.client.getTimings({
       date,
       coordinates,
-      method: 1,
+      method: this.props.region,
     });
   }
 }

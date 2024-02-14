@@ -27,16 +27,15 @@ export default function Home() {
   //
 
   const onlineClient = new PrayerTimesClient({
-    strategy: 'ONLINE',
-    region: 'Egyptian_General_Authority_of_Survey',
+    strategy: 'OFFLINE',
+    region: 'Egyptian',
     school: Schools.HANAFI,
   });
-  const onlineTimingsPromise = onlineClient.getTimings({
-    date: new Date(),
-    coordinates: { latitude: 31.111704, longitude: 29.790397 },
-  });
-
-  onlineTimingsPromise
+  onlineClient
+    .getTimings({
+      date: new Date(),
+      coordinates: { latitude: 31.111704, longitude: 29.790397 },
+    })
     .then((onlineTimings: any) => {
       console.log('Online timings:', onlineTimings);
     })
@@ -46,14 +45,17 @@ export default function Home() {
 
   const offlineClient = new PrayerTimesClient({
     strategy: 'OFFLINE',
-    region: 'Egyptian_General_Authority_of_Survey',
+    region: 'Egyptian',
     school: Schools.HANAFI,
   });
-  const timingsOffline = offlineClient.getTimings({
-    date: new Date(),
-    coordinates: { latitude: 31.111704, longitude: 29.790397 },
-  });
-  console.log('Offline timings:', timingsOffline);
+  offlineClient
+    .getTimings({
+      date: new Date(),
+      coordinates: { latitude: 31.111704, longitude: 29.790397 },
+    })
+    .then((offlineTimings: any) => {
+      console.log('Offline timings:', offlineTimings);
+    });
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
