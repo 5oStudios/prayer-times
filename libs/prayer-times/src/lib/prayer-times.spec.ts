@@ -1,7 +1,13 @@
-import { prayerTimes } from './prayer-times-client';
+import { PrayerTimesClient } from './prayer-times-client';
 
 describe('prayerTimes', () => {
   it('should work', () => {
-    expect(prayerTimes()).toEqual('prayer-times');
+    expect(
+      new PrayerTimesClient({
+        strategy: 'ONLINE',
+        region: 'Egyptian_General_Authority_of_Survey',
+        school: 'HANAFI',
+      })
+    ).toBeDefined();
   });
 });

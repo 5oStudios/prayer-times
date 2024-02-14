@@ -19,11 +19,8 @@ export default function Home() {
       date: new Date(),
       coordinates: { latitude: 31.111704, longitude: 29.790397 },
     })
-    .then((onlineTimings: any) => {
+    .then((onlineTimings) => {
       console.log('Online timings:', onlineTimings);
-    })
-    .catch((error) => {
-      console.error('Error fetching online timings:', error);
     });
 
   const offlineClient = new PrayerTimesClient({
@@ -36,11 +33,8 @@ export default function Home() {
       date: new Date(),
       coordinates: { latitude: 31.111704, longitude: 29.790397 },
     })
-    .then((offlineTimings: any) => {
+    .then((offlineTimings) => {
       console.log('Offline timings:', offlineTimings);
-    })
-    .catch((error) => {
-      console.error('Error fetching offline timings:', error);
     });
 
   return (

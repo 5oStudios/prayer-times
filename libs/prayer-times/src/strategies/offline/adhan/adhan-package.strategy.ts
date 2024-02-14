@@ -37,7 +37,7 @@ export class AdhanPackageStrategy implements OfflinePrayerTimesStrategy {
     const dtObject = new Date(inputDatetime);
 
     // Extract time
-    const hours = dtObject.getUTCHours().toString().padStart(2, '0');
+    const hours = (dtObject.getUTCHours() + 2).toString().padStart(2, '0');
     const minutes = dtObject.getUTCMinutes().toString().padStart(2, '0');
 
     return `${hours}:${minutes}`;
