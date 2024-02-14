@@ -1,10 +1,7 @@
-import {
-  MuslimPrayers,
-  OfflinePrayerTimesInterface,
-} from '../../../interfaces/prayer-times.interface';
 import { PrayerTimes } from 'adhan';
+import { MuslimPrayers, OfflinePrayerTimesStrategy } from '../../../interfaces';
 
-export class AdhanStrategy implements OfflinePrayerTimesInterface {
+export class AdhanPackageStrategy implements OfflinePrayerTimesStrategy {
   private readonly adhanService: PrayerTimes | undefined;
   constructor(
     private readonly coordinates: Pick<

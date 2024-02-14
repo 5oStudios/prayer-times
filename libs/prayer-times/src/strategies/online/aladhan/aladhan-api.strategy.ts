@@ -1,7 +1,7 @@
 import { DefaultService as aladanService } from '../aladhan/api-sdk';
-import { OnlinePrayerTimesInterface } from '../../../interfaces/prayer-times.interface';
+import { MuslimPrayers, OnlinePrayerTimesStrategy } from '../../../interfaces';
 
-export class AladanApiStrategy implements OnlinePrayerTimesInterface {
+export class AladhanApiStrategy implements OnlinePrayerTimesStrategy {
   async getTimings({
     date,
     coordinates,
@@ -21,19 +21,17 @@ export class AladanApiStrategy implements OnlinePrayerTimesInterface {
       method,
     });
 
-    console.log(this.formatDate(date));
-    console.log(data?.timings);
     if (!data?.timings) {
       throw new Error('AlAdan Online Service not initialized');
     }
     return {
-      fajr: data.timings['Fajr'],
-      sunrise: data.timings['Sunrise'],
-      dhuhr: data.timings['Dhuhr'],
-      asr: data.timings['Asr'],
-      sunset: data.timings['Sunset'],
-      maghrib: data.timings['Maghrib'],
-      isha: data.timings['Isha'],
+      [MuslimPrayers.FAJR]: data.timings['Fajr'],
+      [MuslimPrayers.SUNRISE]: data.timings['Sunrise'],
+      [MuslimPrayers.DHUHR]: data.timings['Dhuhr'],
+      [MuslimPrayers.ASR]: data.timings['Asr'],
+      [MuslimPrayers.SUNSET]: data.timings['Sunset'],
+      [MuslimPrayers.MAGHRIB]: data.timings['Maghrib'],
+      [MuslimPrayers.ISHA]: data.timings['Isha'],
     };
   }
 

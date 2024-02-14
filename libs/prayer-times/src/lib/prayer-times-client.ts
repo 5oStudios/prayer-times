@@ -1,5 +1,5 @@
 import { CalculationMethod, Coordinates, PrayerTimes } from 'adhan';
-import { AdhanStrategy } from '../strategies/offline/adhan/adhan.strategy';
+import { AdhanPackageStrategy } from '../strategies/offline/adhan/adhanPackageStrategy';
 import { Strategies } from '../interfaces/strategies.interface';
 import { Schools } from '../interfaces/schools.interface';
 import { OfflineClient, OnlineClient } from '../strategies';
@@ -8,14 +8,14 @@ export function prayerTimes(): string {
   const coordinates = new Coordinates(12.9715987, 77.5945667);
   const params = CalculationMethod.Kuwait();
   const date = new Date();
-  const prayerTimes = new AdhanStrategy(coordinates, date, params);
+  const prayerTimes = new AdhanPackageStrategy(coordinates, date, params);
   console.log(prayerTimes);
   return 'Prayer Times';
 }
 
 export class PrayerTimesClient {
   private readonly clients: {
-    [key in Strategies]: OfflineClient | OnlineClient;
+    [K in Strategies]: OfflineClient | OnlineClient;
   };
   constructor(
     private readonly props: {

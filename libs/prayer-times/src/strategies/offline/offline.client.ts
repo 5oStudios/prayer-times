@@ -1,4 +1,4 @@
-import { AdhanStrategy } from './adhan/adhan.strategy';
+import { AdhanPackageStrategy } from './adhan/adhanPackageStrategy';
 import { PrayerTimes } from 'adhan';
 
 interface OfflineClientProps {
@@ -15,6 +15,10 @@ export class OfflineClient {
     coordinates: ConstructorParameters<typeof PrayerTimes>[0];
     date: ConstructorParameters<typeof PrayerTimes>[1];
   }) {
-    return new AdhanStrategy(coordinates, date, this.props.param).getTimings();
+    return new AdhanPackageStrategy(
+      coordinates,
+      date,
+      this.props.param
+    ).getTimings();
   }
 }
