@@ -7,7 +7,7 @@ import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
 import { PrayerTimesClient } from 'prayer-times';
-import { SunnahTimes } from 'adhan';
+import { HadithClient } from 'hadith';
 
 export default function Home() {
   const onlineClient = new PrayerTimesClient({
@@ -36,6 +36,18 @@ export default function Home() {
     })
     .then((offlineTimings) => {
       console.log('Offline timings:', offlineTimings);
+    });
+
+  const hadithClient = new HadithClient({
+    language: 'ARABIC',
+  });
+  hadithClient.getCategoryRoots().then((categories) => {
+    console.log('Categories:', categories);
+  });
+  hadithClient
+    .getHadithList({ categoryId: 1, page: 1, perPage: 10 })
+    .then((hadith) => {
+      console.log('Hadith:', hadith);
     });
 
   return (

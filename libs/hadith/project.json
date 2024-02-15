@@ -1,0 +1,23 @@
+{
+  "name": "hadith",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/hadith/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/hadith",
+        "main": "libs/hadith/src/index.ts",
+        "tsConfig": "libs/hadith/tsconfig.lib.json",
+        "assets": ["libs/hadith/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs hadith {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}
