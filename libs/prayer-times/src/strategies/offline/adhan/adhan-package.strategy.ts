@@ -27,7 +27,6 @@ export class AdhanPackageStrategy implements OfflinePrayerTimesStrategy {
       [MuslimPrayers.SUNRISE]: this.adhanService.sunrise,
       [MuslimPrayers.DHUHR]: this.adhanService.dhuhr,
       [MuslimPrayers.ASR]: this.adhanService.asr,
-      [MuslimPrayers.SUNSET]: this.adhanService.sunset,
       [MuslimPrayers.MAGHRIB]: this.adhanService.maghrib,
       [MuslimPrayers.ISHA]: this.adhanService.isha,
     });

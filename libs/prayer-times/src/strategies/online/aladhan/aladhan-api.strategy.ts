@@ -42,11 +42,11 @@ export class AladhanApiStrategy implements OnlinePrayerTimesStrategy {
       date: this.formatDate(date),
       method: OnlineCalculationEnum[method],
       iso8601: true,
-    })
+    });
 
     if (!data?.timings) {
       throw new Error(
-        'AlAdan Online API Service (aladhan.com) is not available'
+        'AlAdan Online API Service (aladhan.com) is not available',
       );
     }
 
@@ -55,7 +55,6 @@ export class AladhanApiStrategy implements OnlinePrayerTimesStrategy {
       [MuslimPrayers.SUNRISE]: data.timings['Sunrise'],
       [MuslimPrayers.DHUHR]: data.timings['Dhuhr'],
       [MuslimPrayers.ASR]: data.timings['Asr'],
-      [MuslimPrayers.SUNSET]: data.timings['Sunset'],
       [MuslimPrayers.MAGHRIB]: data.timings['Maghrib'],
       [MuslimPrayers.ISHA]: data.timings['Isha'],
     };
