@@ -7,6 +7,7 @@ import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
 import { PrayerTimesClient } from 'prayer-times';
+import { SunnahTimes } from 'adhan';
 
 export default function Home() {
   const onlineClient = new PrayerTimesClient({

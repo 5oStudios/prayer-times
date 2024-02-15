@@ -1,3 +1,5 @@
+import { MomentInput } from 'moment';
+
 export enum Strategies {
   OFFLINE = 'OFFLINE',
   ONLINE = 'ONLINE',
@@ -6,7 +8,7 @@ export enum Strategies {
 export interface PrayerTimesStrategyInterface {
   getTimings(
     props: unknown
-  ): Record<string, string> | Promise<Record<string, string>>;
+  ): Record<string, MomentInput> | Promise<Record<string, MomentInput>>;
 }
 export type OfflinePrayerTimesStrategy = PrayerTimesStrategyInterface;
 export type OnlinePrayerTimesStrategy = PrayerTimesStrategyInterface;

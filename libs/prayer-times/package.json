@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "tslib": "^2.3.0",
-    "adhan": "^4.4.3"
+    "adhan": "^4.4.3",
+    "moment": "^2.30.1"
   },
   "type": "commonjs",
   "main": "./src/index.js",

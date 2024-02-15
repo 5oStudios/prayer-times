@@ -41,11 +41,12 @@ export class AladhanApiStrategy implements OnlinePrayerTimesStrategy {
       longitude: coordinates.longitude,
       date: this.formatDate(date),
       method: OnlineCalculationEnum[method],
-    });
+      iso8601: true,
+    })
 
     if (!data?.timings) {
       throw new Error(
-        'AlAdan Online API Service (aladhan.com) is not available.'
+        'AlAdan Online API Service (aladhan.com) is not available'
       );
     }
 
