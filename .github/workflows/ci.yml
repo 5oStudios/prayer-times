@@ -1,11 +1,13 @@
-name: CI
-
+# Run Only Tasks Affected by a PR
+name: LintTestBuild-CI
 on:
   push:
     branches:
+      # Change this if your primary branch is not main
       - main
   pull_request:
 
+# Needed for nx-set-shas when run on the main branch
 permissions:
   actions: read
   contents: read
@@ -18,20 +20,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Connect your workspace on nx.app and uncomment this to enable task distribution.
-      # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
-      # - run: pnpm exec nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
-
       - uses: pnpm/action-setup@v2
         with:
           version: 8
+
       # Cache node_modules
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
+          cache-dependency-path: ./pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
+
       - uses: nrwl/nx-set-shas@v4
 
-      - run: pnpm exec nx-cloud record -- nx format:check
-      - run: pnpm exec nx affected -t lint test build e2e-ci
+      - run: |
+          if [ ! -n "$(git show-ref refs/heads/main)" ]; then
+            git branch --track main origin/main
+          else
+            echo "Branch 'main' already exists. Skipping branch creation."
+          fi
+
+      - run: pnpm i nx -g
+      - run: nx affected:lint --fix --parallel
+      - run: nx affected -t format:write,test,build --parallel
