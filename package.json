@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
-  "private": true,
+  "private": false,
   "dependencies": {
     "@nextui-org/button": "2.0.26",
     "@nextui-org/code": "2.0.24",
