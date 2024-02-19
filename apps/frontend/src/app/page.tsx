@@ -7,8 +7,8 @@ import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
 import { AzkarClient } from '@islamic-kit/azkar';
-import { PrayerTimesClient } from 'prayer-times';
-import { HadithClient } from 'hadith';
+import { HadithClient } from '@islamic-kit/hadith';
+import { PrayerTimesClient } from '@islamic-kit/prayer-times';
 
 export default function Home() {
   const onlineClient = new PrayerTimesClient({

@@ -16,8 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@islamic-kit/azkar": ["libs/azkar/src/index.ts"],
-      "hadith": ["libs/hadith/src/index.ts"],
-      "prayer-times": ["libs/prayer-times/src/index.ts"]
+      "@islamic-kit/hadith": ["libs/hadith/src/index.ts"],
+      "@islamic-kit/prayer-times": ["libs/prayer-times/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
