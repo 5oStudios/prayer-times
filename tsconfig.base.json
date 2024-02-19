@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@islamic-kit/azkar": ["libs/azkar/src/index.ts"],
       "hadith": ["libs/hadith/src/index.ts"],
       "prayer-times": ["libs/prayer-times/src/index.ts"]
     }

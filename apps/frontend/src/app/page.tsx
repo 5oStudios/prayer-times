@@ -6,6 +6,7 @@ import { button as buttonStyles } from '@nextui-org/theme';
 import { subtitle, title } from '../components/primitives';
 import { siteConfig } from '../config/site';
 import { GithubIcon } from '../components/icons';
+import { AzkarClient } from '@islamic-kit/azkar';
 import { PrayerTimesClient } from 'prayer-times';
 import { HadithClient } from 'hadith';
 
@@ -50,6 +51,8 @@ export default function Home() {
       console.log('Hadith:', hadith);
     });
 
+  const azkarClient = new AzkarClient();
+  console.log(azkarClient.morningRemembrances());
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-lg text-center justify-center">
