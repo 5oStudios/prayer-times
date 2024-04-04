@@ -1,4 +1,5 @@
 import styles from './page.module.css';
+import { Button } from 'antd';
 
 export default async function Index() {
   /*
@@ -15,6 +16,10 @@ export default async function Index() {
               <span> Hello there, </span>
               Welcome frontend 👋
             </h1>
+          </div>
+
+          <div className="App">
+            <Button type="primary">Button</Button>
           </div>
 
           <div id="hero" className="rounded">
