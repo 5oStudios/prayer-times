@@ -64,7 +64,7 @@
     "jest-environment-node": "^29.7.0",
     "next": "14.1.0",
     "next-themes": "^0.2.1",
-    "nx": "18.1.0",
+    "nx": "18.2.2",
     "openapi-typescript-codegen": "^0.27.0",
     "postcss": "8.4.35",
     "prettier": "^3.2.5",
