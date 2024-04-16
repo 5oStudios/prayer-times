@@ -1,7 +1,10 @@
 {
-  "name": "mantine-next-template",
-  "version": "1.0.0",
-  "private": true,
+  "name": "frontend-m",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/frontend-m",
+  "projectType": "application",
+  "targets": {},
+  "tags": [],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

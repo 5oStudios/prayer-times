@@ -7,6 +7,6 @@
       "executor": "@nx/eslint:lint"
     }
   },
-  "tags": [],
-  "implicitDependencies": ["frontend"]
+  "tags": []
+  //  "implicitDependencies": ["frontend"]
 }
