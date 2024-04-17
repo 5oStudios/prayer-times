@@ -1,11 +1,13 @@
 import '@mantine/core/styles.css';
 import React from 'react';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
-import { theme } from '@/theme';
+import '@mantine/carousel/styles.css';
+import { theme } from '../theme';
+import 'normalize.css';
 
 export const metadata = {
-  title: 'Mantine Next.js template',
-  description: 'I am using Mantine with Next.js!',
+  title: 'Prayer Times',
+  description: 'Prayer times for Muslims',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,9 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
-        <title>
-          {metadata.title} | {metadata.description}
-        </title>
+        <title>{metadata.title}</title>
       </head>
       <body>
         <MantineProvider theme={theme}>{children}</MantineProvider>

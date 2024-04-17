@@ -20,7 +20,7 @@ export class HadeethEncStrategy implements HadithStrategyInterface {
     return this.service.getApiV1CategoriesRoots({ language: this.language });
   }
 
-  getHadithList({
+  async getHadithList({
     categoryId,
     page,
     perPage,
@@ -28,7 +28,7 @@ export class HadeethEncStrategy implements HadithStrategyInterface {
     categoryId?: number;
     page?: number;
     perPage?: number;
-  }): CancelablePromise<Record<string, unknown>> {
+  }) {
     return this.service.getApiV1HadeethsList({
       language: this.language,
       categoryId,

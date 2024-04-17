@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'SF Arabic';
+    src: local('SF Arabic Rounded'), local('SF-Arabic-Rounded'),
+        url('SFArabicRounded-Regular.woff2') format('woff2'),
+        url('SFArabicRounded-Regular.woff') format('woff'),
+        url('SFArabicRounded-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }

@@ -5,7 +5,7 @@ import {
 import { HadeethEncStrategy } from './hadeeth-enc/hadeeth-enc.strategy';
 import { CancelablePromise } from './hadeeth-enc/api-sdk';
 
-export class OnlineClient implements OnlineClientInterface {
+export class OnlineClient {
   private readonly strategy: HadithStrategyInterface;
 
   constructor(private readonly language: HadithLanguage) {
@@ -16,7 +16,7 @@ export class OnlineClient implements OnlineClientInterface {
     return this.strategy.getCategoryRoots();
   }
 
-  getHadithList({
+  async getHadithList({
     categoryId,
     page,
     perPage,
@@ -24,20 +24,7 @@ export class OnlineClient implements OnlineClientInterface {
     categoryId?: number;
     page?: number;
     perPage?: number;
-  }): CancelablePromise<Record<string, unknown>> {
+  }) {
     return this.strategy.getHadithList({ categoryId, page, perPage });
   }
-}
-
-interface OnlineClientInterface {
-  getHadithList({
-    categoryId,
-    page,
-    perPage,
-  }: {
-    categoryId?: number;
-    page?: number;
-    perPage?: number;
-  }): CancelablePromise<Record<string, unknown>>;
-  getCategoryRoots(): CancelablePromise<Record<string, unknown>>;
 }

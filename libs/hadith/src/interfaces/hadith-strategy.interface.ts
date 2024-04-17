@@ -1,4 +1,5 @@
 import { CancelablePromise } from '../strategies/online/hadeeth-enc/api-sdk';
+import { Hadith, OnlineAPIResponse } from './hadith';
 
 export enum HadithLanguageEnum {
   ARABIC,
@@ -14,7 +15,7 @@ export interface HadithStrategyInterface {
     categoryId?: number;
     page?: number;
     perPage?: number;
-  }): CancelablePromise<Record<string, unknown>>;
+  }): Promise<OnlineAPIResponse<Hadith[]>>;
 
   getCategoryRoots(): CancelablePromise<Record<string, unknown>>;
 }

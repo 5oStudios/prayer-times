@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@mantine/carousel':
+    specifier: ^7.8.0
+    version: 7.8.0(@mantine/core@7.7.1)(@mantine/hooks@7.7.1)(embla-carousel-react@7.1.0)(react-dom@18.2.0)(react@18.2.0)
   '@mantine/core':
     specifier: 7.7.1
     version: 7.7.1(@mantine/hooks@7.7.1)(@types/react@18.2.55)(react-dom@18.2.0)(react@18.2.0)
@@ -56,15 +59,30 @@ dependencies:
   adhan:
     specifier: ^4.4.3
     version: 4.4.3
+  embla-carousel-autoplay:
+    specifier: 7.1.0
+    version: 7.1.0(embla-carousel@7.1.0)
+  embla-carousel-react:
+    specifier: 7.1.0
+    version: 7.1.0(react@18.2.0)
   moment:
     specifier: ^2.30.1
     version: 2.30.1
+  nice-react-ticker:
+    specifier: ^2.1.0
+    version: 2.1.0(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+  normalize.css:
+    specifier: ^8.0.1
+    version: 8.0.1
   react:
     specifier: 18.2.0
     version: 18.2.0
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  react-ticker:
+    specifier: ^1.3.2
+    version: 1.3.2(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
   ts-extras:
     specifier: ^0.11.0
     version: 0.11.0
@@ -2561,6 +2579,22 @@ packages:
   /@leichtgewicht/ip-codec@2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
     dev: true
+
+  /@mantine/carousel@7.8.0(@mantine/core@7.7.1)(@mantine/hooks@7.7.1)(embla-carousel-react@7.1.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-nxuLtZ4N4KJaayab5KuaffYhiVi4UaIjywkgQiNfTxABlgFdERNfo5if9sSMyisL0r3RUPJBfLkyi8A4fEC8GQ==}
+    peerDependencies:
+      '@mantine/core': 7.8.0
+      '@mantine/hooks': 7.8.0
+      embla-carousel-react: '>=7.0.0'
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      '@mantine/core': 7.7.1(@mantine/hooks@7.7.1)(@types/react@18.2.55)(react-dom@18.2.0)(react@18.2.0)
+      '@mantine/hooks': 7.7.1(react@18.2.0)
+      embla-carousel-react: 7.1.0(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@mantine/core@7.7.1(@mantine/hooks@7.7.1)(@types/react@18.2.55)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-SdPzjvqvEK7uHFuVD3a8w3OZyQVoCwIXLSUfOtRNouDMQgsq6Ac7QjKXBBOk3wNweOWFVOU1vATLHobSmow0lQ==}
@@ -9558,6 +9592,27 @@ packages:
       minimalistic-crypto-utils: 1.0.1
     dev: true
 
+  /embla-carousel-autoplay@7.1.0(embla-carousel@7.1.0):
+    resolution: {integrity: sha512-nYfgSGn3ek44OzwO0t/Ptuxq4PNPD5l7Y9X7JjLYI/DN1uGjqxz9L73YYqR6YCRDnTYJ88s9fep48dzBnSG4vQ==}
+    peerDependencies:
+      embla-carousel: 7.1.0
+    dependencies:
+      embla-carousel: 7.1.0
+    dev: false
+
+  /embla-carousel-react@7.1.0(react@18.2.0):
+    resolution: {integrity: sha512-tbYRPRZSDNd2QLNqYDcArAakGIxtUbhS7tkP0dGXktXHGgcX+3ji3VrOUTOftBiujZrMV8kRxtrRUe/1soloIQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      embla-carousel: 7.1.0
+      react: 18.2.0
+    dev: false
+
+  /embla-carousel@7.1.0:
+    resolution: {integrity: sha512-Bh8Pa8NWzgugLkf8sAGexQlBCNDFaej5BXiKgQdRJ1mUC9NWBrw9Z23YVPVGkguWoz5LMjZXXFVGCobl3UPt/Q==}
+    dev: false
+
   /emittery@0.13.1:
     resolution: {integrity: sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ==}
     engines: {node: '>=12'}
@@ -13527,6 +13582,19 @@ packages:
       - babel-plugin-macros
     dev: true
 
+  /nice-react-ticker@2.1.0(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-aI2Xgx5hwPTLM7upy8VbSC+MhjbYaPEnVNAmf0emuWZKtzp/m8Eioky6q0/18gcLS4cDqVXncFRNyFmQ3//cZg==}
+    engines: {node: '>=10', npm: '>=6'}
+    peerDependencies:
+      prop-types: ^15.8.0
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
     dependencies:
@@ -13640,6 +13708,10 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /normalize.css@8.0.1:
+    resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
+    dev: false
 
   /npm-package-arg@11.0.1:
     resolution: {integrity: sha512-M7s1BD4NxdAvBKUPqqRW957Xwcl/4Zvo8Aj+ANrzvIPzGJZElrH7Z//rSaec2ORcND6FHHLnZeY8qgTpXDMFQQ==}
@@ -15242,6 +15314,19 @@ packages:
       use-latest: 1.2.1(@types/react@18.2.55)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /react-ticker@1.3.2(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-9sLgc9gFx/EMNxn2QcwUJAOf3jdEROKRyXZGbWrEbfJG/MTkHwR+WRrVtypv3iFXPpcrKmPD91+vatHq0BgR0Q==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      prop-types: ^15.8.0
+      react: ^17.0.2
+      react-dom: ^17.0.2
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react@18.2.0:
