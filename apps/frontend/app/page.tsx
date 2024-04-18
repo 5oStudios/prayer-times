@@ -15,7 +15,7 @@ export default function HomePage() {
       <div
         style={{
           position: 'absolute',
-          top: '92%',
+          bottom: '18px',
         }}
       >
         <HadithSection />
