@@ -27,7 +27,11 @@ const initialState: {
 const hadithSlice = createSlice({
   name: 'hadith',
   initialState,
-  reducers: {},
+  reducers: {
+    setHadith: (state, action) => {
+      state.hadith = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchHadithList.pending, (state) => {

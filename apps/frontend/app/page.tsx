@@ -1,6 +1,7 @@
 'use client';
 
 import { HadithSection } from '../sections/hadith';
+import { PrayerTimesSection } from '../sections/prayer-times';
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
           bottom: '18px',
         }}
       >
+        <PrayerTimesSection />
         <HadithSection />
       </div>
     </div>
