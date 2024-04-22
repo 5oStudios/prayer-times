@@ -1,3 +1,5 @@
+'use client';
+
 import Ticker from 'nice-react-ticker';
 import { Flex, Text } from '@mantine/core';
 import localFont from 'next/font/local';

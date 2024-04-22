@@ -1,9 +1,9 @@
-'use client';
+import { HadithSection } from '../../sections/hadith';
+import { PrayerTimesSection } from '../../sections/prayer-times';
+import { useTranslation } from '../i18n';
 
-import { HadithSection } from '../sections/hadith';
-import { PrayerTimesSection } from '../sections/prayer-times';
-
-export default function HomePage() {
+export default async function Page({ params: { lng } }: { params: { lng: string } }) {
+  const { t } = await useTranslation(lng);
   return (
     <div
       style={{

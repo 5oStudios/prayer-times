@@ -23,6 +23,7 @@
     "@react-aria/visually-hidden": "^3.8.9",
     "@reduxjs/toolkit": "^2.2.3",
     "@tabler/icons-react": "^3.0.0",
+    "accept-language": "^3.0.18",
     "adhan": "^4.4.3",
     "embla-carousel-autoplay": "7.1.0",
     "embla-carousel-react": "7.1.0",
