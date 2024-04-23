@@ -11,9 +11,7 @@
     "Maghrib": "Maghrib",
     "Sunrise": "Sunrise",
     "Sunset": "Sunset",
-    "Midnight": "Midnight",
-    "PM": "P.M",
-    "AM": "A.M"
+    "Midnight": "Midnight"
   },
   "common": {
     "loading": "Loading..."

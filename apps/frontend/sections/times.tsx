@@ -27,7 +27,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }));
 
   return (
-    <Flex align="center" justify="space-evenly" gap="md">
+    <Flex align="center" justify="center" gap="lg">
       {localizedTimes.map(({ name, time }) => (
         <PrayerTimesCard key={name} prayer={{ name, time }} />
       ))}

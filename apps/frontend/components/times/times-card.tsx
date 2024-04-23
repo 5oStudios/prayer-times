@@ -17,8 +17,9 @@ export const PrayerTimesCard = ({
     style={{
       background: 'rgba(255, 255, 255, 0.1)',
       backdropFilter: 'blur(10px)',
-      borderRadius: 10,
-      padding: 50,
+      borderRadius: 18,
+      paddingInline: 40,
+      paddingBlock: 20,
       fontSize: 50,
       textAlign: 'center',
     }}
