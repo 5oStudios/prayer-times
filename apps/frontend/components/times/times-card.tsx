@@ -1,9 +1,11 @@
 import { Card } from '@mantine/core';
-import { Reem_Kufi } from 'next/font/google';
+import localFont from 'next/font/local';
+// const font = Reem_Kufi({
+//   subsets: ['arabic'],
+// });
 
-const font = Reem_Kufi({
-  subsets: ['arabic'],
-});
+const font = localFont({ src: '../assets/fonts/ReemKufi-Regular.ttf' });
+
 export const PrayerTimesCard = ({
   prayer,
 }: {
