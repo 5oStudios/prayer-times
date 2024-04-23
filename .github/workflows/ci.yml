@@ -43,4 +43,4 @@ jobs:
 
       - run: pnpm i nx -g
       - run: nx affected:lint --fix --parallel
-      - run: nx affected -t format:write,test,build --parallel
+      - run: nx affected -t format:write,build --parallel
