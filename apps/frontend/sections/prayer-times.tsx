@@ -2,39 +2,47 @@
 
 import { Card, Flex } from '@mantine/core';
 import { Reem_Kufi } from 'next/font/google';
+import { PrayerTimesClient } from '@islamic-kit/prayer-times';
+import { useEffect, useState } from 'react';
 
 const font = Reem_Kufi({
   subsets: ['arabic'],
 });
 
 export const PrayerTimesSection = () => {
-  const prayers = [
-    {
-      name: 'Fajr',
-      time: '5:00 AM',
-    },
-    {
-      name: 'Dhuhr',
-      time: '1:00 PM',
-    },
-    {
-      name: 'Asr',
-      time: '4:00 PM',
-    },
-    {
-      name: 'Maghrib',
-      time: '7:00 PM',
-    },
-    {
-      name: 'Isha',
-      time: '9:00 PM',
-    },
-  ];
+  const [prayers, setPrayers] = useState({
+    faajr: '',
+    dhuhr: '',
+    asr: '',
+    maghrib: '',
+    isha: '',
+  });
+  const prayerTimesClient = new PrayerTimesClient({
+    school: 'HANAFI',
+    region: 'Egyptian_General_Authority_of_Survey',
+    strategy: 'ONLINE',
+  });
+
+  useEffect(() => {
+    prayerTimesClient
+      .getTimings({
+        date: new Date(),
+        coordinates: {
+          latitude: 30.0444,
+          longitude: 31.2357,
+        },
+      })
+      .then((data) => {
+        setPrayers(data as any);
+      });
+  }, []);
+
+  console.log(prayers);
 
   return (
     <Flex align="center" justify="space-evenly" gap="md">
-      {prayers.map((prayer) => (
-        <PrayerTimesCard prayer={prayer} key={prayer.name} />
+      {Object.entries(prayers).map(([name, time]) => (
+        <PrayerTimesCard key={name} prayer={{ name, time }} />
       ))}
     </Flex>
   );

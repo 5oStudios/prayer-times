@@ -3,6 +3,7 @@ import { PrayerTimesSection } from '../../sections/prayer-times';
 
 export default async function MainPage({ params: { lang } }: { params: { lang: string } }) {
   console.log(lang);
+
   return (
     <div
       style={{
