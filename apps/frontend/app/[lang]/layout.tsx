@@ -5,24 +5,32 @@ import '@mantine/carousel/styles.css';
 import { dir } from 'i18next';
 import { theme } from '../../theme';
 import 'normalize.css';
-import Providers from './providers';
-// export async function generateStaticParams() {
-//   return locales.map((lng) => ({ lng }));
-// }
-export const metadata = {
-  title: 'Prayer Times',
-  description: 'Prayer times for Muslims',
-};
+import ReduxProviders from './redux-providers';
+import DictionaryProvider from './dictionary-provider';
+import { getDictionary } from '../i18n/dictionaries';
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return [{ lang: 'en' }, { lang: 'ar' }];
+}
+
+export async function generateMetadata({ lang }: { lang: string }) {
+  const dictionary = await getDictionary(lang);
+  return {
+    title: dictionary.platform.title,
+    description: dictionary.platform.title,
+  };
+}
+
+export default async function RootLayout({
   children,
   params: { lang },
 }: {
   children: React.ReactNode;
   params: { lang: string };
 }) {
+  const dictionary = await getDictionary(lang);
   return (
-    <Providers>
+    <DictionaryProvider dictionary={dictionary}>
       <html lang={lang} dir={dir(lang)}>
         <head>
           <ColorSchemeScript />
@@ -31,12 +39,14 @@ export default function RootLayout({
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
           />
-          <title>{metadata.title}</title>
+          <title>{dictionary.platform.title}</title>
         </head>
         <body>
-          <MantineProvider theme={theme}>{children}</MantineProvider>
+          <MantineProvider theme={theme}>
+            <ReduxProviders>{children}</ReduxProviders>
+          </MantineProvider>
         </body>
       </html>
-    </Providers>
+    </DictionaryProvider>
   );
 }

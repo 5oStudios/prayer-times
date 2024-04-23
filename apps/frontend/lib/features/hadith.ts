@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Hadith, HadithClient } from '@islamic-kit/hadith';
 
-const hadithClient = new HadithClient({
-  language: 'ARABIC',
-});
-
-export const fetchHadithList = createAsyncThunk('hadith/fetchHadithList', async () => {
+export const fetchHadithList = createAsyncThunk('hadith/fetchHadithList', async (lang: string) => {
+  console.log('lang', lang);
+  const hadithClient = new HadithClient({
+    language: lang === 'ar' ? 'ARABIC' : 'ENGLISH',
+  });
   const { data } = await hadithClient.getHadithList({
     page: 1,
-    perPage: 10,
+    perPage: 100,
     categoryId: 1,
   });
   return data;

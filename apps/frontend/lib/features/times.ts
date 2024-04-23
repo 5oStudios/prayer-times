@@ -18,7 +18,7 @@ export const fetchTimes = createAsyncThunk('times/fetchTimes', async () =>
 );
 
 const initialState: {
-  times: { name: string; time: string }[];
+  times: { name: string; time: Date }[];
   status: string;
   error: unknown;
 } = {

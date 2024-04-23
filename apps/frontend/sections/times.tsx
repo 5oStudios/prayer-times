@@ -1,17 +1,17 @@
 'use client';
 
-import { Card, Flex } from '@mantine/core';
-import { Reem_Kufi } from 'next/font/google';
+import { Flex } from '@mantine/core';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment/moment';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
+import { PrayerTimesCard } from '../components/times/times-card';
+import { useDictionary } from '../app/[lang]/dictionary-provider';
+import 'moment/locale/ar';
+import { SupportedLanguages } from '../app/i18n/dictionaries';
 
-const font = Reem_Kufi({
-  subsets: ['arabic'],
-});
-
-export const PrayerTimesSection = ({ lang }: { lang: string }) => {
-  // const dict = getDictionary(lang);
+export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
+  const dictionary = useDictionary();
   const times = useSelector(selectTimes);
   const timesStatus = useSelector(selectTimesStatus);
   const dispatch = useDispatch();
@@ -21,35 +21,22 @@ export const PrayerTimesSection = ({ lang }: { lang: string }) => {
     if (timesStatus === 'idle') dispatch(fetchTimes());
   }, [dispatch, timesStatus]);
 
-  console.log('times', times);
+  const localizedTimes = times.map(({ name, time }) => ({
+    name: dictionary.times[capitalize(name) as keyof typeof dictionary.times], // simplify this
+    time: formatTime(time, lang),
+  }));
 
   return (
     <Flex align="center" justify="space-evenly" gap="md">
-      {times?.map(({ name, time }) => <PrayerTimesCard key={name} prayer={{ name, time }} />)}
+      {localizedTimes.map(({ name, time }) => (
+        <PrayerTimesCard key={name} prayer={{ name, time }} />
+      ))}
     </Flex>
   );
 };
 
-const PrayerTimesCard = ({
-  prayer,
-}: {
-  prayer: {
-    name: string;
-    time: string;
-  };
-}) => (
-  <Card
-    className={font.className}
-    style={{
-      background: 'rgba(255, 255, 255, 0.1)',
-      backdropFilter: 'blur(10px)',
-      borderRadius: 10,
-      padding: 50,
-      fontSize: 50,
-      textAlign: 'center',
-    }}
-  >
-    <div>{prayer.name}</div>
-    <div>{prayer.time}</div>
-  </Card>
-);
+const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1); // TODO: make util
+const formatTime = (time: Date, lang: string) => {
+  moment.locale(lang);
+  return moment(time).format('h:mm A');
+};

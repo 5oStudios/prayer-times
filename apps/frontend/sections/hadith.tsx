@@ -9,18 +9,21 @@ import { Hadith } from '@islamic-kit/hadith';
 import { StarSvg } from '../assets/hadith/star';
 import { selectHadithTickerSpeed } from '../lib/features/settings';
 import { fetchHadithList, selectHadith } from '../lib/features/hadith';
+import { SupportedLanguages } from '../app/i18n/dictionaries';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
-export const HadithSection = () => {
+export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const tickerSpeed = useSelector(selectHadithTickerSpeed);
   const hadith = useSelector(selectHadith);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // @ts-expect-error - This fix this
-    dispatch(fetchHadithList());
-  }, [dispatch]);
+    dispatch(fetchHadithList(lang));
+  }, [dispatch, lang]);
+
+  console.log(hadith);
 
   return (
     <div
@@ -34,14 +37,14 @@ export const HadithSection = () => {
   );
 };
 
+// TODO: make the scroller show all hadith
 const HadithTicker = ({ hadith, speed }: { hadith: Hadith[]; speed: number }) => (
   <Ticker slideSpeed={speed}>
     <Flex>
       {hadith.map(({ title, id }) => (
-        <Flex justify="center" align="center">
+        <Flex key={id} justify="center" align="center">
           <Text
             className={font.className}
-            key={id}
             style={{ color: 'white', fontSize: '45px', width: 'max-content' }}
           >
             {title}

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const settingsSlice = createSlice({
   name: 'settings',
   initialState: {
-    hadithTickerSpeed: 150,
+    hadithTickerSpeed: 1500,
     language: 'ar',
   },
   selectors: {

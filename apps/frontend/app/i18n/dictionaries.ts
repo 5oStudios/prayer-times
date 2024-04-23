@@ -1,9 +1,8 @@
 import 'server-only';
 
-type FlexibleDictionaryModule = {
-  default?: Record<string, string>;
-  [key: string]: any;
-};
+type FlexibleDictionaryModule =
+  | typeof import('./locales/ar.json')
+  | typeof import('./locales/en.json');
 
 type Dictionaries = Record<string, () => Promise<FlexibleDictionaryModule>>;
 
@@ -12,4 +11,10 @@ const dictionaries: Dictionaries = {
   ar: () => import('./locales/ar.json').then((module) => module.default),
 };
 
-export const getDictionary = (locale: string) => dictionaries[locale]();
+export const getDictionary = async (locale: string) =>
+  dictionaries[locale === 'ar' ? 'ar' : 'en']();
+
+export enum SupportedLanguages {
+  Arabic = 'ar',
+  English = 'en',
+}

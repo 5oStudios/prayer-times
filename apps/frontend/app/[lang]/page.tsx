@@ -1,9 +1,12 @@
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
+import { SupportedLanguages } from '../i18n/dictionaries';
 
-export default async function MainPage({ params: { lang } }: { params: { lang: string } }) {
-  console.log(lang);
-
+export default async function MainPage({
+  params: { lang },
+}: {
+  params: { lang: SupportedLanguages };
+}) {
   return (
     <div
       style={{
@@ -19,8 +22,8 @@ export default async function MainPage({ params: { lang } }: { params: { lang: s
           bottom: '18px',
         }}
       >
-        <PrayerTimesSection />
-        <HadithSection />
+        <PrayerTimesSection lang={lang} />
+        <HadithSection lang={lang} />
       </div>
     </div>
   );

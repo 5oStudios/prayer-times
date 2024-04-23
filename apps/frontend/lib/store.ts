@@ -9,6 +9,10 @@ const store = configureStore({
     hadith: hadithSlice.reducer,
     times: timesSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

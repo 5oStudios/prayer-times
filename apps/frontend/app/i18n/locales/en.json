@@ -1,10 +1,21 @@
 {
-  "Fajr": "Fağr",
-  "Isha": "Isha",
-  "Dhuhr": "Dhuhr",
-  "Asr": "Asr",
-  "Maghrib": "Magrib",
-  "Sunrise": "Sunrise",
-  "Sunset": "Sunset",
-  "Midnight": "Midnight"
+  "platform": {
+    "title": "Prayer Timers",
+    "description": "Prayer Timers is a simple application that displays the Islamic prayer times for your location."
+  },
+  "times": {
+    "Fajr": "Fajr",
+    "Isha": "Isha",
+    "Dhuhr": "Dhuhr",
+    "Asr": "Asr",
+    "Maghrib": "Maghrib",
+    "Sunrise": "Sunrise",
+    "Sunset": "Sunset",
+    "Midnight": "Midnight",
+    "PM": "P.M",
+    "AM": "A.M"
+  },
+  "common": {
+    "loading": "Loading..."
+  }
 }
