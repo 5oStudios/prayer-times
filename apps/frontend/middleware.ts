@@ -5,7 +5,7 @@ import locales from 'locale-codes';
 
 const availableLocales = ['ar', 'en'];
 const defaultLocale = availableLocales[0];
-const fallbackLocale = availableLocales[1];
+// const fallbackLocale = availableLocales[1];
 
 function getLocale(request: NextRequest) {
   const headers = {
@@ -29,6 +29,8 @@ export function middleware(request: NextRequest) {
   const locale = getLocale(request);
 
   request.nextUrl.pathname = `/${locale}${pathname}`;
+
+  // eslint-disable-next-line consistent-return
   return NextResponse.redirect(request.nextUrl);
 }
 
