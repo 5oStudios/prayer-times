@@ -23,5 +23,5 @@ export type PrayerTime = {
   name: string;
   time: Date;
   isNext: boolean;
-  remaining: Date;
+  remaining: number;
 };

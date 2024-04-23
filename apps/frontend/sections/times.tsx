@@ -16,6 +16,8 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const timesStatus = useSelector(selectTimesStatus);
   const dispatch = useDispatch();
 
+  console.log('times', times);
+
   useEffect(() => {
     // @ts-expect-error - This expression is not callable.
     if (timesStatus === 'idle') dispatch(fetchTimes());
