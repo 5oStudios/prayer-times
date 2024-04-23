@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Hadith, HadithClient } from '@islamic-kit/hadith';
 
 export const fetchHadithList = createAsyncThunk('hadith/fetchHadithList', async (lang: string) => {
-  console.log('lang', lang);
   const hadithClient = new HadithClient({
     language: lang === 'ar' ? 'ARABIC' : 'ENGLISH',
   });
@@ -27,11 +26,7 @@ const initialState: {
 const hadithSlice = createSlice({
   name: 'hadith',
   initialState,
-  reducers: {
-    setHadith: (state, action) => {
-      state.hadith = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchHadithList.pending, (state) => {
