@@ -6,11 +6,9 @@ import { dir } from 'i18next';
 import { theme } from '../../theme';
 import 'normalize.css';
 import Providers from './providers';
-import { languages } from '../i18n/settings';
-
-export async function generateStaticParams() {
-  return languages.map((lng) => ({ lng }));
-}
+// export async function generateStaticParams() {
+//   return locales.map((lng) => ({ lng }));
+// }
 export const metadata = {
   title: 'Prayer Times',
   description: 'Prayer times for Muslims',
@@ -18,14 +16,14 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-  params: { lng },
+  params: { lang },
 }: {
   children: React.ReactNode;
-  params: { lng: string };
+  params: { lang: string };
 }) {
   return (
     <Providers>
-      <html lang={lng} dir={dir(lng)}>
+      <html lang={lang} dir={dir(lang)}>
         <head>
           <ColorSchemeScript />
           <link rel="shortcut icon" href="/favicon.svg" />

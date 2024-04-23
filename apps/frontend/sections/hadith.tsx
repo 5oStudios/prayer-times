@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Hadith } from '@islamic-kit/hadith';
 import { StarSvg } from '../assets/hadith/star';
-import { selectHadithTickerSpeed } from '../lib/features/settings/settings';
+import { selectHadithTickerSpeed } from '../lib/features/settings';
 import { fetchHadithList, selectHadith } from '../lib/features/hadith';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });

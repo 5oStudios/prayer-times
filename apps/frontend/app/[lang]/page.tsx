@@ -1,9 +1,7 @@
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/prayer-times';
-import { useTranslation } from '../i18n';
 
-export default async function Page({ params: { lng } }: { params: { lng: string } }) {
-  const { t } = await useTranslation(lng);
+export default async function MainPage({ params: { lang } }: { params: { lang: string } }) {
   return (
     <div
       style={{

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import settingsSlice from './features/settings/settings';
+import settingsSlice from './features/settings';
 import hadithSlice from './features/hadith';
 
 const store = configureStore({

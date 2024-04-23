@@ -2,15 +2,19 @@
 
 import { Card, Flex } from '@mantine/core';
 import { Reem_Kufi } from 'next/font/google';
+import { useSelector } from 'react-redux';
+import { selectLanguage } from '../lib/features/settings';
 
 const font = Reem_Kufi({
   subsets: ['arabic'],
 });
 
 export const PrayerTimesSection = () => {
+  const lang = useSelector(selectLanguage);
+
   const prayers = [
     {
-      title: 'Fajr',
+      name: 'Fajr',
       time: '5:00 AM',
     },
     {
@@ -34,7 +38,7 @@ export const PrayerTimesSection = () => {
   return (
     <Flex align="center" justify="space-evenly" gap="md">
       {prayers.map((prayer) => (
-        <PrayerTimesCard prayer={prayer} />
+        <PrayerTimesCard prayer={prayer} key={prayer.name} />
       ))}
     </Flex>
   );
