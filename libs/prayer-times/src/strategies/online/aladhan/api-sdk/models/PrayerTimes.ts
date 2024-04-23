@@ -4,15 +4,15 @@
 /* eslint-disable */
 
 export type PrayerTimes = {
-    date?: string;
-    timings?: {
-Fajr?: string;
-Sunrise?: string;
-Dhuhr?: string;
-Asr?: string;
-Maghrib?: string;
-Isha?: string;
-Imsak?: string;
-Midnight?: string;
-};
+  date?: string;
+  timings?: {
+    Fajr?: string;
+    Sunrise?: string;
+    Dhuhr?: string;
+    Asr?: string;
+    Maghrib?: string;
+    Isha?: string;
+    Imsak?: string;
+    Midnight?: string;
+  };
 };

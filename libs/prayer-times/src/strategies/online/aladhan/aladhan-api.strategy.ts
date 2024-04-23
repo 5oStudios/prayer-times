@@ -51,12 +51,12 @@ export class AladhanApiStrategy implements OnlinePrayerTimesStrategy {
     }
 
     return {
-      [MuslimPrayers.FAJR]: data.timings['Fajr'],
-      [MuslimPrayers.SUNRISE]: data.timings['Sunrise'],
-      [MuslimPrayers.DHUHR]: data.timings['Dhuhr'],
-      [MuslimPrayers.ASR]: data.timings['Asr'],
-      [MuslimPrayers.MAGHRIB]: data.timings['Maghrib'],
-      [MuslimPrayers.ISHA]: data.timings['Isha'],
+      [MuslimPrayers.FAJR]: this.formatTime(data.timings['Fajr']),
+      [MuslimPrayers.SUNRISE]: this.formatTime(data.timings['Sunrise']),
+      [MuslimPrayers.DHUHR]: this.formatTime(data.timings['Dhuhr']),
+      [MuslimPrayers.ASR]: this.formatTime(data.timings['Asr']),
+      [MuslimPrayers.MAGHRIB]: this.formatTime(data.timings['Maghrib']),
+      [MuslimPrayers.ISHA]: this.formatTime(data.timings['Isha']),
     };
   }
 
@@ -65,5 +65,9 @@ export class AladhanApiStrategy implements OnlinePrayerTimesStrategy {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
+  }
+
+  private formatTime(time: string) {
+    return new Date(time);
   }
 }

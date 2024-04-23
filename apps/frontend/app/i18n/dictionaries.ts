@@ -12,7 +12,4 @@ const dictionaries: Dictionaries = {
   ar: () => import('./locales/ar.json').then((module) => module.default),
 };
 
-export const getDictionary = async (locale: string): Promise<FlexibleDictionaryModule> => {
-  const dictionaryModule = await dictionaries[locale]();
-  return dictionaryModule || {};
-};
+export const getDictionary = (locale: string) => dictionaries[locale]();

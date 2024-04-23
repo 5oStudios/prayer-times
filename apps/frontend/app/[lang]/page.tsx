@@ -1,5 +1,5 @@
 import { HadithSection } from '../../sections/hadith';
-import { PrayerTimesSection } from '../../sections/prayer-times';
+import { PrayerTimesSection } from '../../sections/times';
 
 export default async function MainPage({ params: { lang } }: { params: { lang: string } }) {
   console.log(lang);

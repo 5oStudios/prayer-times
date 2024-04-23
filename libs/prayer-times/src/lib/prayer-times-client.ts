@@ -3,7 +3,7 @@ import { Schools } from '../interfaces/schools.interface';
 import { OfflineClient, OfflineClientProps, OnlineClient } from '../strategies';
 import { OnlineCalculationMethod } from '../strategies/online/aladhan/aladhan-api.strategy';
 import { OfflineCalculationMethod } from '../strategies/offline/adhan/adhan-package.strategy';
-import moment = require('moment');
+import { timesAdapter } from '../adapter';
 
 interface CalculationMethod {
   ONLINE: OnlineCalculationMethod;
@@ -42,17 +42,11 @@ export class PrayerTimesClient<T extends keyof typeof Strategies> {
     if (!this.client) {
       throw new Error('Client not available');
     }
-    return this.client
-      .getTimings({
-        date,
-        coordinates,
-      })
-      .then((timings) => {
-        return Object.entries(timings).reduce((acc, [key, value]) => {
-          // @ts-expect-error key is keyof MuslimPrayers
-          acc[key] = moment(value).format('h:mm A');
-          return acc;
-        }, {});
-      });
+    const rawTimings = await this.client.getTimings({
+      date,
+      coordinates,
+    });
+
+    return timesAdapter(rawTimings);
   }
 }
