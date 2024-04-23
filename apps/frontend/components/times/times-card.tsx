@@ -9,6 +9,8 @@ export const PrayerTimesCard = ({
   prayer: {
     name: string;
     time: string;
+    remaining: string;
+    isNext: boolean;
   };
 }) => (
   <Card

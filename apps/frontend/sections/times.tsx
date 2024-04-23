@@ -21,15 +21,17 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     if (timesStatus === 'idle') dispatch(fetchTimes());
   }, [dispatch, timesStatus]);
 
-  const localizedTimes = times.map(({ name, time }) => ({
+  const localizedTimes = times.map(({ name, time, remaining, isNext }) => ({
     name: dictionary.times[capitalize(name) as keyof typeof dictionary.times], // simplify this
     time: formatTime(time, lang),
+    remaining: formatTime(remaining, lang),
+    isNext,
   }));
 
   return (
     <Flex align="center" justify="center" gap="lg">
-      {localizedTimes.map(({ name, time }) => (
-        <PrayerTimesCard key={name} prayer={{ name, time }} />
+      {localizedTimes.map((prayer) => (
+        <PrayerTimesCard key={prayer.name} prayer={prayer} />
       ))}
     </Flex>
   );
