@@ -3,7 +3,7 @@ import { Schools } from '../interfaces/schools.interface';
 import { OfflineClient, OfflineClientProps, OnlineClient } from '../strategies';
 import { OnlineCalculationMethod } from '../strategies/online/aladhan/aladhan-api.strategy';
 import { OfflineCalculationMethod } from '../strategies/offline/adhan/adhan-package.strategy';
-import { timesAdapter } from '../adapter';
+import { prayerTimesAdapter } from '../adapter';
 
 interface CalculationMethod {
   ONLINE: OnlineCalculationMethod;
@@ -47,6 +47,6 @@ export class PrayerTimesClient<T extends keyof typeof Strategies> {
       coordinates,
     });
 
-    return timesAdapter(rawTimings);
+    return prayerTimesAdapter(rawTimings);
   }
 }

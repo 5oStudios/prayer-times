@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Times" pattern="file[prayer-times]:libs/prayer-times//*" />
+</component>
