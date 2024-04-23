@@ -1,9 +1,8 @@
-'use client';
+import { HadithSection } from '../../sections/hadith';
+import { PrayerTimesSection } from '../../sections/prayer-times';
 
-import { HadithSection } from '../sections/hadith';
-import { PrayerTimesSection } from '../sections/prayer-times';
-
-export default function HomePage() {
+export default async function MainPage({ params: { lang } }: { params: { lang: string } }) {
+  console.log(lang);
   return (
     <div
       style={{

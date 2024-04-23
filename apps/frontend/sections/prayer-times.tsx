@@ -1,15 +1,16 @@
+'use client';
+
 import { Card, Flex } from '@mantine/core';
 import { Reem_Kufi } from 'next/font/google';
-import { i18n } from '../i18n';
 
 const font = Reem_Kufi({
   subsets: ['arabic'],
 });
 
 export const PrayerTimesSection = () => {
-  const Prayers = [
+  const prayers = [
     {
-      title: i18n.t('Fajr'),
+      name: 'Fajr',
       time: '5:00 AM',
     },
     {
@@ -32,8 +33,8 @@ export const PrayerTimesSection = () => {
 
   return (
     <Flex align="center" justify="space-evenly" gap="md">
-      {Prayers.map((prayer) => (
-        <PrayerTimesCard prayer={prayer} />
+      {prayers.map((prayer) => (
+        <PrayerTimesCard prayer={prayer} key={prayer.name} />
       ))}
     </Flex>
   );
