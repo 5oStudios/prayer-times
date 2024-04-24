@@ -1,0 +1,32 @@
+.prayer-card{
+  background: #000000c4;
+  border-radius: 18px;
+  padding-inline: 40px;
+  padding-block: 20px;
+  font-size: 50px;
+  text-align: center;
+  color: #479ea3;
+  min-width: 180px;
+}
+.active-prayer {
+  scale: 1.25;
+  z-index: 2;
+  background: #27a795 !important;
+  color: #fff;
+  box-shadow: 2px 2px 10px #080808;
+}
+.next-prayer-alert {
+  font-size: 20px;
+}
+.remaining-timer {
+  font-size: 26px;
+  color: #c4d513;
+}
+.prayer-name {
+  font-size: 32px;
+  font-weight: 500;
+}
+.prayer-time {
+  font-size: 28px;
+  font-weight: 400;
+}
