@@ -24,8 +24,6 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
     dispatch(fetchHadithList(lang));
   }, [dispatch, lang]);
 
-  console.log(hadith);
-
   return (
     <div
       style={{
@@ -48,7 +46,7 @@ const HadithTicker = ({
   speed: number;
   direction: 'right' | 'left';
 }) => (
-  <Marquee direction={direction} autoFill>
+  <Marquee className="ticker-bg" direction={direction} autoFill>
     <Flex>
       {hadith.map(({ title, id }) => (
         <Flex key={id} justify="center" align="center">

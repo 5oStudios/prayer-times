@@ -1,30 +1,38 @@
 'use client';
 
-import { Azkar, AzkarClient } from '@islamic-kit/azkar';
 import { useEffect, useState } from 'react';
+import { Flex } from '@mantine/core';
+import localFont from 'next/font/local';
+import { AzkarClient } from '@islamic-kit/azkar';
+import { QuoteOpenSvg } from '../assets/icons/quote-open';
+import { QuoteCloseSvg } from '../assets/icons/quote-close';
+import { SupportedLanguages } from '../app/i18n/dictionaries';
 
-const azkarClient = new AzkarClient();
+const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
-export const AzkarSection = () => {
-  const [azkar, setAzkar] = useState<Azkar[] | null>(null);
-
+export const AzkarSection = ({ lang } : { lang: SupportedLanguages }) => {
+  const [currentZekr, setCurrentZekr] = useState<string>();
+  const azkarClient = new AzkarClient();
+  const azkar = azkarClient.tasbih();
+  const [index, setIndex] = useState(0);
   useEffect(() => {
-    const fetchData = () => {
-      const azkarData = azkarClient.tasbih();
-      setAzkar(azkarData);
+    setCurrentZekr(azkar[index].content);
+    const getRandomZekr = () => {
+      setCurrentZekr(azkar[index].content);
+      setIndex((index + 1));
     };
+    setInterval(getRandomZekr, 1000);
+  });
 
-    fetchData();
-  }, []);
-
-  if (!azkar) {
-    return (
-      <>
-        <div>Loading...</div>
-      </>
-    );
-  }
-  const randomAzkar = azkar[Math.floor(Math.random() * azkar.length)];
-
-  return <>{randomAzkar.content}</>;
+  return (
+    <>
+      <Flex align="center" className="azkar-section">
+        <QuoteOpenSvg />
+        <div className={`azkar-text ${font.className}`}>
+          {currentZekr}
+        </div>
+        <QuoteCloseSvg />
+      </Flex>
+    </>
+  );
 };

@@ -21,8 +21,6 @@ export const PrayerTimesCard = ({
 }) => {
   const [timeLeft, setTimeLeft] = useState(prayer.remaining);
 
-  // console.log('times__', prayer);
-
   // Update the component when the prayer prop changes
   useEffect(() => {
     setTimeLeft(prayer.remaining); // Reset the countdown based on the new remaining time
