@@ -1,6 +1,7 @@
 'use client';
 
 import Ticker from 'nice-react-ticker';
+import Marquee from 'react-fast-marquee';
 import { Flex, Text } from '@mantine/core';
 import localFont from 'next/font/local';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,7 +40,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
 
 // TODO: make the scroller show all hadith
 const HadithTicker = ({ hadith, speed }: { hadith: Hadith[]; speed: number }) => (
-  <Ticker slideSpeed={speed}>
+  <Marquee direction="left" autoFill>
     <Flex>
       {hadith.map(({ title, id }) => (
         <Flex key={id} justify="center" align="center">
@@ -58,5 +59,5 @@ const HadithTicker = ({ hadith, speed }: { hadith: Hadith[]; speed: number }) =>
         </Flex>
       ))}
     </Flex>
-  </Ticker>
+  </Marquee>
 );

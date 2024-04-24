@@ -1,7 +1,8 @@
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
-import background from '../../assets/images/background.png';
+import background from '../../assets/images/moon-light-bg.jpg';
+import '../../assets/css/global.css';
 
 export default async function MainPage({
   params: { lang },
@@ -19,6 +20,10 @@ export default async function MainPage({
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <PrayerTimesSection lang={lang} />
