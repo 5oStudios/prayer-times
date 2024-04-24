@@ -1,34 +1,31 @@
 import { Card } from '@mantine/core';
 import localFont from 'next/font/local';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import moment from 'moment/moment';
 
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 function formatTime(milliseconds: number) {
-  const totalSeconds = Math.floor(milliseconds / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  return moment(milliseconds).format('hh:mm:ss');
 }
 
-export const PrayerTimesCard = ({ prayer } : {
+export const PrayerTimesCard = ({
+  prayer,
+}: {
   prayer: {
     name: string;
     time: string;
     remaining: number;
     isNext: boolean;
   };
-
 }) => {
   const [timeLeft, setTimeLeft] = useState(prayer.remaining);
 
-  console.log('times__', prayer);
+  // console.log('times__', prayer);
 
   // Update the component when the prayer prop changes
   useEffect(() => {
-    setTimeLeft(prayer.remaining);// Reset the countdown based on the new remaining time
+    setTimeLeft(prayer.remaining); // Reset the countdown based on the new remaining time
   }, [prayer]);
 
   useEffect(() => {
@@ -46,14 +43,10 @@ export const PrayerTimesCard = ({ prayer } : {
   }, [timeLeft]);
 
   return (
-    <Card
-      className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}
-    >
+    <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}>
       {prayer.isNext && (
         <>
-          <div className="next-prayer-alert">
-            الصلاة التالية
-          </div>
+          <div className="next-prayer-alert">الصلاة التالية</div>
           <div className="remaining-timer">{formatTime(timeLeft)}</div>
         </>
       )}
