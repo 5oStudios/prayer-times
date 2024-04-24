@@ -54,3 +54,11 @@ export class AzkarClient {
     return this.azkar;
   }
 }
+
+export interface Zekr {
+  category: string;
+  count: number;
+  description: string;
+  reference: string;
+  content: string;
+}
