@@ -5,6 +5,7 @@ import background from '../../assets/images/bg-3.jpeg';
 import '../../assets/css/global.css';
 import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
+import HijriDateSection from '../../sections/date';
 
 export default async function MainPage({
   params: { lang },
@@ -29,6 +30,7 @@ export default async function MainPage({
         }}
         className="theme-red"
       >
+        <HijriDateSection language={lang} />
         <ClockSection lang={lang} />
         <AzkarSection lang={lang} />
 
