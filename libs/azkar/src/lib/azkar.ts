@@ -18,9 +18,9 @@ export class AzkarClient {
     this.azkar = db;
   }
 
-  morningRemembrances() {
-    return this.azkar[AzkarEnum.morningRemembrances];
-  }
+  // morningRemembrances() {
+  //   return this.azkar[AzkarEnum.morningRemembrances];
+  // }
 
   eveningRemembrances() {
     return this.azkar[AzkarEnum.eveningRemembrances];
@@ -48,9 +48,5 @@ export class AzkarClient {
 
   propheticSupplications() {
     return this.azkar[AzkarEnum.propheticSupplications];
-  }
-
-  all() {
-    return this.azkar;
   }
 }

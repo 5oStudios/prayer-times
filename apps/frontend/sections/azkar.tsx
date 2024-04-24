@@ -10,7 +10,7 @@ export const AzkarSection = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      const azkarData = azkarClient.eveningRemembrances();
+      const azkarData = azkarClient.tasbih();
       setAzkar(azkarData);
     };
 
