@@ -6,7 +6,7 @@ import moment from 'moment/moment';
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 function formatTime(milliseconds: number) {
-  return moment(milliseconds).format('hh:mm:ss');
+  return moment(milliseconds).utcOffset(0).format('HH:mm:ss');
 }
 
 export const PrayerTimesCard = ({
