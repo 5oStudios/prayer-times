@@ -2,6 +2,7 @@ import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
 import background from '../../assets/images/background.png';
+import { AzkarSection } from '../../sections/azkar';
 
 export default async function MainPage({
   params: { lang },
@@ -21,6 +22,7 @@ export default async function MainPage({
           backgroundRepeat: 'no-repeat',
         }}
       >
+        <AzkarSection />
         <PrayerTimesSection lang={lang} />
 
         <div
