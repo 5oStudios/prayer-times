@@ -3,24 +3,33 @@ import { PrayerTime, SupportedPrayerTimes } from './interfaces';
 export const prayerTimesAdapter = (
   times: SupportedPrayerTimes,
 ): PrayerTime[] => {
-  const prayers = Object.entries(times).map(([name, time]) => ({
-    name,
-    time,
-    isNext: false,
-    remaining: computeRemainingTime(time),
-  }));
+  const currentTime = new Date().getTime();
+  const prayers: PrayerTime[] = Object.entries(times).map(([name, time]) => {
+    const remaining = computeRemainingTime(currentTime, time.getTime());
+    return {
+      name,
+      time,
+      isNext: false,
+      remaining,
+    };
+  });
 
-  const lowestRemainingPrayer = prayers.sort(
-    (a, b) => a.remaining - b.remaining,
-  )[0];
+  const lowestRemainingPrayer = prayers.reduce((prev, curr) =>
+    prev.remaining < curr.remaining ? prev : curr,
+  );
   lowestRemainingPrayer.isNext = true;
 
   return prayers;
 };
 
-const computeRemainingTime = (time: Date) => {
-  const currentTime = new Date().getTime();
-  const targetTime = new Date(time).getTime();
-
-  return targetTime - currentTime;
+const computeRemainingTime = (
+  currentTime: number,
+  targetTime: number,
+): number => {
+  let remainingTime = targetTime - currentTime;
+  // If the target time has already passed, calculate the remaining time for the next day
+  if (remainingTime < 0) {
+    remainingTime += 24 * 60 * 60 * 1000; // Add 24 hours in milliseconds
+  }
+  return remainingTime;
 };
