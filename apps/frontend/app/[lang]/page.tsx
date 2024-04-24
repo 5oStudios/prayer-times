@@ -1,8 +1,10 @@
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
-import background from '../../assets/images/moon-light-bg.jpg';
+import background from '../../assets/images/bg-3.jpeg';
 import '../../assets/css/global.css';
+import { AzkarSection } from '../../sections/azkar';
+import { ClockSection } from '../../sections/clock';
 
 export default async function MainPage({
   params: { lang },
@@ -25,7 +27,11 @@ export default async function MainPage({
           justifyContent: 'center',
           alignItems: 'center',
         }}
+        className="theme-red"
       >
+        <ClockSection lang={lang} />
+        <AzkarSection lang={lang} />
+
         <PrayerTimesSection lang={lang} />
 
         <div

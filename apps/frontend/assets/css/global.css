@@ -30,3 +30,22 @@
   font-size: 28px;
   font-weight: 400;
 }
+.ticker-bg{
+  background: rgba(0,0,0,0.6);
+}
+.clock-section {
+  color: #fff;
+  font-size: 5em;
+  padding: 0px 45px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 20px;
+  font-weight: 900;
+}
+.azkar-section{
+  margin-block: 1em;
+}
+.azkar-text {
+  color: #fff;
+  font-size: 3em;
+  margin-inline: 0.5em
+}
