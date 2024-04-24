@@ -2,7 +2,6 @@ import '@mantine/core/styles.css';
 import React from 'react';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/carousel/styles.css';
-import { dir } from 'i18next';
 import { theme } from '../../theme';
 import 'normalize.css';
 import ReduxProviders from './redux-providers';
@@ -31,7 +30,7 @@ export default async function RootLayout({
   const dictionary = await getDictionary(lang);
   return (
     <DictionaryProvider dictionary={dictionary}>
-      <html lang={lang} dir={dir(lang)}>
+      <html lang={lang}>
         <head>
           <ColorSchemeScript />
           <link rel="shortcut icon" href="/favicon.svg" />

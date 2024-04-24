@@ -1,6 +1,5 @@
 'use client';
 
-import Ticker from 'nice-react-ticker';
 import Marquee from 'react-fast-marquee';
 import { Flex, Text } from '@mantine/core';
 import localFont from 'next/font/local';
@@ -18,6 +17,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const tickerSpeed = useSelector(selectHadithTickerSpeed);
   const hadith = useSelector(selectHadith);
   const dispatch = useDispatch();
+  const direction = lang === 'ar' ? 'right' : 'left';
 
   useEffect(() => {
     // @ts-expect-error - This fix this
@@ -33,14 +33,22 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
         maxWidth: '100vw',
       }}
     >
-      <HadithTicker hadith={hadith} speed={tickerSpeed} />
+      <HadithTicker hadith={hadith} speed={tickerSpeed} direction={direction} />
     </div>
   );
 };
 
 // TODO: make the scroller show all hadith
-const HadithTicker = ({ hadith, speed }: { hadith: Hadith[]; speed: number }) => (
-  <Marquee direction="left" autoFill>
+const HadithTicker = ({
+  hadith,
+  speed,
+  direction,
+}: {
+  hadith: Hadith[];
+  speed: number;
+  direction: 'right' | 'left';
+}) => (
+  <Marquee direction={direction} autoFill>
     <Flex>
       {hadith.map(({ title, id }) => (
         <Flex key={id} justify="center" align="center">
