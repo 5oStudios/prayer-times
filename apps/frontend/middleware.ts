@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Negotiator from 'negotiator';
 import { match } from '@formatjs/intl-localematcher';
 import locales from 'locale-codes';
 
@@ -8,12 +7,13 @@ const defaultLocale = availableLocales[0];
 // const fallbackLocale = availableLocales[1];
 
 function getLocale(request: NextRequest) {
-  const headers = {
-    'accept-language': request.headers.get('accept-language') || defaultLocale,
-  };
-  const requestedLocales = new Negotiator({
-    headers,
-  }).languages();
+  // const headers = {
+  //   'accept-language': request.headers.get('accept-language') || defaultLocale,
+  // };
+  // const requestedLocales = new Negotiator({
+  //   headers,
+  // }).languages();
+  const requestedLocales = availableLocales;
 
   return match(requestedLocales, availableLocales, defaultLocale);
 }
