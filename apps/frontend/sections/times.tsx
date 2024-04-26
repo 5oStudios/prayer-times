@@ -20,6 +20,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
   const times = useSelector(selectTimes);
   const timesStatus = useSelector(selectTimesStatus);
+
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
 
@@ -52,6 +53,9 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     remaining,
     isNext,
   }));
+  if (lang === 'ar') {
+    localizedTimes.reverse();
+  }
 
   return (
     <Flex align="center" justify="center" gap="sm">
