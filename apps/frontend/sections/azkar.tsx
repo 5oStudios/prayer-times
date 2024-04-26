@@ -13,12 +13,12 @@ const azkarClient = new AzkarClient();
 const azkar = azkarClient.tasbih();
 const chooseObjectFromArr = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
 
-const isSmallZekr = (zekr: Zekr) => zekr.content.length < 70;
-const getRandomZekr = () => {
-  const randomZekr = chooseObjectFromArr(azkar);
-  if (!isSmallZekr(randomZekr)) getRandomZekr(); // TODO: very risky recursion, refactor
-  return randomZekr;
-};
+const smallZekrLength = 80;
+
+// @ts-expect-error - TODO: Fix this
+const smallAzkar = azkar.filter((zekr: Zekr) => zekr.content.length <= smallZekrLength);
+
+const getRandomZekr = () => chooseObjectFromArr(smallAzkar);
 
 export const AzkarSection = ({ lang }: { lang: SupportedLanguages }) => {
   const [currentZekr, setCurrentZekr] = useState<Zekr>();
