@@ -33,3 +33,7 @@ const computeRemainingTime = (
   }
   return remainingTime;
 };
+
+export const getNextPrayer = (prayers: PrayerTime[]): PrayerTime => {
+  return prayers.find((prayer) => prayer.isNext) as PrayerTime;
+};

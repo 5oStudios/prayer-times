@@ -1,10 +1,11 @@
 'use client';
 
 import { Flex } from '@mantine/core';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
+import { useDeepCompareEffect } from 'use-deep-compare';
+import { useMemo } from 'react';
 import { Coordinates, fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
 import { PrayerTimesCard } from '../components/times/times-card';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
@@ -20,20 +21,16 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
   const times = useSelector(selectTimes);
   const timesStatus = useSelector(selectTimesStatus);
-
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (timesStatus !== 'idle') return;
-
-    if (coordinates) {
-      // @ts-expect-error - This expression is not callable.
-      dispatch(fetchTimes(coordinates));
-    }
+    // @ts-expect-error - This expression is not callable.
+    if (coordinates) dispatch(fetchTimes(coordinates));
   }, [coordinates, dispatch, timesStatus]);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const newCoordinates = {
@@ -45,17 +42,17 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       },
       () => setCoordinates(kuwaitCoordinates)
     );
-  }, [coordinates, setCoordinates]);
+  }, [coordinates]);
 
-  const localizedTimes = times.map(({ name, time, remaining, isNext }) => ({
-    name: dictionary.times[capitalize(name) as keyof typeof dictionary.times], // simplify this
-    time: formatTime(time, lang),
-    remaining,
-    isNext,
-  }));
-  if (lang === 'ar') {
-    localizedTimes.reverse();
-  }
+  const localizedTimes = useMemo(() => {
+    const newTimes = times.map(({ name, time, remaining, isNext }) => ({
+      name: dictionary.times[capitalize(name) as keyof typeof dictionary.times], // simplify this
+      time: formatTime(time, lang),
+      remaining,
+      isNext,
+    }));
+    return lang === 'ar' ? newTimes.reverse() : newTimes;
+  }, [times, lang, dictionary]);
 
   return (
     <Flex align="center" justify="center" gap="sm">

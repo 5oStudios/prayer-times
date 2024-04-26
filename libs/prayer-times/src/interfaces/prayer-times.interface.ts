@@ -8,15 +8,6 @@ export enum MuslimPrayers {
   ISHA = 'isha',
 }
 
-export const supportedPrayers = [
-  MuslimPrayers.FAJR,
-  MuslimPrayers.SUNRISE,
-  MuslimPrayers.DHUHR,
-  MuslimPrayers.ASR,
-  MuslimPrayers.MAGHRIB,
-  MuslimPrayers.ISHA,
-];
-
 export type SupportedPrayerTimes = { [key in MuslimPrayers]: Date };
 
 export type PrayerTime = {
@@ -24,4 +15,8 @@ export type PrayerTime = {
   time: Date;
   isNext: boolean;
   remaining: number;
+};
+export type Coordinates = {
+  latitude: number;
+  longitude: number;
 };

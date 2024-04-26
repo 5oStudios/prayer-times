@@ -13,7 +13,7 @@ const azkarClient = new AzkarClient();
 const azkar = azkarClient.tasbih();
 const chooseObjectFromArr = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
 
-const smallZekrLength = 80;
+const smallZekrLength = 150;
 // @ts-expect-error - TODO: Fix this
 const smallAzkar = azkar.filter((zekr: Zekr) => zekr.content.length <= smallZekrLength);
 const getRandomZekr = () => chooseObjectFromArr(smallAzkar);

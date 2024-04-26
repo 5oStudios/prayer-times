@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { PrayerTime, PrayerTimesClient } from '@islamic-kit/prayer-times';
+import { Coordinates, PrayerTime, PrayerTimesClient } from '@islamic-kit/prayer-times';
 
 const prayerTimesClient = new PrayerTimesClient({
   region: 'Kuwait',
   school: 'HANAFI',
   strategy: 'OFFLINE',
 });
-
-export type Coordinates = Pick<GeolocationPosition['coords'], 'latitude' | 'longitude'>;
 
 export const fetchTimes = createAsyncThunk('times/fetchTimes', async (coordinates: Coordinates) =>
   prayerTimesClient.getTimings({

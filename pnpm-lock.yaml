@@ -128,12 +128,18 @@ dependencies:
   redux:
     specifier: ^5.0.1
     version: 5.0.1
+  tasktimer:
+    specifier: ^3.0.0
+    version: 3.0.0
   ts-extras:
     specifier: ^0.11.0
     version: 0.11.0
   tslib:
     specifier: ^2.6.2
     version: 2.6.2
+  use-deep-compare:
+    specifier: ^1.2.1
+    version: 1.2.1(react@18.2.0)
   use-local-storage:
     specifier: ^3.0.0
     version: 3.0.0(react@18.2.0)
@@ -9383,7 +9389,6 @@ packages:
   /dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
-    dev: true
 
   /des.js@1.1.0:
     resolution: {integrity: sha512-r17GxjhUCjSRy8aiJpr8/UadFIzMzJGexI3Nmz4ADi9LYSFx4gTBp80+NaX/YsXWWLhpZ7v/v/ubEc/bCNfKwg==}
@@ -10471,7 +10476,6 @@ packages:
 
   /eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
-    dev: true
 
   /events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
@@ -17019,6 +17023,12 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /tasktimer@3.0.0:
+    resolution: {integrity: sha512-Fx2Zw4FFM/gc9cY4Iodo9UwC9yFl7fIU3ay/wqq0+E5WT587aZlmjCW2yLCHRVIwzcSig4tMqIh4vqxOcyXr9A==}
+    dependencies:
+      eventemitter3: 4.0.7
+    dev: false
+
   /telejson@7.2.0:
     resolution: {integrity: sha512-1QTEcJkJEhc8OnStBx/ILRu5J2p0GjvWsBx56bmZRqnrkdBMUe+nX92jxV+p3dB4CP6PZCdJMQJwCggkNBMzkQ==}
     dependencies:
@@ -17725,6 +17735,15 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
+      react: 18.2.0
+    dev: false
+
+  /use-deep-compare@1.2.1(react@18.2.0):
+    resolution: {integrity: sha512-JTnOZAr0fq1ix6CQ4XANoWIh03xAiMFlP/lVAYDdAOZwur6nqBSdATn1/Q9PLIGIW+C7xmFZBCcaA4KLDcQJtg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      dequal: 2.0.3
       react: 18.2.0
     dev: false
 
