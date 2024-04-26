@@ -4,17 +4,16 @@ import { PrayerTime, PrayerTimesClient } from '@islamic-kit/prayer-times';
 const prayerTimesClient = new PrayerTimesClient({
   region: 'Kuwait',
   school: 'HANAFI',
-  strategy: 'ONLINE',
+  strategy: 'OFFLINE',
 });
 
-export const fetchTimes = createAsyncThunk('times/fetchTimes', async () =>
-  prayerTimesClient.getTimings({
-    date: new Date(),
-    coordinates: {
-      latitude: 10.0444,
-      longitude: 31.2357,
-    },
-  })
+export const fetchTimes = createAsyncThunk(
+  'times/fetchTimes',
+  async (coordinates: { latitude: number; longitude: number }) =>
+    prayerTimesClient.getTimings({
+      date: new Date(),
+      coordinates,
+    })
 );
 
 const initialState: {

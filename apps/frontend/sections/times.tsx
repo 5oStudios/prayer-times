@@ -17,8 +17,21 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // @ts-expect-error - This expression is not callable.
-    if (timesStatus === 'idle') dispatch(fetchTimes());
+    const fetchTimesWithCoo = (coordinates: { latitude: number; longitude: number }) => {
+      // @ts-expect-error - This expression is not callable.
+      dispatch(fetchTimes(coordinates));
+    };
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        fetchTimesWithCoo({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      () => {
+        throw new Error('Unable to get your location');
+      }
+    );
   }, [dispatch, timesStatus]);
 
   const localizedTimes = times.map(({ name, time, remaining, isNext }) => ({
