@@ -14,7 +14,7 @@ export class OfflineClient {
   private times: SupportedPrayerTimes | undefined;
 
   constructor(readonly props: OfflineClientProps) {
-    this.params = CalculationMethod[props.param ?? 'Egyptian']();
+    this.params = CalculationMethod[props.param ?? 'Kuwait']();
   }
 
   public async getTimings({

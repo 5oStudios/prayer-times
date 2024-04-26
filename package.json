@@ -5,6 +5,7 @@
   "scripts": {},
   "private": false,
   "dependencies": {
+    "@enegix/events": "^0.0.2",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@mantine/carousel": "^7.8.0",
     "@mantine/core": "7.7.1",
