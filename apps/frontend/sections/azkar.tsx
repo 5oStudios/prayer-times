@@ -12,7 +12,13 @@ const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-R
 const azkarClient = new AzkarClient();
 const azkar = azkarClient.tasbih();
 const chooseObjectFromArr = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
-const getRandomZekr = () => chooseObjectFromArr(azkar);
+
+const isSmallZekr = (zekr: Zekr) => zekr.content.length < 70;
+const getRandomZekr = () => {
+  const randomZekr = chooseObjectFromArr(azkar);
+  if (!isSmallZekr(randomZekr)) getRandomZekr(); // TODO: very risky recursion, refactor
+  return randomZekr;
+};
 
 export const AzkarSection = ({ lang }: { lang: SupportedLanguages }) => {
   const [currentZekr, setCurrentZekr] = useState<Zekr>();
