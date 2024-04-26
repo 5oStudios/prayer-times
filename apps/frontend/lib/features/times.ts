@@ -7,13 +7,13 @@ const prayerTimesClient = new PrayerTimesClient({
   strategy: 'OFFLINE',
 });
 
-export const fetchTimes = createAsyncThunk(
-  'times/fetchTimes',
-  async (coordinates: { latitude: number; longitude: number }) =>
-    prayerTimesClient.getTimings({
-      date: new Date(),
-      coordinates,
-    })
+export type Coordinates = Pick<GeolocationPosition['coords'], 'latitude' | 'longitude'>;
+
+export const fetchTimes = createAsyncThunk('times/fetchTimes', async (coordinates: Coordinates) =>
+  prayerTimesClient.getTimings({
+    date: new Date(),
+    coordinates,
+  })
 );
 
 const initialState: {
