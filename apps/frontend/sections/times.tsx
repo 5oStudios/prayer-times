@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
-import { useEffect, useMemo } from 'react';
-import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
-import { subscribe } from '@enegix/events';
+import { useMemo } from 'react';
+import { Coordinates } from '@islamic-kit/prayer-times';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
 import { PrayerTimesCard } from '../components/times/times-card';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
@@ -26,12 +25,12 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
 
-  // @ts-expect-error - fix this
-  subscribe('next-prayer', (prayer: PrayerTime) => {
-    alert(`It's time for ${prayer.name}`);
-    // @ts-expect-error - This expression is not callable.
-    dispatch(fetchTimes(coordinates));
-  });
+  // // @ts-expect-error - fix this
+  // subscribe('next-prayer', (prayer: PrayerTime) => {
+  //   alert(`It's time for ${prayer.name}`);
+  //   // @ts-expect-error - This expression is not callable.
+  //   dispatch(fetchTimes(coordinates));
+  // });
 
   useDeepCompareEffect(() => {
     if (timesStatus !== 'idle') return;
@@ -40,18 +39,6 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       dispatch(fetchTimes(coordinates));
     }
   }, [coordinates, dispatch, timesStatus]);
-  useEffect(() => {
-    // self rerender
-    const intervalId = setInterval(
-      () => {
-        // @ts-expect-error - This expression is not callable.
-        dispatch(fetchTimes(coordinates));
-      },
-      times.find((time) => time.isNext)?.remaining || 60000
-    );
-
-    return () => clearInterval(intervalId);
-  }, [coordinates, dispatch, times]);
 
   useDeepCompareEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -80,7 +67,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   return (
     <Flex align="center" justify="center" gap="sm">
       {localizedTimes.map((prayer) => (
-        <PrayerTimesCard key={prayer.name} prayer={prayer} />
+        <PrayerTimesCard key={prayer.name} prayer={prayer} coordinates={coordinates} />
       ))}
     </Flex>
   );

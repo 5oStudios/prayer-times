@@ -2,6 +2,9 @@ import { Card } from '@mantine/core';
 import localFont from 'next/font/local';
 import { useEffect, useState } from 'react';
 import moment from 'moment/moment';
+import { useDispatch } from 'react-redux';
+import { Coordinates } from '@islamic-kit/prayer-times';
+import { fetchTimes } from '../../lib/features/times';
 
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
@@ -11,6 +14,7 @@ function formatTime(milliseconds: number) {
 
 export const PrayerTimesCard = ({
   prayer,
+  coordinates,
 }: {
   prayer: {
     name: string;
@@ -18,8 +22,10 @@ export const PrayerTimesCard = ({
     remaining: number;
     isNext: boolean;
   };
+  coordinates: Coordinates;
 }) => {
   const [timeLeft, setTimeLeft] = useState(prayer.remaining);
+  const dispatch = useDispatch();
 
   // Update the component when the prayer prop changes
   useEffect(() => {
@@ -34,6 +40,11 @@ export const PrayerTimesCard = ({
     }
     const intervalId = setInterval(() => {
       setTimeLeft((prevTime: number) => prevTime - 1000);
+      if (timeLeft <= 0) {
+        // @ts-expect-error - This expression is not callable.
+        dispatch(fetchTimes(coordinates));
+        clearInterval(intervalId);
+      }
     }, 1000);
 
     // eslint-disable-next-line consistent-return
