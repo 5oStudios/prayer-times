@@ -36,6 +36,10 @@ store.subscribe(() => {
       if (newPrayer.time.getTime() - now.getTime() <= 0) {
         console.log(`It's time for ${newPrayer.name}`);
         publish('next-prayer', newPrayer);
+      } else {
+        console.log(
+          `Next prayer is ${newPrayer.name} in ${newPrayer.time.getTime() - now.getTime()}ms`
+        );
       }
     },
     removeOnCompleted: true,
