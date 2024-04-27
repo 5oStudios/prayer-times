@@ -6,7 +6,8 @@ import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
 import { useMemo } from 'react';
-import { Coordinates } from '@islamic-kit/prayer-times';
+import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
+import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
 import { PrayerTimesCard } from '../components/times/times-card';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
@@ -25,12 +26,12 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
 
-  // // @ts-expect-error - fix this
-  // subscribe('next-prayer', (prayer: PrayerTime) => {
-  //   alert(`It's time for ${prayer.name}`);
-  //   // @ts-expect-error - This expression is not callable.
-  //   dispatch(fetchTimes(coordinates));
-  // });
+  // @ts-expect-error - fix this
+  subscribe('next-prayer', (prayer: PrayerTime) => {
+    alert(`It's time for from store ${prayer.name}`);
+    // @ts-expect-error - This expression is not callable.
+    dispatch(fetchTimes(coordinates));
+  });
 
   useDeepCompareEffect(() => {
     if (timesStatus !== 'idle') return;

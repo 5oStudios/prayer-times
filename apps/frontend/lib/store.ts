@@ -34,7 +34,7 @@ store.subscribe(() => {
     id: 'notify',
     callback: () => {
       if (newPrayer.time.getTime() - now.getTime() <= 0) {
-        console.log(`It's time for ${newPrayer.name}`);
+        console.log(`It's time for from store ${newPrayer.name}`);
         publish('next-prayer', newPrayer);
       } else {
         console.log(
