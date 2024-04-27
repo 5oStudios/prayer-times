@@ -3,7 +3,7 @@ import { Coordinates, PrayerTime, PrayerTimesClient } from '@islamic-kit/prayer-
 
 export const prayerTimesClient = new PrayerTimesClient({
   strategy: 'OFFLINE',
-  region: 'Kuwait',
+  region: 'Egyptian',
 });
 
 export const fetchTimes = createAsyncThunk('times/fetchTimes', async (coordinates: Coordinates) =>
