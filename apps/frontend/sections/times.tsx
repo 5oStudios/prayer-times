@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
@@ -40,6 +40,18 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       dispatch(fetchTimes(coordinates));
     }
   }, [coordinates, dispatch, timesStatus]);
+  useEffect(() => {
+    // self rerender
+    const intervalId = setInterval(
+      () => {
+        // @ts-expect-error - This expression is not callable.
+        dispatch(fetchTimes(coordinates));
+      },
+      times.find((time) => time.isNext)?.remaining || 60000
+    );
+
+    return () => clearInterval(intervalId);
+  }, [coordinates, dispatch, times]);
 
   useDeepCompareEffect(() => {
     navigator.geolocation.getCurrentPosition(
