@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { useDispatch } from 'react-redux';
 import { Coordinates } from '@islamic-kit/prayer-times';
+import { useDeepCompareEffect } from 'use-deep-compare';
 import { fetchTimes } from '../../lib/features/times';
 
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
@@ -32,7 +33,7 @@ export const PrayerTimesCard = ({
     setTimeLeft(prayer.remaining); // Reset the countdown based on the new remaining time
   }, [prayer]);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (timeLeft <= 0) {
       // If the timer reaches zero, you might want to fetch new prayer times or trigger some other action
       // alert('Time for the next prayer!');
@@ -49,7 +50,7 @@ export const PrayerTimesCard = ({
 
     // eslint-disable-next-line consistent-return
     return () => clearInterval(intervalId);
-  }, [timeLeft]);
+  }, [coordinates, dispatch, timeLeft]);
 
   return (
     <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}>
