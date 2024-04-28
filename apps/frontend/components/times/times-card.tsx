@@ -31,7 +31,7 @@ export const PrayerTimesCard = ({
           <Countdown
             date={Date.now() + prayer.remaining}
             daysInHours
-            onComplete={() => publish('next-prayer')}
+            onComplete={() => publish('next-prayer', prayer)}
           />
         </div>
       </>
