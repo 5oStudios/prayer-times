@@ -20,6 +20,7 @@
   url('../fonts/Reem_Kufi/ReemKufi-VariableFont_wght.ttf') format('truetype');
   font-weight: normal;
 }
+
 :root {
   --primary-color: #479ea3;
   --secondary-color: #27a795;
@@ -61,8 +62,8 @@
 
 /* SCREEN WRAPPER */
   .screen-wrapper{
-    width: 100%;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     position: relative;
     background: url('../images/gray-bg.jpg') left bottom no-repeat;
     background-size: cover;
@@ -72,6 +73,11 @@
     align-items: center;
   }
 
+  .vrLEFT .screen-wrapper, .vrRIGHT .screen-wrapper{
+    width: 100dvh;
+    height: 100dvw;
+  }
+
 /* DATES SECTION */
   .dates {
     position: absolute;
@@ -79,7 +85,7 @@
     display: flex;
     gap: 1em;
     padding: 0.5rem 0.75rem;
-    font-size: 2.75dvw;
+    font-size: 2.50dvw;
     font-weight: bold;
   }
   .qobtic-date:before {
@@ -92,8 +98,16 @@
 /* MOSQUEE NAME */
   .mosquee-name {
     position: absolute;
-    top: 9%;
+    top: 11%;
     font-size: 2.50dvw;
+    font-family: 'SF Arabic', sans-serif;
+    font-weight: bold;
+  }
+
+  .emam-name {
+    position: absolute;
+    bottom: 9.25%;
+    font-size: 1.50dvw;
     font-family: 'SF Arabic', sans-serif;
     font-weight: bold;
   }
@@ -101,7 +115,7 @@
 /* CLOCK SECTION */
   .clock-section{
     position: absolute;
-    top: 14%;
+    top: 18%;
     font-family: 'Reem Kufi', sans-serif;
     font-size: 7.50dvw;
     font-weight: bold;
@@ -110,15 +124,25 @@
 /* AZKAR SECTION */
   .azkar-section{
     position: absolute;
-    top: 34%;
+    top: 38%;
     font-size: 2.50dvw;
     font-weight: bold;
+    justify-content: center;
+    width: 80dvw;
+  }
+  .azkar-text{
+    text-align: center;
+    margin-inline: 0.50em;
+  }
+  .vrLEFT .azkar-section, .vrRIGHT .azkar-section{
+    width: 90dvh;
+    top: 30%;
   }
 
 /* TIMES SECTION */
   .times-section{
     position: absolute;
-    bottom: 13%;
+    bottom: 15%;
   }
   .prayer-card{
     background: #000000c4;
@@ -127,8 +151,8 @@
     padding-block: 2dvh;
     font-size: 2.50dvw;
     text-align: center;
-    color: #479ea3;
-    min-width: 180px;
+    color: var(--primary-color);
+    min-width: 13dvw;
   }
   .next-prayer-alert {
     font-size: 1dvw;
@@ -144,7 +168,7 @@
   .active-prayer {
     scale: 1.25;
     z-index: 2;
-    background: #27a795 !important;
+    background: var(--primary-color) !important;
     color: #fff;
   }
   .active-prayer .prayer-name{
@@ -152,6 +176,43 @@
   }
   .active-prayer .prayer-time{
     margin-top: -0.75rem;
+  }
+  .remaining-timer.vrLayout{
+    display: none;
+  }
+  .vrLEFT .times-section {
+    display: flex;
+    flex-direction: column;
+    background: rgba(0,0,0,0.6);
+    border-radius: 1.50dvh;
+    gap: 0 !important;
+  }
+
+  .vrLEFT .prayer-card, .vrRIGHT .prayer-card {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    padding-block: 0.50dvw;
+    color: #fff;
+    font-size: 4dvw;
+    width: 60dvh;
+  }
+  .vrLEFT .prayer-time, .vrRIGHT .prayer-time{
+    font-size: 2.50dvw;
+  }
+  .vrLEFT .remaining-timer {
+    display: none;
+  }
+
+  .vrLEFT .next-prayer-alert {
+    display: none;
+  }
+  .vrLEFT .remaining-timer.vrLayout{
+    display: block;
+    font-size: 3vh;
   }
 
 /* HADITH MRQUEE SECTION */

@@ -31,6 +31,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     // alert(`It's time for from store ${prayer.name}`);
     // @ts-expect-error - This expression is not callable.
     dispatch(fetchTimes(coordinates));
+    //todo: add more actions here
   });
 
   useDeepCompareEffect(() => {
@@ -78,4 +79,9 @@ const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1); // TODO
 const formatTime = (time: Date, lang: string) => {
   moment.locale('en');
   return moment(time).format('hh:mm');
+};
+
+const playAthan = () => {
+  const audio = new Audio('https://download.tvquran.com/download/TvQuran.com__Athan/TvQuran.com__01.athan.mp3');
+  audio.play();
 };

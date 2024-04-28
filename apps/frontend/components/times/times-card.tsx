@@ -37,6 +37,15 @@ export const PrayerTimesCard = ({
       </>
     )}
     <div className="prayer-name">{prayer.name}</div>
+    <div className="remaining-timer vrLayout">
+      {prayer.isNext && (
+        <Countdown
+          date={Date.now() + prayer.remaining}
+          daysInHours
+          onComplete={() => publish('next-prayer', prayer)}
+        />
+      )}
+    </div>
     <div className="prayer-time">{prayer.time}</div>
   </Card>
 );

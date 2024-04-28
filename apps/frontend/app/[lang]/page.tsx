@@ -26,6 +26,7 @@ export default async function MainPage({
         <ClockSection lang={lang} />
         <AzkarSection lang={lang} />
         <PrayerTimesSection lang={lang} />
+        <div className="emam-name">إمام المسجد: الشيخ مشاري العفاسي</div>
         <div className="hadith-marquee">
           <HadithSection lang={lang} />
         </div>

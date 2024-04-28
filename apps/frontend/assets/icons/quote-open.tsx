@@ -6,7 +6,7 @@ const Quote = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     data-name="Layer 1"
     viewBox="0 0 75.4 226.3"
-    width="3em"
+    width="0.70em"
     {...props}
   >
     <defs>

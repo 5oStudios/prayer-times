@@ -25,7 +25,7 @@ export const AzkarSection = ({ lang }: { lang: SupportedLanguages }) => {
     setCurrentZekr(getRandomZekr());
     const intervalId = setInterval(() => {
       setCurrentZekr(getRandomZekr());
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -34,9 +34,9 @@ export const AzkarSection = ({ lang }: { lang: SupportedLanguages }) => {
   return (
     <>
       <Flex align="center" className="azkar-section">
-        {/*<QuoteOpenSvg />*/}
-        <div className={`azkar-text ${font.className} animate__animated animate__bounce`}>{currentZekr.content}</div>
-        {/*<QuoteCloseSvg />*/}
+        <QuoteOpenSvg />
+        <div className={`azkar-text ${font.className}`}>{currentZekr.content}</div>
+        <QuoteCloseSvg />
       </Flex>
     </>
   );
