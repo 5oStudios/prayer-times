@@ -12,12 +12,10 @@ function HijriDateSection(props: HijriDateProps) {
   const hijriDate = toHijri(geoDate.getFullYear(), geoDate.getMonth() + 1, geoDate.getDate());
 
   return (
-    <div dir={props.language === 'ar' ? 'rtl' : 'ltr'}>
-      <h1>
+    <div className="hijri-date" dir={props.language === 'ar' ? 'rtl' : 'ltr'}>
         {props.language === 'ar'
-          ? `اليوم هو: ${hijriDate.hd} ${getHijriMonthName(hijriDate.hm, 'ar')} ${hijriDate.hy}`
+          ? `${hijriDate.hd} ${getHijriMonthName(hijriDate.hm, 'ar')} ${hijriDate.hy}`
           : `Today's Hijri Date: ${hijriDate.hd} ${getHijriMonthName(hijriDate.hm)} ${hijriDate.hy}`}
-      </h1>
     </div>
   );
 }

@@ -28,7 +28,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
 
   // @ts-expect-error - fix this
   subscribe('next-prayer', (prayer: PrayerTime) => {
-    alert(`It's time for from store ${prayer.name}`);
+    // alert(`It's time for from store ${prayer.name}`);
     // @ts-expect-error - This expression is not callable.
     dispatch(fetchTimes(coordinates));
   });
@@ -66,7 +66,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [times, lang, dictionary]);
 
   return (
-    <Flex align="center" justify="center" gap="sm">
+    <Flex align="center" justify="center" gap="sm" className="times-section">
       {localizedTimes.map((prayer) => (
         <PrayerTimesCard key={prayer.name} prayer={prayer} coordinates={coordinates} />
       ))}

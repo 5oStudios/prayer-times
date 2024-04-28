@@ -37,9 +37,9 @@ store.subscribe(() => {
         console.log(`It's time for from store ${newPrayer.name}`);
         publish('next-prayer', newPrayer);
       } else {
-        console.log(
-          `Next prayer is ${newPrayer.name} in ${newPrayer.time.getTime() - now.getTime()}ms`
-        );
+        // console.log(
+        //   `Next prayer is ${newPrayer.name} in ${newPrayer.time.getTime() - now.getTime()}ms`
+        // );
       }
     },
     removeOnCompleted: true,

@@ -1,51 +1,168 @@
-.prayer-card{
-  background: #000000c4;
-  border-radius: 18px;
-  padding-inline: 40px;
-  padding-block: 20px;
-  font-size: 50px;
-  text-align: center;
-  color: #479ea3;
-  min-width: 180px;
+@font-face {
+  font-family: 'SF Arabic';
+  src: local('SF Arabic Rounded'), local('SF-Arabic-Rounded'),
+  url('../fonts/SFArabicRounded/SFArabicRounded-Regular.woff2') format('woff2'),
+  url('../fonts/SFArabicRounded/SFArabicRounded-Regular.woff') format('woff'),
+  url('../fonts/SFArabicRounded/SFArabicRounded-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
-.active-prayer {
-  scale: 1.25;
-  z-index: 2;
-  background: #27a795 !important;
-  color: #fff;
-  box-shadow: 2px 2px 10px #080808;
+@font-face {
+  font-family: 'Changa';
+  src: local('Changa'), local('Changa-Regular'),
+  url('../fonts/Changa/Changa-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
-.next-prayer-alert {
-  font-size: 20px;
+@font-face {
+  font-family: 'Reem Kufi';
+  src: local('Reem Kufi'), local('ReemKufi-Regular'),
+  url('../fonts/Reem_Kufi/ReemKufi-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
 }
-.remaining-timer {
-  font-size: 26px;
-  color: #c4d513;
+:root {
+  --primary-color: #479ea3;
+  --secondary-color: #27a795;
+  --tertiary-color: #c4d513;
+  --dark-color: #000;
+  --light-color: #fff;
+  --font-family-arbic: 'Changa', sans-serif;
 }
-.prayer-name {
-  font-size: 32px;
-  font-weight: 500;
-}
-.prayer-time {
-  font-size: 28px;
-  font-weight: 400;
-}
+
 .ticker-bg{
   background: rgba(0,0,0,0.6);
 }
-.clock-section {
-  color: #fff;
-  font-size: 5em;
-  padding: 0px 45px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 20px;
-  font-weight: 900;
+
+@media screen and (orientation: landscape) {
+  body{
+    overflow: hidden;
+    font-family: var(--font-family-arbic);
+  }
+  .vrLEFT {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    height: 100vw;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+  .vrRIGHT {
+    transform: rotate(90deg);
+    transform-origin: right top;
+    height: 100vw;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    right: 0;
+  }
+
+/* SCREEN WRAPPER */
+  .screen-wrapper{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: url('../images/gray-bg.jpg') left bottom no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+/* DATES SECTION */
+  .dates {
+    position: absolute;
+    top: 1%;
+    display: flex;
+    gap: 1em;
+    padding: 0.5rem 0.75rem;
+    font-size: 2.75dvw;
+    font-weight: bold;
+  }
+  .qobtic-date:before {
+    content: '•';
+    color: red;
+    position: relative;
+    right: 0.5em;
+  }
+
+/* MOSQUEE NAME */
+  .mosquee-name {
+    position: absolute;
+    top: 9%;
+    font-size: 2.50dvw;
+    font-family: 'SF Arabic', sans-serif;
+    font-weight: bold;
+  }
+
+/* CLOCK SECTION */
+  .clock-section{
+    position: absolute;
+    top: 14%;
+    font-family: 'Reem Kufi', sans-serif;
+    font-size: 7.50dvw;
+    font-weight: bold;
+  }
+
+/* AZKAR SECTION */
+  .azkar-section{
+    position: absolute;
+    top: 34%;
+    font-size: 2.50dvw;
+    font-weight: bold;
+  }
+
+/* TIMES SECTION */
+  .times-section{
+    position: absolute;
+    bottom: 13%;
+  }
+  .prayer-card{
+    background: #000000c4;
+    border-radius: 0.75rem;
+    padding-inline: 3dvw;
+    padding-block: 2dvh;
+    font-size: 2.50dvw;
+    text-align: center;
+    color: #479ea3;
+    min-width: 180px;
+  }
+  .next-prayer-alert {
+    font-size: 1dvw;
+  }
+  .remaining-timer {
+    font-size: 1.50dvw;
+    color: #c4d513;
+  }
+  .prayer-time {
+    font-size: 1.75dvw;
+    font-weight: 400;
+  }
+  .active-prayer {
+    scale: 1.25;
+    z-index: 2;
+    background: #27a795 !important;
+    color: #fff;
+  }
+  .active-prayer .prayer-name{
+    margin-top: -0.80rem;
+  }
+  .active-prayer .prayer-time{
+    margin-top: -0.75rem;
+  }
+
+/* HADITH MRQUEE SECTION */
+  .hadith-marquee {
+    position: absolute;
+    bottom: 1%;
+  }
 }
-.azkar-section{
-  margin-block: 1em;
-}
-.azkar-text {
-  color: #fff;
-  font-size: 3em;
-  margin-inline: 0.5em
+
+@media screen and (orientation: portrait) {
+  body {
+    background: #000;
+  }
 }
