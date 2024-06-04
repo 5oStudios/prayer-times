@@ -4,6 +4,7 @@ import moment from 'moment/moment';
 import { Coordinates } from '@islamic-kit/prayer-times';
 import Countdown from 'react-countdown';
 import { publish } from '@enegix/events';
+import 'moment/locale/ar';
 
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
