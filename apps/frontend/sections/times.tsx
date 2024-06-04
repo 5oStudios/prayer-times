@@ -69,7 +69,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   return (
     <Flex align="center" justify="center" gap="sm" className="times-section">
       {localizedTimes.map((prayer) => (
-        <PrayerTimesCard key={prayer.name} prayer={prayer} coordinates={coordinates} />
+        <PrayerTimesCard key={prayer.name} prayer={prayer} coordinates={coordinates} lang={lang} />
       ))}
     </Flex>
   );
@@ -82,6 +82,8 @@ const formatTime = (time: Date, lang: string) => {
 };
 
 const playAthan = () => {
-  const audio = new Audio('https://download.tvquran.com/download/TvQuran.com__Athan/TvQuran.com__01.athan.mp3');
+  const audio = new Audio(
+    'https://download.tvquran.com/download/TvQuran.com__Athan/TvQuran.com__01.athan.mp3'
+  );
   audio.play();
 };
