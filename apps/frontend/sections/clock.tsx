@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import localFont from 'next/font/local';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 
-export const ClockSection = ({ lang } : { lang: SupportedLanguages }) => {
+export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
 
   useEffect(() => {
@@ -23,11 +23,8 @@ export const ClockSection = ({ lang } : { lang: SupportedLanguages }) => {
     };
   }, []);
   // Function to format the time as a string
-  const formatTime = (time: Date): string => time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formatTime = (time: Date): string =>
+    time.toLocaleTimeString([lang], { hour: '2-digit', minute: '2-digit' });
 
-  return (
-    <div className="clock-section">
-      {formatTime(currentTime)}
-    </div>
-  );
+  return <div className="clock-section">{formatTime(currentTime)}</div>;
 };
