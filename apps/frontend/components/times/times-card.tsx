@@ -8,6 +8,8 @@ import { publish } from '@enegix/events';
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 function formatTime(milliseconds: number) {
+  // make it dynamic
+  moment.locale('ar');
   return moment(milliseconds).utcOffset(0).format('HH:mm:ss');
 }
 
@@ -29,7 +31,7 @@ export const PrayerTimesCard = ({
         <div className="next-prayer-alert">الصلاة التالية</div>
         <div className="remaining-timer">
           <Countdown
-            date={Date.now() + prayer.remaining}
+            date={formatTime(Date.now() + prayer.remaining)}
             daysInHours
             onComplete={() => publish('next-prayer', prayer)}
           />
@@ -40,12 +42,12 @@ export const PrayerTimesCard = ({
     <div className="remaining-timer vrLayout">
       {prayer.isNext && (
         <Countdown
-          date={Date.now() + prayer.remaining}
+          date={formatTime(Date.now() + prayer.remaining)}
           daysInHours
           onComplete={() => publish('next-prayer', prayer)}
         />
       )}
     </div>
-    <div className="prayer-time">{prayer.time}</div>
+    <div className="prayer-time">{formatTime(Number(prayer.time))}</div>
   </Card>
 );
