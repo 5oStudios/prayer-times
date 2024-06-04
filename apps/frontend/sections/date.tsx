@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { toHijri } from 'hijri-converter';
+import { localNumber } from '../components/times/times-card';
 
 interface HijriDateProps {
   language: string;
@@ -11,11 +12,13 @@ function HijriDateSection(props: HijriDateProps) {
   const geoDate = new Date();
   const hijriDate = toHijri(geoDate.getFullYear(), geoDate.getMonth() + 1, geoDate.getDate());
 
+  const localizedHijriDate = localNumber(hijriDate.hd, props.language);
+  const localizedHijriYear = localNumber(hijriDate.hy, props.language);
   return (
     <div className="hijri-date" dir={props.language === 'ar' ? 'rtl' : 'ltr'}>
-        {props.language === 'ar'
-          ? `${hijriDate.hd} ${getHijriMonthName(hijriDate.hm, 'ar')} ${hijriDate.hy}`
-          : `Today's Hijri Date: ${hijriDate.hd} ${getHijriMonthName(hijriDate.hm)} ${hijriDate.hy}`}
+      {props.language === 'ar'
+        ? `${localizedHijriDate} ${getHijriMonthName(hijriDate.hm, 'ar')} ${localizedHijriYear}`
+        : `Today's Hijri Date: ${localizedHijriDate} ${getHijriMonthName(hijriDate.hm)} ${localizedHijriYear}`}
     </div>
   );
 }

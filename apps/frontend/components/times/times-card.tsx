@@ -87,6 +87,6 @@ function localTimer(time: string, lang: string) {
   return moment(timeInMilliseconds).utcOffset(0).format('HH:mm');
 }
 
-function localNumber(number: number, lang: string) {
+export function localNumber(number: number, lang: string) {
   return new Intl.NumberFormat(lang).format(number);
 }
