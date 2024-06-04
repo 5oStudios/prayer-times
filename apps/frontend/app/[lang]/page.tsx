@@ -1,12 +1,10 @@
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
-import background from '../../assets/images/gray-bg.jpg';
 import '../../assets/css/global.css';
 import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
-import HijriDateSection from '../../sections/date';
-import ArabicDate from '../../components/dates/date-card';
+import DateSection from '../../sections/date';
 
 export default async function MainPage({
   params: { lang },
@@ -15,12 +13,9 @@ export default async function MainPage({
 }) {
   return (
     <>
-      <div
-        className="screen-wrapper theme-red"
-      >
+      <div className="screen-wrapper theme-red">
         <div className="dates">
-          <HijriDateSection language={lang} />
-          <ArabicDate />
+          <DateSection language={lang} />
         </div>
         <div className="mosquee-name">مسجد الرحمن</div>
         <ClockSection lang={lang} />

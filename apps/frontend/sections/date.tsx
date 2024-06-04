@@ -2,24 +2,33 @@
 
 import React from 'react';
 import { toHijri } from 'hijri-converter';
+import { Flex } from '@mantine/core';
+import moment from 'moment';
 import { localNumber } from '../components/times/times-card';
+import 'moment/locale/ar';
 
 interface HijriDateProps {
   language: string;
 }
 
 function HijriDateSection(props: HijriDateProps) {
+  const lang = props.language === 'ar' ? 'ar' : 'en';
+  moment.locale(lang);
+
   const geoDate = new Date();
   const hijriDate = toHijri(geoDate.getFullYear(), geoDate.getMonth() + 1, geoDate.getDate());
 
-  const localizedHijriDate = localNumber(hijriDate.hd, props.language);
-  const localizedHijriYear = localNumber(hijriDate.hy, props.language);
+  const localizedHijriDay = localNumber(hijriDate.hd, lang);
+  const localizedHijriYear = localNumber(hijriDate.hy, lang);
+  const localizedGregorianDate = moment(geoDate).format('dddd، D MMMM YYYY');
+  const localizedHijriDate = `${localizedHijriDay} ${getHijriMonthName(hijriDate.hm, lang)} ${localizedHijriYear}`;
+
   return (
-    <div className="hijri-date" dir={props.language === 'ar' ? 'rtl' : 'ltr'}>
-      {props.language === 'ar'
-        ? `${localizedHijriDate} ${getHijriMonthName(hijriDate.hm, 'ar')} ${localizedHijriYear}`
-        : `Today's Hijri Date: ${localizedHijriDate} ${getHijriMonthName(hijriDate.hm)} ${localizedHijriYear}`}
-    </div>
+    <Flex gap={3} className="hijri-date" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      <div className="gregorian-date">{localizedGregorianDate}</div>
+      <div className="qobtic-date" />
+      <div className="hijri-date">{localizedHijriDate}</div>
+    </Flex>
   );
 }
 
