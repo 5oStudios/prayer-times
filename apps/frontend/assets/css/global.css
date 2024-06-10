@@ -183,7 +183,7 @@
   .remaining-timer.vrLayout{
     display: none;
   }
-  .vrLEFT .times-section {
+  .vrLEFT .times-section, .vrRIGHT .times-section {
     display: flex;
     flex-direction: column;
     background: rgba(0,0,0,0.6);
@@ -224,6 +224,12 @@
     bottom: 1%;
   }
 
+  .vrLEFT .hadith-marquee, .vrRIGHT .hadith-marquee {
+    width: 100vh;
+  }
+.vrLEFT .rfm-marquee-container, .vrRIGHT .rfm-marquee-container {
+  justify-content: end;
+}
 
 @media screen and (orientation: portrait) {
   .dates {
