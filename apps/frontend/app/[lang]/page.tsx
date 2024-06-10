@@ -17,11 +17,11 @@ export default async function MainPage({
         <div className="dates">
           <DateSection language={lang} />
         </div>
-        <div className="mosquee-name">مسجد الرحمن</div>
+        <div className="mosquee-name">برنامج تجريبي</div>
         <ClockSection lang={lang} />
         <AzkarSection lang={lang} />
         <PrayerTimesSection lang={lang} />
-        <div className="emam-name">إمام المسجد: الشيخ مشاري العفاسي</div>
+        {/*<div className="emam-name">إمام المسجد: الشيخ مشاري العفاسي</div>*/}
         <div className="hadith-marquee">
           <HadithSection lang={lang} />
         </div>

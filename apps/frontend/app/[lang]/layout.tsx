@@ -40,7 +40,7 @@ export default async function RootLayout({
           />
           <title>{dictionary.platform.title}</title>
         </head>
-        <body className="vrLEFTx">
+        <body className="vrLEFT">
           <MantineProvider theme={theme}>
             <ReduxProviders>{children}</ReduxProviders>
           </MantineProvider>

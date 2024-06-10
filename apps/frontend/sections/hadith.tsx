@@ -15,7 +15,8 @@ const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-R
 
 export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const tickerSpeed = useSelector(selectHadithTickerSpeed);
-  const hadith = useSelector(selectHadith);
+  // const hadith = useSelector(selectHadith);
+  const hadith = [{ title: 'برنامج تجريبي', id: 1 }];
   const dispatch = useDispatch();
   const direction = lang === 'ar' ? 'right' : 'left';
 

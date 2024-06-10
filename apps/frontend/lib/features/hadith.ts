@@ -8,7 +8,7 @@ export const fetchHadithList = createAsyncThunk('hadith/fetchHadithList', async 
   const { data } = await hadithClient.getHadithList({
     page: 1,
     perPage: 100,
-    categoryId: 1,
+    categoryId: 4,
   });
   return data;
 });

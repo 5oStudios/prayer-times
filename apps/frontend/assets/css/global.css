@@ -34,7 +34,7 @@
   background: rgba(0,0,0,0.6);
 }
 
-@media screen and (orientation: landscape) {
+
   body{
     overflow: hidden;
     font-family: var(--font-family-arbic);
@@ -88,11 +88,14 @@
     font-size: 2.50dvw;
     font-weight: bold;
   }
-  .qobtic-date:before {
+.qobtic-date{
+  width: 45px;
+  text-align: center;
+}
+.qobtic-date:before {
     content: '•';
     color: red;
     position: relative;
-    right: 0.5em;
   }
 
 /* MOSQUEE NAME */
@@ -220,10 +223,84 @@
     position: absolute;
     bottom: 1%;
   }
-}
+
 
 @media screen and (orientation: portrait) {
-  body {
-    background: #000;
+  .dates {
+    font-size: x-large;
   }
+
+  .mosquee-name {
+    font-size: xx-large;
+  }
+
+  .clock-section {
+    font-size: 4em;
+  }
+
+  .azkar-section {
+    font-size: x-large;
+    top: 35%;
+    width: 90%;
+  }
+  .times-section {
+    display: flex;
+    flex-direction: column;
+    background: rgba(0,0,0,0.6);
+    border-radius: 1.50dvh;
+    gap: 0 !important;
+  }
+
+  .prayer-card {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    padding-block: 0.50dvw;
+    color: #fff;
+    font-size: 4dvw;
+    width: 60dvh;
+  }
+  .active-prayer {
+    scale: 1.10;
+  }
+  .prayer-time{
+    font-size: 2.50dvw;
+  }
+  .remaining-timer {
+    display: none;
+  }
+
+  .next-prayer-alert {
+    display: none;
+  }
+  .remaining-timer.vrLayout{
+    display: block;
+    font-size: 3vh;
+  }
+  .hadith-marquee p{
+    font-size: 1.5em !important;
+  }
+  .times-section {
+    width: 90%;
+  }
+
+  .prayer-card {
+    display: flex;
+    flex-flow: row-reverse;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em;
+  }
+
+  .prayer-time {
+    font-size: 1em;
+  }
+  .emam-name {
+    font-size: 1em;
+  }
+
 }
