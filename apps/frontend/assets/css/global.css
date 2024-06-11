@@ -359,7 +359,32 @@ body {
 
 .rotateBtn {
   position: absolute;
-  width: 5dvw;
-  top: 10dvh;
-  left: 2dvw;
+  top: 12dvh;
+  left: 1dvw;
+  opacity: 0.75;
+}
+.rotateBtnV {
+  position: absolute;
+  top: 5dvh;
+  left: 1dvw;
+  opacity: 0.75;
+}
+
+.ctvrLEFT {
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  height: 100vw;
+  width: 100vh;
+  overflow-x: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 1vw;
+}
+.ctvrRIGHT {
+  transform: rotate(90deg);
+  transform-origin: left top;
+  height: 100%;
+  position: absolute;
+  right: 0;
 }

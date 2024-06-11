@@ -1,14 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-import { Group, Box, Collapse, ThemeIcon, Text, UnstyledButton, rem } from '@mantine/core';
-import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
-import classes from '../../assets/css/NavbarLinksGroup.module.css';
+import { useEffect, useState } from 'react';
+import { useDisclosure } from '@mantine/hooks';
+import { Drawer, Button, Select } from '@mantine/core';
+import { MenuSvg } from '../../assets/icons/menu';
+import { Radio, Group } from '@mantine/core';
 
 export enum ORIENTATION {
   DEFUALT = '',
   LEFT = 'vrLEFT',
   RIGHT = 'vrRIGHT',
+}
+enum POSITION {
+  DEFUALT = 'left',
+  LEFT = 'bottom',
+  RIGHT = 'top',
 }
 
 export type options = {
@@ -16,64 +22,50 @@ export type options = {
   direction: ORIENTATION;
 };
 
-interface LinksGroupProps {
-  icon: React.FC<any>;
-  label: string;
-  initiallyOpened?: boolean;
-  links?: options[];
-  setRotate: (orientation: ORIENTATION) => void;
-}
-
-export function LinksGroup({
-  icon: Icon,
-  label,
-  initiallyOpened,
-  links,
-  setRotate,
-}: LinksGroupProps) {
-  const hasLinks = Array.isArray(links);
-  const [opened, setOpened] = useState(initiallyOpened || false);
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
-      component="a"
-      className={classes.link}
-      href={link.direction}
-      key={link.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setRotate(link.direction);
-      }}
-    >
-      {link.label}
-    </Text>
-  ));
+type SideNavProp = {
+  setOriantation: (direction: ORIENTATION) => void;
+  orientation: ORIENTATION;
+};
+export function SideNav({ setOriantation, orientation }: SideNavProp) {
+  const [opened, { open, close }] = useDisclosure(false);
+  const [value, setValue] = useState<string | null>('');
+  const [position, setPosition] = useState<POSITION>(POSITION.DEFUALT);
+  const [contentOriantation, setContentOriantation] = useState<string>();
+  useEffect(() => {
+    if (value === 'Vertical') {
+      setOriantation(ORIENTATION.DEFUALT);
+      setPosition(POSITION.DEFUALT);
+    } else if (value === 'Left') {
+      setOriantation(ORIENTATION.LEFT);
+      setPosition(POSITION.LEFT);
+    } else if (value === 'Right') {
+      setOriantation(ORIENTATION.RIGHT);
+      setPosition(POSITION.RIGHT);
+    }
+  }, [value]);
 
   return (
     <>
-      <div className="rotateBtn">
-        <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control}>
-          <Group justify="space-between" gap={0}>
-            <Box>
-              <ThemeIcon variant="light" size={30}>
-                <Icon style={{ width: rem(18), height: rem(18) }} />
-              </ThemeIcon>
-              <Box ml="md">{label}</Box>
-            </Box>
-            {hasLinks && (
-              <IconChevronRight
-                className={classes.chevron}
-                stroke={1.5}
-                style={{
-                  width: rem(16),
-                  height: rem(16),
-                  transform: opened ? 'rotate(-90deg)' : 'none',
-                }}
-              />
-            )}
-          </Group>
-        </UnstyledButton>
-        {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
-      </div>
+      <Drawer opened={opened} onClose={close} position={position} withCloseButton={false}>
+        <div className={`ct${orientation}`}>
+          <h3>Rotate Window</h3>
+          <Radio.Group name="Rotate" label="Select rotate option" onChange={(e) => setValue(e)}>
+            <Group mt="xs">
+              <Radio value="Vertical" label="Vertical" />
+              <Radio value="Left" label="Left" />
+              <Radio value="Right" label="Right" />
+            </Group>
+          </Radio.Group>
+        </div>
+      </Drawer>
+
+      <Button
+        variant="transparent"
+        className={orientation === '' ? 'rotateBtnV' : 'rotateBtn'}
+        onClick={open}
+      >
+        <MenuSvg width="1em" height="1em" />
+      </Button>
     </>
   );
 }

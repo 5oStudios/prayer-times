@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useDisclosure } from '@mantine/hooks';
+import { Button } from '@mantine/core';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
@@ -8,8 +10,9 @@ import '../../assets/css/global.css';
 import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
-import { LinksGroup, ORIENTATION } from '../../components/rotateLayout/rotateLayout';
+import { SideNav, ORIENTATION } from '../../components/rotateLayout/rotateLayout';
 import { RotateSvg } from '../../assets/icons/rotate';
+import { MenuSvg } from '../../assets/icons/menu';
 
 export type options = {
   label: string;
@@ -23,10 +26,11 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
     { label: 'left', direction: ORIENTATION.LEFT },
   ];
   const [orientation, setOrientation] = useState<ORIENTATION>(ORIENTATION.DEFUALT);
+
   return (
     <div className={`${orientation}`}>
       <div className="screen-wrapper theme-red ">
-        <LinksGroup icon={RotateSvg} label="" links={content} setRotate={setOrientation} />
+        <SideNav setOriantation={setOrientation} orientation={orientation} />
         <div className="dates">
           <DateSection language={lang} />
         </div>
