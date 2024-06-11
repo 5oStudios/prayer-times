@@ -28,6 +28,7 @@ export default async function RootLayout({
   params: { lang: string };
 }) {
   const dictionary = await getDictionary(lang);
+
   return (
     <DictionaryProvider dictionary={dictionary}>
       <html lang={lang}>
@@ -40,7 +41,7 @@ export default async function RootLayout({
           />
           <title>{dictionary.platform.title}</title>
         </head>
-        <body className="vrLEFT">
+        <body className="">
           <MantineProvider theme={theme}>
             <ReduxProviders>{children}</ReduxProviders>
           </MantineProvider>
