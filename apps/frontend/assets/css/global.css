@@ -185,7 +185,7 @@
   }
   .vrLEFT .times-section, .vrRIGHT .times-section {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     background: rgba(0,0,0,0.6);
     border-radius: 1.50dvh;
     gap: 0 !important;
@@ -206,16 +206,16 @@
   .vrLEFT .prayer-time, .vrRIGHT .prayer-time{
     font-size: 2.50dvw;
   }
-  .vrLEFT .remaining-timer {
+  .vrLEFT .remaining-timer, .vrRIGHT .remaining-timer {
     display: none;
   }
 
-  .vrLEFT .next-prayer-alert {
+  .vrLEFT .next-prayer-alert, .vrRIGHT .next-prayer-alert {
     display: none;
   }
-  .vrLEFT .remaining-timer.vrLayout{
+  .vrLEFT .remaining-timer.vrLayout, .vrRIGHT .remaining-timer.vrLayout{
     display: block;
-    font-size: 3vh;
+    font-size: 4vh;
   }
 
 /* HADITH MRQUEE SECTION */
