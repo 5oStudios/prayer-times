@@ -383,8 +383,10 @@ body {
 }
 .ctvrRIGHT {
   transform: rotate(90deg);
-  transform-origin: left top;
-  height: 100%;
+  transform-origin: right top;
+  height: 100vw;
+  width: 28%;
   position: absolute;
+  top: 100%;
   right: 0;
 }
