@@ -1,4 +1,4 @@
-import { Group, Radio } from '@mantine/core';
+import { Group, Radio, Text } from '@mantine/core';
 import { useDispatch } from 'react-redux';
 import { setOrientation } from '../../lib/features/settings';
 
@@ -11,7 +11,7 @@ export const Orientation = () => {
 
   return (
     <>
-      <h3>Rotate Window</h3>
+      <Text>Rotate Window</Text>
       <Radio.Group name="Rotate" label="Select rotate option" onChange={handleOrientation}>
         <Group mt="xs">
           <Radio value="" label="Vertical" />
