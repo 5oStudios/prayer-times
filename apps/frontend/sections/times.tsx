@@ -26,8 +26,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
 
-  // @ts-expect-error - fix this
-  subscribe('next-prayer', (prayer: PrayerTime) => {
+  subscribe<PrayerTime>('next-prayer', (prayer) => {
     // alert(`It's time for from store ${prayer.name}`);
     // @ts-expect-error - This expression is not callable.
     dispatch(fetchTimes(coordinates));
