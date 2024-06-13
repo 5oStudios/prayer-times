@@ -387,7 +387,7 @@ body {
   transform: rotate(90deg);
   transform-origin: right top;
   height: 100vw;
-  width: 28%;
+  width: 420px;
   position: absolute;
   top: 100%;
   right: 0;
