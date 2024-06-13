@@ -9,8 +9,9 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
-  font-family: 'Changa';
+  font-family: Changa;
   src:
     local('Changa'),
     local('Changa-Regular'),
@@ -18,6 +19,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Reem Kufi';
   src:
@@ -44,6 +46,7 @@ body {
   overflow: hidden;
   font-family: var(--font-family-arbic);
 }
+
 .vrLEFT {
   transform: rotate(-90deg);
   transform-origin: left top;
@@ -54,6 +57,7 @@ body {
   top: 100%;
   left: 0;
 }
+
 .vrRIGHT {
   transform: rotate(90deg);
   transform-origin: right top;
@@ -94,11 +98,13 @@ body {
   font-size: 2.5dvw;
   font-weight: bold;
 }
+
 .qobtic-date {
   width: 45px;
   text-align: center;
 }
-.qobtic-date:before {
+
+.qobtic-date::before {
   content: '•';
   color: red;
   position: relative;
@@ -139,10 +145,12 @@ body {
   justify-content: center;
   width: 80dvw;
 }
+
 .azkar-text {
   text-align: center;
   margin-inline: 0.5em;
 }
+
 .vrLEFT .azkar-section,
 .vrRIGHT .azkar-section {
   width: 90dvh;
@@ -154,6 +162,7 @@ body {
   position: absolute;
   bottom: 15%;
 }
+
 .prayer-card {
   background: #000000c4;
   border-radius: 0.75rem;
@@ -164,32 +173,40 @@ body {
   color: var(--primary-color);
   min-width: 13dvw;
 }
+
 .next-prayer-alert {
   font-size: 1dvw;
 }
+
 .remaining-timer {
   font-size: 1.5dvw;
   color: #c4d513;
 }
+
 .prayer-time {
   font-size: 1.75dvw;
   font-weight: 400;
 }
+
 .active-prayer {
   scale: 1.25;
   z-index: 2;
   background: var(--primary-color) !important;
   color: #fff;
 }
+
 .active-prayer .prayer-name {
   margin-top: -0.8rem;
 }
+
 .active-prayer .prayer-time {
   margin-top: -0.75rem;
 }
+
 .remaining-timer.vrLayout {
   display: none;
 }
+
 .vrLEFT .times-section,
 .vrRIGHT .times-section {
   display: flex;
@@ -212,10 +229,12 @@ body {
   font-size: 4dvw;
   width: 60dvh;
 }
+
 .vrLEFT .prayer-time,
 .vrRIGHT .prayer-time {
   font-size: 2.5dvw;
 }
+
 .vrLEFT .remaining-timer {
   display: none;
 }
@@ -223,6 +242,7 @@ body {
 .vrLEFT .next-prayer-alert {
   display: none;
 }
+
 .vrLEFT .remaining-timer.vrLayout {
   display: block;
   font-size: 3vh;
@@ -238,6 +258,7 @@ body {
 .vrRIGHT .hadith-marquee {
   width: 100vh;
 }
+
 .vrLEFT .rfm-marquee-container,
 .vrRIGHT .rfm-marquee-container {
   justify-content: end;
@@ -261,6 +282,7 @@ body {
     top: 35%;
     width: 90%;
   }
+
   .times-section {
     display: flex;
     flex-direction: column;
@@ -281,12 +303,15 @@ body {
     font-size: 4dvw;
     width: 60dvh;
   }
+
   .active-prayer {
     scale: 1.1;
   }
+
   .prayer-time {
     font-size: 2.5dvw;
   }
+
   .remaining-timer {
     display: none;
   }
@@ -294,13 +319,16 @@ body {
   .next-prayer-alert {
     display: none;
   }
+
   .remaining-timer.vrLayout {
     display: block;
     font-size: 3vh;
   }
+
   .hadith-marquee p {
     font-size: 1.5em !important;
   }
+
   .times-section {
     width: 90%;
   }
@@ -317,6 +345,7 @@ body {
   .prayer-time {
     font-size: 1em;
   }
+
   .emam-name {
     font-size: 1em;
   }
@@ -358,19 +387,9 @@ body {
 }
 
 .rotateBtn {
-  position: absolute;
-  top: 12dvh;
-  left: 1dvw;
-  opacity: 0.75;
-  z-index: 20;
+
 }
-.rotateBtnV {
-  position: absolute;
-  top: 5dvh;
-  left: 1dvw;
-  opacity: 0.75;
-  z-index: 20;
-}
+
 
 .ctvrLEFT {
   transform: rotate(-90deg);
@@ -383,6 +402,7 @@ body {
   left: 0;
   padding: 1vw;
 }
+
 .ctvrRIGHT {
   transform: rotate(90deg);
   transform-origin: right top;
