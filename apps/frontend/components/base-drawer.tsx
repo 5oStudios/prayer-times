@@ -1,19 +1,27 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Button, Drawer } from '@mantine/core';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ORIENTATION, selectOrientation } from '../lib/features/settings';
 import { MenuSvg } from '../assets/icons/menu';
 
 enum POSITION {
-  DEFAULT = 'left',
+  AR_DEFAULT = 'left',
+  EN_DEFAULT = 'right',
   LEFT = 'bottom',
   RIGHT = 'top',
 }
-export const BaseDrawer = ({ children }: { children: ReactNode }) => {
+
+type BaseDrawer = {
+  children: ReactNode;
+  language: string;
+};
+
+export const BaseDrawer = ({ children, language }: BaseDrawer) => {
+  const isArabic: boolean = language === 'ar';
   const [opened, { open, close }] = useDisclosure(false);
   const orientation = useSelector(selectOrientation);
-  const position = getComputedPosition(orientation);
+  const position = getComputedPosition(orientation, isArabic);
 
   return (
     <>
@@ -25,11 +33,11 @@ export const BaseDrawer = ({ children }: { children: ReactNode }) => {
         variant="transparent"
         style={{
           position: 'absolute',
-          // top: '5dvh',
-          left: '.5dvw',
+          left: isArabic ? 'auto' : '0.5dvw',
+          right: isArabic ? '0.5dvw' : 'auto',
           opacity: 0.75,
           zIndex: 20,
-          top: '2dvh',
+          top: orientation === '' ? '2dvh' : '22vh',
         }}
         onClick={open}
       >
@@ -38,13 +46,13 @@ export const BaseDrawer = ({ children }: { children: ReactNode }) => {
     </>
   );
 };
-function getComputedPosition(orientation: ORIENTATION) {
+function getComputedPosition(orientation: ORIENTATION, isArabic: boolean) {
   switch (orientation) {
     case ORIENTATION.LEFT:
-      return POSITION.LEFT;
+      return isArabic ? POSITION.LEFT : POSITION.RIGHT;
     case ORIENTATION.RIGHT:
-      return POSITION.RIGHT;
+      return isArabic ? POSITION.RIGHT : POSITION.LEFT;
     default:
-      return POSITION.DEFAULT;
+      return isArabic ? POSITION.AR_DEFAULT : POSITION.EN_DEFAULT;
   }
 }

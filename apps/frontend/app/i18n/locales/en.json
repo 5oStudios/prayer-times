@@ -15,5 +15,16 @@
   },
   "common": {
     "loading": "Loading..."
+  },
+  "settings": {
+    "orientation": {
+      "title": "Rotate Window",
+      "label": "Select rotate option",
+      "options": {
+        "vertical": "Vertical",
+        "left": "Left",
+        "right": "Right"
+      }
+    }
   }
 }

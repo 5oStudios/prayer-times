@@ -386,11 +386,6 @@ body {
   transition: transform 200ms ease;
 }
 
-.rotateBtn {
-
-}
-
-
 .ctvrLEFT {
   transform: rotate(-90deg);
   transform-origin: left top;
@@ -407,7 +402,7 @@ body {
   transform: rotate(90deg);
   transform-origin: right top;
   height: 100vw;
-  width: 420px;
+  width: 410px;
   position: absolute;
   top: 100%;
   right: 0;

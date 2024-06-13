@@ -15,5 +15,16 @@
   },
   "common": {
     "loading": "جاري التحميل..."
+  },
+  "settings": {
+    "orientation": {
+      "title": "تدوير النافذة",
+      "label": "اختر خيار التدوير",
+      "options": {
+        "vertical": "عمودي",
+        "left": "يسار",
+        "right": "يمين"
+      }
+    }
   }
 }

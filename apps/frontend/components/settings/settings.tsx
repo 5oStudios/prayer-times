@@ -1,10 +1,14 @@
 import { BaseDrawer } from '../base-drawer';
 import { Orientation } from './orientation';
 
-export function SideDialog() {
+type SideDialogProps = {
+  language: string;
+};
+
+export function Settings(props: SideDialogProps) {
   return (
     <>
-      <BaseDrawer>
+      <BaseDrawer language={props.language}>
         <Orientation />
       </BaseDrawer>
     </>

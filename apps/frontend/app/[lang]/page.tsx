@@ -10,14 +10,14 @@ import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
 import { selectOrientation } from '../../lib/features/settings';
-import { SideDialog } from '../../components';
+import { Settings } from '../../components';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
   return (
     <div className={`${orientation}`}>
       <div className="screen-wrapper theme-red ">
-        <SideDialog />
+        <Settings language={lang} />
         <div className="dates">
           <DateSection language={lang} />
         </div>

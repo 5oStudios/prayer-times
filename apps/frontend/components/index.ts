@@ -1,2 +1,2 @@
-export * from './side-dialog';
+export * from './settings';
 export * from './times';
