@@ -10,7 +10,7 @@ import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
 import { selectOrientation } from '../../lib/features/settings';
-import { SideDialog } from '../../components/side-dialog/side-dialog';
+import { SideDialog } from '../../components';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);

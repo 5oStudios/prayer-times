@@ -4,7 +4,7 @@ import React from 'react';
 import { toHijri } from 'hijri-converter';
 import { Flex } from '@mantine/core';
 import moment from 'moment';
-import { localNumber } from '../components/times/times-card';
+import { localNumber } from '../components';
 import 'moment/locale/ar';
 
 interface HijriDateProps {

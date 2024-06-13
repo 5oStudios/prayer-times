@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
-import { PrayerTimesCard } from '../components/times/times-card';
+import { PrayerTimesCard } from '../components';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
