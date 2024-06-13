@@ -30,4 +30,3 @@ export const Orientation = () => {
     </>
   );
 };
-// name: dictionary.times[capitalize(name) as keyof typeof dictionary.times], // simplify this

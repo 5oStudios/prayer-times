@@ -6,10 +6,10 @@ import { ORIENTATION, selectOrientation } from '../lib/features/settings';
 import { MenuSvg } from '../assets/icons/menu';
 
 enum POSITION {
-  AR_DEFAULT = 'left',
-  EN_DEFAULT = 'right',
-  LEFT = 'bottom',
-  RIGHT = 'top',
+  AR_DEFAULT = 'right',
+  EN_DEFAULT = 'left',
+  LEFT = 'top',
+  RIGHT = 'bottom',
 }
 
 type BaseDrawer = {
