@@ -1,3 +1,5 @@
+'use client';
+
 import { Card } from '@mantine/core';
 import localFont from 'next/font/local';
 import moment from 'moment/moment';
@@ -9,10 +11,10 @@ import 'moment/locale/ar';
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 export const PrayerTimesCard = ({
-  prayer,
-  coordinates,
-  lang,
-}: {
+                                  prayer,
+                                  coordinates,
+                                  lang,
+                                }: {
   prayer: {
     name: string;
     time: string;
@@ -71,9 +73,9 @@ type CountDownFormatterProps = {
 };
 
 const countDownFormatter = ({
-  formatted: { hours, minutes, seconds },
-  lang,
-}: CountDownFormatterProps) => (
+                              formatted: { hours, minutes, seconds },
+                              lang,
+                            }: CountDownFormatterProps) => (
   <div className="timer">
     {localNumber(parseInt(hours, 10), lang)}:{localNumber(parseInt(minutes, 10), lang)}:
     {localNumber(parseInt(seconds, 10), lang)}
@@ -87,6 +89,11 @@ function localTimer(time: string, lang: string) {
   return moment(timeInMilliseconds).utcOffset(0).format('HH:mm');
 }
 
-export function localNumber(number: number, lang: string) {
-  return new Intl.NumberFormat(lang).format(number);
+function toArabicNumber(number: number | string): string {
+  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  return number.toString().replace(/\d/g, (digit) => arabicDigits[digit]);
+}
+
+export function localNumber(number: number, lang: string): string {
+  return lang === 'ar' ? toArabicNumber(number) : new Intl.NumberFormat(lang).format(number);
 }

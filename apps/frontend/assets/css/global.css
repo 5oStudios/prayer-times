@@ -162,7 +162,6 @@ body {
   position: absolute;
   bottom: 15%;
 }
-
 .prayer-card {
   background: #000000c4;
   border-radius: 0.75rem;
@@ -173,44 +172,36 @@ body {
   color: var(--primary-color);
   min-width: 13dvw;
 }
-
 .next-prayer-alert {
   font-size: 1dvw;
 }
-
 .remaining-timer {
   font-size: 1.5dvw;
   color: #c4d513;
 }
-
 .prayer-time {
   font-size: 1.75dvw;
   font-weight: 400;
 }
-
 .active-prayer {
   scale: 1.25;
   z-index: 2;
   background: var(--primary-color) !important;
   color: #fff;
 }
-
 .active-prayer .prayer-name {
   margin-top: -0.8rem;
 }
-
 .active-prayer .prayer-time {
   margin-top: -0.75rem;
 }
-
 .remaining-timer.vrLayout {
   display: none;
 }
-
 .vrLEFT .times-section,
 .vrRIGHT .times-section {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 1.5dvh;
   gap: 0 !important;
@@ -229,23 +220,23 @@ body {
   font-size: 4dvw;
   width: 60dvh;
 }
-
 .vrLEFT .prayer-time,
 .vrRIGHT .prayer-time {
   font-size: 2.5dvw;
 }
-
-.vrLEFT .remaining-timer {
+.vrLEFT .remaining-timer,
+.vrRIGHT .remaining-timer {
   display: none;
 }
 
-.vrLEFT .next-prayer-alert {
+.vrLEFT .next-prayer-alert,
+.vrRIGHT .next-prayer-alert {
   display: none;
 }
-
-.vrLEFT .remaining-timer.vrLayout {
+.vrLEFT .remaining-timer.vrLayout,
+.vrRIGHT .remaining-timer.vrLayout {
   display: block;
-  font-size: 3vh;
+  font-size: 4vh;
 }
 
 /* HADITH MRQUEE SECTION */
