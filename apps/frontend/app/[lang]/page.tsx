@@ -9,11 +9,11 @@ import '../../assets/css/global.css';
 import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
-import { selectOrientation } from '../../lib/features/settings';
+import { selectRotateDirection } from '../../lib/features/rotateWindowState';
 import { Settings } from '../../components';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
-  const orientation = useSelector(selectOrientation);
+  const orientation = useSelector(selectRotateDirection);
   return (
     <div className={`${orientation}`}>
       <div className="screen-wrapper theme-red ">

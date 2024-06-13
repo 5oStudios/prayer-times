@@ -1,11 +1,11 @@
 import { Group, Radio, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOrientation, setOrientation } from '../../lib/features/settings';
+import { selectRotateDirection, setOrientation } from '../../lib/features/rotateWindowState';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 
 export const Orientation = () => {
   const dispatch = useDispatch();
-  const orientation = useSelector(selectOrientation);
+  const orientation = useSelector(selectRotateDirection);
   const dictionary = useDictionary();
 
   const handleOrientation = (value: string) => {

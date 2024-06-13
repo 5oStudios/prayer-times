@@ -11,10 +11,10 @@ import 'moment/locale/ar';
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 export const PrayerTimesCard = ({
-                                  prayer,
-                                  coordinates,
-                                  lang,
-                                }: {
+  prayer,
+  coordinates,
+  lang,
+}: {
   prayer: {
     name: string;
     time: string;
@@ -73,9 +73,9 @@ type CountDownFormatterProps = {
 };
 
 const countDownFormatter = ({
-                              formatted: { hours, minutes, seconds },
-                              lang,
-                            }: CountDownFormatterProps) => (
+  formatted: { hours, minutes, seconds },
+  lang,
+}: CountDownFormatterProps) => (
   <div className="timer">
     {localNumber(parseInt(hours, 10), lang)}:{localNumber(parseInt(minutes, 10), lang)}:
     {localNumber(parseInt(seconds, 10), lang)}

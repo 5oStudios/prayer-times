@@ -1,8 +1,8 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Button, Drawer } from '@mantine/core';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
-import { ORIENTATION, selectOrientation } from '../lib/features/settings';
+import { ORIENTATION, selectRotateDirection } from '../lib/features/rotateWindowState';
 import { MenuSvg } from '../assets/icons/menu';
 
 enum POSITION {
@@ -20,7 +20,7 @@ type BaseDrawer = {
 export const BaseDrawer = ({ children, language }: BaseDrawer) => {
   const isArabic: boolean = language === 'ar';
   const [opened, { open, close }] = useDisclosure(false);
-  const orientation = useSelector(selectOrientation);
+  const orientation = useSelector(selectRotateDirection);
   const position = getComputedPosition(orientation, isArabic);
 
   return (
