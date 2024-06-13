@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { Drawer, Button, Select } from '@mantine/core';
+import { Radio, Group, Drawer, Button } from '@mantine/core';
 import { MenuSvg } from '../../assets/icons/menu';
-import { Radio, Group } from '@mantine/core';
 
 export enum ORIENTATION {
   DEFUALT = '',

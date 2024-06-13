@@ -362,12 +362,14 @@ body {
   top: 12dvh;
   left: 1dvw;
   opacity: 0.75;
+  z-index: 20;
 }
 .rotateBtnV {
   position: absolute;
   top: 5dvh;
   left: 1dvw;
   opacity: 0.75;
+  z-index: 20;
 }
 
 .ctvrLEFT {
