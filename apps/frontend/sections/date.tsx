@@ -87,39 +87,3 @@ function toArabicNumber(number: { toString: () => string }) {
 function localNumber(number: number, lang: string) {
   return lang === 'ar' ? toArabicNumber(number) : number.toString();
 }
-
-function HijriDateSection(props: HijriDateProps) {
-  const lang = props.language === 'ar' ? 'ar' : 'en';
-  moment.locale(lang);
-
-  const [currentDate, setCurrentDate] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(
-      () => {
-        setCurrentDate(new Date());
-      },
-      1000 * 60 * 60 * 24
-    ); // Update every 24 hours
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const geoDate = currentDate;
-  const hijriDate = toHijri(geoDate.getFullYear(), geoDate.getMonth() + 1, geoDate.getDate());
-
-  const localizedHijriDay = localNumber(hijriDate.hd, lang);
-  const localizedHijriYear = localNumber(hijriDate.hy, lang);
-  const localizedGregorianDate = moment(geoDate).format('dddd، D MMMM YYYY');
-  const localizedHijriDate = `${localizedHijriDay} ${getHijriMonthName(hijriDate.hm, lang)} ${localizedHijriYear}`;
-
-  return (
-    <Flex gap={3} className="hijri-date" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="gregorian-date">{localizedGregorianDate}</div>
-      <div className="qobtic-date" />
-      <div className="hijri-date">{localizedHijriDate}</div>
-    </Flex>
-  );
-}
-
-export default HijriDateSection;
