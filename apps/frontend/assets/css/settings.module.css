@@ -1,9 +1,8 @@
-/* SaveButton.module.css */
 .saveButton {
   position: absolute;
-  bottom: 20px; /* Adjust as needed */
+  bottom: 20px;
   right: 5%;
-  background-color: #0056b3; /* Example hover color */
+  background-color: #0056b3;
   color: white;
   border: none;
   border-radius: 5px;
