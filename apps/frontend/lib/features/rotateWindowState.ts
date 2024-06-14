@@ -36,7 +36,7 @@ function savedOrientation(value: ORIENTATION) {
 export const rotateWindowStateSlice = createSlice({
   name: 'rotateWindow',
   initialState: {
-    rotateDirection: ORIENTATION.DEFAULT, // Initial state without localStorage
+    rotateDirection: ORIENTATION.DEFAULT,
   },
   selectors: {
     selectRotateDirection: (state) => state.rotateDirection,
@@ -44,22 +44,18 @@ export const rotateWindowStateSlice = createSlice({
   reducers: {
     setOrientation: (state, action) => {
       state.rotateDirection = action.payload;
-      savedOrientation(state.rotateDirection);
     },
     refresh: (state) => {
       state.rotateDirection = getSavedOrientation();
       console.log('state', state.rotateDirection);
     },
+    saveLocalStorage: (state) => {
+      savedOrientation(state.rotateDirection);
+    },
   },
 });
 
-export const rotateWindowPreloadedState = {
-  rotateWindow: {
-    rotateDirection: ORIENTATION.DEFAULT, // Preloaded state without localStorage
-  },
-};
-
-export const { setOrientation, refresh } = rotateWindowStateSlice.actions;
+export const { setOrientation, refresh, saveLocalStorage } = rotateWindowStateSlice.actions;
 
 export const { selectRotateDirection } = rotateWindowStateSlice.selectors;
 
