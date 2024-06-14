@@ -5,6 +5,7 @@ import { useDictionary } from '../../app/[lang]/dictionary-provider';
 
 export const Orientation = () => {
   const dispatch = useDispatch();
+
   const orientation = useSelector(selectRotateDirection);
   const dictionary = useDictionary();
 

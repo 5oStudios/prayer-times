@@ -1,13 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// TODO: make helper
 export enum ORIENTATION {
   DEFAULT = '',
   LEFT = 'vrLEFT',
   RIGHT = 'vrRIGHT',
 }
 
+function isBrowser() {
+  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+}
+
 export function getSavedOrientation(): ORIENTATION {
+  if (!isBrowser()) {
+    return ORIENTATION.DEFAULT;
+  }
+
   const serializedState = localStorage.getItem('rotateWindowState');
   if (serializedState === null) {
     return ORIENTATION.DEFAULT;
@@ -19,14 +26,17 @@ export function getSavedOrientation(): ORIENTATION {
     return ORIENTATION.DEFAULT;
   }
 }
+
 function savedOrientation(value: ORIENTATION) {
-  localStorage.setItem('rotateWindowState', JSON.stringify({ value }));
+  if (isBrowser()) {
+    localStorage.setItem('rotateWindowState', JSON.stringify({ value }));
+  }
 }
 
 export const rotateWindowStateSlice = createSlice({
   name: 'rotateWindow',
   initialState: {
-    rotateDirection: getSavedOrientation(),
+    rotateDirection: ORIENTATION.DEFAULT, // Initial state without localStorage
   },
   selectors: {
     selectRotateDirection: (state) => state.rotateDirection,
@@ -36,16 +46,20 @@ export const rotateWindowStateSlice = createSlice({
       state.rotateDirection = action.payload;
       savedOrientation(state.rotateDirection);
     },
+    refresh: (state) => {
+      state.rotateDirection = getSavedOrientation();
+      console.log('state', state.rotateDirection);
+    },
   },
 });
 
 export const rotateWindowPreloadedState = {
   rotateWindow: {
-    rotateDirection: getSavedOrientation(),
+    rotateDirection: ORIENTATION.DEFAULT, // Preloaded state without localStorage
   },
 };
 
-export const { setOrientation } = rotateWindowStateSlice.actions;
+export const { setOrientation, refresh } = rotateWindowStateSlice.actions;
 
 export const { selectRotateDirection } = rotateWindowStateSlice.selectors;
 
