@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { ORIENTATION, selectRotateDirection } from '../lib/features/rotateWindowState';
 import { MenuSvg } from '../assets/icons/menu';
+import styles from '../assets/css/settings.module.css';
 
 enum POSITION {
   AR_DEFAULT = 'right',
@@ -26,7 +27,7 @@ export const BaseDrawer = ({ children, language }: BaseDrawer) => {
   return (
     <>
       <Drawer opened={opened} onClose={close} position={position} withCloseButton={false}>
-        <div className={`ct${orientation}`}>{children}</div>
+        <div className={styles[`ct${orientation}`]}>{children}</div>
       </Drawer>
 
       <Button

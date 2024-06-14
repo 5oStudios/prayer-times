@@ -2,16 +2,34 @@
 .saveButton {
   position: absolute;
   bottom: 20px; /* Adjust as needed */
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px 20px;
-  background-color: #479ea3; /* Example background color */
+  right: 5%;
+  background-color: #0056b3; /* Example hover color */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.saveButton:hover {
-  background-color: #0056b3; /* Example hover color */
+.ctvrLEFT {
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  height: 100vw;
+  width: 440px;
+  overflow-x: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 1vw;
+}
+
+.ctvrRIGHT {
+  transform: rotate(90deg);
+  transform-origin: right top;
+  height: 100vw;
+  width: 440px;
+  overflow-x: hidden;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  padding: 2vw;
 }

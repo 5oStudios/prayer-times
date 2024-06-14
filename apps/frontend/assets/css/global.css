@@ -376,25 +376,3 @@ body {
 .chevron {
   transition: transform 200ms ease;
 }
-
-.ctvrLEFT {
-  transform: rotate(-90deg);
-  transform-origin: left top;
-  height: 100vw;
-  width: 100vh;
-  overflow-x: hidden;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  padding: 1vw;
-}
-
-.ctvrRIGHT {
-  transform: rotate(90deg);
-  transform-origin: right top;
-  height: 100vw;
-  width: 410px;
-  position: absolute;
-  top: 100%;
-  right: 0;
-}
