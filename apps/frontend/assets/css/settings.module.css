@@ -32,3 +32,21 @@
   right: 0;
   padding: 2vw;
 }
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.subHeader {
+  font-size: 1.2rem;
+}
+
+.alRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Aligns items to the right */
+  text-align: right;
+}
+.paddingTop {
+  padding-top: 1rem;
+}

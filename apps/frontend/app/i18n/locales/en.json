@@ -17,6 +17,7 @@
     "loading": "Loading..."
   },
   "settings": {
+    "title": "settings",
     "orientation": {
       "title": "Rotate Window",
       "label": "Select rotate option",

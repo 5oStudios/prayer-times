@@ -2,6 +2,7 @@ import { Group, Radio, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectRotateDirection, setOrientation } from '../../lib/features/rotateWindowState';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
+import styles from '../../assets/css/settings.module.css';
 
 export const Orientation = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,9 @@ export const Orientation = () => {
 
   return (
     <>
-      <Text>{dictionary.settings.orientation.title}</Text>
+      <Text className={styles.subHeader}>{dictionary.settings.orientation.title}</Text>
       <Radio.Group
-        name={dictionary.settings.orientation.title}
+        className={styles.paddingTop}
         label={dictionary.settings.orientation.label}
         onChange={handleOrientation}
         value={orientation}
