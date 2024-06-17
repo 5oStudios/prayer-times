@@ -15,7 +15,7 @@ export function Settings(props: SideDialogProps) {
     <>
       <BaseDrawer language={props.language}>
         <div className={props.language === 'ar' ? styles.alRight : ''}>
-          <Text className={styles.title}>{dictionary.settings.orientation.title}</Text>
+          <Text className={styles.title}>{dictionary.settings.title}</Text>
           <Orientation />
           <SaveButton />
         </div>
