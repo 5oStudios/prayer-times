@@ -16,14 +16,16 @@ enum POSITION {
 type BaseDrawer = {
   children: ReactNode;
   language: string;
+  opened: boolean;
+  open: () => void;
+  close: () => void;
 };
 
-export const BaseDrawer = ({ children, language }: BaseDrawer) => {
+export const BaseDrawer = ({ children, language, opened, open, close }: BaseDrawer) => {
   const isArabic: boolean = language === 'ar';
-  const [opened, { open, close }] = useDisclosure(false);
+  // const [opened, { open, close }] = useDisclosure(false);
   const orientation = useSelector(selectRotateDirection);
   const position = getComputedPosition(orientation, isArabic);
-
   return (
     <>
       <Drawer opened={opened} onClose={close} position={position} withCloseButton={false}>

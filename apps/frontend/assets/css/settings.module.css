@@ -35,18 +35,50 @@
 
 .title {
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
 }
+
 .subHeader {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .alRight {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Aligns items to the right */
+  align-items: flex-end;
   text-align: right;
 }
-.paddingTop {
-  padding-top: 0.5rem;
+.alLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+.button {
+  text-align: center;
+  line-height: 3rem;
+  color: black;
+  height: 3rem;
+  width: 4vw;
+  background-color: #fefefe;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: #d9dade;
+  border-style: solid;
+  border-width: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #d4dae6;
+  color: black;
+}
+.buttonSelected {
+  background-color: #d4dae6;
+}
+
+.noBorder {
+  border-left: none;
+  border-right: none;
 }
