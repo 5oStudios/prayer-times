@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@mantine/core';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import Drawer from 'react-modern-drawer';
 import { selectRotateDirection } from '../lib/features/rotateWindowState';

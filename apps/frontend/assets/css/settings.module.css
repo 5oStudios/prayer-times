@@ -1,3 +1,23 @@
+@font-face {
+  font-family: Montserrat;
+  src:
+    local('Montserrat'),
+    local('Montserrat-Regular'),
+    url('../fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: IBM_Plex_Sans_Arabic;
+  src:
+    local('IBM_Plex_Sans_Arabic'),
+    local('IBM_Plex_Sans_Arabic-Regular'),
+    url('../fonts/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .saveButton {
   position: absolute;
   bottom: 20px;
@@ -33,14 +53,44 @@
   padding: 2vw;
 }
 
-.title {
+/* MOSQUEE NAME
+.mosquee-name {
+  position: absolute;
+  top: 11%;
+  font-size: 2.5dvw;
+  font-family: 'SF Arabic', sans-serif;
+  font-weight: bold;
+} */
+
+.titleAr {
+  font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.titleEn {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
   margin-bottom: 1rem;
   font-weight: bold;
 }
 
-.subHeader {
-  font-size: 1.3rem;
+.ArStyle {
+  font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
+}
+.EnStyle {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.subHeaderAr {
+  font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.subHeaderEn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .alRight {
@@ -83,7 +133,14 @@
   border-right: none;
 }
 
-.buttonContainer {
+.buttonContainerAR {
+  font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
+  display: flex;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.buttonContainerEN {
+  font-family: 'Montserrat', sans-serif;
   display: flex;
   margin-top: 0.5rem;
   width: 100%;

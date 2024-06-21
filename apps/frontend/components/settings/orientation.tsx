@@ -5,7 +5,11 @@ import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from '../../assets/css/settings.module.css';
 import SettingButton from './settingButton';
 
-export const Orientation = () => {
+type OrientationProps = {
+  language: string;
+};
+
+export const Orientation = ({ language }: OrientationProps) => {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
 
@@ -15,9 +19,13 @@ export const Orientation = () => {
 
   return (
     <>
-      <Text className={styles.subHeader}>{dictionary.settings.orientation.title}</Text>
-      <Text>{dictionary.settings.orientation.label}</Text>
-      <div className={styles.buttonContainer}>
+      <Text className={language === 'ar' ? styles.subHeaderAr : styles.subHeaderEn}>
+        {dictionary.settings.orientation.title}
+      </Text>
+      <Text className={language === 'ar' ? styles.ArStyle : styles.EnStyle}>
+        {dictionary.settings.orientation.label}
+      </Text>
+      <div className={language === 'ar' ? styles.buttonContainerAR : styles.buttonContainerEN}>
         <SettingButton value="vrLEFT" borderRadius="10px 0 0 10px" onChange={handleOrientation}>
           {dictionary.settings.orientation.options.left}
         </SettingButton>
