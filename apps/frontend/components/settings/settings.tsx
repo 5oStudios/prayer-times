@@ -1,6 +1,6 @@
+import { useDisclosure } from '@mantine/hooks';
 import { Text } from '@mantine/core';
 import { BaseDrawer } from '../base-drawer';
-import { useDisclosure } from '@mantine/hooks';
 import { Orientation } from './orientation';
 import { SaveButton } from './saveButton';
 import styles from '../../assets/css/settings.module.css';
