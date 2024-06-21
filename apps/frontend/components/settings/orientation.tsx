@@ -17,12 +17,12 @@ export const Orientation = () => {
     <>
       <Text className={styles.subHeader}>{dictionary.settings.orientation.title}</Text>
       <Text>{dictionary.settings.orientation.label}</Text>
-      <div style={{ marginTop: '0.5rem' }}>
-        <SettingButton value="" borderRadius="10px 0 0 10px" onChange={handleOrientation}>
-          {dictionary.settings.orientation.options.vertical}
-        </SettingButton>
-        <SettingButton value="vrLEFT" borderRadius="0 0 0 0" noBorder onChange={handleOrientation}>
+      <div className={styles.buttonContainer}>
+        <SettingButton value="vrLEFT" borderRadius="10px 0 0 10px" onChange={handleOrientation}>
           {dictionary.settings.orientation.options.left}
+        </SettingButton>
+        <SettingButton value="" borderRadius="0" noBorder onChange={handleOrientation}>
+          {dictionary.settings.orientation.options.vertical}
         </SettingButton>
         <SettingButton value="vrRIGHT" borderRadius="0 10px 10px 0" onChange={handleOrientation}>
           {dictionary.settings.orientation.options.right}

@@ -1,4 +1,4 @@
-import { useDisclosure } from '@mantine/hooks';
+import { useState } from 'react';
 import { Text } from '@mantine/core';
 import { BaseDrawer } from '../base-drawer';
 import { Orientation } from './orientation';
@@ -13,12 +13,15 @@ type SideDialogProps = {
 
 export function Settings(props: SideDialogProps) {
   const dictionary = useDictionary();
-  const [opened, { open, close }] = useDisclosure(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState);
+  };
   return (
     <>
-      <BaseDrawer language={props.language} open={open} close={close} opened={opened}>
+      <BaseDrawer language={props.language} isOpen={isOpen} toggleDrawer={toggleDrawer}>
         <div className={props.language === 'ar' ? styles.alRight : ''}>
-          <SettingsHeader language={props.language} closDrawer={close} />
+          <SettingsHeader language={props.language} closDrawer={toggleDrawer} />
           <Text className={styles.title}>{dictionary.settings.title}</Text>
           <Orientation />
           <SaveButton />

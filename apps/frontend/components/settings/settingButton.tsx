@@ -27,4 +27,5 @@ function SettingButton({ borderRadius, children, noBorder, value, onChange }: Se
     </Button>
   );
 }
+
 export default SettingButton;
