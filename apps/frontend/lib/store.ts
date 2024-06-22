@@ -1,3 +1,5 @@
+'use client';
+
 import { configureStore } from '@reduxjs/toolkit';
 import settingsSlice from './features/settings';
 import hadithSlice from './features/hadith';
@@ -15,12 +17,12 @@ const store = configureStore({
       serializableCheck: false,
     }),
   preloadedState: {
-    settings: JSON.parse(localStorage.getItem('settings') || '{}'),
+    settings: window && localStorage && JSON.parse(localStorage.getItem('settings') || '{}'),
   },
 });
 export default store;
 
 subscribe('save-settings', () => {
   const settings = store.getState().settings;
-  localStorage.setItem('settings', JSON.stringify(settings));
+  window && localStorage && localStorage.setItem('settings', JSON.stringify(settings));
 });
