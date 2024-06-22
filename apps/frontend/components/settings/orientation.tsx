@@ -1,9 +1,9 @@
-import { Text } from '@mantine/core';
-import { useDispatch } from 'react-redux';
-import { setOrientation } from '../../lib/features/rotateWindowState';
+import { Divider, SegmentedControl, Text } from '@mantine/core';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from '../../assets/css/settings.module.css';
 import SettingButton from './settingButton';
+import { setOrientation } from '../../lib/features/settings';
 
 type OrientationProps = {
   language: string;
@@ -12,6 +12,7 @@ type OrientationProps = {
 export const Orientation = ({ language }: OrientationProps) => {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
+  const isArabic = language === 'ar';
 
   const handleOrientation = (value: string) => {
     dispatch(setOrientation(value));
@@ -19,13 +20,13 @@ export const Orientation = ({ language }: OrientationProps) => {
 
   return (
     <>
-      <Text className={language === 'ar' ? styles.subHeaderAr : styles.subHeaderEn}>
+      <Text className={isArabic ? styles.subHeaderAr : styles.subHeaderEn}>
         {dictionary.settings.orientation.title}
       </Text>
-      <Text className={language === 'ar' ? styles.ArStyle : styles.EnStyle}>
+      <Text className={isArabic ? styles.ArStyle : styles.EnStyle}>
         {dictionary.settings.orientation.label}
       </Text>
-      <div className={language === 'ar' ? styles.buttonContainerAR : styles.buttonContainerEN}>
+      <div className={isArabic ? styles.buttonContainerAR : styles.buttonContainerEN}>
         <SettingButton value="vrLEFT" borderRadius="10px 0 0 10px" onChange={handleOrientation}>
           {dictionary.settings.orientation.options.left}
         </SettingButton>

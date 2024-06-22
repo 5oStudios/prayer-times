@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
@@ -9,16 +9,13 @@ import '../../assets/css/global.css';
 import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
-import { selectRotateDirection, refresh } from '../../lib/features/rotateWindowState';
 import { Settings } from '../../components';
+import { selectOrientation } from '../../lib/features/settings';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const dispatch = useDispatch();
+  const orientation = useSelector(selectOrientation);
 
-  useEffect(() => {
-    dispatch(refresh());
-  }, [dispatch]);
-  const orientation = useSelector(selectRotateDirection);
   return (
     <div className={`${orientation}`}>
       <div className="screen-wrapper theme-red ">

@@ -1,11 +1,10 @@
-'use client';
-
 import { Button } from '@mantine/core';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import Drawer from 'react-modern-drawer';
-import { selectRotateDirection } from '../lib/features/rotateWindowState';
 import { MenuSvg } from '../assets/icons/menu';
+import { selectOrientation } from '../lib/features/settings';
+import SettingsHeader from './settings/settingsHeader';
 import 'react-modern-drawer/dist/index.css';
 
 type BaseDrawer = {
@@ -16,8 +15,8 @@ type BaseDrawer = {
 };
 
 export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDrawer) => {
-  const isArabic: boolean = language === 'ar';
-  const orientation = useSelector(selectRotateDirection);
+  const isArabic = language === 'ar';
+  const orientation = useSelector(selectOrientation);
   return (
     <>
       <Drawer
@@ -35,6 +34,8 @@ export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDra
         }}
         enableOverlay={false}
       >
+        <SettingsHeader language={language} closDrawer={toggleDrawer} />
+
         <div style={{ padding: '1rem' }}>{children}</div>
       </Drawer>
       <Button

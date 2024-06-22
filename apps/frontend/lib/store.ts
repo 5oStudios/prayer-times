@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import settingsSlice from './features/settings';
 import hadithSlice from './features/hadith';
 import timesSlice from './features/times';
-import { rotateWindowStateSlice } from './features/rotateWindowState';
+import { safeLocalStorage } from '../services/local-storage';
+import { subscribe } from '@enegix/events';
 
 const store = configureStore({
   reducer: {
-    rotateWindow: rotateWindowStateSlice.reducer,
     settings: settingsSlice.reducer,
     hadith: hadithSlice.reducer,
     times: timesSlice.reducer,
@@ -15,5 +15,13 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
+  preloadedState: {
+    settings: safeLocalStorage.getItem('settings'),
+  },
 });
 export default store;
+
+subscribe('save-settings', () => {
+  const settings = store.getState().settings;
+  safeLocalStorage.setItem('settings', settings);
+});
