@@ -12,6 +12,8 @@ import DateSection from '../../sections/date';
 import { Settings } from '../../components';
 import { selectOrientation } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
+import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
+import styles from '../../assets/css/settings.module.css';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -21,6 +23,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
       <div className="screen-wrapper theme-red ">
         <Settings language={lang} />
         <BlackScreen />
+        <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
         <div className="dates">
           <DateSection language={lang} />
         </div>

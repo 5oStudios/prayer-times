@@ -2,8 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Text, Radio, Group } from '@mantine/core';
 import { useDispatch } from 'react-redux';
-import { useDictionary } from '../../app/[lang]/dictionary-provider';
-import { setLanguage } from '../../lib/features/settings';
+import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import { setLanguage } from '../../../lib/features/settings';
 
 function Language() {
   const dictionary = useDictionary();

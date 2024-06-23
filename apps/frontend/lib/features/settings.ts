@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { access } from 'fs';
+import { selectOptions } from '@testing-library/user-event/dist/types/setup/directApi';
+import { stat } from 'fs';
+import { act } from 'react-dom/test-utils';
 
 export enum ORIENTATION {
   DEFAULT = '',
@@ -19,6 +21,8 @@ const initialState: {
   masjidName: string;
   news: NewsType[];
   hideScreen: boolean;
+  url: string;
+  enableURL: boolean;
 } = {
   hadithTickerSpeed: 4000,
   language: 'ar',
@@ -26,6 +30,8 @@ const initialState: {
   masjidName: '',
   news: [],
   hideScreen: false,
+  url: '',
+  enableURL: false,
 };
 
 const settingsSlice = createSlice({
@@ -38,6 +44,8 @@ const settingsSlice = createSlice({
     selectMasjidName: (state) => state.masjidName,
     selectNews: (state) => state.news,
     selectHideScreen: (state) => state.hideScreen,
+    selectURL: (state) => state.url,
+    selectEnableURl: (state) => state.enableURL,
   },
   reducers: {
     setHadithTickerSpeed: (state, action) => {
@@ -56,7 +64,13 @@ const settingsSlice = createSlice({
       state.hideScreen = action.payload;
     },
     addNews: (state, action) => {
-      state.news = [...state.news, action.payload];
+      state.news.push(action.payload);
+    },
+    setURL: (state, action) => {
+      state.url = action.payload;
+    },
+    setEnableURL: (state, action) => {
+      state.enableURL = action.payload;
     },
   },
 });
@@ -68,6 +82,8 @@ export const {
   setMasjidName,
   addNews,
   setHideScreen,
+  setURL,
+  setEnableURL,
 } = settingsSlice.actions;
 
 export const {
@@ -77,6 +93,8 @@ export const {
   selectMasjidName,
   selectNews,
   selectHideScreen,
+  selectURL,
+  selectEnableURl,
 } = settingsSlice.selectors;
 
 export default settingsSlice;

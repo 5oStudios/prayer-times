@@ -1,8 +1,8 @@
 import React from 'react';
 import { Input, Text } from '@mantine/core';
 import { useDispatch } from 'react-redux';
-import { useDictionary } from '../../app/[lang]/dictionary-provider';
-import { setMasjidName } from '../../lib/features/settings';
+import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import { setMasjidName } from '../../../lib/features/settings';
 
 export default function MasjidName() {
   const dictionary = useDictionary();

@@ -21,8 +21,13 @@
     "general": "عام",
     "news": "أخبار",
     "add": "يضيف",
-    "delete":"حذف",
+    "delete": "حذف",
     "requiredField": "هذه الخانة مطلوبه",
+    "displaysQR": {
+      "title": "رابط خطبة الجمعة",
+      "placeholder": "أدخل الرابط",
+      "enable": "تفعيل"
+    },
     "newsComp": {
       "createNews": "إنشاء خبر",
       "newsTitle": "عنوان الخبر",

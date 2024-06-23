@@ -1,12 +1,13 @@
 import { Accordion as MantineAccordion } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
-import { Orientation } from './orientation';
+import { Orientation } from './general/orientation';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from './accordion.module.css';
-import Language from './language';
-import MasjidName from './masjidName';
-import NewsForm from './news';
-import HideDisplayScreen from './hideDisplayScreen';
+import Language from './general/language';
+import MasjidName from './general/masjidName';
+import NewsForm from './news/news';
+import HideDisplayScreen from './displayScreen/hideDisplayScreen';
+import { QRCodeGenerator } from './displayScreen/displayQRcode';
 
 type SettingsAccordionProps = {
   language: string;
@@ -48,6 +49,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         {item.value === dictionary.settings.displayScreen.title && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <HideDisplayScreen />
+            <QRCodeGenerator />
           </div>
         )}
       </MantineAccordion.Panel>

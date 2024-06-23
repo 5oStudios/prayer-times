@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Text, Input, Textarea, Button } from '@mantine/core';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { useDictionary } from '../../app/[lang]/dictionary-provider';
-import { addNews } from '../../lib/features/settings';
+import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import { addNews } from '../../../lib/features/settings';
 
 type NewsType = {
   title: string;

@@ -1,2 +1,2 @@
 export * from './settings';
-export * from './orientation';
+export * from './general/orientation';

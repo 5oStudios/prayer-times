@@ -22,12 +22,17 @@
     "news": "News",
     "add": "Add",
     "delete": "Delete",
+    "requiredField": "This field is required",
+    "displaysQR": {
+      "title": "Friday's Speech url",
+      "placeholder": "Enter url",
+      "enable": "Enable"
+    },
     "displayScreen": {
       "title": "Display Screen",
       "hideDisplayScreen": "Hide Display Screen",
       "hideManually": "Hide manually"
     },
-    "requiredField": "This field is required",
     "newsComp": {
       "createNews": "Create News",
       "newsTitle": "News Title",

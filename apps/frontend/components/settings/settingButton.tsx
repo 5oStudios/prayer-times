@@ -9,17 +9,10 @@ type SettingButtonProps = {
   children: ReactNode;
   value: string;
   noBorder?: boolean;
-  setIsOpen: (value: boolean) => void;
   onChange: (value: ORIENTATION) => void;
 };
 
-function SettingButton({
-  borderRadius,
-  children,
-  noBorder,
-  value,
-  onChange,
-}: SettingButtonProps) {
+function SettingButton({ borderRadius, children, noBorder, value, onChange }: SettingButtonProps) {
   const orientation = useSelector(selectOrientation);
   const selected = orientation === value;
   return (
