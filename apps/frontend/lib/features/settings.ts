@@ -10,10 +10,12 @@ const initialState: {
   hadithTickerSpeed: number;
   language: 'ar' | 'en';
   orientation: ORIENTATION;
+  masjidName: string;
 } = {
   hadithTickerSpeed: 4000,
   language: 'ar',
   orientation: ORIENTATION.DEFAULT,
+  masjidName: '',
 };
 
 const settingsSlice = createSlice({
@@ -23,6 +25,7 @@ const settingsSlice = createSlice({
     selectHadithTickerSpeed: (state) => state.hadithTickerSpeed,
     selectLanguage: (state) => state.language,
     selectOrientation: (state) => state.orientation,
+    selectMasjidName: (state) => state.masjidName,
   },
   reducers: {
     setHadithTickerSpeed: (state, action) => {
@@ -34,12 +37,16 @@ const settingsSlice = createSlice({
     setOrientation: (state, action) => {
       state.orientation = action.payload;
     },
+    setMasjidName: (state, action) => {
+      state.masjidName = action.payload;
+    },
   },
 });
 
-export const { setHadithTickerSpeed, setLanguage, setOrientation } = settingsSlice.actions;
+export const { setHadithTickerSpeed, setLanguage, setOrientation, setMasjidName } =
+  settingsSlice.actions;
 
-export const { selectHadithTickerSpeed, selectLanguage, selectOrientation } =
+export const { selectHadithTickerSpeed, selectLanguage, selectOrientation, selectMasjidName } =
   settingsSlice.selectors;
 
 export default settingsSlice;

@@ -18,6 +18,20 @@
   },
   "settings": {
     "title": "إعدادات",
+    "general": "عام",
+    "news": "أخبار",
+    "masjidName": {
+      "title": "اسم المسجد",
+      "description": "ضبط اسم المسجد"
+    },
+    "language": {
+      "title": "لغة",
+      "description": "اختر اللغة",
+      "lang": {
+        "arabic": "عربي",
+        "english": "إنجليزي"
+      }
+    },
     "orientation": {
       "title": "تدوير النافذة",
       "label": "اختر خيار التدوير",

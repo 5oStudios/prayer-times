@@ -8,8 +8,10 @@ type SettingHeaderProps = {
 };
 
 function SettingsHeader({ language, closDrawer }: SettingHeaderProps) {
+  const containerClasses = `${language === 'ar' ? styles.alLeft : styles.alRight} ${language === 'ar' ? styles.marginLeft : styles.paddingRight}`;
+
   return (
-    <div style={{ width: '100%' }} className={language === 'ar' ? styles.alLeft : styles.alRight}>
+    <div style={{ width: '100%', marginTop: '10px' }} className={containerClasses}>
       <CloseButton onClick={closDrawer} />
     </div>
   );

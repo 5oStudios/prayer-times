@@ -20,7 +20,7 @@ function SettingButton({ borderRadius, children, noBorder, value, onChange }: Se
       className={`${styles.button} ${selected ? styles.buttonSelected : ''} ${noBorder ? styles.noBorder : ''}`}
       style={{ borderRadius }}
       onClick={() => {
-        onChange(value);
+        onChange(value as ORIENTATION);
       }}
     >
       {children}

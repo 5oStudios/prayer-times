@@ -1,5 +1,5 @@
-import { Divider, SegmentedControl, Text } from '@mantine/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { Text } from '@mantine/core';
+import { useDispatch } from 'react-redux';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from '../../assets/css/settings.module.css';
 import SettingButton from './settingButton';
@@ -19,11 +19,11 @@ export const Orientation = ({ language }: OrientationProps) => {
   };
 
   return (
-    <>
-      <Text className={isArabic ? styles.subHeaderAr : styles.subHeaderEn}>
+    <div>
+      {/* <Text>
         {dictionary.settings.orientation.title}
-      </Text>
-      <Text className={isArabic ? styles.ArStyle : styles.EnStyle}>
+      </Text> */}
+      <Text>
         {dictionary.settings.orientation.label}
       </Text>
       <div className={isArabic ? styles.buttonContainerAR : styles.buttonContainerEN}>
@@ -37,6 +37,6 @@ export const Orientation = ({ language }: OrientationProps) => {
           {dictionary.settings.orientation.options.right}
         </SettingButton>
       </div>
-    </>
+    </div>
   );
 };

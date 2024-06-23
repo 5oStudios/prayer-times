@@ -18,6 +18,20 @@
   },
   "settings": {
     "title": "Settings",
+    "general": "General",
+    "news": "News",
+    "masjidName": {
+      "title": "Masjid Name",
+      "description": "Set Masjid name"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Choose the language",
+      "lang": {
+        "arabic": "Arabic",
+        "english": "english"
+      }
+    },
     "orientation": {
       "title": "Rotate Window",
       "label": "Select rotate option",

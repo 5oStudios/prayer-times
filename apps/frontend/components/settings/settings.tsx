@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Text } from '@mantine/core';
+import { publish } from '@enegix/events';
 import { BaseDrawer } from '../base-drawer';
-import { Orientation } from './orientation';
 import styles from '../../assets/css/settings.module.css';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
-import { publish } from '@enegix/events';
+import SettingsAccordion from './accordion';
 
 type SideDialogProps = {
   language: string;
@@ -23,7 +23,8 @@ export function Settings(props: SideDialogProps) {
           <Text className={props.language === 'ar' ? styles.titleAr : styles.titleEn}>
             {dictionary.settings.title}
           </Text>
-          <Orientation language={props.language} />
+          {/* <Orientation language={props.language} /> */}
+          <SettingsAccordion language={props.language} />
           <Button
             className={styles.saveButton}
             onClick={() => publish('save-settings')}

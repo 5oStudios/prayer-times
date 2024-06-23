@@ -29,30 +29,6 @@
   cursor: pointer;
 }
 
-.ctvrLEFT {
-  transform: rotate(-90deg);
-  transform-origin: left top;
-  height: 100vw;
-  width: 440px;
-  overflow-x: hidden;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  padding: 1vw;
-}
-
-.ctvrRIGHT {
-  transform: rotate(90deg);
-  transform-origin: right top;
-  height: 100vw;
-  width: 440px;
-  overflow-x: hidden;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  padding: 2vw;
-}
-
 .titleAr {
   font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
   font-size: 1.5rem;
@@ -135,4 +111,133 @@
   display: flex;
   margin-top: 0.5rem;
   width: 100%;
+}
+
+.marginLeft {
+  margin-left: 10px;
+}
+
+.paddingRight {
+  padding-right: 10px;
+}
+.buttonContainerAR, .buttonContainerEN {
+  display: flex;
+  width: 100%;
+}
+
+.button {
+  text-align: center;
+  line-height: 3rem;
+  color: black;
+  flex: 1;
+  background-color: #fefefe;
+  border: #d9dade;
+  border-style: solid;
+  border-width: 2px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap; /* Ensure text does not wrap */
+  overflow: hidden; /* Ensure text does not overflow */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  font-size: 1rem; /* Base font size */
+}
+
+.button:hover {
+  background-color: #d4dae6;
+  color: black;
+}
+
+.buttonSelected {
+  background-color: #d4dae6;
+}
+
+.noBorder {
+  border-left: none;
+  border-right: none;
+}
+
+/* Responsive font sizes */
+@media (max-width: 1200px) {
+  .button {
+    font-size: 0.9rem; /* Decrease font size for smaller screens */
+  }
+}
+
+@media (max-width: 992px) {
+  .button {
+    font-size: 0.8rem; /* Decrease font size further for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .button {
+    font-size: 0.7rem; /* Decrease font size further for smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .button {
+    font-size: 0.6rem; /* Decrease font size further for smaller screens */
+  }
+}
+
+/* settings.module.css */
+
+.buttonContainerAR, .buttonContainerEN {
+  display: flex;
+  width: 100%;
+}
+
+.button {
+  text-align: center;
+  line-height: 3rem;
+  color: black;
+  flex: 1;
+  background-color: #fefefe;
+  border: #d9dade;
+  border-style: solid;
+  border-width: 2px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.7rem; /* Base font size */
+}
+
+.button:hover {
+  background-color: #d4dae6;
+  color: black;
+}
+
+.buttonSelected {
+  background-color: #d4dae6;
+}
+
+.noBorder {
+  border-left: none;
+  border-right: none;
+}
+
+/* Responsive font sizes */
+@media (max-width: 1200px) {
+  .button {
+    font-size: 0.5rem; /* Decrease font size for smaller screens */
+  }
+}
+
+@media (max-width: 992px) {
+  .button {
+    font-size: 0.3rem; /* Decrease font size further for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .button {
+    font-size: 0.2rem; /* Decrease font size further for smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .button {
+    font-size: 0.1rem; /* Decrease font size further for smaller screens */
+  }
 }
