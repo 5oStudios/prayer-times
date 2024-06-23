@@ -25,7 +25,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
     },
     {
       emoji: '📺',
-      value: dictionary.settings.displayScreen,
+      value: dictionary.settings.displayScreen.title,
     },
   ];
 
@@ -45,7 +45,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <NewsForm />
           </div>
         )}
-        {item.value === dictionary.settings.displayScreen && (
+        {item.value === dictionary.settings.displayScreen.title && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <HideDisplayScreen />
           </div>

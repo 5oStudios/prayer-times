@@ -1,24 +1,40 @@
-import React from 'react';
-import { Text, Input, Textarea, Button, Center } from '@mantine/core';
+import React, { useState } from 'react';
+import { Text, Input, Textarea, Button } from '@mantine/core';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
-import { addNews, NewsType, selectNews } from '../../lib/features/settings';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
+import { addNews, selectNews } from '../../lib/features/settings';
+
+type NewsType = {
+  title: string;
+  content: string;
+};
+
+type NewsFormType = {
+  title: string;
+  content: string;
+};
 
 function NewsForm() {
   const dictionary = useDictionary();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<NewsType>();
-  const dispatch = useDispatch();
-  const news = useSelector(selectNews);
+  } = useForm<NewsFormType>();
+  const [news, setNews] = useState<NewsType[]>([]);
 
-  const onSubmit = (data: NewsType) => {
-    dispatch(addNews(data));
+  const onSubmit = (data: NewsFormType) => {
+    const newNewsItem = { title: data.title, content: data.content };
+    setNews([...news, newNewsItem]);
+    dispatch(addNews(newNewsItem));
     reset();
+  };
+
+  const handleDelete = (index: number) => {
+    setNews(news.filter((_, i) => i !== index));
   };
 
   return (
@@ -48,9 +64,9 @@ function NewsForm() {
           {errors.content && <span>{dictionary.settings.requiredField}</span>}
         </div>
 
-        <Center style={{ marginTop: '1rem' }}>
-          <Button type="submit">{dictionary.settings.add}</Button>
-        </Center>
+        <Button type="submit" style={{ marginTop: '1rem' }}>
+          {dictionary.settings.add}
+        </Button>
       </form>
 
       <div style={{ marginTop: '1rem' }}>
@@ -58,12 +74,17 @@ function NewsForm() {
         {!news || news.length === 0 ? (
           <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>
         ) : (
-          <ul>
+          <ul style={{ width: '100%' }}>
             {news.map((item, index) => (
-              <li key={index}>
-                <strong>{item.title}</strong>
-                <p>{item.content}</p>
-              </li>
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                <li key={index} style={{ width: '70%' }}>
+                  <strong>{item.title}</strong>
+                  <p>{item.content}</p>
+                </li>
+                <Button onClick={() => handleDelete(index)}>
+                  <Text style={{ fontSize: '0.5 rem' }}>{dictionary.settings.delete}</Text>
+                </Button>
+              </div>
             ))}
           </ul>
         )}

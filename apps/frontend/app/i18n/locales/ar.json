@@ -20,8 +20,8 @@
     "title": "إعدادات",
     "general": "عام",
     "news": "أخبار",
-    "displayScreen": "شاشة عرض",
     "add": "يضيف",
+    "delete":"حذف",
     "requiredField": "هذه الخانة مطلوبه",
     "newsComp": {
       "createNews": "إنشاء خبر",
@@ -31,6 +31,11 @@
       "newsContentPlaceholder": "أضف المحتوى",
       "previousNews": "الأخبار السابقة",
       "NoNewsAvailable": "لا توجد أخبار متاحة"
+    },
+    "displayScreen": {
+      "title": "شاشة عرض",
+      "hideDisplayScreen": "إخفاء شاشة العرض",
+      "hideManually": "إخفاء يدويا"
     },
     "masjidName": {
       "title": "اسم المسجد",

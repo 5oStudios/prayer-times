@@ -19,7 +19,9 @@ export function Settings(props: SideDialogProps) {
   return (
     <>
       <BaseDrawer language={props.language} isOpen={isOpen} toggleDrawer={toggleDrawer}>
-        <div className={props.language === 'ar' ? styles.alRight : ''}>
+        <div
+          className={`${props.language === 'ar' ? styles.alRight : ''} ${styles.scrollableContainer}`}
+        >
           <Text className={props.language === 'ar' ? styles.titleAr : styles.titleEn}>
             {dictionary.settings.title}
           </Text>

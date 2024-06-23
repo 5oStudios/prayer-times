@@ -120,7 +120,8 @@
 .paddingRight {
   padding-right: 10px;
 }
-.buttonContainerAR, .buttonContainerEN {
+.buttonContainerAR,
+.buttonContainerEN {
   display: flex;
   width: 100%;
 }
@@ -182,7 +183,8 @@
 
 /* settings.module.css */
 
-.buttonContainerAR, .buttonContainerEN {
+.buttonContainerAR,
+.buttonContainerEN {
   display: flex;
   width: 100%;
 }
@@ -240,4 +242,11 @@
   .button {
     font-size: 0.1rem; /* Decrease font size further for smaller screens */
   }
+}
+
+.scrollableContainer {
+  max-height: 85vh;
+  max-width: 85vh;
+  overflow-y: auto;
+  overflow-x: auto;
 }
