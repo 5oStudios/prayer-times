@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { QRCodeSVG } from 'qrcode.react';
-import { Center, Text, TextInput, Chip } from '@mantine/core';
+import { Center, Text, TextInput, Checkbox } from '@mantine/core';
 import moment from 'moment';
 import { setURL, selectURL, setEnableURL, selectEnableURl } from '../../../lib/features/settings';
 import styles from '../../../assets/css/settings.module.css';
@@ -17,16 +17,14 @@ const QRCodeGenerator = () => {
         label={dictionary.settings.displaysQR.title}
         placeholder={dictionary.settings.displaysQR.placeholder}
       />
-      <Chip
+      <Checkbox
         defaultChecked={enableURl}
-        color="green"
         style={{ marginTop: '1rem' }}
+        label={dictionary.settings.displaysQR.enable}
         onChange={() => {
           dispatch(setEnableURL(!enableURl));
         }}
-      >
-        {dictionary.settings.displaysQR.enable}
-      </Chip>
+      />
     </div>
   );
 };
@@ -38,7 +36,7 @@ const DisplayQRcode = ({ className }: DisplayQRcodeProps) => {
   const url = useSelector(selectURL);
   const enableURl = useSelector(selectEnableURl);
 
-  const isTodayFriday = moment().day() === 5;
+  const isTodayFriday = moment().day() === 1;
   return (
     isTodayFriday &&
     enableURl && (
