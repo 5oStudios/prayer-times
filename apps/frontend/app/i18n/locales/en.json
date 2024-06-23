@@ -20,6 +20,17 @@
     "title": "Settings",
     "general": "General",
     "news": "News",
+    "add": "Add",
+    "requiredField": "This field is required",
+    "newsComp": {
+      "createNews": "Create News",
+      "newsTitle": "News Title",
+      "newsTitlePlaceholder": "add title",
+      "newsContent": "News Content",
+      "newsContentPlaceholder": "add Content",
+      "previousNews": "Previous News",
+      "NoNewsAvailable": "No news available"
+    },
     "masjidName": {
       "title": "Masjid Name",
       "description": "Set Masjid name"

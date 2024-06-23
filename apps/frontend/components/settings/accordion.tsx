@@ -5,6 +5,7 @@ import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from './accordion.module.css';
 import Language from './language';
 import MasjidName from './masjidName';
+import NewsForm from './news';
 
 type SettingsAccordionProps = {
   language: string;
@@ -35,7 +36,9 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
           </div>
         )}
         {item.value === dictionary.settings.news && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}></div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <NewsForm />
+          </div>
         )}
       </MantineAccordion.Panel>
     </MantineAccordion.Item>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Radio, Group } from '@mantine/core';
+import { Text, Radio, Group } from '@mantine/core';
 import { useDispatch } from 'react-redux';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import { setLanguage } from '../../lib/features/settings';
@@ -16,16 +16,15 @@ function Language() {
   };
 
   return (
-    <Radio.Group
-      onChange={handleChange}
-      name={dictionary.settings.language.title}
-      label={dictionary.settings.language.description}
-    >
-      <Group mt="xs">
-        <Radio value="ar" label={dictionary.settings.language.lang.arabic} />
-        <Radio value="en" label={dictionary.settings.language.lang.english} />
-      </Group>
-    </Radio.Group>
+    <div>
+      <Text> {dictionary.settings.language.description}</Text>
+      <Radio.Group onChange={handleChange} name={dictionary.settings.language.title}>
+        <Group mt="xs">
+          <Radio value="ar" label={dictionary.settings.language.lang.arabic} />
+          <Radio value="en" label={dictionary.settings.language.lang.english} />
+        </Group>
+      </Radio.Group>
+    </div>
   );
 }
 

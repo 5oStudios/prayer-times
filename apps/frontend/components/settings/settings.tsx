@@ -23,7 +23,6 @@ export function Settings(props: SideDialogProps) {
           <Text className={props.language === 'ar' ? styles.titleAr : styles.titleEn}>
             {dictionary.settings.title}
           </Text>
-          {/* <Orientation language={props.language} /> */}
           <SettingsAccordion language={props.language} />
           <Button
             className={styles.saveButton}

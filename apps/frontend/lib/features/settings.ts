@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { access } from 'fs';
 
 export enum ORIENTATION {
   DEFAULT = '',
@@ -6,16 +7,23 @@ export enum ORIENTATION {
   RIGHT = 'vrRIGHT',
 }
 
+export type NewsType = {
+  title: string;
+  content: string;
+};
+
 const initialState: {
   hadithTickerSpeed: number;
   language: 'ar' | 'en';
   orientation: ORIENTATION;
   masjidName: string;
+  news: NewsType[];
 } = {
   hadithTickerSpeed: 4000,
   language: 'ar',
   orientation: ORIENTATION.DEFAULT,
   masjidName: '',
+  news: [],
 };
 
 const settingsSlice = createSlice({
@@ -26,6 +34,7 @@ const settingsSlice = createSlice({
     selectLanguage: (state) => state.language,
     selectOrientation: (state) => state.orientation,
     selectMasjidName: (state) => state.masjidName,
+    selectNews: (state) => state.news,
   },
   reducers: {
     setHadithTickerSpeed: (state, action) => {
@@ -40,13 +49,21 @@ const settingsSlice = createSlice({
     setMasjidName: (state, action) => {
       state.masjidName = action.payload;
     },
+    addNews: (state, action) => {
+      state.news = [...state.news, action.payload];
+    },
   },
 });
 
-export const { setHadithTickerSpeed, setLanguage, setOrientation, setMasjidName } =
+export const { setHadithTickerSpeed, setLanguage, setOrientation, setMasjidName, addNews } =
   settingsSlice.actions;
 
-export const { selectHadithTickerSpeed, selectLanguage, selectOrientation, selectMasjidName } =
-  settingsSlice.selectors;
+export const {
+  selectHadithTickerSpeed,
+  selectLanguage,
+  selectOrientation,
+  selectMasjidName,
+  selectNews,
+} = settingsSlice.selectors;
 
 export default settingsSlice;

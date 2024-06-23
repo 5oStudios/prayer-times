@@ -20,6 +20,17 @@
     "title": "إعدادات",
     "general": "عام",
     "news": "أخبار",
+    "add": "يضيف",
+    "requiredField": "هذه الخانة مطلوبه",
+    "newsComp": {
+      "createNews": "إنشاء خبر",
+      "newsTitle": "عنوان الخبر",
+      "newsTitlePlaceholder": "أضف العنوان",
+      "newsContent": "محتوى الخبر",
+      "newsContentPlaceholder": "أضف المحتوى",
+      "previousNews": "الأخبار السابقة",
+      "NoNewsAvailable": "لا توجد أخبار متاحة"
+    },
     "masjidName": {
       "title": "اسم المسجد",
       "description": "ضبط اسم المسجد"
