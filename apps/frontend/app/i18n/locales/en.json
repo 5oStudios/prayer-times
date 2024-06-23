@@ -20,6 +20,7 @@
     "title": "Settings",
     "general": "General",
     "news": "News",
+    "displayScreen": "Display Screen",
     "add": "Add",
     "requiredField": "This field is required",
     "newsComp": {

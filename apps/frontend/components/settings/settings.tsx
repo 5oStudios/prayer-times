@@ -26,7 +26,10 @@ export function Settings(props: SideDialogProps) {
           <SettingsAccordion language={props.language} />
           <Button
             className={styles.saveButton}
-            onClick={() => publish('save-settings')}
+            onClick={() => {
+              publish('save-settings');
+              toggleDrawer();
+            }}
             variant="filled"
           >
             {dictionary.settings.save}

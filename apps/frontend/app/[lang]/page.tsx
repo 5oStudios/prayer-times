@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
@@ -11,15 +11,16 @@ import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
 import { Settings } from '../../components';
 import { selectOrientation } from '../../lib/features/settings';
+import BlackScreen from '../../components/blackScreen';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
-  const dispatch = useDispatch();
   const orientation = useSelector(selectOrientation);
 
   return (
     <div className={`${orientation}`}>
       <div className="screen-wrapper theme-red ">
         <Settings language={lang} />
+        <BlackScreen />
         <div className="dates">
           <DateSection language={lang} />
         </div>

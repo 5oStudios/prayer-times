@@ -6,6 +6,7 @@ import styles from './accordion.module.css';
 import Language from './language';
 import MasjidName from './masjidName';
 import NewsForm from './news';
+import HideDisplayScreen from './hideDisplayScreen';
 
 type SettingsAccordionProps = {
   language: string;
@@ -21,6 +22,10 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
     {
       emoji: '📰',
       value: dictionary.settings.news,
+    },
+    {
+      emoji: '📺',
+      value: dictionary.settings.displayScreen,
     },
   ];
 
@@ -38,6 +43,11 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         {item.value === dictionary.settings.news && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <NewsForm />
+          </div>
+        )}
+        {item.value === dictionary.settings.displayScreen && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <HideDisplayScreen />
           </div>
         )}
       </MantineAccordion.Panel>

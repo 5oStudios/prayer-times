@@ -56,7 +56,7 @@ function NewsForm() {
       <div style={{ marginTop: '1rem' }}>
         <Text>{dictionary.settings.newsComp.previousNews}</Text>
         {!news || news.length === 0 ? (
-          <p>{dictionary.settings.newsComp.previousNews}</p>
+          <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>
         ) : (
           <ul>
             {news.map((item, index) => (
