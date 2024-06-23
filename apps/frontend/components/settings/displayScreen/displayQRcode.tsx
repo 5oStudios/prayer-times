@@ -38,7 +38,7 @@ const DisplayQRcode = ({ className }: DisplayQRcodeProps) => {
   const url = useSelector(selectURL);
   const enableURl = useSelector(selectEnableURl);
 
-  const isTodayFriday = moment().day() === 1;
+  const isTodayFriday = moment().day() === 5;
   return (
     isTodayFriday &&
     enableURl && (
