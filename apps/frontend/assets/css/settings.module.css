@@ -244,9 +244,14 @@
   }
 }
 
-.scrollableContainer {
+.scrollableContainerVR {
   max-height: 85vh;
-  max-width: 85vh;
-  overflow-y: auto;
   overflow-x: auto;
+  overflow-y: auto;
+}
+
+.scrollableContainer {
+  max-height: 85vw;
+  overflow-x: auto;
+  overflow-y: auto;
 }

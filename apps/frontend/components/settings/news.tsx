@@ -3,7 +3,7 @@ import { Text, Input, Textarea, Button } from '@mantine/core';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
-import { addNews, selectNews } from '../../lib/features/settings';
+import { addNews } from '../../lib/features/settings';
 
 type NewsType = {
   title: string;
