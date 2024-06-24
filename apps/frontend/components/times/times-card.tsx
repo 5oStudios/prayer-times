@@ -11,10 +11,10 @@ import 'moment/locale/ar';
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 export const PrayerTimesCard = ({
-                                  prayer,
-                                  coordinates,
-                                  lang,
-                                }: {
+  prayer,
+  coordinates,
+  lang,
+}: {
   prayer: {
     name: string;
     time: string;
@@ -73,9 +73,9 @@ type CountDownFormatterProps = {
 };
 
 const countDownFormatter = ({
-                              formatted: { hours, minutes, seconds },
-                              lang,
-                            }: CountDownFormatterProps) => (
+  formatted: { hours, minutes, seconds },
+  lang,
+}: CountDownFormatterProps) => (
   <div className="timer">
     {localNumber(parseInt(hours, 10), lang)}:{localNumber(parseInt(minutes, 10), lang)}:
     {localNumber(parseInt(seconds, 10), lang)}
@@ -83,7 +83,7 @@ const countDownFormatter = ({
 );
 
 function localTimer(time: string, lang: string) {
-  moment.locale(lang);
+  moment.locale('en');
   const [hours, minutes] = time.split(':').map(Number);
   const timeInMilliseconds = (hours * 60 + minutes) * 60 * 1000;
   return moment(timeInMilliseconds).utcOffset(0).format('HH:mm');
@@ -95,5 +95,5 @@ function toArabicNumber(number: number | string): string {
 }
 
 export function localNumber(number: number, lang: string): string {
-  return lang === 'ar' ? toArabicNumber(number) : new Intl.NumberFormat(lang).format(number);
+  return  new Intl.NumberFormat(lang).format(number);
 }

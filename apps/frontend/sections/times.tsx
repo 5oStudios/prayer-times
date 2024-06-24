@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
-import { PrayerTimesCard } from '../components/times/times-card';
+import { PrayerTimesCard } from '../components';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
@@ -26,8 +26,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
 
-  // @ts-expect-error - fix this
-  subscribe('next-prayer', (prayer: PrayerTime) => {
+  subscribe<PrayerTime>('next-prayer', (prayer) => {
     // alert(`It's time for from store ${prayer.name}`);
     // @ts-expect-error - This expression is not callable.
     dispatch(fetchTimes(coordinates));
@@ -63,7 +62,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       remaining,
       isNext,
     }));
-    return lang === 'ar' ? newTimes.reverse() : newTimes;
+    return newTimes;
   }, [times, lang, dictionary]);
 
   return (

@@ -15,5 +15,63 @@
   },
   "common": {
     "loading": "Loading..."
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "news": "News",
+    "themes": {
+      "title": "Themes",
+      "label": "Select your background theme",
+      "default": "default",
+      "Blue": "Blue",
+      "sunSet": "Sun Set",
+      "red": "Red"
+    },
+    "add": "Add",
+    "delete": "Delete",
+    "requiredField": "This field is required",
+    "displaysQR": {
+      "title": "Friday's Speech url",
+      "placeholder": "Enter url",
+      "enable": "Enable"
+    },
+    "displayScreen": {
+      "title": "Display Screen",
+      "hideDisplayScreen": "Hide Display Screen",
+      "hideManually": "Hide manually",
+      "prayTimeBanner":"Prayer Duration to hide screen"
+    },
+    "newsComp": {
+      "createNews": "Create News",
+      "newsTitle": "News Title",
+      "newsTitlePlaceholder": "add title",
+      "newsContent": "News Content",
+      "newsContentPlaceholder": "add Content",
+      "previousNews": "Previous News",
+      "NoNewsAvailable": "No news available"
+    },
+    "masjidName": {
+      "title": "Masjid Name",
+      "description": "Set Masjid name"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Choose the language",
+      "lang": {
+        "arabic": "Arabic",
+        "english": "english"
+      }
+    },
+    "orientation": {
+      "title": "Rotate Window",
+      "label": "Select rotate option",
+      "options": {
+        "vertical": "Vertical",
+        "left": "Left",
+        "right": "Right"
+      }
+    },
+    "save": "save"
   }
 }

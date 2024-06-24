@@ -85,5 +85,5 @@ function toArabicNumber(number: { toString: () => string }) {
 }
 
 function localNumber(number: number, lang: string) {
-  return lang === 'ar' ? toArabicNumber(number) : number.toString();
+  return number.toString();
 }
