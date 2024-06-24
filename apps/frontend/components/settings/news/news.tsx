@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Text, Input, Textarea, Button } from '@mantine/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import { addNews } from '../../../lib/features/settings';
+import { addNews, selectNews } from '../../../lib/features/settings';
 
 type NewsType = {
   title: string;
@@ -18,6 +18,7 @@ type NewsFormType = {
 function NewsForm() {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
+  const newsLocal = useSelector(selectNews);
   const {
     register,
     handleSubmit,
@@ -71,11 +72,11 @@ function NewsForm() {
 
       <div style={{ marginTop: '1rem' }}>
         <Text>{dictionary.settings.newsComp.previousNews}</Text>
-        {!news || news.length === 0 ? (
+        {!newsLocal || newsLocal.length === 0 ? (
           <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>
         ) : (
           <ul style={{ width: '100%' }}>
-            {news.map((item, index) => (
+            {newsLocal.map((item, index) => (
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 <li key={index} style={{ width: '70%' }}>
                   <strong>{item.title}</strong>

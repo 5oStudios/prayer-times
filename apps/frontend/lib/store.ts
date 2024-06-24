@@ -16,13 +16,13 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
-  preloadedState: {
-    settings: window && localStorage && JSON.parse(localStorage.getItem('settings') || '{}'),
-  },
+  // preloadedState: {
+  //   settings: window && localStorage && JSON.parse(localStorage.getItem('settings') || '{}'),
+  // },
 });
 export default store;
 
-subscribe('save-settings', () => {
-  const settings = store.getState().settings;
-  window && localStorage && localStorage.setItem('settings', JSON.stringify(settings));
-});
+// subscribe('save-settings', () => {
+//   const settings = store.getState().settings;
+//   window && localStorage && localStorage.setItem('settings', JSON.stringify(settings));
+// });

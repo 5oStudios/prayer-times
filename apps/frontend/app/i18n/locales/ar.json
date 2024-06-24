@@ -48,7 +48,8 @@
     "displayScreen": {
       "title": "شاشة عرض",
       "hideDisplayScreen": "إخفاء شاشة العرض",
-      "hideManually": "إخفاء يدويا"
+      "hideManually": "إخفاء يدويا",
+      "prayTimeBanner": "مدة الصلاة لإخفاء الشاشة"
     },
     "masjidName": {
       "title": "اسم المسجد",

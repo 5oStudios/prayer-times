@@ -8,11 +8,3 @@
   margin: 0 auto;
   padding: 0 10px;
 }
-
-.hideScreen{
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  z-index: 10;
-  transition: opacity 0.5s ease-in-out, visibility 0.5s;
-}

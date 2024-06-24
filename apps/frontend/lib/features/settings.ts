@@ -21,6 +21,7 @@ const initialState: {
   url: string;
   enableURL: boolean;
   background: number;
+  timePeriod: number[];
 } = {
   hadithTickerSpeed: 4000,
   language: 'ar',
@@ -31,6 +32,7 @@ const initialState: {
   url: '',
   enableURL: false,
   background: 0,
+  timePeriod: [0, 0, 0, 1, 0, 0],
 };
 
 const settingsSlice = createSlice({
@@ -46,6 +48,7 @@ const settingsSlice = createSlice({
     selectURL: (state) => state.url,
     selectEnableURl: (state) => state.enableURL,
     selectBackground: (state) => state.background,
+    selectTimePeriod: (state) => state.timePeriod,
   },
   reducers: {
     setHadithTickerSpeed: (state, action) => {
@@ -75,6 +78,9 @@ const settingsSlice = createSlice({
     setBackground: (state, action) => {
       state.background = action.payload;
     },
+    setTimePeriod: (state, action) => {
+      state.timePeriod = action.payload;
+    },
   },
 });
 
@@ -88,6 +94,7 @@ export const {
   setURL,
   setEnableURL,
   setBackground,
+  setTimePeriod,
 } = settingsSlice.actions;
 
 export const {
@@ -100,6 +107,7 @@ export const {
   selectURL,
   selectEnableURl,
   selectBackground,
+  selectTimePeriod,
 } = settingsSlice.selectors;
 
 export default settingsSlice;

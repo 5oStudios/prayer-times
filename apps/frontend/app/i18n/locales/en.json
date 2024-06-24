@@ -39,7 +39,8 @@
     "displayScreen": {
       "title": "Display Screen",
       "hideDisplayScreen": "Hide Display Screen",
-      "hideManually": "Hide manually"
+      "hideManually": "Hide manually",
+      "prayTimeBanner":"Prayer Duration to hide screen"
     },
     "newsComp": {
       "createNews": "Create News",
