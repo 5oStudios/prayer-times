@@ -8,6 +8,7 @@ import MasjidName from './general/masjidName';
 import NewsForm from './news/news';
 import HideDisplayScreen from './displayScreen/hideDisplayScreen';
 import { QRCodeGenerator } from './displayScreen/displayQRcode';
+import Themes from './displayScreen/themes';
 
 type SettingsAccordionProps = {
   language: string;
@@ -48,8 +49,9 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         )}
         {item.value === dictionary.settings.displayScreen.title && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <HideDisplayScreen />
+            {/* <HideDisplayScreen /> */}
             <QRCodeGenerator />
+            <Themes />
           </div>
         )}
       </MantineAccordion.Panel>

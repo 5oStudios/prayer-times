@@ -20,6 +20,14 @@
     "title": "Settings",
     "general": "General",
     "news": "News",
+    "themes": {
+      "title": "Themes",
+      "label": "Select your background theme",
+      "default": "default",
+      "Blue": "Blue",
+      "sunSet": "Sun Set",
+      "red": "Red"
+    },
     "add": "Add",
     "delete": "Delete",
     "requiredField": "This field is required",

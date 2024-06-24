@@ -1,7 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { selectOptions } from '@testing-library/user-event/dist/types/setup/directApi';
-import { stat } from 'fs';
-import { act } from 'react-dom/test-utils';
 
 export enum ORIENTATION {
   DEFAULT = '',
@@ -23,6 +20,7 @@ const initialState: {
   hideScreen: boolean;
   url: string;
   enableURL: boolean;
+  background: number;
 } = {
   hadithTickerSpeed: 4000,
   language: 'ar',
@@ -32,6 +30,7 @@ const initialState: {
   hideScreen: false,
   url: '',
   enableURL: false,
+  background: 0,
 };
 
 const settingsSlice = createSlice({
@@ -46,6 +45,7 @@ const settingsSlice = createSlice({
     selectHideScreen: (state) => state.hideScreen,
     selectURL: (state) => state.url,
     selectEnableURl: (state) => state.enableURL,
+    selectBackground: (state) => state.background,
   },
   reducers: {
     setHadithTickerSpeed: (state, action) => {
@@ -72,6 +72,9 @@ const settingsSlice = createSlice({
     setEnableURL: (state, action) => {
       state.enableURL = action.payload;
     },
+    setBackground: (state, action) => {
+      state.background = action.payload;
+    },
   },
 });
 
@@ -84,6 +87,7 @@ export const {
   setHideScreen,
   setURL,
   setEnableURL,
+  setBackground,
 } = settingsSlice.actions;
 
 export const {
@@ -95,6 +99,7 @@ export const {
   selectHideScreen,
   selectURL,
   selectEnableURl,
+  selectBackground,
 } = settingsSlice.selectors;
 
 export default settingsSlice;

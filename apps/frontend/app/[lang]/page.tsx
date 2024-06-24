@@ -10,17 +10,18 @@ import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
 import { Settings } from '../../components';
-import { selectOrientation } from '../../lib/features/settings';
+import { selectBackground, selectOrientation } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
 import styles from '../../assets/css/settings.module.css';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
-
+  const backgroundImageIndex = useSelector(selectBackground);
+  console.log('backgound:', backgroundImageIndex);
   return (
     <div className={`${orientation}`}>
-      <div className="screen-wrapper theme-red ">
+      <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
         <Settings language={lang} />
         <BlackScreen />
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />

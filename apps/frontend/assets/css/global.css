@@ -74,12 +74,27 @@ body {
   width: 100dvw;
   height: 100dvh;
   position: relative;
-  background: url('../images/gray-bg.jpg') left bottom no-repeat;
+  background: url('../images/bg-0.jpg') left bottom no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.screen-wrapper0 {
+  background: url('../images/bg-0.jpg') left bottom no-repeat;
+}
+
+.screen-wrapper1 {
+  background: url('../images/bg-1.jpg') left bottom no-repeat;
+}
+
+.screen-wrapper2 {
+  background: url('../images/musque-dome-night.jpg') left bottom no-repeat;
+}
+
+.screen-wrapper3 {
+  background: url('../images/bg-3.jpeg') left bottom no-repeat;
 }
 
 .vrLEFT .screen-wrapper,
