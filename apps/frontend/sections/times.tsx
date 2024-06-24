@@ -62,7 +62,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       remaining,
       isNext,
     }));
-    return lang === 'ar' ? newTimes.reverse() : newTimes;
+    return newTimes;
   }, [times, lang, dictionary]);
 
   return (

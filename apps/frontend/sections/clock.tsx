@@ -30,7 +30,7 @@ export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
   // Function to format the time as a string
   const formatTime = (time: Date): string => {
     const formattedTime = time.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
-    return lang === 'ar' ? toArabicNumber(formattedTime) : formattedTime;
+    return formattedTime;
   };
 
   return <div className="clock-section">{formatTime(currentTime)}</div>;
