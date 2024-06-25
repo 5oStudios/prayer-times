@@ -1,28 +1,34 @@
 'use client';
 
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import settingsSlice from './features/settings';
 import hadithSlice from './features/hadith';
 import timesSlice from './features/times';
-import { subscribe } from '@enegix/events';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['settings'],
+};
+
+const rootReducer = combineReducers({
+  settings: settingsSlice.reducer,
+  hadith: hadithSlice.reducer,
+  times: timesSlice.reducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: {
-    settings: settingsSlice.reducer,
-    hadith: hadithSlice.reducer,
-    times: timesSlice.reducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
-  // preloadedState: {
-  //   settings: window && localStorage && JSON.parse(localStorage.getItem('settings') || '{}'),
-  // },
 });
-export default store;
 
-// subscribe('save-settings', () => {
-//   const settings = store.getState().settings;
-//   window && localStorage && localStorage.setItem('settings', JSON.stringify(settings));
-// });
+const persister = persistStore(store);
+
+export { store, persister };
