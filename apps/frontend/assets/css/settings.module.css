@@ -65,12 +65,17 @@
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
+  justify-content: right;
+  width: 100%; /* Ensure it takes full width */
 }
+
 .alLeft {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+  justify-content: left;
+  width: 100%; /* Ensure it takes full width */
 }
 
 .button {

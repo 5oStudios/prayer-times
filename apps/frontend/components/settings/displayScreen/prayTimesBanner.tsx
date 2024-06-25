@@ -22,7 +22,7 @@ function PrayTimesBanner() {
   const times = useSelector(selectTimes);
   const dictionary = useDictionary();
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.prayTimeBanner}
       </Text>

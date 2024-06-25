@@ -26,15 +26,15 @@ function HijriDateSection(props: HijriDateProps) {
   const geoDate = currentDate;
   const hijriDate = toHijri(geoDate.getFullYear(), geoDate.getMonth() + 1, geoDate.getDate());
 
-  const localizedHijriDay = localNumber(hijriDate.hd, lang);
-  const localizedHijriYear = localNumber(hijriDate.hy, lang);
+  const localizedHijriDay = localNumber(hijriDate.hd);
+  const localizedHijriYear = localNumber(hijriDate.hy);
 
   const localizedGregorianDate = moment(geoDate).format('dddd، D MMMM YYYY');
   const localizedHijriDate = `${localizedHijriDay} ${getHijriMonthName(hijriDate.hm, lang)} ${localizedHijriYear}`;
 
   return (
     <Flex gap={3} className="hijri-date" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="gregorian-date">{localizedGregorianDate}</div>
+      <div className="gregorian-date">{toEnglishNumber(localizedGregorianDate)}</div>
       <div className="qobtic-date" />
       <div className="hijri-date">{localizedHijriDate}</div>
     </Flex>
@@ -79,11 +79,22 @@ function getHijriMonthName(month: number, locale: 'en' | 'ar' = 'en'): string {
   return monthNames[month - 1] || '';
 }
 
-function toArabicNumber(number: { toString: () => string }) {
-  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  return number.toString().replace(/\d/g, (digit) => arabicDigits[digit as any]);
+function localNumber(number: number) {
+  return number.toString();
 }
 
-function localNumber(number: number, lang: string) {
-  return number.toString();
+function toEnglishNumber(number: { toString: () => string }) {
+  const englishDigits = {
+    '٠': '0',
+    '١': '1',
+    '٢': '2',
+    '٣': '3',
+    '٤': '4',
+    '٥': '5',
+    '٦': '6',
+    '٧': '7',
+    '٨': '8',
+    '٩': '9',
+  };
+  return number.toString().replace(/[٠-٩]/g, (digit) => englishDigits[digit as never]);
 }

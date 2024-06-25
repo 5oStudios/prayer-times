@@ -24,7 +24,7 @@ export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDra
         onClose={toggleDrawer}
         direction={isArabic ? 'right' : 'left'}
         style={{
-          width: orientation === '' ? '50vw' : '50vh',
+          width: orientation === '' ? '25vw' : '50vh',
           height: '96%',
           overflowX: 'hidden',
           overflowY: 'hidden',

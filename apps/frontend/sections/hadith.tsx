@@ -7,17 +7,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Hadith } from '@islamic-kit/hadith';
 import { StarSvg } from '../assets/hadith/star';
-import { selectHadithTickerSpeed } from '../lib/features/settings';
-import { fetchHadithList, selectHadith } from '../lib/features/hadith';
+import {
+  selectHadithTickerSpeed,
+  selectOrientation,
+  setHadithTickerSpeed,
+} from '../lib/features/settings';
+import { fetchHadithList } from '../lib/features/hadith';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
 export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
+  const dispatch = useDispatch();
+  const orientation = useSelector(selectOrientation);
+  if (orientation !== '') dispatch(setHadithTickerSpeed(25));
+  else dispatch(setHadithTickerSpeed(75));
+
   const tickerSpeed = useSelector(selectHadithTickerSpeed);
   // const hadith = useSelector(selectHadith);
   const hadith = [{ title: 'برنامج تجريبي', id: 1 }];
-  const dispatch = useDispatch();
   const direction = lang === 'ar' ? 'right' : 'left';
 
   useEffect(() => {
@@ -47,7 +55,8 @@ const HadithTicker = ({
   speed: number;
   direction: 'right' | 'left';
 }) => (
-  <Marquee className="ticker-bg" direction={direction} autoFill>
+  //to do
+  <Marquee className="ticker-bg" direction={direction} speed={speed} autoFill>
     <Flex>
       {hadith.map(({ title, id }) => (
         <Flex key={id} justify="center" align="center">

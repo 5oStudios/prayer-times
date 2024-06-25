@@ -13,7 +13,7 @@ export default function MasjidName() {
   };
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <Text>{dictionary.settings.masjidName.title}</Text>
       <Input
         placeholder={dictionary.settings.masjidName.description}

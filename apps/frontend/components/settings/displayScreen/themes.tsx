@@ -8,6 +8,7 @@ export default function Themes() {
   const dictionary = useDictionary();
   return (
     <Radio.Group
+      style={{ width: '100%' }}
       label={dictionary.settings.themes.label}
       onChange={(value: string) => {
         const index = parseInt(value, 10);
