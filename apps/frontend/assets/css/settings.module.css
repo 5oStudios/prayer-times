@@ -217,7 +217,6 @@
   border-right: none;
 }
 
-
 @media (max-width: 1200px) {
   .button {
     font-size: 0.4rem;
@@ -230,7 +229,6 @@
   }
 }
 
-
 .scrollableContainerVR {
   max-height: 85vh;
   overflow-x: auto;
@@ -242,6 +240,24 @@
   overflow-x: auto;
   overflow-y: auto;
 }
+
+.scrollableContainerVR::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollableContainerVR {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollableContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollableContainer {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .alignRightQR {
   position: absolute;
   right: 0;

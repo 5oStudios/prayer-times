@@ -69,7 +69,10 @@ body {
   right: 0;
 }
 
-/* SCREEN WRAPPER */
+.whiteText {
+  color: white;
+}
+
 .screen-wrapper {
   width: 100dvw;
   height: 100dvh;

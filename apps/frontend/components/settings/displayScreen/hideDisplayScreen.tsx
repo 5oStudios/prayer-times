@@ -11,7 +11,6 @@ function HideDisplayScreen() {
   const dictionary = useDictionary();
   const toggleOverlay = () => {
     setIsVisible(!isVisible);
-    console.log(!isVisible);
     dispatch(setHideScreen(!isVisible));
   };
 
