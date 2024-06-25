@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+// eslint-disable-next-line import/no-cycle
+import { RootState } from '../store';
 
 export enum ORIENTATION {
   DEFAULT = '',
@@ -11,18 +13,7 @@ export type NewsType = {
   content: string;
 };
 
-const initialState: {
-  hadithTickerSpeed: number;
-  language: 'ar' | 'en';
-  orientation: ORIENTATION;
-  masjidName: string;
-  news: NewsType[];
-  hideScreen: boolean;
-  url: string;
-  enableURL: boolean;
-  background: number;
-  timePeriod: number[];
-} = {
+const initialState = {
   hadithTickerSpeed: 4000,
   language: 'ar',
   orientation: ORIENTATION.DEFAULT,
@@ -38,18 +29,6 @@ const initialState: {
 const settingsSlice = createSlice({
   name: 'settings',
   initialState,
-  selectors: {
-    selectHadithTickerSpeed: (state) => state.hadithTickerSpeed,
-    selectLanguage: (state) => state.language,
-    selectOrientation: (state) => state.orientation,
-    selectMasjidName: (state) => state.masjidName,
-    selectNews: (state) => state.news,
-    selectHideScreen: (state) => state.hideScreen,
-    selectURL: (state) => state.url,
-    selectEnableURl: (state) => state.enableURL,
-    selectBackground: (state) => state.background,
-    selectTimePeriod: (state) => state.timePeriod,
-  },
   reducers: {
     setHadithTickerSpeed: (state, action) => {
       state.hadithTickerSpeed = action.payload;
@@ -67,7 +46,7 @@ const settingsSlice = createSlice({
       state.hideScreen = action.payload;
     },
     addNews: (state, action) => {
-      state.news.push(action.payload);
+      state.news.push(action.payload as never);
     },
     setURL: (state, action) => {
       state.url = action.payload;
@@ -97,17 +76,15 @@ export const {
   setTimePeriod,
 } = settingsSlice.actions;
 
-export const {
-  selectHadithTickerSpeed,
-  selectLanguage,
-  selectOrientation,
-  selectMasjidName,
-  selectNews,
-  selectHideScreen,
-  selectURL,
-  selectEnableURl,
-  selectBackground,
-  selectTimePeriod,
-} = settingsSlice.selectors;
-
 export default settingsSlice;
+
+export const selectHadithTickerSpeed = (state: RootState) => state.settings.hadithTickerSpeed;
+export const selectLanguage = (state: RootState) => state.settings.language;
+export const selectOrientation = (state: RootState) => state.settings.orientation;
+export const selectMasjidName = (state: RootState) => state.settings.masjidName;
+export const selectNews = (state: RootState) => state.settings.news;
+export const selectHideScreen = (state: RootState) => state.settings.hideScreen;
+export const selectURL = (state: RootState) => state.settings.url;
+export const selectEnableURL = (state: RootState) => state.settings.enableURL;
+export const selectBackground = (state: RootState) => state.settings.background;
+export const selectTimePeriod = (state: RootState) => state.settings.timePeriod;

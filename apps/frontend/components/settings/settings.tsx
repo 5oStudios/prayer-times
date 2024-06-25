@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Text } from '@mantine/core';
-import { publish } from '@enegix/events';
+import { Text } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { BaseDrawer } from '../base-drawer';
 import styles from '../../assets/css/settings.module.css';
@@ -29,7 +28,7 @@ export function Settings(props: SideDialogProps) {
             {dictionary.settings.title}
           </Text>
           <SettingsAccordion language={props.language} />
-          <Button
+          {/* <Button
             className={styles.saveButton}
             onClick={() => {
               publish('save-settings');
@@ -38,7 +37,7 @@ export function Settings(props: SideDialogProps) {
             variant="filled"
           >
             {dictionary.settings.save}
-          </Button>
+          </Button> */}
         </div>
       </BaseDrawer>
     </>
