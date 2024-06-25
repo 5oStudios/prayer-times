@@ -13,7 +13,20 @@ export type NewsType = {
   content: string;
 };
 
-const initialState = {
+export type SettingsState = {
+  hadithTickerSpeed: number;
+  language: string;
+  orientation: ORIENTATION;
+  masjidName: string;
+  news: NewsType[];
+  hideScreen: boolean;
+  url: string;
+  enableURL: boolean;
+  background: number;
+  timePeriod: number[];
+};
+
+const initialState: SettingsState = {
   hadithTickerSpeed: 4000,
   language: 'ar',
   orientation: ORIENTATION.DEFAULT,
@@ -23,7 +36,7 @@ const initialState = {
   url: '',
   enableURL: false,
   background: 0,
-  timePeriod: [0, 0, 0, 1, 0, 0],
+  timePeriod: [2, 2, 2, 2, 2, 2],
 };
 
 const settingsSlice = createSlice({
@@ -45,8 +58,8 @@ const settingsSlice = createSlice({
     setHideScreen: (state, action) => {
       state.hideScreen = action.payload;
     },
-    addNews: (state, action) => {
-      state.news.push(action.payload as never);
+    setNews: (state, action) => {
+      state.news = action.payload;
     },
     setURL: (state, action) => {
       state.url = action.payload;
@@ -68,7 +81,7 @@ export const {
   setLanguage,
   setOrientation,
   setMasjidName,
-  addNews,
+  setNews,
   setHideScreen,
   setURL,
   setEnableURL,

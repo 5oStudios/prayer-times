@@ -64,7 +64,6 @@
       }
     },
     "orientation": {
-      "title": "Rotate Window",
       "label": "Select rotate option",
       "options": {
         "vertical": "Vertical",

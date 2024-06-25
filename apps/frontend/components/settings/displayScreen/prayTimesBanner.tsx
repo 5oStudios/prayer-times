@@ -23,7 +23,10 @@ function PrayTimesBanner() {
   const dictionary = useDictionary();
   return (
     <div>
-      <Text>{dictionary.settings.displayScreen.prayTimeBanner}</Text>
+      <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+        {dictionary.settings.displayScreen.prayTimeBanner}
+      </Text>
+
       {times.map((time, index) => (
         <PrayTimesBannerCard key={index} time={time} index={index} />
       ))}

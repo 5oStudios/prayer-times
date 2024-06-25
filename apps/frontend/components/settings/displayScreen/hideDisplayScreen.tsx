@@ -18,7 +18,7 @@ function HideDisplayScreen() {
   return (
     <div>
       <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>
-      <Button variant="filled" onClick={toggleOverlay}>
+      <Button variant="filled" onClick={toggleOverlay} style={{ marginTop: '0.5rem' }}>
         {dictionary.settings.displayScreen.hideManually}
       </Button>
       <div className={`overlay ${isVisible ? 'visible' : ''}`}></div>

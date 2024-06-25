@@ -20,9 +20,6 @@ export const Orientation = ({ language }: OrientationProps) => {
 
   return (
     <div>
-      {/* <Text>
-        {dictionary.settings.orientation.title}
-      </Text> */}
       <Text>{dictionary.settings.orientation.label}</Text>
       <div className={isArabic ? styles.buttonContainerAR : styles.buttonContainerEN}>
         <SettingButton value="vrLEFT" borderRadius="10px 0 0 10px" onChange={handleOrientation}>
