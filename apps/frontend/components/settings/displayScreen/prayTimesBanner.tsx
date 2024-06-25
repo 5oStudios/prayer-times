@@ -40,6 +40,7 @@ function PrayTimesBannerCard({ time, index }: { time: PrayerTime; index: number 
   const timePeriod = useSelector(selectTimePeriod);
 
   useEffect(() => {
+    // console.log('time =',time.remaining);
     if (time.remaining === 0) {
       const delayInMillis = time.remaining * 60 * 1000;
       setTimeout(() => {

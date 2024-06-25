@@ -10,7 +10,7 @@ import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
 import { Settings } from '../../components';
-import { selectBackground, selectOrientation } from '../../lib/features/settings';
+import { selectBackground, selectOrientation, selectMasjidName } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
 import styles from '../../assets/css/settings.module.css';
@@ -28,7 +28,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <div className="dates">
           <DateSection language={lang} />
         </div>
-        <div className="mosquee-name">برنامج تجريبي</div>
+        <div className="mosquee-name">{useSelector(selectMasjidName)}</div>
         <ClockSection lang={lang} />
         <AzkarSection lang={lang} />
         <PrayerTimesSection lang={lang} />
