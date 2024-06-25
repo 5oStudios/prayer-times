@@ -2,10 +2,25 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import settingsSlice from './features/settings';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import hadithSlice from './features/hadith';
 import timesSlice from './features/times';
+// eslint-disable-next-line import/no-cycle
+import settingsReducer from './features/settings';
+
+const createNoopStorage = () => ({
+  getItem(_key: string) {
+    return Promise.resolve(null);
+  },
+  setItem(_key: string, value: any) {
+    return Promise.resolve(value);
+  },
+  removeItem(_key: string) {
+    return Promise.resolve();
+  },
+});
+
+const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
 
 const persistConfig = {
   key: 'root',
@@ -14,7 +29,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  settings: settingsSlice.reducer,
+  settings: settingsReducer.reducer,
   hadith: hadithSlice.reducer,
   times: timesSlice.reducer,
 });
@@ -32,3 +47,5 @@ const store = configureStore({
 const persister = persistStore(store);
 
 export { store, persister };
+
+export type RootState = ReturnType<typeof store.getState>;

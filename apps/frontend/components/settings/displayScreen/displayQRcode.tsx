@@ -2,14 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { QRCodeSVG } from 'qrcode.react';
 import { Center, Text, TextInput, Checkbox } from '@mantine/core';
 import moment from 'moment';
-import { setURL, selectURL, setEnableURL, selectEnableURl } from '../../../lib/features/settings';
+import { setURL, selectURL, setEnableURL, selectEnableURL } from '../../../lib/features/settings';
 import styles from '../../../assets/css/settings.module.css';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 
 const QRCodeGenerator = () => {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
-  const enableURl = useSelector(selectEnableURl);
+  const enableURl = useSelector(selectEnableURL);
   return (
     <div>
       <TextInput
@@ -34,7 +34,7 @@ type DisplayQRcodeProps = {
 };
 const DisplayQRcode = ({ className }: DisplayQRcodeProps) => {
   const url = useSelector(selectURL);
-  const enableURl = useSelector(selectEnableURl);
+  const enableURl = useSelector(selectEnableURL);
 
   const isTodayFriday = moment().day() === 1;
   return (
