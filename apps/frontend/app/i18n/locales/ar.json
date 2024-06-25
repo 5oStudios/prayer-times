@@ -64,7 +64,6 @@
       }
     },
     "orientation": {
-      "title": "تدوير النافذة",
       "label": "اختر خيار التدوير",
       "options": {
         "vertical": "عمودي",

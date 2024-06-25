@@ -3,7 +3,7 @@ import { Text, Input, Textarea, Button } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import { addNews, selectNews } from '../../../lib/features/settings';
+import { setNews, selectNews } from '../../../lib/features/settings';
 
 type NewsType = {
   title: string;
@@ -18,24 +18,26 @@ type NewsFormType = {
 function NewsForm() {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
-  const newsLocal = useSelector(selectNews);
+  const newsLocal: NewsType[] = useSelector(selectNews);
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<NewsFormType>();
-  const [news, setNews] = useState<NewsType[]>([]);
+  const [news, setNew] = useState<NewsType[]>([]);
 
   const onSubmit = (data: NewsFormType) => {
     const newNewsItem = { title: data.title, content: data.content };
-    setNews([...news, newNewsItem]);
-    dispatch(addNews(newNewsItem));
+    setNew([...news, newNewsItem]);
+    dispatch(setNews([...newsLocal, newNewsItem]));
     reset();
   };
 
   const handleDelete = (index: number) => {
-    setNews(news.filter((_, i) => i !== index));
+    const updatedNews = news.filter((_, i) => i !== index);
+    setNew(updatedNews);
+    dispatch(setNews(updatedNews));
   };
 
   return (
@@ -76,14 +78,14 @@ function NewsForm() {
           <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>
         ) : (
           <ul style={{ width: '100%' }}>
-            {newsLocal.map((item, index) => (
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                <li key={index} style={{ width: '70%' }}>
+            {news.map((item, index) => (
+              <div style={{ display: 'flex', flexWrap: 'wrap' }} key={index}>
+                <li style={{ width: '70%', marginTop: '1rem' }}>
                   <strong>{item.title}</strong>
                   <p>{item.content}</p>
                 </li>
                 <Button onClick={() => handleDelete(index)}>
-                  <Text style={{ fontSize: '0.5 rem' }}>{dictionary.settings.delete}</Text>
+                  <Text style={{ fontSize: '0.5rem' }}>{dictionary.settings.delete}</Text>
                 </Button>
               </div>
             ))}

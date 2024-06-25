@@ -181,8 +181,6 @@
   }
 }
 
-/* settings.module.css */
-
 .buttonContainerAR,
 .buttonContainerEN {
   display: flex;
@@ -202,7 +200,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 0.7rem; /* Base font size */
+  font-size: 0.7rem;
 }
 
 .button:hover {
@@ -219,30 +217,19 @@
   border-right: none;
 }
 
-/* Responsive font sizes */
+
 @media (max-width: 1200px) {
   .button {
-    font-size: 0.5rem; /* Decrease font size for smaller screens */
+    font-size: 0.4rem;
   }
 }
 
 @media (max-width: 992px) {
   .button {
-    font-size: 0.3rem; /* Decrease font size further for smaller screens */
+    font-size: 0.3rem;
   }
 }
 
-@media (max-width: 768px) {
-  .button {
-    font-size: 0.2rem; /* Decrease font size further for smaller screens */
-  }
-}
-
-@media (max-width: 576px) {
-  .button {
-    font-size: 0.1rem; /* Decrease font size further for smaller screens */
-  }
-}
 
 .scrollableContainerVR {
   max-height: 85vh;
