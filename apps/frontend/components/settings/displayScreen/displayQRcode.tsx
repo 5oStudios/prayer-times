@@ -11,7 +11,7 @@ const QRCodeGenerator = ({ isArabic }: { isArabic: boolean }) => {
   const dictionary = useDictionary();
   const enableURl = useSelector(selectEnableURL);
   return (
-    <div style={{ width: '100%',marginTop:'2rem' }} className={isArabic ? styles.alRight : ''}>
+    <div style={{ width: '100%', marginTop: '2rem' }} className={isArabic ? styles.alRight : ''}>
       <TextInput
         style={{ width: '100%' }}
         defaultValue={useSelector(selectURL)}

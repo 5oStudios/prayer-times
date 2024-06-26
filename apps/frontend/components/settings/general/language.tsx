@@ -18,7 +18,7 @@ function Language() {
   };
 
   return (
-    <div style={{ width: '100%' }} className={isArabic ? styles.alRight : ''}>
+    <div>
       <Text> {dictionary.settings.language.description}</Text>
       <Radio.Group onChange={handleChange} name={dictionary.settings.language.title} value={lang}>
         <Group mt="xs">

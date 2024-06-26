@@ -8,7 +8,7 @@ export default function Themes({ isArabic }: { isArabic: boolean }) {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
   return (
-    <div className={isArabic ? styles.alRight : ''} style={{ width: '100%',marginTop:'2rem' }}>
+    <div className={isArabic ? styles.alRight : ''} style={{ width: '100%', marginTop: '2rem' }}>
       <Radio.Group
         style={{ width: '100%' }}
         label={dictionary.settings.themes.label}
