@@ -77,7 +77,7 @@ function NewsForm() {
         {!newsLocal || newsLocal.length === 0 ? (
           <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>
         ) : (
-          <ul style={{ width: '100%' }}>
+          <ul style={{ width: '100%', textAlign: 'left' }}>
             {news.map((item, index) => (
               <div style={{ display: 'flex', flexWrap: 'wrap' }} key={index}>
                 <li style={{ width: '70%', marginTop: '1rem' }}>
