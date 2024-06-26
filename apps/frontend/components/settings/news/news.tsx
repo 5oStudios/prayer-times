@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Input, Textarea, Button } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { MdDelete } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { setNews, selectNews } from '../../../lib/features/settings';
@@ -85,7 +86,7 @@ function NewsForm() {
                   <p>{item.content}</p>
                 </li>
                 <Button onClick={() => handleDelete(index)}>
-                  <Text style={{ fontSize: '0.5rem' }}>{dictionary.settings.delete}</Text>
+                  <MdDelete />
                 </Button>
               </div>
             ))}
