@@ -76,7 +76,7 @@ function PrayTimesBanner({ isArabic, lang }: { isArabic: boolean; lang: string }
   });
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', marginTop: '2rem' }}>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.prayTimeBanner}
       </Text>
