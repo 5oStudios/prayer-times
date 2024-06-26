@@ -54,7 +54,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <HideDisplayScreen isArabic={isArabic} />
             <QRCodeGenerator isArabic={isArabic} />
             <Themes isArabic={isArabic} />
-            <PrayTimesBanner isArabic={isArabic} />
+            <PrayTimesBanner isArabic={isArabic} lang={language} />
           </div>
         )}
       </MantineAccordion.Panel>

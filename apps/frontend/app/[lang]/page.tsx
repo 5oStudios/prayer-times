@@ -14,6 +14,7 @@ import { selectBackground, selectOrientation, selectMasjidName } from '../../lib
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
 import styles from '../../assets/css/settings.module.css';
+import Timer from '../../components/settings/displayScreen/timer';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -25,6 +26,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <Settings language={lang} />
         <BlackScreen />
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
+        <Timer />
         <div className={`dates ${changeBG ? 'whiteText' : ''}`}>
           <DateSection language={lang} />
         </div>
