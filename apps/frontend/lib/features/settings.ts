@@ -24,6 +24,7 @@ export type SettingsState = {
   enableURL: boolean;
   background: number;
   timePeriod: number[];
+  currentTimePeriod: number;
 };
 
 const initialState: SettingsState = {
@@ -37,6 +38,7 @@ const initialState: SettingsState = {
   enableURL: false,
   background: 0,
   timePeriod: [2, 2, 2, 2, 2, 2],
+  currentTimePeriod: 3,
 };
 
 const settingsSlice = createSlice({
@@ -73,6 +75,9 @@ const settingsSlice = createSlice({
     setTimePeriod: (state, action) => {
       state.timePeriod = action.payload;
     },
+    setCurrentTimePeriod: (state, action) => {
+      state.currentTimePeriod = action.payload;
+    },
   },
 });
 
@@ -87,6 +92,7 @@ export const {
   setEnableURL,
   setBackground,
   setTimePeriod,
+  setCurrentTimePeriod,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -101,3 +107,4 @@ export const selectURL = (state: RootState) => state.settings.url;
 export const selectEnableURL = (state: RootState) => state.settings.enableURL;
 export const selectBackground = (state: RootState) => state.settings.background;
 export const selectTimePeriod = (state: RootState) => state.settings.timePeriod;
+export const selectCurrentTimePeriod = (state: RootState) => state.settings.currentTimePeriod;

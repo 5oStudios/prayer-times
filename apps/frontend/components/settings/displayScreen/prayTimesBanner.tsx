@@ -1,9 +1,16 @@
+'use client';
+
 import { NumberInput, Text } from '@mantine/core';
 import { PrayerTime } from '@islamic-kit/prayer-times';
-import { useEffect } from 'react';
+import { subscribe } from '@enegix/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTimes } from '../../../lib/features/times';
-import { selectTimePeriod, setTimePeriod, setHideScreen } from '../../../lib/features/settings';
+import {
+  selectTimePeriod,
+  setTimePeriod,
+  setHideScreen,
+  setCurrentTimePeriod,
+} from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
 
@@ -19,9 +26,55 @@ type PrayerTimesDictionary = {
   Midnight: string;
 };
 
-function PrayTimesBanner({ isArabic }: { isArabic: boolean }) {
+function PrayTimesBanner({ isArabic, lang }: { isArabic: boolean; lang: string }) {
   const times = useSelector(selectTimes);
+  const timePeriod = useSelector(selectTimePeriod);
   const dictionary = useDictionary();
+  const dispatch = useDispatch();
+  const getPrayerIndex = (name: string): number => {
+    switch (name) {
+      case 'fajr': {
+        return 0;
+      }
+      case 'sunrise': {
+        return 1;
+      }
+      case 'dhuhr': {
+        return 2;
+      }
+      case 'asr': {
+        return 3;
+      }
+      case 'maghrib': {
+        return 4;
+      }
+      case 'isha': {
+        return 5;
+      }
+    }
+    return 1;
+  };
+
+  const startPrayTime = (name: string) => {
+    const prayerTimePeriod = timePeriod[getPrayerIndex(name)];
+    const delayInMillis = prayerTimePeriod * 60 * 1000;
+    dispatch(setCurrentTimePeriod(prayerTimePeriod));
+    setTimeout(() => {
+      dispatch(setHideScreen(true));
+    }, delayInMillis);
+
+    setTimeout(
+      () => {
+        dispatch(setHideScreen(false));
+      },
+      2 * 60 * 1000
+    );
+  };
+
+  subscribe<PrayerTime>('next-prayer', (prayer) => {
+    startPrayTime(prayer.name);
+  });
+
   return (
     <div style={{ width: '100%' }}>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
@@ -29,7 +82,13 @@ function PrayTimesBanner({ isArabic }: { isArabic: boolean }) {
       </Text>
       <div className={isArabic ? styles.alRight : ''} style={{ width: '100%' }}>
         {times.map((time, index) => (
-          <PrayTimesBannerCard key={index} time={time} index={index} isArabic={isArabic} />
+          <PrayTimesBannerCard
+            key={index}
+            index={index}
+            isArabic={isArabic}
+            lang={lang}
+            time={time}
+          />
         ))}
       </div>
     </div>
@@ -37,28 +96,18 @@ function PrayTimesBanner({ isArabic }: { isArabic: boolean }) {
 }
 
 function PrayTimesBannerCard({
-  time,
   index,
   isArabic,
+  time,
 }: {
   time: PrayerTime;
   index: number;
   isArabic: boolean;
+  lang: string;
 }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const timePeriod = useSelector(selectTimePeriod);
-
-  useEffect(() => {
-    // console.log('time =',time.remaining);
-    if (time.remaining === 0) {
-      const delayInMillis = time.remaining * 60 * 1000;
-      setTimeout(() => {
-        dispatch(setHideScreen(true));
-      }, delayInMillis);
-      setHideScreen(false);
-    }
-  }, [time.remaining, dispatch]);
 
   const getPrayerTimeNames = (name: string) => {
     const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
