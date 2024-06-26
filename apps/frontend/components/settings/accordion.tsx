@@ -50,7 +50,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
           </div>
         )}
         {item.value === dictionary.settings.displayScreen.title && (
-          <div className={isArabic ? style.alRight : ''} style={{ gap: '1rem' }}>
+          <div className={isArabic ? style.alRight : ''}>
             <HideDisplayScreen isArabic={isArabic} />
             <QRCodeGenerator isArabic={isArabic} />
             <Themes isArabic={isArabic} />
