@@ -1,25 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { QRCodeSVG } from 'qrcode.react';
-import { Center, Text, TextInput, Checkbox } from '@mantine/core';
+import { Center, Text, TextInput, Switch } from '@mantine/core';
 import moment from 'moment';
 import { setURL, selectURL, setEnableURL, selectEnableURL } from '../../../lib/features/settings';
 import styles from '../../../assets/css/settings.module.css';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 
-const QRCodeGenerator = () => {
+const QRCodeGenerator = ({ isArabic }: { isArabic: boolean }) => {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
   const enableURl = useSelector(selectEnableURL);
   return (
-    <div>
+    <div style={{ width: '100%' }} className={isArabic ? styles.alRight : ''}>
       <TextInput
+        style={{ width: '100%' }}
+        defaultValue={useSelector(selectURL)}
         onChange={(e) => dispatch(setURL(e.target.value))}
         label={dictionary.settings.displaysQR.title}
         placeholder={dictionary.settings.displaysQR.placeholder}
       />
-      <Checkbox
-        defaultChecked={enableURl}
+      <Switch
         style={{ marginTop: '1rem' }}
+        defaultChecked={enableURl}
         label={dictionary.settings.displaysQR.enable}
         onChange={() => {
           dispatch(setEnableURL(!enableURl));

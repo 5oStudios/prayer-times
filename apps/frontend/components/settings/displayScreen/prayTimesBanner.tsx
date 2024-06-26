@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectTimes } from '../../../lib/features/times';
 import { selectTimePeriod, setTimePeriod, setHideScreen } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import styles from '../../../assets/css/settings.module.css';
 
 type PrayerTimesDictionary = {
   [key: string]: string;
@@ -18,7 +19,7 @@ type PrayerTimesDictionary = {
   Midnight: string;
 };
 
-function PrayTimesBanner() {
+function PrayTimesBanner({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
   const dictionary = useDictionary();
   return (
@@ -26,15 +27,24 @@ function PrayTimesBanner() {
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.prayTimeBanner}
       </Text>
-
-      {times.map((time, index) => (
-        <PrayTimesBannerCard key={index} time={time} index={index} />
-      ))}
+      <div className={isArabic ? styles.alRight : ''} style={{ width: '100%' }}>
+        {times.map((time, index) => (
+          <PrayTimesBannerCard key={index} time={time} index={index} isArabic={isArabic} />
+        ))}
+      </div>
     </div>
   );
 }
 
-function PrayTimesBannerCard({ time, index }: { time: PrayerTime; index: number }) {
+function PrayTimesBannerCard({
+  time,
+  index,
+  isArabic,
+}: {
+  time: PrayerTime;
+  index: number;
+  isArabic: boolean;
+}) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const timePeriod = useSelector(selectTimePeriod);
@@ -62,12 +72,18 @@ function PrayTimesBannerCard({ time, index }: { time: PrayerTime; index: number 
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <NumberInput
-        label={getPrayerTimeNames(time.name)}
-        defaultValue={timePeriod[index]}
-        onChange={handleChange}
-      />
+    <div
+      className={isArabic ? styles.alRight : ''}
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        marginBottom: '1rem',
+      }}
+    >
+      <NumberInput defaultValue={timePeriod[index]} onChange={handleChange} />
+      <Text style={{ width: '20%', marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
     </div>
   );
 }
