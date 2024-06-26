@@ -19,7 +19,7 @@ export const Orientation = ({ language }: OrientationProps) => {
   };
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <Text>{dictionary.settings.orientation.label}</Text>
       <div className={isArabic ? styles.buttonContainerAR : styles.buttonContainerEN}>
         <SettingButton value="vrLEFT" borderRadius="10px 0 0 10px" onChange={handleOrientation}>

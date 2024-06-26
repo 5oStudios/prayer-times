@@ -8,6 +8,7 @@ import { useDeepCompareEffect } from 'use-deep-compare';
 import { useMemo } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
+import { useMediaQuery } from 'react-responsive';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
 import { PrayerTimesCard } from '../components';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
@@ -21,7 +22,8 @@ const kuwaitCoordinates = {
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
-  const times = useSelector(selectTimes);
+  const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
+  const times = reverseTimes(useSelector(selectTimes), lang, isPortrait);
   const timesStatus = useSelector(selectTimesStatus);
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
@@ -86,3 +88,5 @@ const playAthan = () => {
   );
   audio.play();
 };
+const reverseTimes = (time: PrayerTime[], lang: string, isPortrait: boolean) =>
+  lang === 'ar' ? (isPortrait ? time : time.slice().reverse()) : time;

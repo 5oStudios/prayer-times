@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
-import { Text, Button } from '@mantine/core';
+import { Text, Switch } from '@mantine/core';
 import '../accordion.module.css';
-import { useDispatch } from 'react-redux';
-import { setHideScreen } from '../../../lib/features/settings';
+import { useDispatch, useSelector } from 'react-redux';
+import { setHideScreen, selectHideScreen } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import styles from '../../../assets/css/settings.module.css';
 
-function HideDisplayScreen() {
-  const [isVisible, setIsVisible] = useState(false);
+function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
+  const value = useSelector(selectHideScreen);
   const toggleOverlay = () => {
-    setIsVisible(!isVisible);
-    dispatch(setHideScreen(!isVisible));
+    dispatch(setHideScreen(!value));
   };
 
   return (
-    <div>
+    <div style={{ width: '100%' }} className={isArabic ? styles.alRight : ''}>
       <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>
-      <Button variant="filled" onClick={toggleOverlay} style={{ marginTop: '0.5rem' }}>
-        {dictionary.settings.displayScreen.hideManually}
-      </Button>
-      <div className={`overlay ${isVisible ? 'visible' : ''}`}></div>
+      <Switch
+        style={{ marginTop: '0.5rem' }}
+        defaultChecked={value}
+        onClick={toggleOverlay}
+        label={dictionary.settings.displayScreen.hideManually}
+      />
     </div>
   );
 }

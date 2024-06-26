@@ -3,6 +3,7 @@ import { IconPlus } from '@tabler/icons-react';
 import { Orientation } from './general/orientation';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from './accordion.module.css';
+import style from '../../assets/css/settings.module.css';
 import Language from './general/language';
 import MasjidName from './general/masjidName';
 import NewsForm from './news/news';
@@ -31,29 +32,29 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
       value: dictionary.settings.displayScreen.title,
     },
   ];
-
+  const isArabic = language === 'ar';
   const items = groceries.map((item) => (
     <MantineAccordion.Item key={item.value} value={item.value}>
       <MantineAccordion.Control icon={item.emoji}>{item.value}</MantineAccordion.Control>
-      <MantineAccordion.Panel>
+      <MantineAccordion.Panel className={styles.fullWidth}>
         {item.value === dictionary.settings.general && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div className={isArabic ? style.alRight : ''}>
             <MasjidName />
             <Orientation language={language} />
             <Language />
           </div>
         )}
         {item.value === dictionary.settings.news && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div>
             <NewsForm />
           </div>
         )}
         {item.value === dictionary.settings.displayScreen.title && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <HideDisplayScreen />
-            <QRCodeGenerator />
-            <Themes />
-            <PrayTimesBanner />
+          <div className={isArabic ? style.alRight : ''} style={{ gap: '1rem' }}>
+            <HideDisplayScreen isArabic={isArabic} />
+            <QRCodeGenerator isArabic={isArabic} />
+            <Themes isArabic={isArabic} />
+            <PrayTimesBanner isArabic={isArabic} />
           </div>
         )}
       </MantineAccordion.Panel>
