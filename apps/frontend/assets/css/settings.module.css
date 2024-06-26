@@ -224,15 +224,10 @@
 
 @media (max-width: 1200px) {
   .button {
-    font-size: 0.4rem;
+    font-size: 0.5rem;
   }
 }
 
-@media (max-width: 992px) {
-  .button {
-    font-size: 0.3rem;
-  }
-}
 
 .scrollableContainerVR {
   max-height: 85vh;
