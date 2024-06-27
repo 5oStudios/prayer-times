@@ -5,6 +5,8 @@ import { PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTimes } from '../../../lib/features/times';
+// import beep from '../../../assets/media/alert/blip.mp3';
+
 import {
   selectTimePeriod,
   setTimePeriod,
@@ -62,13 +64,14 @@ function PrayTimesBanner({ isArabic, lang }: { isArabic: boolean; lang: string }
     setTimeout(() => {
       dispatch(setHideScreen(true));
     }, delayInMillis);
-
+    dispatch(setCurrentTimePeriod(0));
     setTimeout(
       () => {
         dispatch(setHideScreen(false));
       },
       2 * 60 * 1000
     );
+    playAlert();
   };
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
@@ -138,3 +141,8 @@ function PrayTimesBannerCard({
 }
 
 export { PrayTimesBanner, PrayTimesBannerCard };
+
+const playAlert = () => {
+  const audio = new Audio('../../../assets/media/alert/blip.mp3');
+  audio.play();
+};

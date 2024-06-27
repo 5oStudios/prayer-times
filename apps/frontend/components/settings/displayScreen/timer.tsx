@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Text, Center } from '@mantine/core';
 import styles from '../../../assets/css/settings.module.css';
-import { selectCurrentTimePeriod, setCurrentTimePeriod } from '../../../lib/features/settings';
+import { selectCurrentTimePeriod } from '../../../lib/features/settings';
 
 const Timer = () => {
-  const dispatch = useDispatch();
   const minutes = useSelector(selectCurrentTimePeriod);
   const [timeLeft, setTimeLeft] = useState<number>(minutes * 60);
 
-  dispatch(setCurrentTimePeriod(0));
+  useEffect(() => {
+    setTimeLeft(minutes * 60);
+  }, [minutes]);
 
   useEffect(() => {
     if (timeLeft <= 0) {
