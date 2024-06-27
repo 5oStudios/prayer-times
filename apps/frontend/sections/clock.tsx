@@ -1,10 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
+import styles from '../assets/css/settings.module.css';
 
 export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
   useEffect(() => {
     // Function to update the current time
@@ -33,5 +36,9 @@ export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
     return formattedTime;
   };
 
-  return <div className="clock-section">{formatTime(currentTime)}</div>;
+  return (
+    <div className={`clock-section ${isTabletOrMobile ? styles.mobileTextSizeClock : ''}`}>
+      {formatTime(currentTime)}
+    </div>
+  );
 };

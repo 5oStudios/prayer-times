@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { toHijri } from 'hijri-converter';
 import { Flex } from '@mantine/core';
 import moment from 'moment';
 import 'moment/locale/ar';
+import styles from '../assets/css/settings.module.css';
 
 interface HijriDateProps {
   language: string;
@@ -14,7 +16,7 @@ function HijriDateSection(props: HijriDateProps) {
   moment.locale(lang);
 
   const [currentDate, setCurrentDate] = useState(new Date());
-
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDate(new Date());
@@ -33,7 +35,11 @@ function HijriDateSection(props: HijriDateProps) {
   const localizedHijriDate = `${localizedHijriDay} ${getHijriMonthName(hijriDate.hm, lang)} ${localizedHijriYear}`;
 
   return (
-    <Flex gap={3} className="hijri-date" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+    <Flex
+      gap={3}
+      className={`hijri-date ${isTabletOrMobile ? styles.mobileTextSize : ''}`}
+      dir={lang === 'ar' ? 'rtl' : 'ltr'}
+    >
       <div className="gregorian-date">{toEnglishNumber(localizedGregorianDate)}</div>
       <div className="qobtic-date" />
       <div className="hijri-date">{localizedHijriDate}</div>

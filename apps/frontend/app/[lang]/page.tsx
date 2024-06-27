@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
@@ -19,6 +20,8 @@ import Timer from '../../components/settings/displayScreen/timer';
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
   const backgroundImageIndex = useSelector(selectBackground);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
@@ -30,11 +33,13 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <div className={`dates ${changeBG ? 'whiteText' : ''}`}>
           <DateSection language={lang} />
         </div>
-        <div className={`mosquee-name ${changeBG ? 'whiteText' : ''}`}>
+        <div
+          className={`mosquee-name ${changeBG ? 'whiteText' : ''} ${isTabletOrMobile ? styles.mobileTextSizeName : ''}`}
+        >
           {useSelector(selectMasjidName)}
         </div>
         <div
-          style={{ display: 'flex', justifyContent: 'center' }}
+          style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}
           className={`${changeBG ? 'whiteText' : ''}`}
         >
           <ClockSection lang={lang} />
