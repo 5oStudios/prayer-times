@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { NumberInput, Text } from '@mantine/core';
 import { PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
@@ -12,6 +13,8 @@ import {
   setTimePeriod,
   setHideScreen,
   setCurrentTimePeriod,
+  setShowAzanTime,
+  setCurrentPrayTimeName,
 } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
@@ -33,6 +36,7 @@ function PrayTimesBanner({ isArabic, lang }: { isArabic: boolean; lang: string }
   const timePeriod = useSelector(selectTimePeriod);
   const dictionary = useDictionary();
   const dispatch = useDispatch();
+
   const getPrayerIndex = (name: string): number => {
     switch (name) {
       case 'fajr': {
@@ -59,19 +63,18 @@ function PrayTimesBanner({ isArabic, lang }: { isArabic: boolean; lang: string }
 
   const startPrayTime = (name: string) => {
     const prayerTimePeriod = timePeriod[getPrayerIndex(name)];
-    const delayInMillis = prayerTimePeriod * 60 * 1000;
-    dispatch(setCurrentTimePeriod(prayerTimePeriod));
+
+    dispatch(setCurrentPrayTimeName(name));
+    dispatch(setShowAzanTime(true));
+    
     setTimeout(() => {
-      dispatch(setHideScreen(true));
-    }, delayInMillis);
-    dispatch(setCurrentTimePeriod(0));
-    setTimeout(
-      () => {
-        dispatch(setHideScreen(false));
-      },
-      2 * 60 * 1000
-    );
-    playAlert();
+      dispatch(setShowAzanTime(false));
+      dispatch(setCurrentTimePeriod(prayerTimePeriod));
+    }, 5000);
+
+    setTimeout(() => {
+      dispatch(setHideScreen(false));
+    }, 1000);
   };
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
@@ -143,6 +146,6 @@ function PrayTimesBannerCard({
 export { PrayTimesBanner, PrayTimesBannerCard };
 
 const playAlert = () => {
-  const audio = new Audio('../../../assets/media/alert/blip.mp3');
+  const audio = new Audio('/assets/media/alert/blip.mp3'); // Path relative to public folder
   audio.play();
 };

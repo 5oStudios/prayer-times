@@ -73,6 +73,25 @@ body {
   color: white;
 }
 
+.azan-wrapper {
+  display: flex;
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+  background: url('../images/azan.jpg') left bottom no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+/* .azanTitle{
+
+}
+.azanName{
+  
+} */
 .screen-wrapper {
   width: 100dvw;
   height: 100dvh;
@@ -399,8 +418,7 @@ body {
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
   color: var(--mantine-color-text);
   font-size: var(--mantine-font-size-sm);
-  hijri-date
-  @mixin hover {
+  hijri-date @mixin hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
     color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
   }
@@ -426,4 +444,3 @@ body {
 .chevron {
   transition: transform 200ms ease;
 }
-

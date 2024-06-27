@@ -11,6 +11,7 @@ import HideDisplayScreen from './displayScreen/hideDisplayScreen';
 import { QRCodeGenerator } from './displayScreen/displayQRcode';
 import Themes from './displayScreen/themes';
 import { PrayTimesBanner } from './displayScreen/prayTimesBanner';
+import Toggle from './toggle';
 
 type SettingsAccordionProps = {
   language: string;
@@ -55,6 +56,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <QRCodeGenerator isArabic={isArabic} />
             <Themes isArabic={isArabic} />
             <PrayTimesBanner isArabic={isArabic} lang={language} />
+            <Toggle />
           </div>
         )}
       </MantineAccordion.Panel>

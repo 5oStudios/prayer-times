@@ -25,6 +25,8 @@ export type SettingsState = {
   background: number;
   timePeriod: number[];
   currentTimePeriod: number;
+  showAzanTime: boolean;
+  currentPrayTimeName: string;
 };
 
 const initialState: SettingsState = {
@@ -38,7 +40,9 @@ const initialState: SettingsState = {
   enableURL: false,
   background: 0,
   timePeriod: [2, 2, 2, 2, 2, 2],
-  currentTimePeriod: 3,
+  currentTimePeriod: 0,
+  showAzanTime: false,
+  currentPrayTimeName: '',
 };
 
 const settingsSlice = createSlice({
@@ -78,6 +82,12 @@ const settingsSlice = createSlice({
     setCurrentTimePeriod: (state, action) => {
       state.currentTimePeriod = action.payload;
     },
+    setShowAzanTime: (state, action) => {
+      state.showAzanTime = action.payload;
+    },
+    setCurrentPrayTimeName: (state, action) => {
+      state.currentPrayTimeName = action.payload;
+    },
   },
 });
 
@@ -93,6 +103,8 @@ export const {
   setBackground,
   setTimePeriod,
   setCurrentTimePeriod,
+  setShowAzanTime,
+  setCurrentPrayTimeName,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -108,3 +120,5 @@ export const selectEnableURL = (state: RootState) => state.settings.enableURL;
 export const selectBackground = (state: RootState) => state.settings.background;
 export const selectTimePeriod = (state: RootState) => state.settings.timePeriod;
 export const selectCurrentTimePeriod = (state: RootState) => state.settings.currentTimePeriod;
+export const selectShowAzanTime = (state: RootState) => state.settings.showAzanTime;
+export const selectCurrentPrayTimeName = (state: RootState) => state.settings.currentPrayTimeName;

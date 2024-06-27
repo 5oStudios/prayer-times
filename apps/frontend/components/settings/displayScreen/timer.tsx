@@ -1,29 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, Center } from '@mantine/core';
 import styles from '../../../assets/css/settings.module.css';
-import { selectCurrentTimePeriod } from '../../../lib/features/settings';
+import {
+  selectCurrentTimePeriod,
+  selectOrientation,
+  setCurrentTimePeriod,
+  setHideScreen,
+} from '../../../lib/features/settings';
+
+const playAlert = () => {
+  const audio = new Audio('/assets/media/alert/blip.mp3'); // Path relative to public folder
+  audio.play();
+};
 
 const Timer = () => {
+  const orientation = useSelector(selectOrientation);
   const minutes = useSelector(selectCurrentTimePeriod);
-  const [timeLeft, setTimeLeft] = useState<number>(minutes * 60);
-
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const dispatch = useDispatch();
+  const [timeLeft, setTimeLeft] = useState<number>(minutes === -1 ? 0 : minutes * 60);
+  const isVertical = orientation === '';
   useEffect(() => {
-    setTimeLeft(minutes * 60);
+    setTimeLeft(minutes === -1 ? 0 : minutes * 60);
   }, [minutes]);
 
   useEffect(() => {
-    if (timeLeft <= 0) {
-      return; // Stop the timer when time is up
+    if (minutes === -1) {
+      return;
     }
 
     const timerId = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 0) {
+          if (minutes !== -1) {
+            dispatch(setHideScreen(true));
+            dispatch(setCurrentTimePeriod(-1));
+            playAlert();
+            setTimeout(() => {
+              dispatch(setHideScreen(false));
+            }, 1000);
+          }
+          clearInterval(timerId);
+          return 0;
+        }
+        return prevTime - 1;
+      });
     }, 1000);
 
     // eslint-disable-next-line consistent-return
-    return () => clearInterval(timerId); // Cleanup the interval on component unmount
-  }, [timeLeft]);
+    return () => clearInterval(timerId);
+  }, [minutes, dispatch]);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -31,17 +59,47 @@ const Timer = () => {
     return `${mins.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  return timeLeft ? (
-    <div style={{ position: 'absolute', right: '0', marginRight: '2rem' }}>
-      <Text style={{ fontSize: '1rem' }} className={styles.ArStyle}>
-        اقامة الصلاه
-      </Text>
+  if (timeLeft === 0 || minutes === -1) {
+    return null;
+  }
+
+  return (
+    <div
+      className={
+        isVertical
+          ? isTabletOrMobile
+            ? styles.circlePhone
+            : styles.circle
+          : isTabletOrMobile
+            ? styles.circlePhoneSide
+            : styles.circleSide
+      }
+    >
       <Center>
-        <p>{formatTime(timeLeft)}</p>
+        <Text
+          style={{
+            fontSize: isVertical ? (isTabletOrMobile ? '0.5rem' : '1rem') : isTabletOrMobile ? '0.5rem':'0.7rem',
+            fontWeight: 'bold',
+          }}
+          className={styles.ArStyle}
+        >
+          متبقي على الإقامة
+        </Text>
+      </Center>
+      <Center>
+        <Text
+          className={
+            isVertical
+              ? isTabletOrMobile
+                ? styles.timerClockPhone
+                : styles.timerClock
+              : styles.timerClockSide
+          }
+        >
+          {formatTime(timeLeft)}
+        </Text>
       </Center>
     </div>
-  ) : (
-    <div></div>
   );
 };
 
