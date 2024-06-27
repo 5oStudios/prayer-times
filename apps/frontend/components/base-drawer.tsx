@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core';
 import React, { ReactNode } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import Drawer from 'react-modern-drawer';
 import { MenuSvg } from '../assets/icons/menu';
@@ -17,6 +18,7 @@ type BaseDrawer = {
 export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDrawer) => {
   const isArabic = language === 'ar';
   const orientation = useSelector(selectOrientation);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   return (
     <>
       <Drawer
@@ -24,7 +26,7 @@ export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDra
         onClose={toggleDrawer}
         direction={isArabic ? 'right' : 'left'}
         style={{
-          width: orientation === '' ? '25vw' : '50vh',
+          width: orientation === '' ? (isTabletOrMobile ? '80vw' : '25vw') : '50vh',
           height: '96%',
           overflowX: 'hidden',
           overflowY: 'hidden',
@@ -46,7 +48,7 @@ export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDra
           right: isArabic ? '0.5dvw' : 'auto',
           opacity: 0.75,
           zIndex: 30,
-          top: orientation === '' ? '2dvh' : '22vh',
+          top: orientation === '' ? '2dvh' : isTabletOrMobile ? '2dvh' : '22vh',
         }}
         onClick={toggleDrawer}
       >

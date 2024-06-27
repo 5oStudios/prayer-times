@@ -4,14 +4,12 @@ import { Text, Radio, Group } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectLanguage, setLanguage } from '../../../lib/features/settings';
-import styles from '../../../assets/css/settings.module.css';
 
 function Language() {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const router = useRouter();
   const lang = useSelector(selectLanguage);
-  const isArabic = lang === 'ar';
   const handleChange = (value: string) => {
     dispatch(setLanguage(value as 'ar' | 'en'));
     router.push(`/${value}`);
