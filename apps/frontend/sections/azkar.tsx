@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Flex } from '@mantine/core';
 import localFont from 'next/font/local';
 import { AzkarClient, Zekr } from '@islamic-kit/azkar';
-import { useMediaQuery } from 'react-responsive';
 import { QuoteOpenSvg } from '../assets/icons/quote-open';
 import { QuoteCloseSvg } from '../assets/icons/quote-close';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import style from '../assets/css/settings.module.css';
+import styles from '../assets/css/settings.module.css';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 const azkarClient = new AzkarClient();
@@ -38,7 +38,7 @@ export const AzkarSection = ({ lang }: { lang: SupportedLanguages }) => {
     <>
       <Flex
         align="center"
-        className={`azkar-section ${isTabletOrMobile ? style.mobileTextSize : ''}`}
+        className={`azkar-section ${isTabletOrMobile ? styles.mobileTextSizeAzkar : ''}`}
       >
         <QuoteOpenSvg />
         <div className={`azkar-text ${font.className}`}>{currentZekr.content}</div>

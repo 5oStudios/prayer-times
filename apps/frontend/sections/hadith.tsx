@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Hadith } from '@islamic-kit/hadith';
+import { useMediaQuery } from 'react-responsive';
 import { StarSvg } from '../assets/hadith/star';
 import {
   selectHadithTickerSpeed,
@@ -22,7 +23,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const orientation = useSelector(selectOrientation);
   if (orientation !== '') dispatch(setHadithTickerSpeed(25));
   else dispatch(setHadithTickerSpeed(75));
-
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const tickerSpeed = useSelector(selectHadithTickerSpeed);
   // const hadith = useSelector(selectHadith);
   const hadith = [{ title: 'برنامج تجريبي', id: 1 }];
@@ -37,7 +38,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
     <div
       style={{
         overflow: 'hidden',
-        maxWidth: '100%',
+        maxWidth: isTabletOrMobile ? '100vh' : '100vw',
       }}
     >
       <HadithTicker hadith={hadith} speed={tickerSpeed} direction={direction} />

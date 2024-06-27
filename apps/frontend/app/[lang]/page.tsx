@@ -34,12 +34,12 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
           <DateSection language={lang} />
         </div>
         <div
-          className={`mosquee-name ${changeBG ? 'whiteText' : ''} ${isTabletOrMobile ? styles.mobileTextSize : ''}`}
+          className={`mosquee-name ${changeBG ? 'whiteText' : ''} ${isTabletOrMobile ? styles.mobileTextSizeName : ''}`}
         >
           {useSelector(selectMasjidName)}
         </div>
         <div
-          style={{ display: 'flex', justifyContent: 'center' }}
+          style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}
           className={`${changeBG ? 'whiteText' : ''}`}
         >
           <ClockSection lang={lang} />

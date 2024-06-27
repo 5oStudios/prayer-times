@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import style from '../assets/css/settings.module.css';
+import styles from '../assets/css/settings.module.css';
 
 export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
@@ -37,7 +37,7 @@ export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
   };
 
   return (
-    <div className={`clock-section ${isTabletOrMobile ? style.mobileTextSize : ''}`}>
+    <div className={`clock-section ${isTabletOrMobile ? styles.mobileTextSizeClock : ''}`}>
       {formatTime(currentTime)}
     </div>
   );
