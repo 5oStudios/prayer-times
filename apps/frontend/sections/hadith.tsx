@@ -37,7 +37,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
     <div
       style={{
         overflow: 'hidden',
-        maxWidth: '100vw',
+        maxWidth: '100%',
       }}
     >
       <HadithTicker hadith={hadith} speed={tickerSpeed} direction={direction} />
