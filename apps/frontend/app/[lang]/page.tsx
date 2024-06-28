@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
@@ -11,7 +11,13 @@ import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
 import { Settings } from '../../components';
-import { selectBackground, selectOrientation, selectMasjidName } from '../../lib/features/settings';
+import {
+  selectBackground,
+  selectOrientation,
+  selectMasjidName,
+  setHideScreen,
+  setShowAzanTime,
+} from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
 import styles from '../../assets/css/settings.module.css';
@@ -22,13 +28,16 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const orientation = useSelector(selectOrientation);
   const backgroundImageIndex = useSelector(selectBackground);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const dispatch = useDispatch();
+  dispatch(setHideScreen(false));
+  dispatch(setShowAzanTime(false));
 
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
       <Azan />
-        <BlackScreen />
-        <Settings language={lang} />
+      <BlackScreen />
+      <Settings language={lang} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
         <Timer />
