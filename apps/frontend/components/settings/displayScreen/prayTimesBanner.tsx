@@ -1,12 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { NumberInput, Text } from '@mantine/core';
 import { PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTimes } from '../../../lib/features/times';
-// import beep from '../../../assets/media/alert/blip.mp3';
 
 import {
   selectTimePeriod,
@@ -66,15 +64,15 @@ function PrayTimesBanner({ isArabic, lang }: { isArabic: boolean; lang: string }
 
     dispatch(setCurrentPrayTimeName(name));
     dispatch(setShowAzanTime(true));
-    
+
     setTimeout(() => {
       dispatch(setShowAzanTime(false));
       dispatch(setCurrentTimePeriod(prayerTimePeriod));
-    }, 5000);
+    }, 60 * 1000);
 
     setTimeout(() => {
       dispatch(setHideScreen(false));
-    }, 1000);
+    }, 60 * 1000);
   };
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
@@ -124,6 +122,7 @@ function PrayTimesBannerCard({
     const updatedTimePeriod = [...timePeriod];
     updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
     dispatch(setTimePeriod(updatedTimePeriod));
+    // playAlert();
   };
 
   return (
@@ -145,7 +144,7 @@ function PrayTimesBannerCard({
 
 export { PrayTimesBanner, PrayTimesBannerCard };
 
-const playAlert = () => {
-  const audio = new Audio('/assets/media/alert/blip.mp3'); // Path relative to public folder
-  audio.play();
-};
+// const playAlert = () => {
+//   const audio = new Audio('/blip.wav'); // Path relative to public folder
+//   audio.play();
+// };

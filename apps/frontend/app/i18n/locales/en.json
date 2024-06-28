@@ -35,7 +35,8 @@
     "displaysQR": {
       "title": "Friday's Speech url",
       "placeholder": "Enter url",
-      "enable": "Enable"
+      "enable": "Enable",
+      "onlyFriday":"On Friday"
     },
     "displayScreen": {
       "title": "Display Screen",

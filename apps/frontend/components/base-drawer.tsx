@@ -48,11 +48,11 @@ export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDra
           right: isArabic ? '0.5dvw' : 'auto',
           opacity: 0.75,
           zIndex: 30,
-          top: orientation === '' ? '2dvh' : isTabletOrMobile ? '2dvh' : '22vh',
+          top: orientation === '' ? isTabletOrMobile? '5dvh':'2dvh' : isTabletOrMobile ? '2dvh' : '22vh',
         }}
         onClick={toggleDrawer}
       >
-        <MenuSvg width="1em" height="1em" />
+        <MenuSvg width="2em" height="2em" />
       </Button>
     </>
   );

@@ -27,6 +27,7 @@ export type SettingsState = {
   currentTimePeriod: number;
   showAzanTime: boolean;
   currentPrayTimeName: string;
+  onlyFriday: boolean;
 };
 
 const initialState: SettingsState = {
@@ -43,6 +44,7 @@ const initialState: SettingsState = {
   currentTimePeriod: 0,
   showAzanTime: false,
   currentPrayTimeName: '',
+  onlyFriday: true,
 };
 
 const settingsSlice = createSlice({
@@ -88,6 +90,9 @@ const settingsSlice = createSlice({
     setCurrentPrayTimeName: (state, action) => {
       state.currentPrayTimeName = action.payload;
     },
+    setOnlyFriday: (state, action) => {
+      state.onlyFriday = action.payload;
+    },
   },
 });
 
@@ -105,6 +110,7 @@ export const {
   setCurrentTimePeriod,
   setShowAzanTime,
   setCurrentPrayTimeName,
+  setOnlyFriday
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -122,3 +128,4 @@ export const selectTimePeriod = (state: RootState) => state.settings.timePeriod;
 export const selectCurrentTimePeriod = (state: RootState) => state.settings.currentTimePeriod;
 export const selectShowAzanTime = (state: RootState) => state.settings.showAzanTime;
 export const selectCurrentPrayTimeName = (state: RootState) => state.settings.currentPrayTimeName;
+export const selectOnlyFriday = (state: RootState) => state.settings.onlyFriday;

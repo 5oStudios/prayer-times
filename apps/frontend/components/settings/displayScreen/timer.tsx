@@ -40,7 +40,7 @@ const Timer = () => {
             playAlert();
             setTimeout(() => {
               dispatch(setHideScreen(false));
-            }, 1000);
+            }, 60 * 1000);
           }
           clearInterval(timerId);
           return 0;
@@ -78,7 +78,13 @@ const Timer = () => {
       <Center>
         <Text
           style={{
-            fontSize: isVertical ? (isTabletOrMobile ? '0.5rem' : '1rem') : isTabletOrMobile ? '0.5rem':'0.7rem',
+            fontSize: isVertical
+              ? isTabletOrMobile
+                ? '0.5rem'
+                : '1rem'
+              : isTabletOrMobile
+                ? '0.5rem'
+                : '0.7rem',
             fontWeight: 'bold',
           }}
           className={styles.ArStyle}
