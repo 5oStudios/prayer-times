@@ -3,6 +3,7 @@
     "title": "Prayer Timers",
     "description": "Prayer Timers is a simple application that displays the Islamic prayer times for your location."
   },
+  "azan": "Azan Time",
   "times": {
     "Fajr": "Fajr",
     "Isha": "Isha",
@@ -34,13 +35,14 @@
     "displaysQR": {
       "title": "Friday's Speech url",
       "placeholder": "Enter url",
-      "enable": "Enable"
+      "enable": "Enable",
+      "onlyFriday":"On Friday"
     },
     "displayScreen": {
       "title": "Display Screen",
       "hideDisplayScreen": "Hide Display Screen",
       "hideManually": "Hide manually",
-      "prayTimeBanner":"Prayer Duration to hide screen"
+      "prayTimeBanner": "Prayer Duration to hide screen"
     },
     "newsComp": {
       "createNews": "Create News",
@@ -70,7 +72,6 @@
         "left": "Left",
         "right": "Right"
       }
-    },
-    "save": "save"
+    }
   }
 }

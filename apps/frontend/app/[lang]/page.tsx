@@ -16,6 +16,7 @@ import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
 import styles from '../../assets/css/settings.module.css';
 import Timer from '../../components/settings/displayScreen/timer';
+import Azan from '../../components/settings/azan';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -25,9 +26,10 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
-      <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
-        <Settings language={lang} />
+      <Azan />
         <BlackScreen />
+        <Settings language={lang} />
+      <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
         <Timer />
         <div className={`dates ${changeBG ? 'whiteText' : ''}`}>

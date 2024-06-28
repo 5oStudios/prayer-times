@@ -95,5 +95,5 @@ function toArabicNumber(number: number | string): string {
 }
 
 export function localNumber(number: number, lang: string): string {
-  return  new Intl.NumberFormat(lang).format(number);
+  return new Intl.NumberFormat(lang).format(number);
 }

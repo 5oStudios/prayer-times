@@ -73,6 +73,19 @@ body {
   color: white;
 }
 
+.azan-wrapper {
+  display: flex;
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+  background: url('../images/azan.jpg') left bottom no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
 .screen-wrapper {
   width: 100dvw;
   height: 100dvh;
@@ -185,11 +198,28 @@ body {
   font-size: 7.5dvw;
   font-weight: bold;
 }
+/* CLOCK SECTION */
+.clock-section-mobile {
+  position: absolute;
+  top: 16%;
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 7.5dvw;
+  font-weight: bold;
+}
 
 /* AZKAR SECTION */
 .azkar-section {
   position: absolute;
   top: 38%;
+  font-size: 2.5dvw;
+  font-weight: bold;
+  justify-content: center;
+  width: 80dvw;
+}
+/* AZKAR SECTION */
+.azkar-section-mobile {
+  position: absolute;
+  top: 30%;
   font-size: 2.5dvw;
   font-weight: bold;
   justify-content: center;
@@ -210,6 +240,7 @@ body {
 /* TIMES SECTION */
 .times-section {
   position: absolute;
+  padding: 1rem;
   bottom: 15%;
 }
 .prayer-card {
@@ -399,8 +430,7 @@ body {
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
   color: var(--mantine-color-text);
   font-size: var(--mantine-font-size-sm);
-  hijri-date
-  @mixin hover {
+  hijri-date @mixin hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
     color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
   }

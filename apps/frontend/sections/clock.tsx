@@ -37,7 +37,9 @@ export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
   };
 
   return (
-    <div className={`clock-section ${isTabletOrMobile ? styles.mobileTextSizeClock : ''}`}>
+    <div
+      className={`${isTabletOrMobile ? 'clock-section-mobile' : 'clock-section'} ${isTabletOrMobile ? styles.mobileTextSizeClock : ''}`}
+    >
       {formatTime(currentTime)}
     </div>
   );

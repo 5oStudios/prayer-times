@@ -2,13 +2,13 @@
 
 import { Flex } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
 import { useMemo } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
-import { useMediaQuery } from 'react-responsive';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
 import { PrayerTimesCard } from '../components';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
@@ -25,6 +25,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
   const times = reverseTimes(useSelector(selectTimes), lang, isPortrait);
   const timesStatus = useSelector(selectTimesStatus);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
 
@@ -68,7 +69,13 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [times, lang, dictionary]);
 
   return (
-    <Flex align="center" justify="center" gap="sm" className="times-section">
+    <Flex
+      align="center"
+      justify="center"
+      // gap={isTabletOrMobile ? 'lg' : 'sm'}
+      style={isTabletOrMobile ? { gap: '1rem' } : { gap: '0.5rem' }}
+      className="times-section"
+    >
       {localizedTimes.map((prayer) => (
         <PrayerTimesCard key={prayer.name} prayer={prayer} coordinates={coordinates} lang={lang} />
       ))}

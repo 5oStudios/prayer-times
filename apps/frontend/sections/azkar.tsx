@@ -38,7 +38,7 @@ export const AzkarSection = ({ lang }: { lang: SupportedLanguages }) => {
     <>
       <Flex
         align="center"
-        className={`azkar-section ${isTabletOrMobile ? styles.mobileTextSizeAzkar : ''}`}
+        className={`${isTabletOrMobile ? 'azkar-section-mobile' : 'azkar-section'} ${isTabletOrMobile ? styles.mobileTextSizeAzkar : ''}`}
       >
         <QuoteOpenSvg />
         <div className={`azkar-text ${font.className}`}>{currentZekr.content}</div>

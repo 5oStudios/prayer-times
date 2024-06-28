@@ -15,7 +15,6 @@ export function Settings(props: SideDialogProps) {
   const dictionary = useDictionary();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
