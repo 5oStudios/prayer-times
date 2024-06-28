@@ -1,6 +1,8 @@
 import '@mantine/core/styles.css';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { setHideScreen, setShowAzanTime } from '../../lib/features/settings';
 import '@mantine/carousel/styles.css';
 import { theme } from '../../theme';
 import 'normalize.css';
@@ -28,6 +30,9 @@ export default async function RootLayout({
   params: { lang: string };
 }) {
   const dictionary = await getDictionary(lang);
+  const dispatch = useDispatch();
+  dispatch(setHideScreen(false));
+  dispatch(setShowAzanTime(false));
 
   return (
     <DictionaryProvider dictionary={dictionary}>
