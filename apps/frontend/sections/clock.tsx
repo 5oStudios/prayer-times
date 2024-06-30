@@ -30,12 +30,6 @@ export const ClockSection = ({
     };
   }, []);
 
-  // Function to convert numbers to Arabic format
-  const toArabicNumber = (number: string) => {
-    const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-    return number.replace(/\d/g, (digit) => arabicDigits[digit]);
-  };
-
   // Function to format the time as a string
   const formatTime = (time: Date): string => {
     const formattedTime = time.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
