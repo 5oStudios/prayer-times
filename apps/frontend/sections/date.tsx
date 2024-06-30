@@ -20,7 +20,7 @@ function HijriDateSection(props: HijriDateProps) {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDate(new Date());
-    }, 1000 * 60); 
+    }, 1000 * 60);
 
     return () => clearInterval(timer);
   }, []);
@@ -37,7 +37,7 @@ function HijriDateSection(props: HijriDateProps) {
   return (
     <Flex
       gap={3}
-      className={`hijri-date ${isTabletOrMobile ? styles.mobileTextSize : ''}`}
+      className={`hijri-date ${styles.textSize}  ${isTabletOrMobile ? styles.mobileTextSize : ''}`}
       dir={lang === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="gregorian-date">{toEnglishNumber(localizedGregorianDate)}</div>

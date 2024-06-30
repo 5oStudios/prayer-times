@@ -35,10 +35,10 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
-      <Azan />
-      <BlackScreen />
       <Settings language={lang} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
+      <BlackScreen />
+      <Azan language={lang} />
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
         <Timer />
         <div className={`dates ${changeBG ? 'whiteText' : ''}`}>

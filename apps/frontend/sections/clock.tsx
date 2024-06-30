@@ -1,11 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 import styles from '../assets/css/settings.module.css';
 
-export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
+export const ClockSection = ({
+  lang,
+  style,
+}: {
+  lang: SupportedLanguages;
+  style?: CSSProperties;
+}) => {
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
@@ -39,6 +45,7 @@ export const ClockSection = ({ lang }: { lang: SupportedLanguages }) => {
   return (
     <div
       className={`${isTabletOrMobile ? 'clock-section-mobile' : 'clock-section'} ${isTabletOrMobile ? styles.mobileTextSizeClock : ''}`}
+      style={style}
     >
       {formatTime(currentTime)}
     </div>

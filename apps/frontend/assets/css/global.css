@@ -74,10 +74,9 @@ body {
 }
 
 .azan-wrapper {
-  display: flex;
-  width: 100dvw;
-  height: 100dvh;
-  position: relative;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   background: url('../images/azan.jpg') left bottom no-repeat;
   background-size: cover;
   display: flex;
