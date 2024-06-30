@@ -8,6 +8,7 @@ function BlackScreen() {
   const isHided = useSelector(selectHideScreen);
 
   const backgroundDivStyle = {
+    position: 'absolute',
     display: isHided ? 'flex' : 'none',
     justifyContent: 'center',
     alignItems: 'center',
