@@ -3,7 +3,6 @@ import React, { ReactNode, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import Drawer from 'react-modern-drawer';
-import { MenuSvg } from '../assets/icons/menu';
 import { selectOrientation } from '../lib/features/settings';
 import SettingsHeader from './settings/settingsHeader';
 import 'react-modern-drawer/dist/index.css';
