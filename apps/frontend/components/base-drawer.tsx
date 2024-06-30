@@ -1,5 +1,5 @@
-import { Button } from '@mantine/core';
-import React, { ReactNode } from 'react';
+import { Button, Burger } from '@mantine/core';
+import React, { ReactNode, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import Drawer from 'react-modern-drawer';
@@ -11,14 +11,19 @@ import 'react-modern-drawer/dist/index.css';
 type BaseDrawer = {
   children: ReactNode;
   language: string;
-  isOpen: boolean;
-  toggleDrawer: () => void;
+  changeBtnColor: boolean;
 };
 
-export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDrawer) => {
+export const BaseDrawer = ({ children, language, changeBtnColor }: BaseDrawer) => {
   const isArabic = language === 'ar';
   const orientation = useSelector(selectOrientation);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
   return (
     <>
       <Drawer
@@ -59,7 +64,7 @@ export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDra
         }}
         onClick={toggleDrawer}
       >
-        <MenuSvg width="2em" height="2em" />
+        <Burger color={changeBtnColor ? 'white' : 'black'} />
       </Button>
     </>
   );

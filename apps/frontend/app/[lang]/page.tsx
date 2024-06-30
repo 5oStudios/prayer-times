@@ -36,7 +36,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
-      <Settings language={lang} />
+      <Settings language={lang} changeBtnColor={changeBG} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
         <BlackScreen />
         <Loading />
