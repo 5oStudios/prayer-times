@@ -9,19 +9,15 @@ import { selectOrientation } from '../../lib/features/settings';
 
 type SideDialogProps = {
   language: string;
+  changeBtnColor: boolean;
 };
 
 export function Settings(props: SideDialogProps) {
   const dictionary = useDictionary();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const toggleDrawer = () => {
-    setIsOpen((prevState) => !prevState);
-  };
   const orientation = useSelector(selectOrientation);
   return (
     <>
-      <BaseDrawer language={props.language} isOpen={isOpen} toggleDrawer={toggleDrawer}>
+      <BaseDrawer language={props.language} changeBtnColor={props.changeBtnColor}>
         <div
           className={`${props.language === 'ar' ? styles.alRight : ''} ${orientation === '' ? styles.scrollableContainerVR : styles.scrollableContainer}`}
         >
