@@ -48,7 +48,14 @@ export const BaseDrawer = ({ children, language, isOpen, toggleDrawer }: BaseDra
           right: isArabic ? '0.5dvw' : 'auto',
           opacity: 0.75,
           zIndex: 30,
-          top: orientation === '' ? isTabletOrMobile? '5dvh':'2dvh' : isTabletOrMobile ? '2dvh' : '22vh',
+          top:
+            orientation === ''
+              ? isTabletOrMobile
+                ? '5dvh'
+                : '2dvh'
+              : isTabletOrMobile
+                ? '2dvh'
+                : '2vw',
         }}
         onClick={toggleDrawer}
       >

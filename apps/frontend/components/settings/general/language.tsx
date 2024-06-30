@@ -1,17 +1,13 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Text, Radio, Group } from '@mantine/core';
-import { useDispatch, useSelector } from 'react-redux';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import { selectLanguage, setLanguage } from '../../../lib/features/settings';
 
-function Language() {
+function Language({ language }: { language: string }) {
   const dictionary = useDictionary();
-  const dispatch = useDispatch();
   const router = useRouter();
-  const lang = useSelector(selectLanguage);
+  const lang = language;
   const handleChange = (value: string) => {
-    dispatch(setLanguage(value as 'ar' | 'en'));
     router.push(`/${value}`);
   };
 

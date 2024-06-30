@@ -42,7 +42,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
           <div className={isArabic ? style.alRight : ''}>
             <MasjidName />
             <Orientation language={language} />
-            <Language />
+            <Language language={language} />
           </div>
         )}
         {item.value === dictionary.settings.news && (

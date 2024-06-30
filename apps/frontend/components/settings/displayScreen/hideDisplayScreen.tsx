@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Text, Switch } from '@mantine/core';
 import '../accordion.module.css';
 import { useDispatch, useSelector } from 'react-redux';

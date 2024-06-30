@@ -23,6 +23,7 @@ import { DisplayQRcode } from '../../components/settings/displayScreen/displayQR
 import styles from '../../assets/css/settings.module.css';
 import Timer from '../../components/settings/displayScreen/timer';
 import Azan from '../../components/settings/azan';
+import Loading from '../../components/loading';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -35,10 +36,11 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
-      <Azan />
-      <BlackScreen />
       <Settings language={lang} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
+        <BlackScreen />
+        <Loading />
+        <Azan language={lang} />
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
         <Timer />
         <div className={`dates ${changeBG ? 'whiteText' : ''}`}>

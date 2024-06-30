@@ -35,7 +35,7 @@ const QRCodeGenerator = ({ isArabic }: { isArabic: boolean }) => {
           display: 'flex',
           flexDirection: 'row',
           marginTop: '1rem',
-          gap:'1rem'
+          gap: '1rem',
         }}
       >
         <Switch
@@ -67,21 +67,17 @@ const DisplayQRcode = ({ className }: DisplayQRcodeProps) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const isTodayFriday = moment().day() === 5;
 
-  return (
-    // isTodayFriday &&
-
-    (onlyFriday ? isTodayFriday : true) && (enableURl && !isTabletOrMobile) ? (
-      <div className={className}>
-        <QRCodeSVG value={url} />
-        <Center>
-          <Text className={styles.ArStyle} style={{ fontSize: '1.2rem' }}>
-            الخطبه
-          </Text>
-        </Center>
-      </div>
-    ) : (
-      <></>
-    )
+  return (onlyFriday ? isTodayFriday : true) && enableURl && !isTabletOrMobile ? (
+    <div className={className}>
+      <QRCodeSVG value={url} />
+      <Center>
+        <Text className={styles.ArStyle} style={{ fontSize: '1.2rem' }}>
+          الخطبه
+        </Text>
+      </Center>
+    </div>
+  ) : (
+    <></>
   );
 };
 
