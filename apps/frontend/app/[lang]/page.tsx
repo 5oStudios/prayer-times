@@ -38,9 +38,9 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
     <div className={`${orientation}`}>
       <Settings language={lang} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
-      <BlackScreen />
-      <Loading/>
-      <Azan language={lang} />
+        <BlackScreen />
+        <Loading />
+        <Azan language={lang} />
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
         <Timer />
         <div className={`dates ${changeBG ? 'whiteText' : ''}`}>
