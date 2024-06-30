@@ -15,7 +15,6 @@ export type NewsType = {
 
 export type SettingsState = {
   hadithTickerSpeed: number;
-  language: string;
   orientation: ORIENTATION;
   masjidName: string;
   news: NewsType[];
@@ -32,7 +31,6 @@ export type SettingsState = {
 
 const initialState: SettingsState = {
   hadithTickerSpeed: 4000,
-  language: 'ar',
   orientation: ORIENTATION.DEFAULT,
   masjidName: '',
   news: [],
@@ -53,9 +51,6 @@ const settingsSlice = createSlice({
   reducers: {
     setHadithTickerSpeed: (state, action) => {
       state.hadithTickerSpeed = action.payload;
-    },
-    setLanguage: (state, action) => {
-      state.language = action.payload;
     },
     setOrientation: (state, action) => {
       state.orientation = action.payload;
@@ -98,7 +93,6 @@ const settingsSlice = createSlice({
 
 export const {
   setHadithTickerSpeed,
-  setLanguage,
   setOrientation,
   setMasjidName,
   setNews,
@@ -110,13 +104,12 @@ export const {
   setCurrentTimePeriod,
   setShowAzanTime,
   setCurrentPrayTimeName,
-  setOnlyFriday
+  setOnlyFriday,
 } = settingsSlice.actions;
 
 export default settingsSlice;
 
 export const selectHadithTickerSpeed = (state: RootState) => state.settings.hadithTickerSpeed;
-export const selectLanguage = (state: RootState) => state.settings.language;
 export const selectOrientation = (state: RootState) => state.settings.orientation;
 export const selectMasjidName = (state: RootState) => state.settings.masjidName;
 export const selectNews = (state: RootState) => state.settings.news;

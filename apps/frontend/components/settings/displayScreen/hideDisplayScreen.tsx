@@ -15,10 +15,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   };
 
   return (
-    <div
-      style={{ position: 'absolute', width: '100%', height: '100%', marginTop: '1rem' }}
-      className={isArabic ? styles.alRight : ''}
-    >
+    <div style={{ width: '100%', marginTop: '1rem' }} className={isArabic ? styles.alRight : ''}>
       <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>
       <Switch
         style={{ marginTop: '0.5rem' }}
