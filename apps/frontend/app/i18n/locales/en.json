@@ -31,6 +31,7 @@
     },
     "add": "Add",
     "delete": "Delete",
+    "Akama":"Akama After",
     "requiredField": "This field is required",
     "displaysQR": {
       "title": "Friday's Speech url",

@@ -10,7 +10,6 @@ import NewsForm from './news/news';
 import HideDisplayScreen from './displayScreen/hideDisplayScreen';
 import { QRCodeGenerator } from './displayScreen/displayQRcode';
 import Themes from './displayScreen/themes';
-import { PrayTimesBanner } from './displayScreen/prayTimesBanner';
 import Toggle from './toggle';
 
 type SettingsAccordionProps = {
@@ -55,7 +54,6 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <HideDisplayScreen isArabic={isArabic} />
             <QRCodeGenerator isArabic={isArabic} />
             <Themes isArabic={isArabic} />
-            <PrayTimesBanner isArabic={isArabic} lang={language} />
             <Toggle />
           </div>
         )}

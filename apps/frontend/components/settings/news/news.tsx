@@ -7,12 +7,10 @@ import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { setNews, selectNews } from '../../../lib/features/settings';
 
 type NewsType = {
-  title: string;
   content: string;
 };
 
 type NewsFormType = {
-  title: string;
   content: string;
 };
 
@@ -29,7 +27,7 @@ function NewsForm() {
   const [news, setNew] = useState<NewsType[]>([]);
 
   const onSubmit = (data: NewsFormType) => {
-    const newNewsItem = { title: data.title, content: data.content };
+    const newNewsItem = { content: data.content };
     setNew([...news, newNewsItem]);
     dispatch(setNews([...newsLocal, newNewsItem]));
     reset();
@@ -45,17 +43,6 @@ function NewsForm() {
     <div style={{ width: '100%' }}>
       <Text style={{ marginTop: '0.5rem' }}>{dictionary.settings.newsComp.createNews}</Text>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="title">{dictionary.settings.newsComp.newsTitle}</label>
-          <Input
-            id="title"
-            type="text"
-            {...register('title', { required: true })}
-            placeholder={dictionary.settings.newsComp.newsTitlePlaceholder}
-          />
-          {errors.title && <span>{dictionary.settings.requiredField}</span>}
-        </div>
-
         <div>
           <label htmlFor="content">{dictionary.settings.newsComp.newsContent}:</label>
           <Textarea
@@ -79,13 +66,12 @@ function NewsForm() {
           <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>
         ) : (
           <ul style={{ width: '100%', textAlign: 'left' }}>
-            {news.map((item, index) => (
+            {newsLocal.map((item, index) => (
               <div style={{ display: 'flex', flexWrap: 'wrap' }} key={index}>
-                <li style={{ width: '70%', marginTop: '1rem' }}>
-                  <strong>{item.title}</strong>
-                  <p>{item.content}</p>
+                <li style={{ width: '80%', marginTop: '1rem' }}>
+                  <strong>{item.content}</strong>
                 </li>
-                <Button onClick={() => handleDelete(index)}>
+                <Button onClick={() => handleDelete(index)} style={{ backgroundColor: 'red' }}>
                   <MdDelete />
                 </Button>
               </div>

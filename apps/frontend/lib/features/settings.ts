@@ -27,6 +27,7 @@ export type SettingsState = {
   showAzanTime: boolean;
   currentPrayTimeName: string;
   onlyFriday: boolean;
+  AkamaAfter: number;
 };
 
 const initialState: SettingsState = {
@@ -43,6 +44,7 @@ const initialState: SettingsState = {
   showAzanTime: false,
   currentPrayTimeName: '',
   onlyFriday: true,
+  AkamaAfter: 1,
 };
 
 const settingsSlice = createSlice({
@@ -88,6 +90,9 @@ const settingsSlice = createSlice({
     setOnlyFriday: (state, action) => {
       state.onlyFriday = action.payload;
     },
+    setAkamaAfter: (state, action) => {
+      state.AkamaAfter = action.payload;
+    },
   },
 });
 
@@ -105,6 +110,7 @@ export const {
   setShowAzanTime,
   setCurrentPrayTimeName,
   setOnlyFriday,
+  setAkamaAfter,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -122,3 +128,4 @@ export const selectCurrentTimePeriod = (state: RootState) => state.settings.curr
 export const selectShowAzanTime = (state: RootState) => state.settings.showAzanTime;
 export const selectCurrentPrayTimeName = (state: RootState) => state.settings.currentPrayTimeName;
 export const selectOnlyFriday = (state: RootState) => state.settings.onlyFriday;
+export const selectAkamaAfter = (state: RootState) => state.settings.AkamaAfter;

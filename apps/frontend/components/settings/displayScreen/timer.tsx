@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Text, Center } from '@mantine/core';
 import styles from '../../../assets/css/settings.module.css';
 import {
+  selectAkamaAfter,
   selectCurrentTimePeriod,
   selectOrientation,
   setCurrentTimePeriod,
@@ -18,6 +19,7 @@ const playAlert = () => {
 const Timer = () => {
   const orientation = useSelector(selectOrientation);
   const minutes = useSelector(selectCurrentTimePeriod);
+  const akamaAfter = useSelector(selectAkamaAfter);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState<number>(minutes === -1 ? 0 : minutes * 60);
@@ -40,7 +42,7 @@ const Timer = () => {
             playAlert();
             setTimeout(() => {
               dispatch(setHideScreen(false));
-            }, 60 * 1000);
+            }, 60 * akamaAfter);
           }
           clearInterval(timerId);
           return 0;
