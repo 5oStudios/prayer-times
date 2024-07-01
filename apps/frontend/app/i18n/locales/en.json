@@ -32,6 +32,7 @@
     "add": "Add",
     "delete": "Delete",
     "Akama":"Akama After",
+    "AzanDuration":"Azan Duration",
     "requiredField": "This field is required",
     "displaysQR": {
       "title": "Friday's Speech url",

@@ -50,9 +50,6 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
       case 'fajr': {
         return 0;
       }
-      case 'sunrise': {
-        return 1;
-      }
       case 'dhuhr': {
         return 2;
       }
@@ -66,23 +63,26 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
         return 5;
       }
     }
-    return 1;
+    return -1;
   };
 
   const startPrayTime = (name: string) => {
-    const prayerTimePeriod = timePeriod[getPrayerIndex(name)];
+    const index = getPrayerIndex(name);
+    const prayerTimePeriod = timePeriod[index];
 
-    dispatch(setCurrentPrayTimeName(name));
-    dispatch(setShowAzanTime(true));
+    if (index !== -1) {
+      dispatch(setCurrentPrayTimeName(name));
+      dispatch(setShowAzanTime(true));
 
-    setTimeout(() => {
-      dispatch(setShowAzanTime(false));
-      dispatch(setCurrentTimePeriod(prayerTimePeriod));
-    }, 60 * 1000);
+      setTimeout(() => {
+        dispatch(setShowAzanTime(false));
+        dispatch(setCurrentTimePeriod(prayerTimePeriod));
+      }, 60 * 1000);
 
-    setTimeout(() => {
-      dispatch(setHideScreen(false));
-    }, 60 * prayerTimePeriod);
+      setTimeout(() => {
+        dispatch(setHideScreen(false));
+      }, 60 * prayerTimePeriod);
+    }
   };
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
@@ -90,7 +90,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   });
 
   return (
-    <div style={{ width: '100%', marginTop: '1rem' }} className={isArabic ? styles.alRight : ''}>
+    <div style={{ width: '100%', marginTop: '2rem' }} className={isArabic ? styles.alRight : ''}>
       <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>
       <Switch
         style={{ marginTop: '0.5rem' }}
@@ -101,13 +101,19 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.prayTimeBanner}
       </Text>
-      <div className={isArabic ? styles.alRight : ''} style={{ width: '100%' }}>
-        {times.map((time, index) => (
-          <BlackScreenInputCard key={index} index={index} isArabic={isArabic} time={time} />
-        ))}
+      <div
+        className={`${isArabic ? styles.alRight : ''} ${styles.gridContainer}`}
+        style={{ width: '100%' }}
+      >
+        {times.map(
+          (time, index) =>
+            time.name !== 'sunrise' && (
+              <BlackScreenInputCard key={index} index={index} isArabic={isArabic} time={time} />
+            )
+        )}
       </div>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-        {dictionary.settings.displayScreen.prayTimeBanner}
+        {dictionary.settings.AzanDuration}
       </Text>
       <NumberInput value={akamaAfter} onChange={(e) => dispatch(setAkamaAfter(e))} />
     </div>
@@ -139,14 +145,14 @@ function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCard) {
       className={isArabic ? styles.alRight : ''}
       style={{
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
         marginBottom: '1rem',
       }}
     >
+      <Text style={{ marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
       <NumberInput defaultValue={timePeriod[index]} onChange={handleChange} />
-      <Text style={{ width: '20%', marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
     </div>
   );
 }

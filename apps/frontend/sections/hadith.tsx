@@ -23,7 +23,7 @@ const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-R
 export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const orientation = useSelector(selectOrientation);
-  if (orientation !== '') dispatch(setHadithTickerSpeed(25));
+  if (orientation !== '') dispatch(setHadithTickerSpeed(10));
   else dispatch(setHadithTickerSpeed(75));
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const tickerSpeed = useSelector(selectHadithTickerSpeed);
@@ -67,7 +67,7 @@ const HadithTicker = ({
 
   return (
     <Marquee className="ticker-bg" direction={direction} speed={speed} autoFill>
-      <Flex>
+      <Flex style={{ overflow: 'hidden' }}>
         {news.length === 0
           ? hadith.map(({ title, id }) => (
               <Flex key={id} justify="center" align="center">

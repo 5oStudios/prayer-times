@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, Input, Textarea, Button } from '@mantine/core';
+import React from 'react';
+import { Text, Textarea, Button } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
@@ -14,28 +14,26 @@ type NewsFormType = {
   content: string;
 };
 
-function NewsForm() {
+function NewsForm({ language }: { language: string }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const newsLocal: NewsType[] = useSelector(selectNews);
+  const isArabic = language === 'ar';
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<NewsFormType>();
-  const [news, setNew] = useState<NewsType[]>([]);
 
   const onSubmit = (data: NewsFormType) => {
     const newNewsItem = { content: data.content };
-    setNew([...news, newNewsItem]);
     dispatch(setNews([...newsLocal, newNewsItem]));
     reset();
   };
 
   const handleDelete = (index: number) => {
-    const updatedNews = news.filter((_, i) => i !== index);
-    setNew(updatedNews);
+    const updatedNews = newsLocal.filter((_, i) => i !== index);
     dispatch(setNews(updatedNews));
   };
 
@@ -60,23 +58,19 @@ function NewsForm() {
         </Button>
       </form>
 
-      <div style={{ marginTop: '1rem' }}>
+      <div style={{ marginTop: '1rem', textAlign: isArabic ? 'left' : 'right' }}>
         <Text>{dictionary.settings.newsComp.previousNews}</Text>
         {!newsLocal || newsLocal.length === 0 ? (
           <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>
         ) : (
-          <ul style={{ width: '100%', textAlign: 'left' }}>
-            {newsLocal.map((item, index) => (
-              <div style={{ display: 'flex', flexWrap: 'wrap' }} key={index}>
-                <li style={{ width: '80%', marginTop: '1rem' }}>
-                  <strong>{item.content}</strong>
-                </li>
-                <Button onClick={() => handleDelete(index)} style={{ backgroundColor: 'red' }}>
-                  <MdDelete />
-                </Button>
-              </div>
-            ))}
-          </ul>
+          newsLocal.map((item, index) => (
+            <div style={{ display: 'flex', flexWrap: 'wrap' }} key={index}>
+              <strong style={{ width: '85%', marginTop: '1rem' }}>{item.content}</strong>
+              <Button onClick={() => handleDelete(index)} style={{ backgroundColor: 'red' }}>
+                <MdDelete />
+              </Button>
+            </div>
+          ))
         )}
       </div>
     </div>

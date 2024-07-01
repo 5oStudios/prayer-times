@@ -39,7 +39,7 @@ const initialState: SettingsState = {
   url: '',
   enableURL: false,
   background: 0,
-  timePeriod: [2, 2, 2, 2, 2, 2],
+  timePeriod: [2, 0, 2, 2, 2, 2],
   currentTimePeriod: 0,
   showAzanTime: false,
   currentPrayTimeName: '',

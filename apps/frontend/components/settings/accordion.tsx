@@ -46,14 +46,14 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         )}
         {item.value === dictionary.settings.news && (
           <div>
-            <NewsForm />
+            <NewsForm language={language} />
           </div>
         )}
         {item.value === dictionary.settings.displayScreen.title && (
           <div className={isArabic ? style.alRight : ''}>
-            <HideDisplayScreen isArabic={isArabic} />
             <QRCodeGenerator isArabic={isArabic} />
             <Themes isArabic={isArabic} />
+            <HideDisplayScreen isArabic={isArabic} />
             <Toggle />
           </div>
         )}

@@ -30,7 +30,7 @@ export const BaseDrawer = ({ children, language, changeBtnColor }: BaseDrawer) =
         onClose={toggleDrawer}
         direction={isArabic ? 'right' : 'left'}
         style={{
-          width: orientation === '' ? (isTabletOrMobile ? '80vw' : '30vw') : '50vh',
+          width: orientation === '' ? (isTabletOrMobile ? '85vw' : '30vw') : '50vh',
           height: '96%',
           overflowX: 'hidden',
           overflowY: 'hidden',
