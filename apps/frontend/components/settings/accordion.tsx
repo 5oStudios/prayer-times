@@ -1,3 +1,5 @@
+'use client';
+
 import { Accordion as MantineAccordion } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
 import { Orientation } from './general/orientation';
@@ -12,6 +14,7 @@ import { QRCodeGenerator } from './displayScreen/displayQRcode';
 import Themes from './displayScreen/themes';
 import Toggle from './toggle';
 import LoadAzkarImg from './displayScreen/loadAzkarImg';
+import AfterAzanTime from './displayScreen/afterAzanTime';
 
 type SettingsAccordionProps = {
   language: string;
@@ -56,6 +59,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <LoadAzkarImg />
             <Themes isArabic={isArabic} />
             <HideDisplayScreen isArabic={isArabic} />
+            <AfterAzanTime isArabic={isArabic} />
             <Toggle />
           </div>
         )}

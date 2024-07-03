@@ -34,6 +34,27 @@ export type PrayerTimesDictionary = {
   Midnight: string;
 };
 
+export const getPrayerIndex = (name: string): number => {
+  switch (name) {
+    case 'fajr': {
+      return 0;
+    }
+    case 'dhuhr': {
+      return 2;
+    }
+    case 'asr': {
+      return 3;
+    }
+    case 'maghrib': {
+      return 4;
+    }
+    case 'isha': {
+      return 5;
+    }
+  }
+  return -1;
+};
+
 function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
@@ -41,30 +62,8 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
   const timePeriod = useSelector(selectTimePeriod);
   const akamaAfter = useSelector(selectAkamaAfter);
-
   const toggleOverlay = () => {
     dispatch(setHideScreen(!value));
-  };
-
-  const getPrayerIndex = (name: string): number => {
-    switch (name) {
-      case 'fajr': {
-        return 0;
-      }
-      case 'dhuhr': {
-        return 2;
-      }
-      case 'asr': {
-        return 3;
-      }
-      case 'maghrib': {
-        return 4;
-      }
-      case 'isha': {
-        return 5;
-      }
-    }
-    return -1;
   };
 
   const startPrayTime = (name: string) => {

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Text, Center } from '@mantine/core';
 import styles from '../../../assets/css/settings.module.css';
 import {
+  selectBeforeAzanTimes,
+  selectCurrentPrayTimeName,
   selectCurrentTimePeriod,
   selectEnableCountDown,
   selectOrientation,
@@ -14,6 +16,7 @@ import {
   setHideScreen,
   setShowAzKar,
 } from '../../../lib/features/settings';
+import { getPrayerIndex } from './hideDisplayScreen';
 
 const playAlert = () => {
   const audio = new Audio('/assets/media/alert/blip.mp3'); // Path relative to public folder
@@ -24,14 +27,17 @@ const Timer = () => {
   const timePeriod = useSelector(selectCurrentTimePeriod);
   const orientation = useSelector(selectOrientation);
   const enableCountDown = useSelector(selectEnableCountDown);
+  const name = useSelector(selectCurrentPrayTimeName);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const isVertical = orientation === '';
+  const index = getPrayerIndex(name);
+  const beforeAzanTimes = useSelector(selectBeforeAzanTimes);
 
   useEffect(() => {
     if (enableCountDown) {
-      setTimeLeft(60); // Setting timeLeft to countdown time in seconds
+      setTimeLeft(beforeAzanTimes[index] * 60); // Setting timeLeft to countdown time in seconds
     }
   }, [enableCountDown, timePeriod]);
 
