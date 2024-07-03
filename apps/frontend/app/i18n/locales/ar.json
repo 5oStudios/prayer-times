@@ -55,7 +55,8 @@
       "hideManually": "إخفاء يدويا",
       "prayTimeBanner": "مدة الصلاة لإخفاء الشاشة",
       "uploadAzkarImage": "رفع صورة الأذكار",
-      "uploadAzkarImagePlaceholder": "رفع صورة"
+      "uploadAzkarImagePlaceholder": "رفع صورة",
+      "BeforeAzanTime": "قبل وقت الأذان"
     },
     "masjidName": {
       "title": "اسم المسجد",

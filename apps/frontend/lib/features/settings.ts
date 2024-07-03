@@ -23,6 +23,7 @@ export type SettingsState = {
   enableURL: boolean;
   background: number;
   timePeriod: number[];
+  beforeAzanTimes: number[];
   currentTimePeriod: number;
   showAzanTime: boolean;
   currentPrayTimeName: string;
@@ -43,6 +44,7 @@ const initialState: SettingsState = {
   enableURL: false,
   background: 0,
   timePeriod: [2, 0, 2, 2, 2, 2],
+  beforeAzanTimes: [2, 0, 2, 2, 2, 2],
   currentTimePeriod: 0,
   showAzanTime: false,
   currentPrayTimeName: '',
@@ -108,6 +110,9 @@ const settingsSlice = createSlice({
     setAzkarImage: (state, action) => {
       state.azkarImage = action.payload;
     },
+    setBeforeAzanTimes: (state, action) => {
+      state.beforeAzanTimes = action.payload;
+    },
   },
 });
 
@@ -129,6 +134,7 @@ export const {
   setEnableCountDown,
   setShowAzKar,
   setAzkarImage,
+  setBeforeAzanTimes,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -150,3 +156,4 @@ export const selectAkamaAfter = (state: RootState) => state.settings.AkamaAfter;
 export const selectEnableCountDown = (state: RootState) => state.settings.enableCountDown;
 export const selectShowAzkar = (state: RootState) => state.settings.showAzKar;
 export const selectAzkarImage = (state: RootState) => state.settings.azkarImage;
+export const selectBeforeAzanTimes = (state: RootState) => state.settings.beforeAzanTimes;
