@@ -31,20 +31,22 @@
     },
     "add": "Add",
     "delete": "Delete",
-    "Akama":"Akama After",
-    "AzanDuration":"Azan Duration",
+    "Akama": "Akama After",
+    "AzanDuration": "Azan Duration",
     "requiredField": "This field is required",
     "displaysQR": {
       "title": "Friday's Speech url",
       "placeholder": "Enter url",
       "enable": "Enable",
-      "onlyFriday":"On Friday"
+      "onlyFriday": "On Friday"
     },
     "displayScreen": {
       "title": "Display Screen",
       "hideDisplayScreen": "Hide Display Screen",
       "hideManually": "Hide manually",
-      "prayTimeBanner": "Prayer Duration to hide screen"
+      "prayTimeBanner": "Prayer Duration to hide screen",
+      "uploadAzkarImage": "Upload Azkar Image",
+      "uploadAzkarImagePlaceholder":"Upload Image"
     },
     "newsComp": {
       "createNews": "Create News",

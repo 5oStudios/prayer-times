@@ -8,9 +8,11 @@ import styles from '../assets/css/settings.module.css';
 export const ClockSection = ({
   lang,
   style,
+  className,
 }: {
   lang: SupportedLanguages;
   style?: CSSProperties;
+  className?: string;
 }) => {
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
@@ -38,7 +40,9 @@ export const ClockSection = ({
 
   return (
     <div
-      className={`${isTabletOrMobile ? 'clock-section-mobile' : 'clock-section'} ${isTabletOrMobile ? styles.mobileTextSizeClock : ''}`}
+      className={`${className || (isTabletOrMobile ? styles.mobileTextSizeClock : '')}
+      ${isTabletOrMobile ? 'clock-section-mobile' : 'clock-section'}
+    `}
       style={style}
     >
       {formatTime(currentTime)}

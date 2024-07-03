@@ -16,6 +16,7 @@ import {
   selectHideScreen,
   selectAkamaAfter,
   setAkamaAfter,
+  setEnableCountDown,
 } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
@@ -74,14 +75,14 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
       dispatch(setCurrentPrayTimeName(name));
       dispatch(setShowAzanTime(true));
 
-      setTimeout(() => {
-        dispatch(setShowAzanTime(false));
-        dispatch(setCurrentTimePeriod(prayerTimePeriod));
-      }, 60 * 1000);
-
-      setTimeout(() => {
-        dispatch(setHideScreen(false));
-      }, 60 * prayerTimePeriod);
+      setTimeout(
+        () => {
+          dispatch(setShowAzanTime(false));
+          dispatch(setEnableCountDown(true));
+          dispatch(setCurrentTimePeriod(prayerTimePeriod));
+        },
+        akamaAfter * 60 * 1000
+      ); //  azan time
     }
   };
 

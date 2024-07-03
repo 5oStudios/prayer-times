@@ -11,6 +11,7 @@ import HideDisplayScreen from './displayScreen/hideDisplayScreen';
 import { QRCodeGenerator } from './displayScreen/displayQRcode';
 import Themes from './displayScreen/themes';
 import Toggle from './toggle';
+import LoadAzkarImg from './displayScreen/loadAzkarImg';
 
 type SettingsAccordionProps = {
   language: string;
@@ -52,6 +53,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         {item.value === dictionary.settings.displayScreen.title && (
           <div className={isArabic ? style.alRight : ''}>
             <QRCodeGenerator isArabic={isArabic} />
+            <LoadAzkarImg />
             <Themes isArabic={isArabic} />
             <HideDisplayScreen isArabic={isArabic} />
             <Toggle />

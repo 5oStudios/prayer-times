@@ -58,7 +58,7 @@ function NewsForm({ language }: { language: string }) {
         </Button>
       </form>
 
-      <div style={{ marginTop: '1rem', textAlign: isArabic ? 'left' : 'right' }}>
+      <div style={{ marginTop: '1rem', textAlign: isArabic ? 'left' : 'normal' }}>
         <Text>{dictionary.settings.newsComp.previousNews}</Text>
         {!newsLocal || newsLocal.length === 0 ? (
           <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>

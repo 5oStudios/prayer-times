@@ -51,7 +51,7 @@ export const BaseDrawer = ({ children, language, changeBtnColor }: BaseDrawer) =
           left: isArabic ? 'auto' : '0.5dvw',
           right: isArabic ? '0.5dvw' : 'auto',
           opacity: 0.75,
-          zIndex: 30,
+          zIndex: 40,
           top:
             orientation === ''
               ? isTabletOrMobile

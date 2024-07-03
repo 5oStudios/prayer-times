@@ -28,6 +28,9 @@ export type SettingsState = {
   currentPrayTimeName: string;
   onlyFriday: boolean;
   AkamaAfter: number;
+  enableCountDown: boolean;
+  showAzKar: boolean;
+  azkarImage: string;
 };
 
 const initialState: SettingsState = {
@@ -45,6 +48,9 @@ const initialState: SettingsState = {
   currentPrayTimeName: '',
   onlyFriday: true,
   AkamaAfter: 1,
+  enableCountDown: false,
+  showAzKar: false,
+  azkarImage: '',
 };
 
 const settingsSlice = createSlice({
@@ -93,6 +99,15 @@ const settingsSlice = createSlice({
     setAkamaAfter: (state, action) => {
       state.AkamaAfter = action.payload;
     },
+    setEnableCountDown: (state, action) => {
+      state.enableCountDown = action.payload;
+    },
+    setShowAzKar: (state, action) => {
+      state.showAzKar = action.payload;
+    },
+    setAzkarImage: (state, action) => {
+      state.azkarImage = action.payload;
+    },
   },
 });
 
@@ -111,6 +126,9 @@ export const {
   setCurrentPrayTimeName,
   setOnlyFriday,
   setAkamaAfter,
+  setEnableCountDown,
+  setShowAzKar,
+  setAzkarImage,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -129,3 +147,6 @@ export const selectShowAzanTime = (state: RootState) => state.settings.showAzanT
 export const selectCurrentPrayTimeName = (state: RootState) => state.settings.currentPrayTimeName;
 export const selectOnlyFriday = (state: RootState) => state.settings.onlyFriday;
 export const selectAkamaAfter = (state: RootState) => state.settings.AkamaAfter;
+export const selectEnableCountDown = (state: RootState) => state.settings.enableCountDown;
+export const selectShowAzkar = (state: RootState) => state.settings.showAzKar;
+export const selectAzkarImage = (state: RootState) => state.settings.azkarImage;
