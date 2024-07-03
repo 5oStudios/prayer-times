@@ -1,13 +1,11 @@
-# Run Only Tasks Affected by a PR
 name: LintTestBuild-CI
+
 on:
   push:
     branches:
-      # Change this if your primary branch is not main
       - main
   pull_request:
 
-# Needed for nx-set-shas when run on the main branch
 permissions:
   actions: read
   contents: read
@@ -15,32 +13,43 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      # Cache node_modules
-      - uses: actions/setup-node@v4
+      - name: Cache node_modules
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
           cache-dependency-path: ./pnpm-lock.yaml
-      - run: pnpm install --no-frozen-lockfile
 
-      - uses: nrwl/nx-set-shas@v4
+      - name: Install Dependencies
+        run: pnpm install --no-frozen-lockfile
 
-      - run: |
+      - name: Set SHAs for Nx
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Ensure main branch exists
+        run: |
           if [ ! -n "$(git show-ref refs/heads/main)" ]; then
             git branch --track main origin/main
           else
             echo "Branch 'main' already exists. Skipping branch creation."
           fi
 
-      - run: pnpm i nx -g
-      - run: nx affected:lint --fix --parallel
-      - run: nx affected -t format:write,build --parallel
+      - name: Install Nx CLI
+        run: pnpm i nx -g
+
+      - name: Lint affected projects
+        run: nx affected:lint --fix --parallel
+
+      - name: Format and build affected projects
+        run: nx affected --target=format:write --target=build --parallel
