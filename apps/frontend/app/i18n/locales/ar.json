@@ -31,6 +31,8 @@
     },
     "add": "يضيف",
     "delete": "حذف",
+    "Akama": "اقامه بعد",
+    "AzanDuration": "مدة الأذان",
     "requiredField": "هذه الخانة مطلوبه",
     "displaysQR": {
       "title": "رابط خطبة الجمعة",
@@ -51,7 +53,9 @@
       "title": "شاشة عرض",
       "hideDisplayScreen": "إخفاء شاشة العرض",
       "hideManually": "إخفاء يدويا",
-      "prayTimeBanner": "مدة الصلاة لإخفاء الشاشة"
+      "prayTimeBanner": "مدة الصلاة لإخفاء الشاشة",
+      "uploadAzkarImage": "رفع صورة الأذكار",
+      "uploadAzkarImagePlaceholder": "رفع صورة"
     },
     "masjidName": {
       "title": "اسم المسجد",

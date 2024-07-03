@@ -13,8 +13,9 @@ export default function Loading() {
           height: '100%',
           width: '100%',
           backgroundColor: '#ffffff',
-          zIndex: '60',
+          // zIndex: '60',
         }}
+        className="top"
       >
         <Loader color="blue" />
       </div>

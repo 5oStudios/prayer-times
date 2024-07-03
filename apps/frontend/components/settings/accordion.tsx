@@ -10,8 +10,8 @@ import NewsForm from './news/news';
 import HideDisplayScreen from './displayScreen/hideDisplayScreen';
 import { QRCodeGenerator } from './displayScreen/displayQRcode';
 import Themes from './displayScreen/themes';
-import { PrayTimesBanner } from './displayScreen/prayTimesBanner';
 import Toggle from './toggle';
+import LoadAzkarImg from './displayScreen/loadAzkarImg';
 
 type SettingsAccordionProps = {
   language: string;
@@ -47,15 +47,15 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         )}
         {item.value === dictionary.settings.news && (
           <div>
-            <NewsForm />
+            <NewsForm language={language} />
           </div>
         )}
         {item.value === dictionary.settings.displayScreen.title && (
           <div className={isArabic ? style.alRight : ''}>
-            <HideDisplayScreen isArabic={isArabic} />
             <QRCodeGenerator isArabic={isArabic} />
+            <LoadAzkarImg />
             <Themes isArabic={isArabic} />
-            <PrayTimesBanner isArabic={isArabic} lang={language} />
+            <HideDisplayScreen isArabic={isArabic} />
             <Toggle />
           </div>
         )}

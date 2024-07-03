@@ -351,3 +351,10 @@
 .textSize{
   font-size: 2.3rem;
 }
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 1rem;
+}

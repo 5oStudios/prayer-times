@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { HadithSection } from '../../sections/hadith';
@@ -17,6 +17,8 @@ import {
   selectMasjidName,
   setHideScreen,
   setShowAzanTime,
+  setShowAzKar,
+  setEnableCountDown,
 } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
@@ -24,14 +26,19 @@ import styles from '../../assets/css/settings.module.css';
 import Timer from '../../components/settings/displayScreen/timer';
 import Azan from '../../components/settings/azan';
 import Loading from '../../components/loading';
+import Azkar from '../../components/showAzkar';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
   const backgroundImageIndex = useSelector(selectBackground);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dispatch = useDispatch();
-  dispatch(setHideScreen(false));
-  dispatch(setShowAzanTime(false));
+  useEffect(() => {
+    dispatch(setShowAzanTime(false));
+    dispatch(setHideScreen(false));
+    dispatch(setShowAzKar(false));
+    dispatch(setEnableCountDown(false));
+  }, []);
 
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
@@ -39,6 +46,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
       <Settings language={lang} changeBtnColor={changeBG} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
         <BlackScreen />
+        <Azkar />
         <Loading />
         <Azan language={lang} />
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />

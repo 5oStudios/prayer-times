@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
@@ -5,9 +7,12 @@ import { Text, Center } from '@mantine/core';
 import styles from '../../../assets/css/settings.module.css';
 import {
   selectCurrentTimePeriod,
+  selectEnableCountDown,
   selectOrientation,
   setCurrentTimePeriod,
+  setEnableCountDown,
   setHideScreen,
+  setShowAzKar,
 } from '../../../lib/features/settings';
 
 const playAlert = () => {
@@ -16,42 +21,50 @@ const playAlert = () => {
 };
 
 const Timer = () => {
+  const timePeriod = useSelector(selectCurrentTimePeriod);
   const orientation = useSelector(selectOrientation);
-  const minutes = useSelector(selectCurrentTimePeriod);
+  const enableCountDown = useSelector(selectEnableCountDown);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dispatch = useDispatch();
-  const [timeLeft, setTimeLeft] = useState<number>(minutes === -1 ? 0 : minutes * 60);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
   const isVertical = orientation === '';
-  useEffect(() => {
-    setTimeLeft(minutes === -1 ? 0 : minutes * 60);
-  }, [minutes]);
 
   useEffect(() => {
-    if (minutes === -1) {
-      return;
+    if (enableCountDown) {
+      setTimeLeft(60); // Setting timeLeft to countdown time in seconds
     }
+  }, [enableCountDown, timePeriod]);
 
-    const timerId = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          if (minutes !== -1) {
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (enableCountDown && timeLeft > 0) {
+      const timerId = setInterval(() => {
+        setTimeLeft((prevTime) => {
+          if (prevTime <= 1) {
             dispatch(setHideScreen(true));
             dispatch(setCurrentTimePeriod(-1));
             playAlert();
+            setTimeout(
+              () => {
+                dispatch(setHideScreen(false));
+              },
+              60 * 1000 * timePeriod // hide screen
+            );
+            dispatch(setEnableCountDown(false));
+            dispatch(setShowAzKar(true));
             setTimeout(() => {
-              dispatch(setHideScreen(false));
-            }, 60 * 1000);
+              dispatch(setShowAzKar(false));
+            }, 60 * 1000); //azar time
+            clearInterval(timerId);
+            return 0;
           }
-          clearInterval(timerId);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
+          return prevTime - 1;
+        });
+      }, 1000);
 
-    // eslint-disable-next-line consistent-return
-    return () => clearInterval(timerId);
-  }, [minutes, dispatch]);
+      return () => clearInterval(timerId);
+    }
+  }, [enableCountDown, timeLeft, dispatch, timePeriod]);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -59,7 +72,7 @@ const Timer = () => {
     return `${mins.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  if (timeLeft === 0 || minutes === -1) {
+  if (timeLeft === 0 && !enableCountDown) {
     return null;
   }
 

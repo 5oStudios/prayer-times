@@ -38,7 +38,7 @@ function Toggle() {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: '1rem' }}>
       <NumberInput
         onChange={onChange}
         label="Input label"

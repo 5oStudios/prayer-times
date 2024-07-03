@@ -47,6 +47,9 @@ body {
   font-family: var(--font-family-arbic);
 }
 
+.top {
+  z-index: 60;
+}
 .vrLEFT {
   transform: rotate(-90deg);
   transform-origin: left top;
@@ -203,6 +206,24 @@ body {
   top: 16%;
   font-family: 'Reem Kufi', sans-serif;
   font-size: 7.5dvw;
+  font-weight: bold;
+}
+.clock-section-azan {
+  /* position: absolute;
+  top: 16%; */
+  position: static;
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 2dvw;
+  color: white;
+  font-weight: bold;
+}
+.clock-section-azan {
+  /* position: absolute;
+  top: 16%; */
+  position: static;
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 2dvw;
+  color: white;
   font-weight: bold;
 }
 
@@ -455,4 +476,3 @@ body {
 .chevron {
   transition: transform 200ms ease;
 }
-

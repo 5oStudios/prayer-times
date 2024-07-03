@@ -22,7 +22,7 @@ const QRCodeGenerator = ({ isArabic }: { isArabic: boolean }) => {
   const onlyFriday = useSelector(selectOnlyFriday);
 
   return (
-    <div style={{ width: '100%', marginTop: '2rem' }} className={isArabic ? styles.alRight : ''}>
+    <div style={{ width: '100%', marginTop: '1rem' }} className={isArabic ? styles.alRight : ''}>
       <TextInput
         style={{ width: '100%' }}
         defaultValue={useSelector(selectURL)}
