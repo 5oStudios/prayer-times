@@ -27,7 +27,7 @@ jobs:
           cache-dependency-path: ./pnpm-lock.yaml
 
       - name: Install pnpm
-        run: npm install -g pnpm@latest
+        run: npm install -g pnpm@8
 
       - name: Verify pnpm installation
         run: pnpm --version
