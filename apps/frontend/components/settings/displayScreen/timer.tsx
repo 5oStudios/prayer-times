@@ -47,20 +47,20 @@ const Timer = () => {
       const timerId = setInterval(() => {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
+            dispatch(setEnableCountDown(false));
             dispatch(setHideScreen(true));
             dispatch(setCurrentTimePeriod(-1));
             playAlert();
             setTimeout(
               () => {
                 dispatch(setHideScreen(false));
+                dispatch(setShowAzKar(true));
+                setTimeout(() => {
+                  dispatch(setShowAzKar(false));
+                }, 60 * 1000); //azar time
               },
               60 * 1000 * timePeriod // hide screen
             );
-            dispatch(setEnableCountDown(false));
-            dispatch(setShowAzKar(true));
-            setTimeout(() => {
-              dispatch(setShowAzKar(false));
-            }, 60 * 1000); //azar time
             clearInterval(timerId);
             return 0;
           }
