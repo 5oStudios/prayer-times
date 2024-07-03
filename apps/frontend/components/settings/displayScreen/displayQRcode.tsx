@@ -46,7 +46,7 @@ const QRCodeGenerator = ({ isArabic }: { isArabic: boolean }) => {
           }}
         />
         <Switch
-          defaultChecked={enableURl}
+          defaultChecked={onlyFriday}
           label={dictionary.settings.displaysQR.onlyFriday}
           onChange={() => {
             dispatch(setOnlyFriday(!onlyFriday));
