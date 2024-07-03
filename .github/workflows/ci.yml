@@ -19,23 +19,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Cache node_modules
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
           cache-dependency-path: ./pnpm-lock.yaml
 
+      - name: Install pnpm
+        run: npm install -g pnpm@latest
+
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Set SHAs for Nx
-        uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v4
 
       - name: Ensure main branch exists
         run: |
@@ -46,7 +43,7 @@ jobs:
           fi
 
       - name: Install Nx CLI
-        run: pnpm i nx -g
+        run: pnpm add nx -g
 
       - name: Lint affected projects
         run: nx affected:lint --fix --parallel
