@@ -31,7 +31,7 @@ export default function LoadAzkarImg() {
   };
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <FileInput
         style={{ marginTop: '0.5rem' }}
         onChange={handleFileChange}
