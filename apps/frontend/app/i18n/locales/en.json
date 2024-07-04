@@ -75,11 +75,14 @@
         "english": "english"
       }
     },
-    "location":{
-      "title":"Location",
-      "longitude":"Longitude",
-      "latitude":"Latitude",
-      "autoSetting":"Auto setting location"
+    "location": {
+      "title": "Location",
+      "longitude": "Longitude",
+      "latitude": "Latitude",
+      "autoSetting": "Auto setting location"
+    },
+    "nextPrayTime": {
+      "title": "Show next Pray time Timer"
     },
     "orientation": {
       "label": "Select rotate option",

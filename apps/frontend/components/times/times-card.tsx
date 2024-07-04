@@ -12,7 +12,6 @@ const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 export const PrayerTimesCard = ({
   prayer,
-  coordinates,
   lang,
 }: {
   prayer: {
@@ -63,7 +62,7 @@ export const PrayerTimesCard = ({
   );
 };
 
-type CountDownFormatterProps = {
+export type CountDownFormatterProps = {
   formatted: {
     hours: string;
     minutes: string;

@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
@@ -14,11 +14,7 @@ import { PrayerTimesCard } from '../components';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-
-// const kuwaitCoordinates = {
-//   latitude: 29.3759,
-//   longitude: 47.9774,
-// };
+import { setRemainingTime } from '../lib/features/settings';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -44,20 +40,6 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     }
   }, [coordinates, dispatch, timesStatus]);
 
-  // useDeepCompareEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       const newCoordinates = {
-  //         latitude: position.coords.latitude,
-  //         longitude: position.coords.longitude,
-  //       };
-  //       localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
-  //       setCoordinates(newCoordinates);
-  //     },
-  //     () => setCoordinates(kuwaitCoordinates)
-  //   );
-  // }, []);
-
   const localizedTimes = useMemo(() => {
     const newTimes = times.map(({ name, time, remaining, isNext }) => ({
       name: dictionary.times[capitalize(name) as keyof typeof dictionary.times], // simplify this
@@ -67,6 +49,13 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     }));
     return newTimes;
   }, [times, lang, dictionary]);
+
+  useEffect(() => {
+    const prayer = times.find((e) => e.isNext);
+    if (!prayer) return;
+    dispatch(setRemainingTime(prayer.remaining));
+    console.log('time set remaining', prayer.remaining);
+  }, [times]);
 
   return (
     <Flex

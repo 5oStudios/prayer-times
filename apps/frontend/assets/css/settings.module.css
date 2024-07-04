@@ -287,10 +287,15 @@
   font-size: 2.5rem;
   color: #479ea3;
 }
-.timerClockPhone{
+.timerClockPhone {
   font-size: 1rem;
   color: #479ea3;
 }
+.timerClockPhoneLeft {
+  font-size: 2rem;
+  color: #479ea3;
+}
+
 .timerClockSide {
   font-size: 1.5rem;
   color: #479ea3;
@@ -308,7 +313,20 @@
   border-radius: 50%;
   background-color: transparent;
 }
-.circlePhone{
+.circleLeft {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 2%;
+  top: 12%;
+  width: 170px;
+  height: 170px;
+  border: 5px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.circlePhone {
   display: 'flex';
   justify-content: center;
   align-content: center;
@@ -321,12 +339,39 @@
   border-radius: 50%;
   background-color: transparent;
 }
-.circlePhoneSide{
+.circlePhoneLeft {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 2%;
+  top: 12%;
+  width: 80px;
+  height: 80px;
+  border: 3px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.circlePhoneSide {
   display: 'flex';
   justify-content: center;
   align-content: center;
   position: absolute;
   right: 10%;
+  top: 10%;
+  width: 80px;
+  height: 80px;
+  border: 3px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.circlePhoneSideLeft {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 10%;
   top: 10%;
   width: 80px;
   height: 80px;
@@ -347,8 +392,21 @@
   border-radius: 50%;
   background-color: transparent;
 }
+.circleSideLeft {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 2%;
+  top: 10%;
+  width: 150px;
+  height: 150px;
+  border: 5px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
 
-.textSize{
+.textSize {
   font-size: 2.3rem;
 }
 

@@ -280,6 +280,14 @@ body {
   font-size: 1.5dvw;
   color: #c4d513;
 }
+.remaining-timer-nextPray {
+  font-size: 1.5dvw;
+  color: #000;
+}
+.remaining-timer-nextPray-mobile {
+  font-size: 0.5rem;
+  color: #000;
+}
 .prayer-time {
   font-size: 1.75dvw;
   font-weight: 400;

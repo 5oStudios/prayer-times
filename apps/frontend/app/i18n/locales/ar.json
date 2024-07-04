@@ -82,6 +82,9 @@
       "latitude": "خط العرض",
       "autoSetting": "تعيين الموقع تلقائيًا"
     },
+    "nextPrayTime": {
+      "title": "عرض عداد الوقت للصلاة التالية"
+    },
     "orientation": {
       "label": "اختر خيار التدوير",
       "options": {

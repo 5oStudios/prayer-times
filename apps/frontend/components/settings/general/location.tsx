@@ -29,7 +29,7 @@ export default function Location() {
       },
       () => setCoordinates(kuwaitCoordinates)
     );
-    console.log('done');
+    // console.log('done');
   };
 
   useEffect(() => {
