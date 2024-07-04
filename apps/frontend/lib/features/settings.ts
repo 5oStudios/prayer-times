@@ -48,7 +48,7 @@ const initialState: SettingsState = {
   enableURL: false,
   background: 0,
   timePeriod: [2, 0, 2, 2, 2, 2],
-  beforeAzanTimes: [2, 0, 2, 2, 2, 2],
+  beforeAzanTimes: [25, 0, 20, 25, 10, 10],
   currentTimePeriod: 0,
   showAzanTime: false,
   currentPrayTimeName: '',
@@ -58,7 +58,7 @@ const initialState: SettingsState = {
   showAzKar: false,
   azkarImage: '',
   ImamName: '',
-  autoLocation: false,
+  autoLocation: true,
   remainingTime: 0,
   enableNextPrayDisplay: false,
 };
