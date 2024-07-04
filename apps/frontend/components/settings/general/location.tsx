@@ -4,6 +4,8 @@ import { Coordinates } from '@islamic-kit/prayer-times';
 import useLocalStorage from 'use-local-storage';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectAutoLocation, setAutoLocation } from '../../../lib/features/settings';
+import { useDeepCompareEffect } from 'use-deep-compare';
+import { useEffect } from 'react';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
@@ -17,7 +19,6 @@ export default function Location() {
   const autoLocation = useSelector(selectAutoLocation);
 
   const AutoSet = () => {
-    dispatch(setAutoLocation(!autoLocation));
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const newCoordinates = {
@@ -29,7 +30,12 @@ export default function Location() {
       },
       () => setCoordinates(kuwaitCoordinates)
     );
+    console.log('done');
   };
+
+  useEffect(() => {
+    if (autoLocation) AutoSet();
+  }, []);
 
   const handleLongitudeChange = (value: number | string) => {
     const numericValue = typeof value === 'string' ? parseFloat(value) : value;
@@ -74,6 +80,7 @@ export default function Location() {
         style={{ marginTop: '0.5rem' }}
         defaultChecked={autoLocation}
         onChange={() => {
+          dispatch(setAutoLocation(!autoLocation));
           AutoSet();
         }}
         label={dictionary.settings.location.autoSetting}
