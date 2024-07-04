@@ -32,6 +32,8 @@ export type SettingsState = {
   enableCountDown: boolean;
   showAzKar: boolean;
   azkarImage: string;
+  ImamName: string;
+  autoLocation: boolean;
 };
 
 const initialState: SettingsState = {
@@ -53,6 +55,8 @@ const initialState: SettingsState = {
   enableCountDown: false,
   showAzKar: false,
   azkarImage: '',
+  ImamName: '',
+  autoLocation: false,
 };
 
 const settingsSlice = createSlice({
@@ -113,6 +117,12 @@ const settingsSlice = createSlice({
     setBeforeAzanTimes: (state, action) => {
       state.beforeAzanTimes = action.payload;
     },
+    setImamName: (state, action) => {
+      state.ImamName = action.payload;
+    },
+    setAutoLocation: (state, action) => {
+      state.autoLocation = action.payload;
+    },
   },
 });
 
@@ -135,6 +145,8 @@ export const {
   setShowAzKar,
   setAzkarImage,
   setBeforeAzanTimes,
+  setImamName,
+  setAutoLocation,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -157,3 +169,5 @@ export const selectEnableCountDown = (state: RootState) => state.settings.enable
 export const selectShowAzkar = (state: RootState) => state.settings.showAzKar;
 export const selectAzkarImage = (state: RootState) => state.settings.azkarImage;
 export const selectBeforeAzanTimes = (state: RootState) => state.settings.beforeAzanTimes;
+export const selectImamName = (state: RootState) => state.settings.ImamName;
+export const selectAutoLocation = (state: RootState) => state.settings.autoLocation;

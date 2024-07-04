@@ -15,10 +15,10 @@ import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 
-const kuwaitCoordinates = {
-  latitude: 29.3759,
-  longitude: 47.9774,
-};
+// const kuwaitCoordinates = {
+//   latitude: 29.3759,
+//   longitude: 47.9774,
+// };
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -44,19 +44,19 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     }
   }, [coordinates, dispatch, timesStatus]);
 
-  useDeepCompareEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const newCoordinates = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
-        setCoordinates(newCoordinates);
-      },
-      () => setCoordinates(kuwaitCoordinates)
-    );
-  }, [coordinates]);
+  // useDeepCompareEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       const newCoordinates = {
+  //         latitude: position.coords.latitude,
+  //         longitude: position.coords.longitude,
+  //       };
+  //       localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
+  //       setCoordinates(newCoordinates);
+  //     },
+  //     () => setCoordinates(kuwaitCoordinates)
+  //   );
+  // }, []);
 
   const localizedTimes = useMemo(() => {
     const newTimes = times.map(({ name, time, remaining, isNext }) => ({

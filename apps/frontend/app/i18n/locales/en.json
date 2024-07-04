@@ -47,7 +47,7 @@
       "prayTimeBanner": "Prayer Duration to hide screen",
       "uploadAzkarImage": "Upload Azkar Image",
       "uploadAzkarImagePlaceholder": "Upload Image",
-      "BeforeAzanTime":"Before Azan Time"
+      "BeforeAzanTime": "Before Azan Time"
     },
     "newsComp": {
       "createNews": "Create News",
@@ -62,6 +62,11 @@
       "title": "Masjid Name",
       "description": "Set Masjid name"
     },
+    "imamName": {
+      "title": "Imam Name",
+      "description": "Set Imam Name",
+      "ImamElMasjid": "Imam El Masjid"
+    },
     "language": {
       "title": "Language",
       "description": "Choose the language",
@@ -69,6 +74,12 @@
         "arabic": "Arabic",
         "english": "english"
       }
+    },
+    "location":{
+      "title":"Location",
+      "longitude":"Longitude",
+      "latitude":"Latitude",
+      "autoSetting":"Auto setting location"
     },
     "orientation": {
       "label": "Select rotate option",

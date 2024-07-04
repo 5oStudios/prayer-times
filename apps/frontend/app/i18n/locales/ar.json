@@ -62,6 +62,12 @@
       "title": "اسم المسجد",
       "description": "ضبط اسم المسجد"
     },
+    "imamName": {
+      "title": "اسم الإمام",
+      "description": "تعيين اسم الإمام",
+      "ImamElMasjid": "إمام المسجد"
+    },
+
     "language": {
       "title": "لغة",
       "description": "اختر اللغة",
@@ -69,6 +75,12 @@
         "arabic": "عربي",
         "english": "إنجليزي"
       }
+    },
+    "location": {
+      "title": "الموقع",
+      "longitude": "خط الطول",
+      "latitude": "خط العرض",
+      "autoSetting": "تعيين الموقع تلقائيًا"
     },
     "orientation": {
       "label": "اختر خيار التدوير",
