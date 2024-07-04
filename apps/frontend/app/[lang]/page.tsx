@@ -19,6 +19,7 @@ import {
   setShowAzanTime,
   setShowAzKar,
   setEnableCountDown,
+  selectImamName,
 } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
@@ -27,11 +28,15 @@ import Timer from '../../components/settings/displayScreen/timer';
 import Azan from '../../components/settings/azan';
 import Loading from '../../components/loading';
 import Azkar from '../../components/showAzkar';
+import { useDictionary } from './dictionary-provider';
+import NextPrayTime from '../../components/nextPrayTime';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
   const backgroundImageIndex = useSelector(selectBackground);
+  const imamName = useSelector(selectImamName);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const dictionary = useDictionary();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setShowAzanTime(false));
@@ -51,6 +56,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <Azan language={lang} />
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
         <Timer />
+        <NextPrayTime lang={lang} />
         <div className={`dates ${changeBG ? 'whiteText' : ''}`}>
           <DateSection language={lang} />
         </div>
@@ -67,7 +73,11 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
           <AzkarSection lang={lang} />
         </div>
         <PrayerTimesSection lang={lang} />
-        {/*<div className="emam-name">إمام المسجد: الشيخ مشاري العفاسي</div>*/}
+        {/* <div className="emam-name">إمام المسجد: الشيخ مشاري العفاسي</div> */}
+        <div className="emam-name">
+          {`${dictionary.settings.imamName.ImamElMasjid} : ${imamName}`}
+        </div>
+
         <div className="hadith-marquee">
           <HadithSection lang={lang} />
         </div>

@@ -12,7 +12,6 @@ const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 export const PrayerTimesCard = ({
   prayer,
-  coordinates,
   lang,
 }: {
   prayer: {
@@ -63,7 +62,7 @@ export const PrayerTimesCard = ({
   );
 };
 
-type CountDownFormatterProps = {
+export type CountDownFormatterProps = {
   formatted: {
     hours: string;
     minutes: string;
@@ -72,7 +71,7 @@ type CountDownFormatterProps = {
   lang: string;
 };
 
-const countDownFormatter = ({
+export const countDownFormatter = ({
   formatted: { hours, minutes, seconds },
   lang,
 }: CountDownFormatterProps) => (
@@ -82,7 +81,7 @@ const countDownFormatter = ({
   </div>
 );
 
-function localTimer(time: string, lang: string) {
+export function localTimer(time: string, lang: string) {
   moment.locale('en');
   const [hours, minutes] = time.split(':').map(Number);
   const timeInMilliseconds = (hours * 60 + minutes) * 60 * 1000;

@@ -15,6 +15,9 @@ import Themes from './displayScreen/themes';
 import Toggle from './toggle';
 import LoadAzkarImg from './displayScreen/loadAzkarImg';
 import AfterAzanTime from './displayScreen/afterAzanTime';
+import ImamName from './general/imamName';
+import Location from './general/location';
+import DisplayNextPrayTime from './general/displayNextPrayTime';
 
 type SettingsAccordionProps = {
   language: string;
@@ -44,8 +47,11 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         {item.value === dictionary.settings.general && (
           <div className={isArabic ? style.alRight : ''}>
             <MasjidName />
+            <ImamName />
             <Orientation language={language} />
             <Language language={language} />
+            <Location />
+            <DisplayNextPrayTime />
           </div>
         )}
         {item.value === dictionary.settings.news && (
