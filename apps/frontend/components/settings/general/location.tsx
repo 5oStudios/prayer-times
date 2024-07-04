@@ -1,11 +1,10 @@
+import { useEffect } from 'react';
 import { NumberInput, Text, Switch } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Coordinates } from '@islamic-kit/prayer-times';
 import useLocalStorage from 'use-local-storage';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectAutoLocation, setAutoLocation } from '../../../lib/features/settings';
-import { useDeepCompareEffect } from 'use-deep-compare';
-import { useEffect } from 'react';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
