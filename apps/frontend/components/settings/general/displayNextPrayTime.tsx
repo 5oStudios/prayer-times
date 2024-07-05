@@ -5,8 +5,9 @@ import {
   setEnableNextPrayDisplay,
 } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import style from '../../../assets/css/settings.module.css';
 
-export default function DisplayNextPrayTime() {
+export default function DisplayNextPrayTime({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const showNextPrayTime = useSelector(selectEnableNextPrayDisplay);
@@ -14,7 +15,7 @@ export default function DisplayNextPrayTime() {
     dispatch(setEnableNextPrayDisplay(!showNextPrayTime));
   };
   return (
-    <div style={{ marginTop: '1rem' }}>
+    <div style={{ marginTop: '1rem' }} className={isArabic ? style.alRight : ''}>
       <Text>{dictionary.settings.nextPrayTime.title}</Text>
       <Switch
         style={{ marginTop: '0.5' }}

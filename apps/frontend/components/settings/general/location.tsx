@@ -5,13 +5,14 @@ import { Coordinates } from '@islamic-kit/prayer-times';
 import useLocalStorage from 'use-local-storage';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectAutoLocation, setAutoLocation } from '../../../lib/features/settings';
+import style from '../../../assets/css/settings.module.css';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
   longitude: 47.9774,
 };
 
-export default function Location() {
+export default function Location({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
@@ -57,9 +58,12 @@ export default function Location() {
   };
 
   return (
-    <div style={{ marginTop: '1rem' }}>
+    <div style={{ marginTop: '1rem' }} className={isArabic ? style.alRight : ''}>
       <Text>{dictionary.settings.location.title}</Text>
-      <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'row', gap: '1rem', width: '100%' }}
+        className={isArabic ? style.alRight : ''}
+      >
         <NumberInput
           disabled={autoLocation}
           label={dictionary.settings.location.latitude}

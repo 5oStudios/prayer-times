@@ -50,8 +50,8 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <ImamName />
             <Orientation language={language} />
             <Language language={language} />
-            <Location />
-            <DisplayNextPrayTime />
+            <Location isArabic={isArabic} />
+            <DisplayNextPrayTime isArabic={isArabic} />
           </div>
         )}
         {item.value === dictionary.settings.news && (
