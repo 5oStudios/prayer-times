@@ -28,7 +28,7 @@ export default function NextPrayTime({ lang }: { lang: string }) {
 
   return (
     <div
-      style={{ zIndex: show ? '10' : '-1' }}
+      style={{ zIndex: show ? '5' : '-1' }}
       className={
         isVertical
           ? isTabletOrMobile
@@ -68,6 +68,7 @@ export default function NextPrayTime({ lang }: { lang: string }) {
         >
           <div className="remaining-timer-nextPray">
             <Countdown
+              key={counter}
               date={counter}
               renderer={({ formatted: { hours, minutes, seconds } }) =>
                 countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
