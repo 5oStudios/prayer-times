@@ -69,7 +69,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const startPrayTime = (name: string) => {
     const index = getPrayerIndex(name);
     const prayerTimePeriod = timePeriod[index];
-
+    console.log('index == ', index);
     if (index !== -1) {
       dispatch(setCurrentPrayTimeName(name));
       dispatch(setShowAzanTime(true));
@@ -87,6 +87,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     startPrayTime(prayer.name);
+    console.log('open Azan');
   });
 
   return (
