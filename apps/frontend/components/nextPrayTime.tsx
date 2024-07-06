@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Countdown from 'react-countdown';
 import { Center, Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
@@ -19,41 +20,15 @@ export default function NextPrayTime({ lang }: { lang: string }) {
   const isVertical = orientation === '';
   const show = useSelector(selectEnableNextPrayDisplay);
 
-  const [remainingTime, setRemainingTime] = useState<number>(nextRemaining);
+  const [counter, setCounter] = useState(Date.now() + nextRemaining);
 
   useEffect(() => {
-    const targetTime = Date.now() + nextRemaining;
-
-    const interval = setInterval(() => {
-      const currentTime = Date.now();
-      const timeLeft = targetTime - currentTime;
-      setRemainingTime(timeLeft);
-
-      // If timeLeft is less than or equal to 0, clear the interval
-      if (timeLeft <= 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
+    setCounter(Date.now() + nextRemaining);
   }, [nextRemaining]);
-
-  if (!show) {
-    return <div></div>;
-  }
-
-  const formattedTime = countDownFormatter({
-    formatted: {
-      hours: Math.floor(remainingTime / (1000 * 60 * 60)).toString().padStart(2, '0'),
-      minutes: Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0'),
-      seconds: Math.floor((remainingTime % (1000 * 60)) / 1000).toString().padStart(2, '0'),
-    },
-    lang,
-  });
 
   return (
     <div
+      style={{ zIndex: show ? '10' : '-1' }}
       className={
         isVertical
           ? isTabletOrMobile
@@ -92,7 +67,13 @@ export default function NextPrayTime({ lang }: { lang: string }) {
           }
         >
           <div className="remaining-timer-nextPray">
-            {formattedTime}
+            <Countdown
+              date={counter}
+              renderer={({ formatted: { hours, minutes, seconds } }) =>
+                countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
+              }
+              daysInHours
+            />
           </div>
         </Text>
       </Center>

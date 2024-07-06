@@ -1,4 +1,5 @@
 import { Switch, Text } from '@mantine/core';
+import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectEnableNextPrayDisplay,
