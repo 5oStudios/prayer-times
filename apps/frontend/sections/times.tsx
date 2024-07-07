@@ -17,7 +17,6 @@ import { SupportedLanguages } from '../app/i18n/dictionaries';
 import { setRemainingTime } from '../lib/features/settings';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
-  
   const dictionary = useDictionary();
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
   const times = useSelector(selectTimes);
@@ -50,14 +49,14 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       isNext,
     }));
     return newTimes;
-  }, [dictionary, displayTime, lang]);
+  }, [dictionary, times, lang, displayTime]);
 
   useEffect(() => {
     const prayer = times.find((e) => e.isNext);
     if (!prayer) return;
     dispatch(setRemainingTime(prayer.remaining));
     console.log('time set remaining', prayer.remaining);
-  }, [dispatch, times]);
+  }, [dispatch, times, displayTime]);
 
   return (
     <Flex

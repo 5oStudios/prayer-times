@@ -31,7 +31,7 @@ function Toggle() {
     const data: PrayerTime = {
       name,
       time: new Date(),
-      isNext: false,
+      isNext: true,
       remaining: 0,
     };
     publish('next-prayer', data);
