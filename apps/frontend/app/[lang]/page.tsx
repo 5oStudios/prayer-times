@@ -74,7 +74,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         </div>
         <PrayerTimesSection lang={lang} />
         {/* <div className="emam-name">إمام المسجد: الشيخ مشاري العفاسي</div> */}
-        <div className="emam-name">
+        <div className="emam-name" style={{ color: changeBG ? 'white' : 'black' }}>
           {`${dictionary.settings.imamName.ImamElMasjid} : ${imamName}`}
         </div>
 
