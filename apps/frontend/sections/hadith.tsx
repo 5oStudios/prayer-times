@@ -64,7 +64,7 @@ const HadithTicker = ({
   direction: 'right' | 'left';
 }) => {
   const news: NewsType[] = useSelector(selectNews);
-  const data = news.length > 1 ? news : hadith;
+  const data = news.length > 0 ? news : hadith;
 
   return (
     <Marquee
