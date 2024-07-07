@@ -5,7 +5,7 @@ export interface OnlineAPIResponse<T> {
 
 export interface Hadith {
   id: string;
-  title: string;
+  content: string;
   translations: string[];
 }
 

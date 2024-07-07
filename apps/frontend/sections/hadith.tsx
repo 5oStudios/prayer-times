@@ -30,7 +30,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   // const hadith = useSelector(selectHadith);
   const hadith: Hadith[] = [
     {
-      title: 'برنامج تجريبي',
+      content: 'برنامج تجريبي',
       id: '1',
       translations: [],
     },
@@ -64,7 +64,8 @@ const HadithTicker = ({
   direction: 'right' | 'left';
 }) => {
   const news: NewsType[] = useSelector(selectNews);
-  const data = news.length > 0 ? news : hadith;
+  const data = news.length > 1 ? news : hadith;
+
   return (
     <Marquee
       className="ticker-bg"
