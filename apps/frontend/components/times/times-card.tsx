@@ -25,6 +25,7 @@ export const PrayerTimesCard = ({
 }) => {
   const localizedTime = localTimer(prayer.time, lang);
   const counter = Date.now() + prayer.remaining;
+  // const counter = Date.now() + 5000;
 
   return (
     <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}>

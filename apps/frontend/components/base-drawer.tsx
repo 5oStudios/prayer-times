@@ -6,6 +6,7 @@ import Drawer from 'react-modern-drawer';
 import { selectOrientation } from '../lib/features/settings';
 import SettingsHeader from './settings/settingsHeader';
 import 'react-modern-drawer/dist/index.css';
+import { MenuSvg } from '../assets/icons/menu';
 
 type BaseDrawer = {
   children: ReactNode;
@@ -63,7 +64,8 @@ export const BaseDrawer = ({ children, language, changeBtnColor }: BaseDrawer) =
         }}
         onClick={toggleDrawer}
       >
-        <Burger color={changeBtnColor ? 'white' : 'black'} />
+        {/* <Burger color={changeBtnColor ? 'white' : 'black'} /> */}
+        <MenuSvg style={{ fontSize: '3rem', color: changeBtnColor ? 'white' : 'black' }} />
       </Button>
     </>
   );

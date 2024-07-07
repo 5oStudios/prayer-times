@@ -36,19 +36,19 @@ export type PrayerTimesDictionary = {
 
 export const getPrayerIndex = (name: string): number => {
   switch (name) {
-    case 'fajr': {
+    case 'Fajr' || 'الفجر': {
       return 0;
     }
-    case 'dhuhr': {
+    case 'Dhuhr' || 'الظهر': {
       return 2;
     }
-    case 'asr': {
+    case 'Asr' || 'العصر': {
       return 3;
     }
-    case 'maghrib': {
+    case 'Maghrib' || 'المغرب': {
       return 4;
     }
-    case 'isha': {
+    case 'Isha' || 'العشاء': {
       return 5;
     }
   }
@@ -66,14 +66,22 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
     dispatch(setHideScreen(!value));
   };
 
+  subscribe<PrayerTime>('next-prayer', (prayer) => {
+    startPrayTime(prayer.name);
+    console.log('azan time fire data = ', prayer);
+  });
+
   const startPrayTime = (name: string) => {
+    console.log('hello');
     const index = getPrayerIndex(name);
+    console.log('index', index);
     const prayerTimePeriod = timePeriod[index];
+    console.log('prayerTimePeriod', prayerTimePeriod);
 
     if (index !== -1) {
       dispatch(setCurrentPrayTimeName(name));
       dispatch(setShowAzanTime(true));
-
+      console.log('hello2');
       setTimeout(
         () => {
           dispatch(setShowAzanTime(false));
@@ -84,11 +92,6 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
       ); //  azan time
     }
   };
-
-  subscribe<PrayerTime>('next-prayer', (prayer) => {
-    startPrayTime(prayer.name);
-    console.log('azan time fire');
-  });
 
   return (
     <div style={{ width: '100%', marginTop: '2rem' }} className={isArabic ? styles.alRight : ''}>

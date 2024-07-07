@@ -64,28 +64,11 @@ const HadithTicker = ({
   direction: 'right' | 'left';
 }) => {
   const news: NewsType[] = useSelector(selectNews);
-
+  const data = news.length > 0 ? news : hadith;
   return (
     <Marquee className="ticker-bg" direction={direction} speed={speed} autoFill>
       <Flex style={{ overflow: 'hidden' }}>
-        {news.length === 0
-          ? hadith.map(({ title, id }) => (
-              <Flex key={id} justify="center" align="center">
-                <Text
-                  className="font-class-name"
-                  style={{ color: 'white', fontSize: '45px', width: 'max-content' }}
-                >
-                  {title}
-                </Text>
-                <StarSvg
-                  style={{
-                    fill: 'white',
-                    marginInline: 24,
-                  }}
-                />
-              </Flex>
-            ))
-          : news.map((item, index) => (
+        { data.map((item, index) => (
               <Flex key={index} justify="center" align="center">
                 <Text
                   className="font-class-name"
