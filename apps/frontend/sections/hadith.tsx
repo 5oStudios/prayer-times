@@ -30,12 +30,12 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   // const hadith = useSelector(selectHadith);
   const hadith: Hadith[] = [
     {
-      title: 'برنامج تجريبي',
+      content: 'برنامج تجريبي',
       id: '1',
       translations: [],
     },
   ];
-  const direction = lang === 'ar' ? 'right' : 'left';
+  const direction = 'left';
 
   useEffect(() => {
     // @ts-expect-error - This fix this
@@ -64,26 +64,32 @@ const HadithTicker = ({
   direction: 'right' | 'left';
 }) => {
   const news: NewsType[] = useSelector(selectNews);
-  const data = news.length > 0 ? news : hadith;
+  const data = news.length > 1 ? news : hadith;
+
   return (
-    <Marquee className="ticker-bg" direction={direction} speed={speed} autoFill>
+    <Marquee
+      className="ticker-bg"
+      direction={direction}
+      speed={speed}
+      autoFill
+    >
       <Flex style={{ overflow: 'hidden' }}>
-        { data.map((item, index) => (
-              <Flex key={index} justify="center" align="center">
-                <Text
-                  className="font-class-name"
-                  style={{ color: 'white', fontSize: '45px', width: 'max-content' }}
-                >
-                  {item.content}
-                </Text>
-                <StarSvg
-                  style={{
-                    fill: 'white',
-                    marginInline: 24,
-                  }}
-                />
-              </Flex>
-            ))}
+        {data.map((item, index) => (
+          <Flex key={index} justify="center" align="center">
+            <Text
+              className="font-class-name"
+              style={{ color: 'white', fontSize: '45px', width: 'max-content' }}
+            >
+              {item.content}
+            </Text>
+            <StarSvg
+              style={{
+                fill: 'white',
+                marginInline: 24,
+              }}
+            />
+          </Flex>
+        ))}
       </Flex>
     </Marquee>
   );
