@@ -128,9 +128,9 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
           {formatTime(timeLeft)}
         </Text>
       </Center>
-      <Center>
+      {/* <Center>
         <Text>{formatTime(timeLeft)}</Text>
-      </Center>
+      </Center> */}
     </div>
   );
 };
