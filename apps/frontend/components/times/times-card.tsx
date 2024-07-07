@@ -38,7 +38,10 @@ export const PrayerTimesCard = ({
               renderer={({ formatted: { hours, minutes, seconds } }) =>
                 countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
               }
-              onComplete={() => publish('next-prayer', prayer)}
+              onComplete={() => {
+                publish('next-prayer', prayer);
+                console.log('ok done update everything ');
+              }}
             />
           </div>
         </>
@@ -53,7 +56,10 @@ export const PrayerTimesCard = ({
               countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
             }
             daysInHours
-            onComplete={() => publish('next-prayer', prayer)}
+            onComplete={() => {
+              publish('next-prayer', prayer);
+              console.log('ok done update everything ');
+            }}
           />
         )}
       </div>

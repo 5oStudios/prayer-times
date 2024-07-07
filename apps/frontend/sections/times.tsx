@@ -17,9 +17,11 @@ import { SupportedLanguages } from '../app/i18n/dictionaries';
 import { setRemainingTime } from '../lib/features/settings';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
+  
   const dictionary = useDictionary();
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
-  const times = reverseTimes(useSelector(selectTimes), lang, isPortrait);
+  const times = useSelector(selectTimes);
+  const displayTime = reverseTimes(times, lang, isPortrait);
   const timesStatus = useSelector(selectTimesStatus);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dispatch = useDispatch();
@@ -41,21 +43,21 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [coordinates, dispatch, timesStatus]);
 
   const localizedTimes = useMemo(() => {
-    const newTimes = times.map(({ name, time, remaining, isNext }) => ({
+    const newTimes = displayTime.map(({ name, time, remaining, isNext }) => ({
       name: dictionary.times[capitalize(name) as keyof typeof dictionary.times], // simplify this
       time: formatTime(time, lang),
       remaining,
       isNext,
     }));
     return newTimes;
-  }, [times, lang, dictionary]);
+  }, [dictionary, displayTime, lang]);
 
   useEffect(() => {
     const prayer = times.find((e) => e.isNext);
     if (!prayer) return;
     dispatch(setRemainingTime(prayer.remaining));
     console.log('time set remaining', prayer.remaining);
-  }, [times]);
+  }, [dispatch, times]);
 
   return (
     <Flex
