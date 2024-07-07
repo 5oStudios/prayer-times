@@ -55,8 +55,8 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <Loading />
         <Azan language={lang} />
         <DisplayQRcode className={lang === 'ar' ? styles.alignLeftQR : styles.alignRightQR} />
-        <Timer />
-        <NextPrayTime lang={lang} />
+        <Timer changeTextColor={changeBG} />
+        <NextPrayTime lang={lang} changeTextColor={changeBG} />
         <div className={`dates ${changeBG ? 'whiteText' : ''}`}>
           <DateSection language={lang} />
         </div>

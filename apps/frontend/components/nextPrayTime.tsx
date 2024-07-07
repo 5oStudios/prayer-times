@@ -13,7 +13,13 @@ import {
 import styles from '../assets/css/settings.module.css';
 import { countDownFormatter } from './times';
 
-export default function NextPrayTime({ lang }: { lang: string }) {
+export default function NextPrayTime({
+  lang,
+  changeTextColor,
+}: {
+  lang: string;
+  changeTextColor: boolean;
+}) {
   const nextRemaining = useSelector(selectRemainingTime);
   const orientation = useSelector(selectOrientation);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
@@ -50,6 +56,7 @@ export default function NextPrayTime({ lang }: { lang: string }) {
                 ? '0.7rem'
                 : '1rem',
             fontWeight: 'bold',
+            color: changeTextColor ? 'white' : 'black',
           }}
           className={styles.ArStyle}
         >
@@ -66,7 +73,12 @@ export default function NextPrayTime({ lang }: { lang: string }) {
               : styles.timerClockSideLeft
           }
         >
-          <div className="remaining-timer-nextPray">
+          <div
+            className="remaining-timer-nextPray"
+            style={{
+              color: changeTextColor ? 'white' : 'black',
+            }}
+          >
             <Countdown
               key={counter}
               date={counter}

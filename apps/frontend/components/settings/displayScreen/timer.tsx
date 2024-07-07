@@ -23,7 +23,7 @@ const playAlert = () => {
   audio.play();
 };
 
-const Timer = () => {
+const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const timePeriod = useSelector(selectCurrentTimePeriod);
   const orientation = useSelector(selectOrientation);
   const enableCountDown = useSelector(selectEnableCountDown);
@@ -104,6 +104,7 @@ const Timer = () => {
               : isTabletOrMobile
                 ? '0.5rem'
                 : '0.7rem',
+            color: changeTextColor ? 'white' : 'black',
             fontWeight: 'bold',
           }}
           className={styles.ArStyle}
@@ -120,9 +121,15 @@ const Timer = () => {
                 : styles.timerClock
               : styles.timerClockSide
           }
+          style={{
+            color: changeTextColor ? 'white' : 'black',
+          }}
         >
           {formatTime(timeLeft)}
         </Text>
+      </Center>
+      <Center>
+        <Text>{formatTime(timeLeft)}</Text>
       </Center>
     </div>
   );
