@@ -41,6 +41,7 @@ export const PrayerTimesCard = ({
               }
               onComplete={() => {
                 publish('next-prayer', prayer);
+                console.log('name = ', prayer.name);
                 console.log('ok done update everything ');
               }}
             />

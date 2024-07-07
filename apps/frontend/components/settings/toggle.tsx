@@ -7,17 +7,17 @@ function Toggle() {
   const getName = (index: number) => {
     switch (index) {
       case 0:
-        return 'fajr';
+        return 'Fajr';
       case 1:
-        return 'sunrise';
+        return 'Sunrise';
       case 2:
-        return 'dhuhr';
+        return 'Dhuhr';
       case 3:
-        return 'asr';
+        return 'Asr';
       case 4:
-        return 'maghrib';
+        return 'Maghrib';
       case 5:
-        return 'isha';
+        return 'Isha';
       default:
         return '';
     }

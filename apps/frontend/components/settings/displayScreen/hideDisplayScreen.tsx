@@ -36,23 +36,30 @@ export type PrayerTimesDictionary = {
 
 export const getPrayerIndex = (name: string): number => {
   switch (name) {
-    case 'Fajr' || 'الفجر': {
+    case 'Fajr':
+    case 'الفجر': {
       return 0;
     }
-    case 'Dhuhr' || 'الظهر': {
+    case 'Dhuhr':
+    case 'الظهر': {
       return 2;
     }
-    case 'Asr' || 'العصر': {
+    case 'Asr':
+    case 'العصر': {
       return 3;
     }
-    case 'Maghrib' || 'المغرب': {
+    case 'Maghrib':
+    case 'المغرب': {
       return 4;
     }
-    case 'Isha' || 'العشاء': {
+    case 'Isha':
+    case 'العشاء': {
       return 5;
     }
+    default: {
+      return -1;
+    }
   }
-  return -1;
 };
 
 function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
@@ -68,6 +75,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     startPrayTime(prayer.name);
+    console.log('name here = ', prayer.name);
     console.log('azan time fire data = ', prayer);
   });
 

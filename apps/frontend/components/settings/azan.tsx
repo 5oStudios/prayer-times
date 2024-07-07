@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Text } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -13,7 +14,13 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const prayName = useSelector(selectCurrentPrayTimeName);
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
-  const capitalized = prayName.charAt(0).toUpperCase() + prayName.slice(1);
+  const isEnglish = language === 'en';
+  const [capitalized, setCapitalized] = useState<string>(prayName);
+  useEffect(() => {
+    if (isEnglish) {
+      setCapitalized(prayName.charAt(0).toUpperCase() + prayName.slice(1));
+    }
+  }, [prayName, isEnglish]);
   return show ? (
     <div
       className="azan-wrapper"
