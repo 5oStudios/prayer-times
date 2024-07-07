@@ -87,6 +87,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     startPrayTime(prayer.name);
+    console.log('azan time fire');
   });
 
   return (
