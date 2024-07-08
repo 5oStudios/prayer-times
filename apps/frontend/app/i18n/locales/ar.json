@@ -56,7 +56,8 @@
       "prayTimeBanner": "مدة الصلاة لإخفاء الشاشة",
       "uploadAzkarImage": "رفع صورة الأذكار",
       "uploadAzkarImagePlaceholder": "رفع صورة",
-      "BeforeAzanTime": "قبل وقت الأذان"
+      "BeforeAzanTime": "قبل وقت الأذان",
+      "hideSunrisePrayer": "إخفاء صلاة الشروق"
     },
     "masjidName": {
       "title": "اسم المسجد",
@@ -78,8 +79,8 @@
     },
     "location": {
       "title": "الموقع",
-      "longitude": "خط الطول",
-      "latitude": "خط العرض",
+      "country": "الدولة",
+      "city": "المدينة",
       "autoSetting": "تعيين الموقع تلقائيًا"
     },
     "nextPrayTime": {

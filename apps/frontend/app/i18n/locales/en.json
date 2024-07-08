@@ -47,7 +47,8 @@
       "prayTimeBanner": "Prayer Duration to hide screen",
       "uploadAzkarImage": "Upload Azkar Image",
       "uploadAzkarImagePlaceholder": "Upload Image",
-      "BeforeAzanTime": "Before Azan Time"
+      "BeforeAzanTime": "Before Azan Time",
+      "hideSunrisePrayer":"hide Sunrise prayer"
     },
     "newsComp": {
       "createNews": "Create News",
@@ -77,8 +78,8 @@
     },
     "location": {
       "title": "Location",
-      "longitude": "Longitude",
-      "latitude": "Latitude",
+      "country": "country",
+      "city": "City",
       "autoSetting": "Auto setting location"
     },
     "nextPrayTime": {

@@ -25,7 +25,7 @@ export default function AfterAzanTime({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
 
   return (
-    <div>
+    <div className={isArabic ? styles.rightAligned : ''}>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.BeforeAzanTime}
       </Text>
@@ -78,7 +78,13 @@ export function BeforeAzanCard({ index, isArabic, time }: BeforeAzanCardProp) {
       }}
     >
       <Text style={{ marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
-      <NumberInput defaultValue={timePeriod[index]} onChange={handleChange} />{' '}
+      <NumberInput
+        defaultValue={timePeriod[index]}
+        onChange={handleChange}
+        styles={{
+          input: { paddingLeft: isArabic ? '2rem' : '' },
+        }}
+      />
     </div>
   );
 }

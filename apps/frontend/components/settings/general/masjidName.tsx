@@ -14,7 +14,7 @@ export default function MasjidName() {
   };
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', marginTop: '1rem' }}>
       <Text>{dictionary.settings.masjidName.title}</Text>
       <Input
         value={masjidName}

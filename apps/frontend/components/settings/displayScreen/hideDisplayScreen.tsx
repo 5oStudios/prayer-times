@@ -102,7 +102,10 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   };
 
   return (
-    <div style={{ width: '100%', marginTop: '2rem' }} className={isArabic ? styles.alRight : ''}>
+    <div
+      style={{ marginTop: '2rem', width: '100%' }}
+      className={isArabic ? styles.rightAligned : ''}
+    >
       <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>
       <Switch
         style={{ marginTop: '0.5rem' }}
@@ -124,20 +127,27 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
             )
         )}
       </div>
-      <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+      <Text style={{ marginTop: '1rem', marginBottom: '1rem', width: '100%' }}>
         {dictionary.settings.AzanDuration}
       </Text>
-      <NumberInput value={akamaAfter} onChange={(e) => dispatch(setAkamaAfter(e))} />
+      <NumberInput
+        value={akamaAfter}
+        onChange={(e) => dispatch(setAkamaAfter(e))}
+        styles={{
+          input: { paddingLeft: isArabic ? '2rem' : '' },
+        }}
+      />
     </div>
   );
 }
-type BlackScreenInputCard = {
+
+type BlackScreenInputCardProps = {
   time: PrayerTime;
   index: number;
   isArabic: boolean;
 };
 
-function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCard) {
+function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardProps) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const timePeriod = useSelector(selectTimePeriod);
@@ -152,9 +162,9 @@ function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCard) {
     updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
     dispatch(setTimePeriod(updatedTimePeriod));
   };
+
   return (
     <div
-      className={isArabic ? styles.alRight : ''}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -164,7 +174,13 @@ function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCard) {
       }}
     >
       <Text style={{ marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
-      <NumberInput defaultValue={timePeriod[index]} onChange={handleChange} />
+      <NumberInput
+        defaultValue={timePeriod[index]}
+        onChange={handleChange}
+        styles={{
+          input: { paddingLeft: isArabic ? '2rem' : '' },
+        }}
+      />
     </div>
   );
 }

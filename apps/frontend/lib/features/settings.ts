@@ -36,6 +36,9 @@ export type SettingsState = {
   autoLocation: boolean;
   remainingTime: number;
   enableNextPrayDisplay: boolean;
+  country: string;
+  city: string;
+  hideSunRise: boolean;
 };
 
 const initialState: SettingsState = {
@@ -61,6 +64,9 @@ const initialState: SettingsState = {
   autoLocation: true,
   remainingTime: 0,
   enableNextPrayDisplay: false,
+  country: '',
+  city: '',
+  hideSunRise: false,
 };
 
 const settingsSlice = createSlice({
@@ -133,6 +139,15 @@ const settingsSlice = createSlice({
     setEnableNextPrayDisplay: (state, action) => {
       state.enableNextPrayDisplay = action.payload;
     },
+    setCountry: (state, action) => {
+      state.country = action.payload;
+    },
+    setCity: (state, action) => {
+      state.city = action.payload;
+    },
+    setHideSunRise: (state, action) => {
+      state.hideSunRise = action.payload;
+    },
   },
 });
 
@@ -159,6 +174,9 @@ export const {
   setAutoLocation,
   setRemainingTime,
   setEnableNextPrayDisplay,
+  setCountry,
+  setCity,
+  setHideSunRise,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -186,3 +204,6 @@ export const selectAutoLocation = (state: RootState) => state.settings.autoLocat
 export const selectRemainingTime = (state: RootState) => state.settings.remainingTime;
 export const selectEnableNextPrayDisplay = (state: RootState) =>
   state.settings.enableNextPrayDisplay;
+export const selectCountry = (state: RootState) => state.settings.country;
+export const selectCity = (state: RootState) => state.settings.city;
+export const selectHideSunRise = (state: RootState) => state.settings.hideSunRise;

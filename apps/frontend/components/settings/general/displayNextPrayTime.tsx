@@ -15,7 +15,16 @@ export default function DisplayNextPrayTime({ isArabic }: { isArabic: boolean })
     dispatch(setEnableNextPrayDisplay(!showNextPrayTime));
   };
   return (
-    <div style={{ marginTop: '1rem' }} className={isArabic ? style.alRight : ''}>
+    <div
+      style={{
+        marginTop: '1.5rem',
+        display: 'flex',
+        flexDirection: isArabic ? 'row-reverse' : 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+      }}
+      className={isArabic ? style.alRight : ''}
+    >
       <Text>{dictionary.settings.nextPrayTime.title}</Text>
       <Switch
         style={{ marginTop: '0.5' }}

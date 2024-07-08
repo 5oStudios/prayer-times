@@ -78,6 +78,14 @@
   width: 100%;
 }
 
+.rightAligned {
+  text-align: right;
+  direction: rtl; /* Ensures the direction of the text is right-to-left */
+}
+.spacing {
+  margin-right: 1rem; /* Adjust the spacing value as needed */
+}
+
 .button {
   text-align: center;
   line-height: 3rem;
@@ -254,14 +262,14 @@
 .alignRightQR {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 25%;
   padding: 1rem;
   margin-top: 5rem;
 }
 .alignLeftQR {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 25%;
   padding: 1rem;
   margin-top: 5rem;
 }

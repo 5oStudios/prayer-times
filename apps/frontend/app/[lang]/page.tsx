@@ -43,6 +43,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
     dispatch(setHideScreen(false));
     dispatch(setShowAzKar(false));
     dispatch(setEnableCountDown(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
