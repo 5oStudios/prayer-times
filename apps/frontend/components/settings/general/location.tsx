@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { NativeSelect, Text, Switch } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,6 +34,14 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
   const [cityData, setCityData] = useState<string>(cityloc);
   const [countryC, setCountryC] = useState<string>(countryLoc);
 
+  useEffect(() => {
+    if (countryLoc) {
+      const data = getCities(countryLoc);
+      const citiesData = data.map((city: { name: string }) => city.name);
+      setCities(citiesData);
+    }
+  }, []);
+
   const AutoSet = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -48,12 +58,13 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
 
   useEffect(() => {
     if (autoLocation) AutoSet();
+    console.log('country = ', countryLoc, ' ', 'city = ', cityloc);
   }, []);
 
   const onCountrySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCountry = event.target.value;
     setCountryC(selectedCountry);
-    dispatch(setCountry(selectCountry));
+    dispatch(setCountry(selectedCountry));
     const data = getCities(selectedCountry);
     const citiesData = data.map((city: { name: string }) => city.name);
     console.log(citiesData);
@@ -67,6 +78,9 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
     const data = getCoordinates(countryC, selectedCity);
     console.log('lat = ', data?.latitude, ' ', 'long = ', data?.longitude);
     setCoordinates({ latitude: data?.latitude, longitude: data?.longitude });
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   return (
