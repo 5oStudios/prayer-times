@@ -1,11 +1,19 @@
-import { useEffect } from 'react';
-import { NumberInput, Text, Switch } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import { NativeSelect, Text, Switch } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Coordinates } from '@islamic-kit/prayer-times';
 import useLocalStorage from 'use-local-storage';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import { selectAutoLocation, setAutoLocation } from '../../../lib/features/settings';
+import {
+  selectAutoLocation,
+  selectCity,
+  selectCountry,
+  setAutoLocation,
+  setCity,
+  setCountry,
+} from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
+import { getCities, getCoordinates, getCountries } from '../../../lib/coordinatesActions/actions';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
@@ -15,8 +23,14 @@ const kuwaitCoordinates = {
 export default function Location({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
+  const countryLoc = useSelector(selectCountry);
+  const cityloc = useSelector(selectCity);
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
   const autoLocation = useSelector(selectAutoLocation);
+  const countries = getCountries();
+  const [cities, setCities] = useState([]);
+  const [cityData, setCityData] = useState<string>(cityloc);
+  const [countryC, setCountryC] = useState<string>(countryLoc);
 
   const AutoSet = () => {
     navigator.geolocation.getCurrentPosition(
@@ -30,31 +44,29 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
       },
       () => setCoordinates(kuwaitCoordinates)
     );
-    // console.log('done');
   };
 
   useEffect(() => {
     if (autoLocation) AutoSet();
   }, []);
 
-  const handleLongitudeChange = (value: number | string) => {
-    const numericValue = typeof value === 'string' ? parseFloat(value) : value;
-    if (!Number.isNaN(numericValue)) {
-      setCoordinates((prev) => ({
-        longitude: numericValue,
-        latitude: prev?.latitude ?? 0,
-      }));
-    }
+  const onCountrySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCountry = event.target.value;
+    setCountryC(selectedCountry);
+    dispatch(setCountry(selectCountry));
+    const data = getCities(selectedCountry);
+    const citiesData = data.map((city: { name: string }) => city.name);
+    console.log(citiesData);
+    setCities(citiesData);
   };
-
-  const handleLatitudeChange = (value: number | string) => {
-    const numericValue = typeof value === 'string' ? parseFloat(value) : value;
-    if (!Number.isNaN(numericValue)) {
-      setCoordinates((prev) => ({
-        longitude: prev?.longitude ?? 0,
-        latitude: numericValue,
-      }));
-    }
+  const onCitySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCity = event.target.value;
+    setCityData(selectedCity);
+    console.log(selectedCity);
+    dispatch(setCity(selectedCity));
+    const data = getCoordinates(countryC, selectedCity);
+    console.log('lat = ', data?.latitude, ' ', 'long = ', data?.longitude);
+    setCoordinates({ latitude: data?.latitude, longitude: data?.longitude });
   };
 
   return (
@@ -64,19 +76,21 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         style={{ display: 'flex', flexDirection: 'row', gap: '1rem', width: '100%' }}
         className={isArabic ? style.alRight : ''}
       >
-        <NumberInput
+        <NativeSelect
           disabled={autoLocation}
-          label={dictionary.settings.location.latitude}
-          placeholder={dictionary.settings.location.latitude}
-          value={coordinates?.latitude}
-          onChange={handleLatitudeChange}
+          defaultValue={countryC}
+          label={dictionary.settings.location.country}
+          data={countries}
+          onChange={onCountrySelect}
+          style={{ width: '45%' }}
         />
-        <NumberInput
+        <NativeSelect
           disabled={autoLocation}
-          label={dictionary.settings.location.longitude}
-          placeholder={dictionary.settings.location.longitude}
-          value={coordinates?.longitude}
-          onChange={handleLongitudeChange}
+          defaultValue={cityData}
+          label={dictionary.settings.location.city}
+          data={cities}
+          onChange={onCitySelect}
+          style={{ width: '45%' }}
         />
       </div>
       <Switch

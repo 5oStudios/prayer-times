@@ -78,8 +78,8 @@
     },
     "location": {
       "title": "الموقع",
-      "longitude": "خط الطول",
-      "latitude": "خط العرض",
+      "country": "الدولة",
+      "city": "المدينة",
       "autoSetting": "تعيين الموقع تلقائيًا"
     },
     "nextPrayTime": {

@@ -77,8 +77,8 @@
     },
     "location": {
       "title": "Location",
-      "longitude": "Longitude",
-      "latitude": "Latitude",
+      "country": "country",
+      "city": "City",
       "autoSetting": "Auto setting location"
     },
     "nextPrayTime": {
