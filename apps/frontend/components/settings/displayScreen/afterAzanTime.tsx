@@ -78,7 +78,13 @@ export function BeforeAzanCard({ index, isArabic, time }: BeforeAzanCardProp) {
       }}
     >
       <Text style={{ marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
-      <NumberInput defaultValue={timePeriod[index]} onChange={handleChange} />{' '}
+      <NumberInput
+        defaultValue={timePeriod[index]}
+        onChange={handleChange}
+        styles={{
+          input: { paddingLeft: isArabic ? '2rem' : '' },
+        }}
+      />
     </div>
   );
 }

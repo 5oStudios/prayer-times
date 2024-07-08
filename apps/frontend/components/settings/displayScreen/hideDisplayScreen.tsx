@@ -103,7 +103,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
 
   return (
     <div
-      style={{ width: '100%', marginTop: '2rem' }}
+      style={{ marginTop: '2rem', width: '100%' }}
       className={isArabic ? styles.rightAligned : ''}
     >
       <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>
@@ -116,7 +116,10 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.prayTimeBanner}
       </Text>
-      <div className={`${isArabic ? styles.rightAligned : ''} ${styles.gridContainer}`}>
+      <div
+        className={`${isArabic ? styles.alRight : ''} ${styles.gridContainer}`}
+        style={{ width: '100%' }}
+      >
         {times.map(
           (time, index) =>
             time.name !== 'sunrise' && (
@@ -124,10 +127,16 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
             )
         )}
       </div>
-      <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+      <Text style={{ marginTop: '1rem', marginBottom: '1rem', width: '100%' }}>
         {dictionary.settings.AzanDuration}
       </Text>
-      <NumberInput value={akamaAfter} onChange={(e) => dispatch(setAkamaAfter(e))} />
+      <NumberInput
+        value={akamaAfter}
+        onChange={(e) => dispatch(setAkamaAfter(e))}
+        styles={{
+          input: { paddingLeft: isArabic ? '2rem' : '' },
+        }}
+      />
     </div>
   );
 }
@@ -160,14 +169,18 @@ function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardPro
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: 'max-content',
+        width: '100%',
         marginBottom: '1rem',
-        textAlign: 'center',
       }}
-      // className={isArabic ? styles.rightAligned : ''}
     >
       <Text style={{ marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
-      <NumberInput defaultValue={timePeriod[index]} onChange={handleChange} />
+      <NumberInput
+        defaultValue={timePeriod[index]}
+        onChange={handleChange}
+        styles={{
+          input: { paddingLeft: isArabic ? '2rem' : '' },
+        }}
+      />
     </div>
   );
 }
