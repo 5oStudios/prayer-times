@@ -18,6 +18,7 @@ import AfterAzanTime from './displayScreen/afterAzanTime';
 import ImamName from './general/imamName';
 import Location from './general/location';
 import DisplayNextPrayTime from './general/displayNextPrayTime';
+import HideSunRise from './displayScreen/hideSunRise';
 
 type SettingsAccordionProps = {
   language: string;
@@ -52,6 +53,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <Language language={language} />
             <Location isArabic={isArabic} />
             <DisplayNextPrayTime isArabic={isArabic} />
+            <HideSunRise isArabic={isArabic} />
           </div>
         )}
         {item.value === dictionary.settings.news && (

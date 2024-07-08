@@ -47,7 +47,8 @@
       "prayTimeBanner": "Prayer Duration to hide screen",
       "uploadAzkarImage": "Upload Azkar Image",
       "uploadAzkarImagePlaceholder": "Upload Image",
-      "BeforeAzanTime": "Before Azan Time"
+      "BeforeAzanTime": "Before Azan Time",
+      "hideSunrisePrayer":"hide Sunrise prayer"
     },
     "newsComp": {
       "createNews": "Create News",

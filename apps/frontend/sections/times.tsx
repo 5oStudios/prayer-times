@@ -14,7 +14,7 @@ import { PrayerTimesCard } from '../components';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import { setRemainingTime } from '../lib/features/settings';
+import { selectHideSunRise, setRemainingTime } from '../lib/features/settings';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -25,6 +25,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
+  const hideSunRise = useSelector(selectHideSunRise);
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     // alert(`It's time for from store ${prayer.name}`);
@@ -66,9 +67,18 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       style={isTabletOrMobile ? { gap: '1rem' } : { gap: '0.5rem' }}
       className="times-section"
     >
-      {localizedTimes.map((prayer) => (
-        <PrayerTimesCard key={prayer.name} prayer={prayer} coordinates={coordinates} lang={lang} />
-      ))}
+      {localizedTimes.map((prayer) =>
+        (prayer.name === 'Sunrise' || prayer.name === 'الشروق') && hideSunRise ? (
+          <></>
+        ) : (
+          <PrayerTimesCard
+            key={prayer.name}
+            prayer={prayer}
+            coordinates={coordinates}
+            lang={lang}
+          />
+        )
+      )}
     </Flex>
   );
 };

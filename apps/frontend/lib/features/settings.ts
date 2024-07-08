@@ -38,6 +38,7 @@ export type SettingsState = {
   enableNextPrayDisplay: boolean;
   country: string;
   city: string;
+  hideSunRise: boolean;
 };
 
 const initialState: SettingsState = {
@@ -65,6 +66,7 @@ const initialState: SettingsState = {
   enableNextPrayDisplay: false,
   country: '',
   city: '',
+  hideSunRise: false,
 };
 
 const settingsSlice = createSlice({
@@ -143,6 +145,9 @@ const settingsSlice = createSlice({
     setCity: (state, action) => {
       state.city = action.payload;
     },
+    setHideSunRise: (state, action) => {
+      state.hideSunRise = action.payload;
+    },
   },
 });
 
@@ -171,6 +176,7 @@ export const {
   setEnableNextPrayDisplay,
   setCountry,
   setCity,
+  setHideSunRise,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -200,3 +206,4 @@ export const selectEnableNextPrayDisplay = (state: RootState) =>
   state.settings.enableNextPrayDisplay;
 export const selectCountry = (state: RootState) => state.settings.country;
 export const selectCity = (state: RootState) => state.settings.city;
+export const selectHideSunRise = (state: RootState) => state.settings.hideSunRise;
