@@ -12,7 +12,7 @@ function Language({ language }: { language: string }) {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: '1rem' }}>
       <Text> {dictionary.settings.language.description}</Text>
       <Radio.Group onChange={handleChange} name={dictionary.settings.language.title} value={lang}>
         <Group mt="xs">

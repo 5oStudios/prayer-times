@@ -13,7 +13,7 @@ export default function ImamName() {
   };
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', marginTop: '1rem' }}>
       <Text>{dictionary.settings.imamName.title}</Text>
       <TextInput
         value={imamName}

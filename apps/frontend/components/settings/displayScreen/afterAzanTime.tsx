@@ -25,7 +25,7 @@ export default function AfterAzanTime({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
 
   return (
-    <div>
+    <div className={isArabic ? styles.rightAligned : ''}>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.BeforeAzanTime}
       </Text>

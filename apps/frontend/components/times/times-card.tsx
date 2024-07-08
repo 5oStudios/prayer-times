@@ -84,11 +84,11 @@ export const countDownFormatter = ({
   lang,
 }: CountDownFormatterProps) => (
   <div className="timer">
-    {localNumber(parseInt(hours, 10), lang)}:{localNumber(parseInt(minutes, 10), lang)}:
-    {localNumber(parseInt(seconds, 10), lang)}
+    {localNumber(parseInt(hours, 10), lang).toString().padStart(2, '0')}:
+    {localNumber(parseInt(minutes, 10), lang).toString().padStart(2, '0')}:
+    {localNumber(parseInt(seconds, 10), lang).toString().padStart(2, '0')}
   </div>
 );
-
 export function localTimer(time: string, lang: string) {
   moment.locale('en');
   const [hours, minutes] = time.split(':').map(Number);

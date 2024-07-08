@@ -6,12 +6,14 @@ import { Center, Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import {
+  selectCurrentPrayTimeName,
   selectEnableNextPrayDisplay,
   selectOrientation,
   selectRemainingTime,
 } from '../lib/features/settings';
 import styles from '../assets/css/settings.module.css';
 import { countDownFormatter } from './times';
+import { useDictionary } from '../app/[lang]/dictionary-provider';
 
 export default function NextPrayTime({
   lang,
@@ -20,12 +22,14 @@ export default function NextPrayTime({
   lang: string;
   changeTextColor: boolean;
 }) {
+  const dictionary = useDictionary();
+  const isArabic = lang === 'ar';
   const nextRemaining = useSelector(selectRemainingTime);
   const orientation = useSelector(selectOrientation);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const isVertical = orientation === '';
   const show = useSelector(selectEnableNextPrayDisplay);
-
+  const name = useSelector(selectCurrentPrayTimeName);
   const [counter, setCounter] = useState(Date.now() + nextRemaining);
 
   useEffect(() => {
@@ -60,7 +64,8 @@ export default function NextPrayTime({
           }}
           className={styles.ArStyle}
         >
-          الصلاة التالية
+          {/* الصلاة التالية */}
+          {dictionary.times[name as keyof typeof dictionary.times] + (isArabic ? ' بعد' : ' after')}
         </Text>
       </Center>
       <Center>
