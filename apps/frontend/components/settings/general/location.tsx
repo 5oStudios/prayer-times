@@ -113,6 +113,9 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         onChange={() => {
           dispatch(setAutoLocation(!autoLocation));
           AutoSet();
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
         }}
         label={dictionary.settings.location.autoSetting}
       />

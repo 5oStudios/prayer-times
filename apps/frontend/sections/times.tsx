@@ -14,7 +14,11 @@ import { PrayerTimesCard } from '../components';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import { selectHideSunRise, setRemainingTime } from '../lib/features/settings';
+import {
+  selectHideSunRise,
+  setCurrentPrayTimeName,
+  setRemainingTime,
+} from '../lib/features/settings';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -56,6 +60,9 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     const prayer = times.find((e) => e.isNext);
     if (!prayer) return;
     dispatch(setRemainingTime(prayer.remaining));
+    // const name = useSelector(selectCurrentPrayTimeName);
+    dispatch(setCurrentPrayTimeName(prayer.name));
+    console.log(prayer.name);
     console.log('time set remaining', prayer.remaining);
   }, [dispatch, times, displayTime]);
 

@@ -30,6 +30,7 @@ export default function NextPrayTime({
   const isVertical = orientation === '';
   const show = useSelector(selectEnableNextPrayDisplay);
   const name = useSelector(selectCurrentPrayTimeName);
+  const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
   const [counter, setCounter] = useState(Date.now() + nextRemaining);
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function NextPrayTime({
           className={styles.ArStyle}
         >
           {/* الصلاة التالية */}
-          {dictionary.times[name as keyof typeof dictionary.times] + (isArabic ? ' بعد' : ' after')}
+          {dictionary.times[capitalized as keyof typeof dictionary.times] + (isArabic ? ' بعد' : ' after')}
         </Text>
       </Center>
       <Center>
