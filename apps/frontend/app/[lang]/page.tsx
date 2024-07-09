@@ -30,7 +30,7 @@ import Loading from '../../components/loading';
 import Azkar from '../../components/showAzkar';
 import { useDictionary } from './dictionary-provider';
 import NextPrayTime from '../../components/nextPrayTime';
-import AdScreen from '../..//components/settings/ads/adScreen';
+import AdScreen from '../../components/settings/ads/adScreen';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
