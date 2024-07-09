@@ -11,7 +11,6 @@ import {
   selectShowAzanTime,
   selectShowAzkar,
 } from '../../../lib/features/settings';
-import { subscribe } from '@enegix/events';
 
 export default function AdScreen() {
   const adImg = useSelector(selectAdImg);
@@ -25,12 +24,20 @@ export default function AdScreen() {
   const showCounter = useSelector(selectEnableCountDown);
 
   const [show, setShow] = useState<boolean | null>(null);
-
+  const [first, setFirst] = useState(0);
   useEffect(() => {
     const runAdChecker = () => {
+      console.log('enableAd = ', enableAd);
+      console.log('showAzkar = ', showAzkar);
+      console.log('hideScreen = ', hideScreen);
+      console.log('showAzan = ', showAzan);
+      console.log('showCounter = ', showCounter);
+
       if (enableAd && !showAzkar && !hideScreen && !showAzan && !showCounter) {
         setShow(true);
+        setFirst(1);
         console.log('Ad is running');
+        console.log('Ad duration', adDuration);
         setTimeout(
           () => {
             setShow(false);
@@ -42,10 +49,22 @@ export default function AdScreen() {
       }
     };
 
-    const intervalId = setInterval(runAdChecker, everyHowManyMinute * 60 * 1000);
+    const intervalId = setInterval(
+      runAdChecker,
+      (everyHowManyMinute + adDuration * first) * 60 * 1000
+    );
 
     return () => clearInterval(intervalId);
-  }, [enableAd, everyHowManyMinute, adDuration, showAzkar, hideScreen, showAzan, showCounter]);
+  }, [
+    enableAd,
+    everyHowManyMinute,
+    adDuration,
+    showAzkar,
+    hideScreen,
+    showAzan,
+    showCounter,
+    first,
+  ]);
 
   return (
     enableAd &&
