@@ -4,7 +4,7 @@ import { Text, Switch, NumberInput } from '@mantine/core';
 import '../accordion.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { PrayerTime } from '@islamic-kit/prayer-times';
-import { subscribe,publish } from '@enegix/events';
+import { subscribe, publish } from '@enegix/events';
 
 import {
   selectTimePeriod,
@@ -17,7 +17,7 @@ import {
   selectAkamaAfter,
   setAkamaAfter,
   setEnableCountDown,
-  setEnableAd
+  setEnableAd,
 } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
@@ -92,6 +92,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
       dispatch(setEnableAd(false));
       dispatch(setCurrentPrayTimeName(name));
       dispatch(setShowAzanTime(true));
+      // playAthan();
       console.log('hello2');
       setTimeout(
         () => {

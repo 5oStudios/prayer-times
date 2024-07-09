@@ -57,6 +57,8 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [dictionary, times, lang, displayTime]);
 
   useEffect(() => {
+    // playAthan();
+    playAlert();
     const prayer = times.find((e) => e.isNext);
     if (!prayer) return;
     dispatch(setRemainingTime(prayer.remaining));
@@ -103,5 +105,11 @@ const playAthan = () => {
   );
   audio.play();
 };
+
+export const playAlert = () => {
+  const audioAlert = new Audio('https://cdn.pixabay.com/audio/2023/01/01/audio_a178429b06.mp3');
+  audioAlert.play();
+};
+
 const reverseTimes = (time: PrayerTime[], lang: string, isPortrait: boolean) =>
   lang === 'ar' ? (isPortrait ? time : time.slice().reverse()) : time;
