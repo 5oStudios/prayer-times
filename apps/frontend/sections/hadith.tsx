@@ -35,7 +35,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
       translations: [],
     },
   ];
-  const direction = 'left';
+  const direction = lang === 'ar' ? 'right' : 'left';
 
   useEffect(() => {
     // @ts-expect-error - This fix this
@@ -46,7 +46,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
     <div
       style={{
         overflow: 'hidden',
-        maxWidth: isTabletOrMobile ? '100vh' : '100vw',
+        maxWidth: '100vw',
       }}
     >
       <HadithTicker hadith={hadith} speed={tickerSpeed} direction={direction} />
@@ -67,17 +67,12 @@ const HadithTicker = ({
   const data = news.length > 0 ? news : hadith;
 
   return (
-    <Marquee
-      className="ticker-bg"
-      direction={direction}
-      speed={speed}
-      autoFill
-    >
-      <Flex style={{ overflow: 'hidden' }}>
-        {data.map((item, index) => (
-          <Flex key={index} justify="center" align="center">
+    <Marquee className="ticker-bg" direction={direction} autoFill style={{width:'150%'}}>
+      <Flex>
+        {data.map((item, id) => (
+          <Flex key={id} justify="center" align="center">
             <Text
-              className="font-class-name"
+              className={font.className}
               style={{ color: 'white', fontSize: '45px', width: 'max-content' }}
             >
               {item.content}
