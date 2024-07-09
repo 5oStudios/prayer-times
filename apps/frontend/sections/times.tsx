@@ -32,7 +32,6 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const hideSunRise = useSelector(selectHideSunRise);
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
-    playAlert();
     // alert(`It's time for from store ${prayer.name}`);
     // @ts-expect-error - This expression is not callable.
     dispatch(fetchTimes(coordinates));
@@ -104,11 +103,6 @@ const playAthan = () => {
     'https://download.tvquran.com/download/TvQuran.com__Athan/TvQuran.com__01.athan.mp3'
   );
   audio.play();
-};
-
-export const playAlert = () => {
-  const audioAlert = new Audio('https://cdn.pixabay.com/audio/2023/01/01/audio_a178429b06.mp3');
-  audioAlert.play();
 };
 
 const reverseTimes = (time: PrayerTime[], lang: string, isPortrait: boolean) =>

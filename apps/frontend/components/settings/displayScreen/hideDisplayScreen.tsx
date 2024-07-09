@@ -89,10 +89,10 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
 
     if (index !== -1) {
       // publish('adState', { state: false });
+      playAlert();
       dispatch(setEnableAd(false));
       dispatch(setCurrentPrayTimeName(name));
       dispatch(setShowAzanTime(true));
-      // playAthan();
       console.log('hello2');
       setTimeout(
         () => {
@@ -189,3 +189,8 @@ function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardPro
   );
 }
 export default HideDisplayScreen;
+
+export const playAlert = () => {
+  const audioAlert = new Audio('https://cdn.pixabay.com/audio/2023/01/01/audio_a178429b06.mp3');
+  audioAlert.play();
+};

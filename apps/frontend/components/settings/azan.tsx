@@ -14,13 +14,12 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const prayName = useSelector(selectCurrentPrayTimeName);
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
-  const isEnglish = language === 'en';
   const [capitalized, setCapitalized] = useState<string>(prayName);
+
   useEffect(() => {
-    if (isEnglish) {
-      setCapitalized(prayName.charAt(0).toUpperCase() + prayName.slice(1));
-    }
-  }, [prayName, isEnglish]);
+    setCapitalized(prayName.charAt(0).toUpperCase() + prayName.slice(1));
+  }, []);
+
   return show ? (
     <div
       className="azan-wrapper"

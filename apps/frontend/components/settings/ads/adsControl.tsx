@@ -21,7 +21,6 @@ export default function AdsControl({ isArabic }: { isArabic: boolean }) {
   const adDuration = useSelector(selectAdDuration);
   const enableAd = useSelector(selectEnableAd);
 
-
   const handleFileChange = (file: File | null) => {
     if (file) {
       getBase64Image(file, (base64Image: string) => {
