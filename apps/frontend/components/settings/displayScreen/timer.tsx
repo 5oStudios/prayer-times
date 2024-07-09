@@ -86,55 +86,57 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   }
 
   return (
-    <div
-      className={
-        isVertical
-          ? isTabletOrMobile
-            ? styles.circlePhone
-            : styles.circle
-          : isTabletOrMobile
-            ? styles.circlePhoneSide
-            : styles.circleSide
-      }
-    >
-      <Center>
-        <Text
-          style={{
-            fontSize: isVertical
-              ? isTabletOrMobile
-                ? '0.5rem'
-                : '1rem'
-              : isTabletOrMobile
-                ? '0.5rem'
-                : '0.7rem',
-            color: changeTextColor ? 'white' : 'black',
-            fontWeight: 'bold',
-          }}
-          className={styles.ArStyle}
-        >
-          متبقي على الإقامة
-        </Text>
-      </Center>
-      <Center>
-        <Text
-          className={
-            isVertical
-              ? isTabletOrMobile
-                ? styles.timerClockPhone
-                : styles.timerClock
-              : styles.timerClockSide
-          }
-          style={{
-            color: changeTextColor ? 'white' : 'black',
-          }}
-        >
-          {formatTime(timeLeft)}
-        </Text>
-      </Center>
-      {/* <Center>
+    enableCountDown && (
+      <div
+        className={
+          isVertical
+            ? isTabletOrMobile
+              ? styles.circlePhone
+              : styles.circle
+            : isTabletOrMobile
+              ? styles.circlePhoneSide
+              : styles.circleSide
+        }
+      >
+        <Center>
+          <Text
+            style={{
+              fontSize: isVertical
+                ? isTabletOrMobile
+                  ? '0.5rem'
+                  : '1rem'
+                : isTabletOrMobile
+                  ? '0.5rem'
+                  : '0.7rem',
+              color: changeTextColor ? 'white' : 'black',
+              fontWeight: 'bold',
+            }}
+            className={styles.ArStyle}
+          >
+            متبقي على الإقامة
+          </Text>
+        </Center>
+        <Center>
+          <Text
+            className={
+              isVertical
+                ? isTabletOrMobile
+                  ? styles.timerClockPhone
+                  : styles.timerClock
+                : styles.timerClockSide
+            }
+            style={{
+              color: changeTextColor ? 'white' : 'black',
+            }}
+          >
+            {formatTime(timeLeft)}
+          </Text>
+        </Center>
+        {/* <Center>
         <Text>{formatTime(timeLeft)}</Text>
       </Center> */}
-    </div>
+      </div>
+    )
   );
 };
 
