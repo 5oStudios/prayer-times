@@ -17,6 +17,7 @@ import {
   selectAkamaAfter,
   setAkamaAfter,
   setEnableCountDown,
+  setEnableAd
 } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
@@ -87,7 +88,8 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
     console.log('prayerTimePeriod', prayerTimePeriod);
 
     if (index !== -1) {
-      publish('adState', { state: false });
+      // publish('adState', { state: false });
+      dispatch(setEnableAd(false));
       dispatch(setCurrentPrayTimeName(name));
       dispatch(setShowAzanTime(true));
       console.log('hello2');

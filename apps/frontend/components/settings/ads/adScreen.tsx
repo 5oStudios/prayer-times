@@ -48,6 +48,7 @@ export default function AdScreen() {
   }, [enableAd, everyHowManyMinute, adDuration, showAzkar, hideScreen, showAzan, showCounter]);
 
   return (
+    enableAd &&
     show && (
       <div
         style={{

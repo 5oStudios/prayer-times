@@ -33,7 +33,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const dispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const isVertical = orientation === '';
-  const index = getPrayerIndex(name);
+  const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+  const index = getPrayerIndex(capitalized);
   const beforeAzanTimes = useSelector(selectBeforeAzanTimes);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
                 setTimeout(() => {
                   dispatch(setShowAzKar(false));
                   // publish('adState', { state: true });
-                }, 60 * 1000); //azar time
+                }, 60 * 1000); //azkar time
               },
               60 * 1000 * timePeriod // hide screen
             );
