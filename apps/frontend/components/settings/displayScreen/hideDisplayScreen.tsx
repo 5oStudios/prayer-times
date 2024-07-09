@@ -3,6 +3,7 @@
 import { Text, Switch, NumberInput } from '@mantine/core';
 import '../accordion.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { playAlert } from '../../../sections/times';
 import { PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe, publish } from '@enegix/events';
 
@@ -89,10 +90,10 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
 
     if (index !== -1) {
       // publish('adState', { state: false });
+      playAlert();
       dispatch(setEnableAd(false));
       dispatch(setCurrentPrayTimeName(name));
       dispatch(setShowAzanTime(true));
-      // playAthan();
       console.log('hello2');
       setTimeout(
         () => {

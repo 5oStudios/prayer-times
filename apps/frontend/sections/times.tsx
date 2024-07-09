@@ -32,7 +32,6 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const hideSunRise = useSelector(selectHideSunRise);
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
-    playAlert();
     // alert(`It's time for from store ${prayer.name}`);
     // @ts-expect-error - This expression is not callable.
     dispatch(fetchTimes(coordinates));
