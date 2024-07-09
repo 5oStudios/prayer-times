@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { publish } from '@enegix/events';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Text, Center } from '@mantine/core';
@@ -57,6 +58,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
                 dispatch(setShowAzKar(true));
                 setTimeout(() => {
                   dispatch(setShowAzKar(false));
+                  // publish('adState', { state: true });
                 }, 60 * 1000); //azar time
               },
               60 * 1000 * timePeriod // hide screen

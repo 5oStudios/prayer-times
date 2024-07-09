@@ -19,6 +19,7 @@ import ImamName from './general/imamName';
 import Location from './general/location';
 import DisplayNextPrayTime from './general/displayNextPrayTime';
 import HideSunRise from './displayScreen/hideSunRise';
+import AdsControl from './ads/adsControl';
 
 type SettingsAccordionProps = {
   language: string;
@@ -38,6 +39,10 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
     {
       emoji: '📺',
       value: dictionary.settings.displayScreen.title,
+    },
+    {
+      emoji: '📢',
+      value: dictionary.settings.ads.title,
     },
   ];
   const isArabic = language === 'ar';
@@ -71,13 +76,18 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <Toggle />
           </div>
         )}
+        {item.value === dictionary.settings.ads.title && (
+          <div>
+            <AdsControl isArabic={isArabic}  />
+          </div>
+        )}
       </MantineAccordion.Panel>
     </MantineAccordion.Item>
   ));
   return (
     <MantineAccordion
       className={styles.fullWidth}
-      defaultValue={dictionary.settings.general}
+      // defaultValue={dictionary.settings.general}
       chevron={<IconPlus />}
     >
       {items}

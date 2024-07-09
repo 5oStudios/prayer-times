@@ -49,6 +49,16 @@
       "previousNews": "الأخبار السابقة",
       "NoNewsAvailable": "لا توجد أخبار متاحة"
     },
+    "ads": {
+      "title": "الإعلانات",
+      "labelFile": "صورة الإعلان",
+      "placeholderFile": "رفع صورة الإعلان",
+      "labelEveryHowManyMinute": "إعلان كل كم دقيقة",
+      "placeholderEveryHowManyMinute": "أدخل إعلان كل كم دقيقة",
+      "adDurationLabel": "مدة الإعلان",
+      "adDurationPlaceholder": "أدخل مدة الإعلان",
+      "enableAd": "تمكين الإعلان"
+    },
     "displayScreen": {
       "title": "شاشة عرض",
       "hideDisplayScreen": "إخفاء شاشة العرض",

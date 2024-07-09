@@ -39,6 +39,10 @@ export type SettingsState = {
   country: string;
   city: string;
   hideSunRise: boolean;
+  adImg: string;
+  adEveryHowManyMinutes: number;
+  adDuration: number;
+  enableAd: boolean;
 };
 
 const initialState: SettingsState = {
@@ -67,6 +71,10 @@ const initialState: SettingsState = {
   country: '',
   city: '',
   hideSunRise: false,
+  adImg: '',
+  adEveryHowManyMinutes: 0,
+  adDuration: 0,
+  enableAd: false,
 };
 
 const settingsSlice = createSlice({
@@ -148,6 +156,18 @@ const settingsSlice = createSlice({
     setHideSunRise: (state, action) => {
       state.hideSunRise = action.payload;
     },
+    setAdImg: (state, action) => {
+      state.adImg = action.payload;
+    },
+    setAdEveryHowManyMinutes: (state, action) => {
+      state.adEveryHowManyMinutes = action.payload;
+    },
+    setAdDuration: (state, action) => {
+      state.adDuration = action.payload;
+    },
+    setEnableAd: (state, action) => {
+      state.enableAd = action.payload;
+    },
   },
 });
 
@@ -177,6 +197,10 @@ export const {
   setCountry,
   setCity,
   setHideSunRise,
+  setAdImg,
+  setAdEveryHowManyMinutes,
+  setAdDuration,
+  setEnableAd,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -207,3 +231,8 @@ export const selectEnableNextPrayDisplay = (state: RootState) =>
 export const selectCountry = (state: RootState) => state.settings.country;
 export const selectCity = (state: RootState) => state.settings.city;
 export const selectHideSunRise = (state: RootState) => state.settings.hideSunRise;
+export const selectAdImg = (state: RootState) => state.settings.adImg;
+export const selectAdEveryHowManyMinutes = (state: RootState) =>
+  state.settings.adEveryHowManyMinutes;
+export const selectAdDuration = (state: RootState) => state.settings.adDuration;
+export const selectEnableAd = (state: RootState) => state.settings.enableAd;
