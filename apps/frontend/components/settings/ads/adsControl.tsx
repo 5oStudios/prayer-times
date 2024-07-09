@@ -6,8 +6,6 @@ import {
   selectAdEveryHowManyMinutes,
   selectAdImg,
   selectEnableAd,
-  selectEnableCountDown,
-  selectShowAzanTime,
   setAdDuration,
   setAdEveryHowManyMinutes,
   setAdImg,
@@ -54,14 +52,14 @@ export default function AdsControl({ isArabic }: { isArabic: boolean }) {
         onChange={handleFileChange}
       />
       <NumberInput
-        value={everyHowManyMinute}
+        defaultValue={everyHowManyMinute}
         style={{ marginTop: '1rem' }}
         label={dictionary.settings.ads.labelEveryHowManyMinute}
         placeholder={dictionary.settings.ads.placeholderEveryHowManyMinute}
         onChange={(e) => dispatch(setAdEveryHowManyMinutes(e))}
       />
       <NumberInput
-        value={adDuration}
+        defaultValue={adDuration}
         style={{ marginTop: '1rem' }}
         label={dictionary.settings.ads.adDurationLabel}
         placeholder={dictionary.settings.ads.adDurationPlaceholder}

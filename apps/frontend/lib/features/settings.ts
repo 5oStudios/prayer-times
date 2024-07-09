@@ -72,8 +72,8 @@ const initialState: SettingsState = {
   city: '',
   hideSunRise: false,
   adImg: '',
-  adEveryHowManyMinutes: 0,
-  adDuration: 0,
+  adEveryHowManyMinutes: 1,
+  adDuration: 1,
   enableAd: false,
 };
 
