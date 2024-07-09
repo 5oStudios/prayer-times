@@ -30,6 +30,7 @@ import Loading from '../../components/loading';
 import Azkar from '../../components/showAzkar';
 import { useDictionary } from './dictionary-provider';
 import NextPrayTime from '../../components/nextPrayTime';
+import AdScreen from '../..//components/settings/ads/adScreen';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -43,7 +44,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
     dispatch(setHideScreen(false));
     dispatch(setShowAzKar(false));
     dispatch(setEnableCountDown(false));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
@@ -51,6 +52,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
     <div className={`${orientation}`}>
       <Settings language={lang} changeBtnColor={changeBG} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
+        <AdScreen />
         <BlackScreen />
         <Azkar />
         <Loading />

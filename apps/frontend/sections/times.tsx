@@ -8,7 +8,7 @@ import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
 import { useEffect, useMemo } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
-import { subscribe } from '@enegix/events';
+import { subscribe, publish } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
 import { PrayerTimesCard } from '../components';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
@@ -57,10 +57,13 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [dictionary, times, lang, displayTime]);
 
   useEffect(() => {
+    // playAthan();
+    playAlert();
     const prayer = times.find((e) => e.isNext);
     if (!prayer) return;
     dispatch(setRemainingTime(prayer.remaining));
     // const name = useSelector(selectCurrentPrayTimeName);
+    // publish('adState', { state: true });
     dispatch(setCurrentPrayTimeName(prayer.name));
     console.log(prayer.name);
     console.log('time set remaining', prayer.remaining);
@@ -102,5 +105,11 @@ const playAthan = () => {
   );
   audio.play();
 };
+
+export const playAlert = () => {
+  const audioAlert = new Audio('https://cdn.pixabay.com/audio/2023/01/01/audio_a178429b06.mp3');
+  audioAlert.play();
+};
+
 const reverseTimes = (time: PrayerTime[], lang: string, isPortrait: boolean) =>
   lang === 'ar' ? (isPortrait ? time : time.slice().reverse()) : time;

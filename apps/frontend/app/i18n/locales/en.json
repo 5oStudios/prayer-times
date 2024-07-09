@@ -40,6 +40,16 @@
       "enable": "Enable",
       "onlyFriday": "On Friday"
     },
+    "ads": {
+      "title": "Ads",
+      "labelFile": "Ad Img",
+      "placeholderFile": "upload ad img",
+      "labelEveryHowManyMinute": "Ad Every How Many Minute",
+      "placeholderEveryHowManyMinute": "enter ad every how many minute",
+      "adDurationLabel": "Ad Duration",
+      "adDurationPlaceholder": "enter ad duration",
+      "enableAd": "Enable Ad"
+    },
     "displayScreen": {
       "title": "Display Screen",
       "hideDisplayScreen": "Hide Display Screen",
@@ -48,7 +58,7 @@
       "uploadAzkarImage": "Upload Azkar Image",
       "uploadAzkarImagePlaceholder": "Upload Image",
       "BeforeAzanTime": "Before Azan Time",
-      "hideSunrisePrayer":"hide Sunrise prayer"
+      "hideSunrisePrayer": "hide Sunrise prayer"
     },
     "newsComp": {
       "createNews": "Create News",

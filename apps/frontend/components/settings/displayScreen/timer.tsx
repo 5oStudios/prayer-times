@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { publish } from '@enegix/events';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Text, Center } from '@mantine/core';
@@ -32,7 +33,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const dispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const isVertical = orientation === '';
-  const index = getPrayerIndex(name);
+  const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+  const index = getPrayerIndex(capitalized);
   const beforeAzanTimes = useSelector(selectBeforeAzanTimes);
 
   useEffect(() => {
@@ -57,7 +59,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
                 dispatch(setShowAzKar(true));
                 setTimeout(() => {
                   dispatch(setShowAzKar(false));
-                }, 60 * 1000); //azar time
+                  // publish('adState', { state: true });
+                }, 60 * 1000); //azkar time
               },
               60 * 1000 * timePeriod // hide screen
             );
@@ -83,55 +86,57 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   }
 
   return (
-    <div
-      className={
-        isVertical
-          ? isTabletOrMobile
-            ? styles.circlePhone
-            : styles.circle
-          : isTabletOrMobile
-            ? styles.circlePhoneSide
-            : styles.circleSide
-      }
-    >
-      <Center>
-        <Text
-          style={{
-            fontSize: isVertical
-              ? isTabletOrMobile
-                ? '0.5rem'
-                : '1rem'
-              : isTabletOrMobile
-                ? '0.5rem'
-                : '0.7rem',
-            color: changeTextColor ? 'white' : 'black',
-            fontWeight: 'bold',
-          }}
-          className={styles.ArStyle}
-        >
-          متبقي على الإقامة
-        </Text>
-      </Center>
-      <Center>
-        <Text
-          className={
-            isVertical
-              ? isTabletOrMobile
-                ? styles.timerClockPhone
-                : styles.timerClock
-              : styles.timerClockSide
-          }
-          style={{
-            color: changeTextColor ? 'white' : 'black',
-          }}
-        >
-          {formatTime(timeLeft)}
-        </Text>
-      </Center>
-      {/* <Center>
+    enableCountDown && (
+      <div
+        className={
+          isVertical
+            ? isTabletOrMobile
+              ? styles.circlePhone
+              : styles.circle
+            : isTabletOrMobile
+              ? styles.circlePhoneSide
+              : styles.circleSide
+        }
+      >
+        <Center>
+          <Text
+            style={{
+              fontSize: isVertical
+                ? isTabletOrMobile
+                  ? '0.5rem'
+                  : '1rem'
+                : isTabletOrMobile
+                  ? '0.5rem'
+                  : '0.7rem',
+              color: changeTextColor ? 'white' : 'black',
+              fontWeight: 'bold',
+            }}
+            className={styles.ArStyle}
+          >
+            متبقي على الإقامة
+          </Text>
+        </Center>
+        <Center>
+          <Text
+            className={
+              isVertical
+                ? isTabletOrMobile
+                  ? styles.timerClockPhone
+                  : styles.timerClock
+                : styles.timerClockSide
+            }
+            style={{
+              color: changeTextColor ? 'white' : 'black',
+            }}
+          >
+            {formatTime(timeLeft)}
+          </Text>
+        </Center>
+        {/* <Center>
         <Text>{formatTime(timeLeft)}</Text>
       </Center> */}
-    </div>
+      </div>
+    )
   );
 };
 

@@ -100,7 +100,7 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         />
         <NativeSelect
           disabled={autoLocation}
-          defaultValue={cityData}
+          value={cityData}
           label={dictionary.settings.location.city}
           data={cities}
           onChange={onCitySelect}
