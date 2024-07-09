@@ -3,7 +3,6 @@
 import { Text, Switch, NumberInput } from '@mantine/core';
 import '../accordion.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { playAlert } from '../../../sections/times';
 import { PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe, publish } from '@enegix/events';
 
@@ -190,3 +189,8 @@ function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardPro
   );
 }
 export default HideDisplayScreen;
+
+export const playAlert = () => {
+  const audioAlert = new Audio('https://cdn.pixabay.com/audio/2023/01/01/audio_a178429b06.mp3');
+  audioAlert.play();
+};
