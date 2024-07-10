@@ -56,6 +56,7 @@ export default function AdsControl({ isArabic }: { isArabic: boolean }) {
         label={dictionary.settings.ads.labelEveryHowManyMinute}
         placeholder={dictionary.settings.ads.placeholderEveryHowManyMinute}
         onChange={(e) => dispatch(setAdEveryHowManyMinutes(e))}
+        min={1}
       />
       <NumberInput
         defaultValue={adDuration}
@@ -63,6 +64,7 @@ export default function AdsControl({ isArabic }: { isArabic: boolean }) {
         label={dictionary.settings.ads.adDurationLabel}
         placeholder={dictionary.settings.ads.adDurationPlaceholder}
         onChange={(e) => dispatch(setAdDuration(e))}
+        min={1}
       />
       <div
         style={{

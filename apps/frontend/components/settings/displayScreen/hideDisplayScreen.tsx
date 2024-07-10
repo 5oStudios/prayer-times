@@ -140,6 +140,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },
         }}
+        min={0}
       />
     </div>
   );
@@ -184,6 +185,7 @@ function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardPro
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },
         }}
+        min={0}
       />
     </div>
   );

@@ -27,7 +27,7 @@ export default function AfterAzanTime({ isArabic }: { isArabic: boolean }) {
   return (
     <div className={isArabic ? styles.rightAligned : ''}>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-        {dictionary.settings.displayScreen.BeforeAzanTime}
+        {dictionary.settings.displayScreen.AfterAzanTimer}
       </Text>
       <div
         className={`${isArabic ? styles.alRight : ''} ${styles.gridContainer}`}
@@ -84,6 +84,7 @@ export function BeforeAzanCard({ index, isArabic, time }: BeforeAzanCardProp) {
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },
         }}
+        min={0}
       />
     </div>
   );
