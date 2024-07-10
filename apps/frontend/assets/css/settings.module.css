@@ -1,0 +1,426 @@
+@font-face {
+  font-family: Montserrat;
+  src:
+    local('Montserrat'),
+    local('Montserrat-Regular'),
+    url('../fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: IBM_Plex_Sans_Arabic;
+  src:
+    local('IBM_Plex_Sans_Arabic'),
+    local('IBM_Plex_Sans_Arabic-Regular'),
+    url('../fonts/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.saveButton {
+  position: absolute;
+  bottom: 20px;
+  right: 5%;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.titleAr {
+  font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.titleEn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.ArStyle {
+  font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
+}
+.EnStyle {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.subHeaderAr {
+  font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.subHeaderEn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.alRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  justify-content: right;
+  width: 100%;
+}
+
+.alLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  justify-content: left;
+  width: 100%;
+}
+
+.rightAligned {
+  text-align: right;
+  direction: rtl; /* Ensures the direction of the text is right-to-left */
+}
+.spacing {
+  margin-right: 1rem; /* Adjust the spacing value as needed */
+}
+
+.button {
+  text-align: center;
+  line-height: 3rem;
+  color: black;
+  height: 3rem;
+  flex: 1;
+  background-color: #fefefe;
+  border: #d9dade;
+  border-style: solid;
+  border-width: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #d4dae6;
+  color: black;
+}
+
+.buttonSelected {
+  background-color: #d4dae6;
+}
+
+.noBorder {
+  border-left: none;
+  border-right: none;
+}
+
+.buttonContainerAR {
+  font-family: 'IBM_Plex_Sans_Arabic', sans-serif;
+  display: flex;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.buttonContainerEN {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.marginLeft {
+  margin-left: 10px;
+}
+
+.paddingRight {
+  padding-right: 10px;
+}
+.buttonContainerAR,
+.buttonContainerEN {
+  display: flex;
+  width: 100%;
+}
+
+.button {
+  text-align: center;
+  line-height: 3rem;
+  color: black;
+  flex: 1;
+  background-color: #fefefe;
+  border: #d9dade;
+  border-style: solid;
+  border-width: 2px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap; /* Ensure text does not wrap */
+  overflow: hidden; /* Ensure text does not overflow */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  font-size: 1rem; /* Base font size */
+}
+
+.button:hover {
+  background-color: #d4dae6;
+  color: black;
+}
+
+.buttonSelected {
+  background-color: #d4dae6;
+}
+
+.noBorder {
+  border-left: none;
+  border-right: none;
+}
+
+/* Responsive font sizes */
+@media (max-width: 1200px) {
+  .button {
+    font-size: 0.9rem; /* Decrease font size for smaller screens */
+  }
+}
+
+@media (max-width: 992px) {
+  .button {
+    font-size: 0.8rem; /* Decrease font size further for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .button {
+    font-size: 0.7rem; /* Decrease font size further for smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .button {
+    font-size: 0.6rem; /* Decrease font size further for smaller screens */
+  }
+}
+
+.buttonContainerAR,
+.buttonContainerEN {
+  display: flex;
+  width: 100%;
+}
+
+.button {
+  text-align: center;
+  line-height: 3rem;
+  color: black;
+  flex: 1;
+  background-color: #fefefe;
+  border: #d9dade;
+  border-style: solid;
+  border-width: 2px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.7rem;
+}
+
+.button:hover {
+  background-color: #d4dae6;
+  color: black;
+}
+
+.buttonSelected {
+  background-color: #d4dae6;
+}
+
+.noBorder {
+  border-left: none;
+  border-right: none;
+}
+
+.scrollableContainerVR {
+  max-height: 85vh;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.scrollableContainer {
+  max-height: 85vw;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.scrollableContainerVR::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollableContainerVR {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollableContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollableContainer {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.alignRightQR {
+  position: absolute;
+  right: 0;
+  top: 25%;
+  padding: 1rem;
+  margin-top: 5rem;
+}
+.alignLeftQR {
+  position: absolute;
+  left: 0;
+  top: 25%;
+  padding: 1rem;
+  margin-top: 5rem;
+}
+
+.mobileTextSize {
+  font-size: 0.7rem !important;
+}
+
+.mobileTextSizeName {
+  font-size: 1.3rem !important;
+}
+
+.mobileTextSizeClock {
+  margin-top: 1rem;
+  font-size: 2rem !important;
+}
+
+.mobileTextSizeAzkar {
+  font-size: 1rem !important;
+}
+
+.timerClock {
+  font-size: 2.5rem;
+  color: #479ea3;
+}
+.timerClockPhone {
+  font-size: 1rem;
+  color: #479ea3;
+}
+.timerClockPhoneLeft {
+  font-size: 2rem;
+  color: #479ea3;
+}
+
+.timerClockSide {
+  font-size: 1.5rem;
+  color: #479ea3;
+}
+.circle {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  right: 15%;
+  top: 12%;
+  width: 170px;
+  height: 170px;
+  border: 5px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.circleLeft {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 2%;
+  top: 12%;
+  width: 170px;
+  height: 170px;
+  border: 5px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.circlePhone {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  right: 2%;
+  top: 12%;
+  width: 80px;
+  height: 80px;
+  border: 3px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.circlePhoneLeft {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 2%;
+  top: 12%;
+  width: 80px;
+  height: 80px;
+  border: 3px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.circlePhoneSide {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  right: 10%;
+  top: 10%;
+  width: 80px;
+  height: 80px;
+  border: 3px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.circlePhoneSideLeft {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 80px;
+  height: 80px;
+  border: 3px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.circleSide {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  right: 2%;
+  top: 19%;
+  width: 100px;
+  height: 100px;
+  border: 5px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.circleSideLeft {
+  display: 'flex';
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 2%;
+  top: 10%;
+  width: 150px;
+  height: 150px;
+  border: 5px solid #479ea3;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.textSize {
+  font-size: 2.3rem;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 1rem;
+}

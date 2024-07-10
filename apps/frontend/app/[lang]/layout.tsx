@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/carousel/styles.css';
 import { theme } from '../../theme';
@@ -40,7 +41,7 @@ export default async function RootLayout({
           />
           <title>{dictionary.platform.title}</title>
         </head>
-        <body className="vrLEFT">
+        <body className="">
           <MantineProvider theme={theme}>
             <ReduxProviders>{children}</ReduxProviders>
           </MantineProvider>

@@ -3,6 +3,7 @@
     "title": "Prayer Timers",
     "description": "Prayer Timers is a simple application that displays the Islamic prayer times for your location."
   },
+  "azan": "Azan Time",
   "times": {
     "Fajr": "Fajr",
     "Isha": "Isha",
@@ -15,5 +16,92 @@
   },
   "common": {
     "loading": "Loading..."
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "news": "News",
+    "themes": {
+      "title": "Themes",
+      "label": "Select your background theme",
+      "default": "default",
+      "Blue": "Blue",
+      "sunSet": "Sun Set",
+      "red": "Red"
+    },
+    "add": "Add",
+    "delete": "Delete",
+    "Akama": "Akama After",
+    "AzanDuration": "Azan Duration",
+    "requiredField": "This field is required",
+    "displaysQR": {
+      "title": "Friday's Speech url",
+      "placeholder": "Enter url",
+      "enable": "Enable",
+      "onlyFriday": "On Friday"
+    },
+    "ads": {
+      "title": "Ads",
+      "labelFile": "Ad Img",
+      "placeholderFile": "upload ad img",
+      "labelEveryHowManyMinute": "Ad Every How Many Minute",
+      "placeholderEveryHowManyMinute": "enter ad every how many minute",
+      "adDurationLabel": "Ad Duration",
+      "adDurationPlaceholder": "enter ad duration",
+      "enableAd": "Enable Ad"
+    },
+    "displayScreen": {
+      "title": "Display Screen",
+      "hideDisplayScreen": "Hide Display Screen",
+      "hideManually": "Hide manually",
+      "prayTimeBanner": "Prayer Duration to hide screen",
+      "uploadAzkarImage": "Upload Azkar Image",
+      "uploadAzkarImagePlaceholder": "Upload Image",
+      "AfterAzanTimer": "After Azan Timer",
+      "hideSunrisePrayer": "hide Sunrise prayer"
+    },
+    "newsComp": {
+      "createNews": "Create News",
+      "newsTitle": "News Title",
+      "newsTitlePlaceholder": "add title",
+      "newsContent": "News Content",
+      "newsContentPlaceholder": "add Content",
+      "previousNews": "Previous News",
+      "NoNewsAvailable": "No news available"
+    },
+    "masjidName": {
+      "title": "Masjid Name",
+      "description": "Set Masjid name"
+    },
+    "imamName": {
+      "title": "Imam Name",
+      "description": "Set Imam Name",
+      "ImamElMasjid": "Imam El Masjid"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Choose the language",
+      "lang": {
+        "arabic": "Arabic",
+        "english": "english"
+      }
+    },
+    "location": {
+      "title": "Location",
+      "country": "country",
+      "city": "City",
+      "autoSetting": "Auto setting location"
+    },
+    "nextPrayTime": {
+      "title": "Show next Pray time Timer"
+    },
+    "orientation": {
+      "label": "Select rotate option",
+      "options": {
+        "vertical": "Vertical",
+        "left": "Left",
+        "right": "Right"
+      }
+    }
   }
 }

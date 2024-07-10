@@ -1,24 +1,26 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { toHijri } from 'hijri-converter';
 import { Flex } from '@mantine/core';
 import moment from 'moment';
 import 'moment/locale/ar';
+import styles from '../assets/css/settings.module.css';
 
-interface HijriDateProps {
+type HijriDateProps = {
   language: string;
-}
+};
 function HijriDateSection(props: HijriDateProps) {
   const lang = props.language === 'ar' ? 'ar' : 'en';
   moment.locale(lang);
 
   const [currentDate, setCurrentDate] = useState(new Date());
-
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDate(new Date());
-    }, 1000 * 60); // Update every minute
+    }, 1000 * 60);
 
     return () => clearInterval(timer);
   }, []);
@@ -26,15 +28,19 @@ function HijriDateSection(props: HijriDateProps) {
   const geoDate = currentDate;
   const hijriDate = toHijri(geoDate.getFullYear(), geoDate.getMonth() + 1, geoDate.getDate());
 
-  const localizedHijriDay = localNumber(hijriDate.hd, lang);
-  const localizedHijriYear = localNumber(hijriDate.hy, lang);
+  const localizedHijriDay = localNumber(hijriDate.hd);
+  const localizedHijriYear = localNumber(hijriDate.hy);
 
   const localizedGregorianDate = moment(geoDate).format('dddd، D MMMM YYYY');
   const localizedHijriDate = `${localizedHijriDay} ${getHijriMonthName(hijriDate.hm, lang)} ${localizedHijriYear}`;
 
   return (
-    <Flex gap={3} className="hijri-date" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="gregorian-date">{localizedGregorianDate}</div>
+    <Flex
+      gap={3}
+      className={`hijri-date ${styles.textSize}  ${isTabletOrMobile ? styles.mobileTextSize : ''}`}
+      dir={lang === 'ar' ? 'rtl' : 'ltr'}
+    >
+      <div className="gregorian-date">{toEnglishNumber(localizedGregorianDate)}</div>
       <div className="qobtic-date" />
       <div className="hijri-date">{localizedHijriDate}</div>
     </Flex>
@@ -79,11 +85,22 @@ function getHijriMonthName(month: number, locale: 'en' | 'ar' = 'en'): string {
   return monthNames[month - 1] || '';
 }
 
-function toArabicNumber(number: { toString: () => string }) {
-  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  return number.toString().replace(/\d/g, (digit) => arabicDigits[digit as any]);
+function localNumber(number: number) {
+  return number.toString();
 }
 
-function localNumber(number: number, lang: string) {
-  return lang === 'ar' ? toArabicNumber(number) : number.toString();
+function toEnglishNumber(number: { toString: () => string }) {
+  const englishDigits = {
+    '٠': '0',
+    '١': '1',
+    '٢': '2',
+    '٣': '3',
+    '٤': '4',
+    '٥': '5',
+    '٦': '6',
+    '٧': '7',
+    '٨': '8',
+    '٩': '9',
+  };
+  return number.toString().replace(/[٠-٩]/g, (digit) => englishDigits[digit as never]);
 }

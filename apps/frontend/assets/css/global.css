@@ -1,23 +1,31 @@
 @font-face {
   font-family: 'SF Arabic';
-  src: local('SF Arabic Rounded'), local('SF-Arabic-Rounded'),
-  url('../fonts/SFArabicRounded/SFArabicRounded-Regular.woff2') format('woff2'),
-  url('../fonts/SFArabicRounded/SFArabicRounded-Regular.woff') format('woff'),
-  url('../fonts/SFArabicRounded/SFArabicRounded-Regular.ttf') format('truetype');
+  src:
+    local('SF Arabic Rounded'),
+    local('SF-Arabic-Rounded'),
+    url('../fonts/SFArabicRounded/SFArabicRounded-Regular.woff2') format('woff2'),
+    url('../fonts/SFArabicRounded/SFArabicRounded-Regular.woff') format('woff'),
+    url('../fonts/SFArabicRounded/SFArabicRounded-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
-  font-family: 'Changa';
-  src: local('Changa'), local('Changa-Regular'),
-  url('../fonts/Changa/Changa-VariableFont_wght.ttf') format('truetype');
+  font-family: Changa;
+  src:
+    local('Changa'),
+    local('Changa-Regular'),
+    url('../fonts/Changa/Changa-VariableFont_wght.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Reem Kufi';
-  src: local('Reem Kufi'), local('ReemKufi-Regular'),
-  url('../fonts/Reem_Kufi/ReemKufi-VariableFont_wght.ttf') format('truetype');
+  src:
+    local('Reem Kufi'),
+    local('ReemKufi-Regular'),
+    url('../fonts/Reem_Kufi/ReemKufi-VariableFont_wght.ttf') format('truetype');
   font-weight: normal;
 }
 
@@ -30,204 +38,329 @@
   --font-family-arbic: 'Changa', sans-serif;
 }
 
-.ticker-bg{
-  background: rgba(0,0,0,0.6);
+.ticker-bg {
+  background: rgba(0, 0, 0, 0.6);
 }
 
+body {
+  overflow: hidden;
+  font-family: var(--font-family-arbic);
+}
 
-  body{
-    overflow: hidden;
-    font-family: var(--font-family-arbic);
-  }
-  .vrLEFT {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    height: 100vw;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-  .vrRIGHT {
-    transform: rotate(90deg);
-    transform-origin: right top;
-    height: 100vw;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    right: 0;
-  }
+.top {
+  z-index: 60;
+}
+.vrLEFT {
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  height: 100vw;
+  width: 100vh;
+  /* overflow-x: hidden; */
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
 
-/* SCREEN WRAPPER */
-  .screen-wrapper{
-    width: 100dvw;
-    height: 100dvh;
-    position: relative;
-    background: url('../images/gray-bg.jpg') left bottom no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+.vrRIGHT {
+  transform: rotate(90deg);
+  transform-origin: right top;
+  height: 100vw;
+  width: 100vh;
+  /* overflow-x: hidden; */
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
 
-  .vrLEFT .screen-wrapper, .vrRIGHT .screen-wrapper{
-    width: 100dvh;
-    height: 100dvw;
-  }
+.whiteText {
+  color: white;
+}
+
+.azan-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url('../images/azan.jpg') left bottom no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+.screen-wrapper {
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+  background: url('../images/bg-0.jpg') left bottom no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.screen-wrapper0 {
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+  background: url('../images/bg-0.jpg') left bottom no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen-wrapper1 {
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+  background: url('../images/bg-1.jpg') left bottom no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen-wrapper2 {
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+  background: url('../images/musque-dome-night.jpg') left bottom no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen-wrapper3 {
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+  background: url('../images/bg-3.jpeg') left bottom no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.vrLEFT .screen-wrapper,
+.vrRIGHT .screen-wrapper {
+  width: 100dvh;
+  height: 100dvw;
+}
 
 /* DATES SECTION */
-  .dates {
-    position: absolute;
-    top: 1%;
-    display: flex;
-    gap: 1em;
-    padding: 0.5rem 0.75rem;
-    font-size: 2.50dvw;
-    font-weight: bold;
-  }
-.qobtic-date{
+.dates {
+  position: absolute;
+  top: 1%;
+  display: flex;
+  gap: 1em;
+  padding: 0.5rem 0.75rem;
+  font-size: 2.5dvw;
+  font-weight: bold;
+}
+
+.qobtic-date {
   width: 45px;
   text-align: center;
 }
-.qobtic-date:before {
-    content: '•';
-    color: red;
-    position: relative;
-  }
+
+.qobtic-date::before {
+  content: '•';
+  color: red;
+  position: relative;
+}
 
 /* MOSQUEE NAME */
-  .mosquee-name {
-    position: absolute;
-    top: 11%;
-    font-size: 2.50dvw;
-    font-family: 'SF Arabic', sans-serif;
-    font-weight: bold;
-  }
+.mosquee-name {
+  position: absolute;
+  top: 11%;
+  font-size: 2.5dvw;
+  font-family: 'SF Arabic', sans-serif;
+  font-weight: bold;
+}
 
-  .emam-name {
-    position: absolute;
-    bottom: 9.25%;
-    font-size: 1.50dvw;
-    font-family: 'SF Arabic', sans-serif;
-    font-weight: bold;
-  }
+.emam-name {
+  position: absolute;
+  bottom: 9.25%;
+  font-size: 1.5dvw;
+  font-family: 'SF Arabic', sans-serif;
+  font-weight: bold;
+}
 
 /* CLOCK SECTION */
-  .clock-section{
-    position: absolute;
-    top: 18%;
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: 7.50dvw;
-    font-weight: bold;
-  }
+.clock-section {
+  position: absolute;
+  top: 18%;
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 7.5dvw;
+  font-weight: bold;
+}
+/* CLOCK SECTION */
+.clock-section-mobile {
+  position: absolute;
+  top: 16%;
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 7.5dvw;
+  font-weight: bold;
+}
+.clock-section-azan {
+  /* position: absolute;
+  top: 16%; */
+  position: static;
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 2dvw;
+  color: white;
+  font-weight: bold;
+}
+.clock-section-azan {
+  /* position: absolute;
+  top: 16%; */
+  position: static;
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 2dvw;
+  color: white;
+  font-weight: bold;
+}
 
 /* AZKAR SECTION */
-  .azkar-section{
-    position: absolute;
-    top: 38%;
-    font-size: 2.50dvw;
-    font-weight: bold;
-    justify-content: center;
-    width: 80dvw;
-  }
-  .azkar-text{
-    text-align: center;
-    margin-inline: 0.50em;
-  }
-  .vrLEFT .azkar-section, .vrRIGHT .azkar-section{
-    width: 90dvh;
-    top: 30%;
-  }
+.azkar-section {
+  position: absolute;
+  top: 38%;
+  font-size: 2.5dvw;
+  font-weight: bold;
+  justify-content: center;
+  width: 80dvw;
+}
+/* AZKAR SECTION */
+.azkar-section-mobile {
+  position: absolute;
+  top: 30%;
+  font-size: 2.5dvw;
+  font-weight: bold;
+  justify-content: center;
+  width: 80dvw;
+}
+
+.azkar-text {
+  text-align: center;
+  margin-inline: 0.5em;
+}
+
+.vrLEFT .azkar-section,
+.vrRIGHT .azkar-section {
+  width: 90dvh;
+  top: 30%;
+}
 
 /* TIMES SECTION */
-  .times-section{
-    position: absolute;
-    bottom: 15%;
-  }
-  .prayer-card{
-    background: #000000c4;
-    border-radius: 0.75rem;
-    padding-inline: 3dvw;
-    padding-block: 2dvh;
-    font-size: 2.50dvw;
-    text-align: center;
-    color: var(--primary-color);
-    min-width: 13dvw;
-  }
-  .next-prayer-alert {
-    font-size: 1dvw;
-  }
-  .remaining-timer {
-    font-size: 1.50dvw;
-    color: #c4d513;
-  }
-  .prayer-time {
-    font-size: 1.75dvw;
-    font-weight: 400;
-  }
-  .active-prayer {
-    scale: 1.25;
-    z-index: 2;
-    background: var(--primary-color) !important;
-    color: #fff;
-  }
-  .active-prayer .prayer-name{
-    margin-top: -0.80rem;
-  }
-  .active-prayer .prayer-time{
-    margin-top: -0.75rem;
-  }
-  .remaining-timer.vrLayout{
-    display: none;
-  }
-  .vrLEFT .times-section, .vrRIGHT .times-section {
-    display: flex;
-    flex-direction: column-reverse;
-    background: rgba(0,0,0,0.6);
-    border-radius: 1.50dvh;
-    gap: 0 !important;
-  }
+.times-section {
+  position: absolute;
+  padding: 1rem;
+  bottom: 15%;
+}
+.prayer-card {
+  background: #000000c4;
+  border-radius: 0.75rem;
+  padding-inline: 3dvw;
+  padding-block: 2dvh;
+  font-size: 2.5dvw;
+  text-align: center;
+  color: var(--primary-color);
+  min-width: 13dvw;
+}
+.next-prayer-alert {
+  font-size: 1dvw;
+}
+.remaining-timer {
+  font-size: 1.5dvw;
+  color: #c4d513;
+}
+.remaining-timer-nextPray {
+  font-size: 1.5dvw;
+  color: #000;
+}
+.remaining-timer-nextPray-mobile {
+  font-size: 0.5rem;
+  color: #000;
+}
+.prayer-time {
+  font-size: 1.75dvw;
+  font-weight: 400;
+}
+.active-prayer {
+  scale: 1.25;
+  z-index: 2;
+  background: var(--primary-color) !important;
+  color: #fff;
+}
+.active-prayer .prayer-name {
+  margin-top: -0.8rem;
+}
+.active-prayer .prayer-time {
+  margin-top: -0.75rem;
+}
+.remaining-timer.vrLayout {
+  display: none;
+}
+.vrLEFT .times-section,
+.vrRIGHT .times-section {
+  display: flex;
+  flex-direction: column-reverse;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 1.5dvh;
+  gap: 0 !important;
+}
 
-  .vrLEFT .prayer-card, .vrRIGHT .prayer-card {
-    display: flex;
-    flex-direction: row;
-    flex-flow: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    background: transparent;
-    padding-block: 0.50dvw;
-    color: #fff;
-    font-size: 4dvw;
-    width: 60dvh;
-  }
-  .vrLEFT .prayer-time, .vrRIGHT .prayer-time{
-    font-size: 2.50dvw;
-  }
-  .vrLEFT .remaining-timer, .vrRIGHT .remaining-timer {
-    display: none;
-  }
+.vrLEFT .prayer-card,
+.vrRIGHT .prayer-card {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  padding-block: 0.5dvw;
+  color: #fff;
+  font-size: 4dvw;
+  width: 60dvh;
+}
+.vrLEFT .prayer-time,
+.vrRIGHT .prayer-time {
+  font-size: 2.5dvw;
+}
+.vrLEFT .remaining-timer,
+.vrRIGHT .remaining-timer {
+  display: none;
+}
 
-  .vrLEFT .next-prayer-alert, .vrRIGHT .next-prayer-alert {
-    display: none;
-  }
-  .vrLEFT .remaining-timer.vrLayout, .vrRIGHT .remaining-timer.vrLayout{
-    display: block;
-    font-size: 4vh;
-  }
+.vrLEFT .next-prayer-alert,
+.vrRIGHT .next-prayer-alert {
+  display: none;
+}
+.vrLEFT .remaining-timer.vrLayout,
+.vrRIGHT .remaining-timer.vrLayout {
+  display: block;
+  font-size: 4vh;
+}
 
 /* HADITH MRQUEE SECTION */
-  .hadith-marquee {
-    position: absolute;
-    bottom: 1%;
-  }
+.hadith-marquee {
+  position: absolute;
+  bottom: 1%;
+}
 
-  .vrLEFT .hadith-marquee, .vrRIGHT .hadith-marquee {
-    width: 100vh;
-  }
-.vrLEFT .rfm-marquee-container, .vrRIGHT .rfm-marquee-container {
+.vrLEFT .hadith-marquee,
+.vrRIGHT .hadith-marquee {
+  width: 100vh;
+}
+
+.vrLEFT .rfm-marquee-container,
+.vrRIGHT .rfm-marquee-container {
   justify-content: end;
 }
 
@@ -249,11 +382,12 @@
     top: 35%;
     width: 90%;
   }
+
   .times-section {
     display: flex;
     flex-direction: column;
-    background: rgba(0,0,0,0.6);
-    border-radius: 1.50dvh;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 1.5dvh;
     gap: 0 !important;
   }
 
@@ -264,17 +398,20 @@
     justify-content: space-between;
     align-items: center;
     background: transparent;
-    padding-block: 0.50dvw;
+    padding-block: 0.5dvw;
     color: #fff;
     font-size: 4dvw;
     width: 60dvh;
   }
+
   .active-prayer {
-    scale: 1.10;
+    scale: 1.1;
   }
-  .prayer-time{
-    font-size: 2.50dvw;
+
+  .prayer-time {
+    font-size: 2.5dvw;
   }
+
   .remaining-timer {
     display: none;
   }
@@ -282,13 +419,16 @@
   .next-prayer-alert {
     display: none;
   }
-  .remaining-timer.vrLayout{
+
+  .remaining-timer.vrLayout {
     display: block;
     font-size: 3vh;
   }
-  .hadith-marquee p{
+
+  .hadith-marquee p {
     font-size: 1.5em !important;
   }
+
   .times-section {
     width: 90%;
   }
@@ -305,8 +445,68 @@
   .prayer-time {
     font-size: 1em;
   }
+
   .emam-name {
     font-size: 1em;
   }
+}
 
+.control {
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+  color: var(--mantine-color-text);
+  font-size: var(--mantine-font-size-sm);
+  hijri-date @mixin hover {
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+  }
+}
+
+.link {
+  font-weight: 500;
+  display: block;
+  text-decoration: none;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+  padding-left: var(--mantine-spacing-md);
+  margin-left: var(--mantine-spacing-xl);
+  font-size: var(--mantine-font-size-sm);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  border-left: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+
+  @mixin hover {
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+  }
+}
+
+.chevron {
+  transition: transform 200ms ease;
+}
+
+marquee-container {
+  position: relative;
+  overflow: hidden;
+  white-space: wrap;
+}
+
+.marquee-content-vr {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 25s linear infinite;
+}
+.marquee-content-side {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }

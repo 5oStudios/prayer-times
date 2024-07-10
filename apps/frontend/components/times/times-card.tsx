@@ -11,10 +11,9 @@ import 'moment/locale/ar';
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
 export const PrayerTimesCard = ({
-                                  prayer,
-                                  coordinates,
-                                  lang,
-                                }: {
+  prayer,
+  lang,
+}: {
   prayer: {
     name: string;
     time: string;
@@ -26,6 +25,7 @@ export const PrayerTimesCard = ({
 }) => {
   const localizedTime = localTimer(prayer.time, lang);
   const counter = Date.now() + prayer.remaining;
+  // const counter = Date.now() + 5000;
 
   return (
     <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}>
@@ -39,7 +39,11 @@ export const PrayerTimesCard = ({
               renderer={({ formatted: { hours, minutes, seconds } }) =>
                 countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
               }
-              onComplete={() => publish('next-prayer', prayer)}
+              onComplete={() => {
+                publish('next-prayer', prayer);
+                console.log('name = ', prayer.name);
+                console.log('ok done update everything ');
+              }}
             />
           </div>
         </>
@@ -54,7 +58,10 @@ export const PrayerTimesCard = ({
               countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
             }
             daysInHours
-            onComplete={() => publish('next-prayer', prayer)}
+            onComplete={() => {
+              publish('next-prayer', prayer);
+              console.log('ok done update everything ');
+            }}
           />
         )}
       </div>
@@ -63,7 +70,7 @@ export const PrayerTimesCard = ({
   );
 };
 
-type CountDownFormatterProps = {
+export type CountDownFormatterProps = {
   formatted: {
     hours: string;
     minutes: string;
@@ -72,18 +79,18 @@ type CountDownFormatterProps = {
   lang: string;
 };
 
-const countDownFormatter = ({
-                              formatted: { hours, minutes, seconds },
-                              lang,
-                            }: CountDownFormatterProps) => (
+export const countDownFormatter = ({
+  formatted: { hours, minutes, seconds },
+  lang,
+}: CountDownFormatterProps) => (
   <div className="timer">
-    {localNumber(parseInt(hours, 10), lang)}:{localNumber(parseInt(minutes, 10), lang)}:
-    {localNumber(parseInt(seconds, 10), lang)}
+    {localNumber(parseInt(hours, 10), lang).toString().padStart(2, '0')}:
+    {localNumber(parseInt(minutes, 10), lang).toString().padStart(2, '0')}:
+    {localNumber(parseInt(seconds, 10), lang).toString().padStart(2, '0')}
   </div>
 );
-
-function localTimer(time: string, lang: string) {
-  moment.locale(lang);
+export function localTimer(time: string, lang: string) {
+  moment.locale('en');
   const [hours, minutes] = time.split(':').map(Number);
   const timeInMilliseconds = (hours * 60 + minutes) * 60 * 1000;
   return moment(timeInMilliseconds).utcOffset(0).format('HH:mm');
@@ -95,5 +102,5 @@ function toArabicNumber(number: number | string): string {
 }
 
 export function localNumber(number: number, lang: string): string {
-  return lang === 'ar' ? toArabicNumber(number) : new Intl.NumberFormat(lang).format(number);
+  return new Intl.NumberFormat(lang).format(number);
 }

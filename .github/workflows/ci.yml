@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8
 
@@ -30,7 +30,7 @@ jobs:
           node-version: 20
           cache: 'pnpm'
           cache-dependency-path: ./pnpm-lock.yaml
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
 
       - uses: nrwl/nx-set-shas@v4
 

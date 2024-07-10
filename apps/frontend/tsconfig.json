@@ -35,7 +35,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "../../dist/apps/frontend/.next/types/**/*.ts"
-  ],
+, "lib/coordinatesActions/actions.js"  ],
   "exclude": [
     "node_modules"
   ],

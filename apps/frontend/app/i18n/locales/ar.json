@@ -3,6 +3,7 @@
     "title": "منصة الصلاة",
     "description": "منصة الصلاة هي منصة تعليمية تقدم معلومات عن الصلاة وكيفية أدائها بشكل صحيح. يمكنك الاستفادة من الموارد المتاحة لتعلم كيفية أداء الصلاة بشكل صحيح."
   },
+  "azan": "أذان",
   "times": {
     "Fajr": "الفجر",
     "Dhuhr": "الظهر",
@@ -15,5 +16,93 @@
   },
   "common": {
     "loading": "جاري التحميل..."
+  },
+  "settings": {
+    "title": "إعدادات",
+    "general": "عام",
+    "news": "أخبار",
+    "themes": {
+      "title": "الخلفيات",
+      "label": "اختر سمة خلفية الشاشة الخاصة بك",
+      "default": "الافتراضي",
+      "Blue": "أزرق",
+      "sunSet": "غروب الشمس",
+      "red": "أحمر"
+    },
+    "add": "يضيف",
+    "delete": "حذف",
+    "Akama": "اقامه بعد",
+    "AzanDuration": "مدة الأذان",
+    "requiredField": "هذه الخانة مطلوبه",
+    "displaysQR": {
+      "title": "رابط خطبة الجمعة",
+      "placeholder": "أدخل الرابط",
+      "enable": "تفعيل",
+      "onlyFriday": "يوم الجمعة"
+    },
+    "newsComp": {
+      "createNews": "إنشاء خبر",
+      "newsTitle": "عنوان الخبر",
+      "newsTitlePlaceholder": "أضف العنوان",
+      "newsContent": "محتوى الخبر",
+      "newsContentPlaceholder": "أضف المحتوى",
+      "previousNews": "الأخبار السابقة",
+      "NoNewsAvailable": "لا توجد أخبار متاحة"
+    },
+    "ads": {
+      "title": "الإعلانات",
+      "labelFile": "صورة الإعلان",
+      "placeholderFile": "رفع صورة الإعلان",
+      "labelEveryHowManyMinute": "إعلان كل كم دقيقة",
+      "placeholderEveryHowManyMinute": "أدخل إعلان كل كم دقيقة",
+      "adDurationLabel": "مدة الإعلان",
+      "adDurationPlaceholder": "أدخل مدة الإعلان",
+      "enableAd": "تمكين الإعلان"
+    },
+    "displayScreen": {
+      "title": "شاشة عرض",
+      "hideDisplayScreen": "إخفاء شاشة العرض",
+      "hideManually": "إخفاء يدويا",
+      "prayTimeBanner": "مدة الصلاة لإخفاء الشاشة",
+      "uploadAzkarImage": "رفع صورة الأذكار",
+      "uploadAzkarImagePlaceholder": "رفع صورة",
+      "AfterAzanTimer": "مؤقت بعد الأذان",
+      "hideSunrisePrayer": "إخفاء صلاة الشروق"
+    },
+    "masjidName": {
+      "title": "اسم المسجد",
+      "description": "ضبط اسم المسجد"
+    },
+    "imamName": {
+      "title": "اسم الإمام",
+      "description": "تعيين اسم الإمام",
+      "ImamElMasjid": "إمام المسجد"
+    },
+
+    "language": {
+      "title": "لغة",
+      "description": "اختر اللغة",
+      "lang": {
+        "arabic": "عربي",
+        "english": "إنجليزي"
+      }
+    },
+    "location": {
+      "title": "الموقع",
+      "country": "الدولة",
+      "city": "المدينة",
+      "autoSetting": "تعيين الموقع تلقائيًا"
+    },
+    "nextPrayTime": {
+      "title": "عرض عداد الوقت للصلاة التالية"
+    },
+    "orientation": {
+      "label": "اختر خيار التدوير",
+      "options": {
+        "vertical": "عمودي",
+        "left": "يسار",
+        "right": "يمين"
+      }
+    }
   }
 }
