@@ -84,7 +84,6 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const startPrayTime = (name: string) => {
     console.log('hello');
     const index = getPrayerIndex(name);
-    
     console.log('index', index);
     const prayerTimePeriod = timePeriod[index];
     console.log('prayerTimePeriod', prayerTimePeriod);
