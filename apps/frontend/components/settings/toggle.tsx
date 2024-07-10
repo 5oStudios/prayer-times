@@ -27,6 +27,7 @@ function Toggle() {
     const index = typeof value === 'string' ? parseInt(value, 10) : value;
     // if (isNaN(index)) return; // Add this check to handle invalid input
     const name = getName(index);
+    console.log('toggle name = ', name);
     console.log('getName = ', name);
     const data: PrayerTime = {
       name,

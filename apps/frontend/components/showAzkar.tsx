@@ -26,6 +26,7 @@ export default function Azkar() {
       <Image
         src={azkarImg === '' || azkarImg === undefined ? img : azkarImg}
         alt="Azkar Image"
+        // layout="responsive"
         style={{ height: '100%' }}
         width={700}
         height={500}

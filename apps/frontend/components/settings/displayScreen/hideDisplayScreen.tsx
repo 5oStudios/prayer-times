@@ -76,6 +76,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     startPrayTime(prayer.name);
+    dispatch(setCurrentPrayTimeName(prayer.name));
     console.log('name here = ', prayer.name);
     console.log('azan time fire data = ', prayer);
   });
@@ -83,15 +84,16 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const startPrayTime = (name: string) => {
     console.log('hello');
     const index = getPrayerIndex(name);
+    
     console.log('index', index);
     const prayerTimePeriod = timePeriod[index];
     console.log('prayerTimePeriod', prayerTimePeriod);
 
     if (index !== -1) {
-      // publish('adState', { state: false });
       playAlert();
       dispatch(setEnableAd(false));
       dispatch(setCurrentPrayTimeName(name));
+      console.log('name hide = ', name);
       dispatch(setShowAzanTime(true));
       console.log('hello2');
       setTimeout(
@@ -106,10 +108,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   };
 
   return (
-    <div
-      style={{ marginTop: '2rem' }}
-      className={isArabic ? styles.rightAligned : ''}
-    >
+    <div style={{ marginTop: '2rem' }} className={isArabic ? styles.rightAligned : ''}>
       <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>
       <Switch
         style={{ marginTop: '0.5rem' }}

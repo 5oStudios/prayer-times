@@ -39,6 +39,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
 
   useEffect(() => {
     if (enableCountDown) {
+      console.log('name = ', name);
+      console.log('index = ', index);
       setTimeLeft(beforeAzanTimes[index] * 60); // Setting timeLeft to countdown time in seconds
     }
   }, [enableCountDown, timePeriod]);

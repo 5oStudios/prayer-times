@@ -63,7 +63,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     dispatch(setRemainingTime(prayer.remaining));
     // const name = useSelector(selectCurrentPrayTimeName);
     // publish('adState', { state: true });
-    dispatch(setCurrentPrayTimeName(prayer.name));
+    // dispatch(setCurrentPrayTimeName(prayer.name));
     console.log(prayer.name);
     console.log('time set remaining', prayer.remaining);
   }, [dispatch, times, displayTime]);
