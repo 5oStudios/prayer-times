@@ -8,9 +8,9 @@ import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
 import { useEffect, useMemo } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
-import { subscribe, publish } from '@enegix/events';
+import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
-import { PrayerTimesCard } from '../components';
+import { PrayerTimesCard } from '../components/times/times-card';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
@@ -33,6 +33,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     // alert(`It's time for from store ${prayer.name}`);
+    dispatch(setCurrentPrayTimeName(prayer.name));
     // @ts-expect-error - This expression is not callable.
     dispatch(fetchTimes(coordinates));
     //todo: add more actions here
@@ -57,13 +58,10 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [dictionary, times, lang, displayTime]);
 
   useEffect(() => {
-    // playAthan();
     const prayer = times.find((e) => e.isNext);
     if (!prayer) return;
     dispatch(setRemainingTime(prayer.remaining));
-    // const name = useSelector(selectCurrentPrayTimeName);
-    // publish('adState', { state: true });
-    // dispatch(setCurrentPrayTimeName(prayer.name));
+    dispatch(setCurrentPrayTimeName(prayer.name));
     console.log(prayer.name);
     console.log('time set remaining', prayer.remaining);
   }, [dispatch, times, displayTime]);
@@ -92,7 +90,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   );
 };
 
-const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1); // TODO: make util
+export const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1); // TODO: make util
 const formatTime = (time: Date, lang: string) => {
   moment.locale('en');
   return moment(time).format('hh:mm');
