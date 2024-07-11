@@ -96,11 +96,6 @@ export function localTimer(time: string, lang: string) {
   return moment(timeInMilliseconds).utcOffset(0).format('HH:mm');
 }
 
-function toArabicNumber(number: number | string): string {
-  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  return number.toString().replace(/\d/g, (digit) => arabicDigits[digit]);
-}
-
 export function localNumber(number: number, lang: string): string {
   return new Intl.NumberFormat(lang).format(number);
 }

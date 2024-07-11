@@ -12,6 +12,7 @@ import {
   selectCurrentTimePeriod,
   selectEnableCountDown,
   selectOrientation,
+  selectTimePeriod,
   setCurrentTimePeriod,
   setEnableCountDown,
   setHideScreen,
@@ -25,7 +26,7 @@ const playAlert = () => {
 };
 
 const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
-  const timePeriod = useSelector(selectCurrentTimePeriod);
+  const timePeriod = useSelector(selectTimePeriod);
   const orientation = useSelector(selectOrientation);
   const enableCountDown = useSelector(selectEnableCountDown);
   const name = useSelector(selectCurrentPrayTimeName);
@@ -43,7 +44,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
       console.log('index = ', index);
       setTimeLeft(beforeAzanTimes[index] * 60); // Setting timeLeft to countdown time in seconds
     }
-  }, [enableCountDown, timePeriod]);
+  }, [enableCountDown, beforeAzanTimes]);
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -64,7 +65,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
                   // publish('adState', { state: true });
                 }, 60 * 1000); //azkar time
               },
-              60 * 1000 * timePeriod // hide screen
+              60 * 1000 * timePeriod[index] // hide screen
             );
             clearInterval(timerId);
             return 0;
