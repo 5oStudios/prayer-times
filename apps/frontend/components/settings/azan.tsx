@@ -16,9 +16,9 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const [capitalized, setCapitalized] = useState<string>(prayName);
 
-  useEffect(() => {
-    setCapitalized(prayName.charAt(0).toUpperCase() + prayName.slice(1));
-  }, []);
+  // useEffect(() => {
+  //   setCapitalized();
+  // }, []);
 
   return show ? (
     <div
@@ -39,7 +39,11 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
         {dictionary.azan}
       </Text>
       <Text style={{ fontSize: isPortrait ? '5rem' : '12rem', color: '#ffffff' }}>
-        {(dictionary.times as PrayerTimesDictionary)[capitalized]}
+        {
+          (dictionary.times as PrayerTimesDictionary)[
+            prayName.charAt(0).toUpperCase() + prayName.slice(1)
+          ]
+        }
       </Text>
     </div>
   ) : (

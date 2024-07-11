@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Text, Switch, NumberInput } from '@mantine/core';
 import '../accordion.module.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -70,16 +71,10 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
   const timePeriod = useSelector(selectTimePeriod);
   const akamaAfter = useSelector(selectAkamaAfter);
+  const [alert, setAlert] = useState<boolean>(true);
   const toggleOverlay = () => {
     dispatch(setHideScreen(!value));
   };
-
-  subscribe<PrayerTime>('next-prayer', (prayer) => {
-    startPrayTime(prayer.name);
-    dispatch(setCurrentPrayTimeName(prayer.name));
-    console.log('name here = ', prayer.name);
-    console.log('azan time fire data = ', prayer);
-  });
 
   const startPrayTime = (name: string) => {
     console.log('hello');
@@ -89,7 +84,6 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
     console.log('prayerTimePeriod', prayerTimePeriod);
 
     if (index !== -1) {
-      playAlert();
       dispatch(setEnableAd(false));
       dispatch(setCurrentPrayTimeName(name));
       console.log('name hide = ', name);
@@ -103,8 +97,18 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
         },
         akamaAfter * 60 * 1000
       ); //  azan time
+      setAlert(true);
     }
   };
+
+  subscribe<PrayerTime>('next-prayer', (prayer) => {
+    startPrayTime(prayer.name);
+    if (alert) playAlert();
+    setAlert(false);
+    dispatch(setCurrentPrayTimeName(prayer.name));
+    console.log('name here = ', prayer.name);
+    console.log('azan time fire data = ', prayer);
+  });
 
   return (
     <div style={{ marginTop: '2rem' }} className={isArabic ? styles.rightAligned : ''}>
@@ -190,7 +194,7 @@ function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardPro
 }
 export default HideDisplayScreen;
 
-export const playAlert = () => {
+const playAlert = () => {
   const audioAlert = new Audio('https://cdn.pixabay.com/audio/2023/01/01/audio_a178429b06.mp3');
   audioAlert.play();
 };

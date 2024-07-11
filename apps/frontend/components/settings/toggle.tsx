@@ -1,9 +1,13 @@
 import React from 'react';
-import { NumberInput } from '@mantine/core';
+import { Button } from '@mantine/core';
 import { publish } from '@enegix/events';
 import { PrayerTime } from '@islamic-kit/prayer-times';
+import { useSelector } from 'react-redux';
+import { selectCurrentPrayTimeName } from '../../lib/features/settings';
+import { capitalize } from '../../sections/times';
 
 function Toggle() {
+  const name = useSelector(selectCurrentPrayTimeName);
   const getName = (index: number) => {
     switch (index) {
       case 0:
@@ -23,14 +27,15 @@ function Toggle() {
     }
   };
 
-  const onChange = (value: number | string) => {
-    const index = typeof value === 'string' ? parseInt(value, 10) : value;
+  const onChange = () => {
+    // const index = typeof value === 'string' ? parseInt(value, 10) : value;
     // if (isNaN(index)) return; // Add this check to handle invalid input
-    const name = getName(index);
+    // const name = getName(index);
+    const CName = capitalize(name);
     console.log('toggle name = ', name);
     console.log('getName = ', name);
     const data: PrayerTime = {
-      name,
+      name: CName,
       time: new Date(),
       isNext: false,
       remaining: 0,
@@ -40,12 +45,9 @@ function Toggle() {
 
   return (
     <div style={{ marginTop: '1rem' }}>
-      <NumberInput
-        onChange={onChange}
-        label="Input label"
-        description="Input description"
-        placeholder="Input placeholder"
-      />
+      <Button onClick={onChange} variant="filled">
+        test
+      </Button>
     </div>
   );
 }
