@@ -8,18 +8,24 @@ import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import { SupportedLanguages } from '../../app/i18n/dictionaries';
 import { PrayerTimesDictionary } from './displayScreen/hideDisplayScreen';
 
+const getIndex = (name: string, list: string[]) => {
+  const prayerName = name.charAt(0).toUpperCase() + name.slice(1);
+  console.log('getindex ;', prayerName);
+  const i = list.indexOf(prayerName);
+  console.log('getindex ;', i);
+  return i;
+};
 export default function Azan({ language }: { language: SupportedLanguages }) {
   const dictionary = useDictionary();
   const show = useSelector(selectShowAzanTime);
   const prayName = useSelector(selectCurrentPrayTimeName);
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
-  const [capitalized, setCapitalized] = useState<string>(prayName);
-
-  // useEffect(() => {
-  //   setCapitalized();
-  // }, []);
-
+  const arabicPrayerName = ['الفجر', 'الشروق', 'الظهر', 'العصر', 'المغرب', 'العشاء'];
+  const englishPrayerName = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'isha'];
+  const isArabic = language === 'ar';
+  const index = getIndex(prayName, englishPrayerName);
+  const actualIndex = index === 0 ? 5 : index === 2 ? 0 : index - 1;
   return show ? (
     <div
       className="azan-wrapper"
@@ -40,9 +46,12 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
       </Text>
       <Text style={{ fontSize: isPortrait ? '5rem' : '12rem', color: '#ffffff' }}>
         {
+          /* {
           (dictionary.times as PrayerTimesDictionary)[
             prayName.charAt(0).toUpperCase() + prayName.slice(1)
           ]
+        } */
+          isArabic ? arabicPrayerName[actualIndex] : englishPrayerName[actualIndex]
         }
       </Text>
     </div>
