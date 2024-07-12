@@ -43,6 +43,7 @@ export type SettingsState = {
   adEveryHowManyMinutes: number;
   adDuration: number;
   enableAd: boolean;
+  prayerTimeIndex: number;
 };
 
 const initialState: SettingsState = {
@@ -75,6 +76,7 @@ const initialState: SettingsState = {
   adEveryHowManyMinutes: 1,
   adDuration: 1,
   enableAd: false,
+  prayerTimeIndex: 0,
 };
 
 const settingsSlice = createSlice({
@@ -168,6 +170,9 @@ const settingsSlice = createSlice({
     setEnableAd: (state, action) => {
       state.enableAd = action.payload;
     },
+    setPrayerTimeIndex: (state, action) => {
+      state.prayerTimeIndex = action.payload;
+    },
   },
 });
 
@@ -201,6 +206,7 @@ export const {
   setAdEveryHowManyMinutes,
   setAdDuration,
   setEnableAd,
+  setPrayerTimeIndex,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -236,3 +242,4 @@ export const selectAdEveryHowManyMinutes = (state: RootState) =>
   state.settings.adEveryHowManyMinutes;
 export const selectAdDuration = (state: RootState) => state.settings.adDuration;
 export const selectEnableAd = (state: RootState) => state.settings.enableAd;
+export const selectPrayerTimeIndex = (state: RootState) => state.settings.prayerTimeIndex;

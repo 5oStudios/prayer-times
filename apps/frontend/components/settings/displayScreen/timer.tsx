@@ -35,13 +35,14 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const isVertical = orientation === '';
   const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
   const index = getPrayerIndex(capitalized);
+  const actualIndex = index === 0 ? 5 : index === 2 ? 0 : index - 1;
   const beforeAzanTimes = useSelector(selectBeforeAzanTimes);
 
   useEffect(() => {
     if (enableCountDown) {
       console.log('name = ', name);
       console.log('index = ', index);
-      setTimeLeft(beforeAzanTimes[index] * 60); // Setting timeLeft to countdown time in seconds
+      setTimeLeft(beforeAzanTimes[actualIndex] * 60); // Setting timeLeft to countdown time in seconds
     }
   }, [enableCountDown, beforeAzanTimes]);
 
@@ -64,7 +65,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
                   // publish('adState', { state: true });
                 }, 60 * 1000); //azkar time
               },
-              60 * 1000 * timePeriod[index] // hide screen
+              60 * 1000 * timePeriod[actualIndex] // hide screen
             );
             clearInterval(timerId);
             return 0;
