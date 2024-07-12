@@ -71,7 +71,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
   const timePeriod = useSelector(selectTimePeriod);
   const akamaAfter = useSelector(selectAkamaAfter);
-  const [alert, setAlert] = useState<boolean>(true);
+  // const [alert, setAlert] = useState<boolean>(true);
   const toggleOverlay = () => {
     dispatch(setHideScreen(!value));
   };
@@ -97,14 +97,14 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
         },
         akamaAfter * 60 * 1000
       ); //  azan time
-      setAlert(true);
+      // setAlert(true);
     }
   };
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     startPrayTime(prayer.name);
-    if (alert) playAlert();
-    setAlert(false);
+    // if (alert) playAlert();
+    // setAlert(false);
     dispatch(setCurrentPrayTimeName(prayer.name));
     console.log('name here = ', prayer.name);
     console.log('azan time fire data = ', prayer);
@@ -138,7 +138,12 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
       </Text>
       <NumberInput
         value={akamaAfter}
-        onChange={(e) => dispatch(setAkamaAfter(e))}
+        onChange={(e) => {
+          dispatch(setAkamaAfter(e));
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+        }}
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },
         }}
