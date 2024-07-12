@@ -24,7 +24,6 @@ const playAlert = () => {
   const audio = new Audio('/assets/media/alert/blip.mp3'); // Path relative to public folder
   audio.play();
 };
-
 const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const timePeriod = useSelector(selectTimePeriod);
   const orientation = useSelector(selectOrientation);
