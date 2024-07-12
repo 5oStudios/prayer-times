@@ -67,25 +67,35 @@ const HadithTicker = ({
   const data = news.length > 0 ? news : hadith;
 
   return (
-    <Marquee className="ticker-bg" direction={direction} autoFill style={{width:'150%'}}>
-      <Flex>
-        {data.map((item, id) => (
-          <Flex key={id} justify="center" align="center">
-            <Text
-              className={font.className}
-              style={{ color: 'white', fontSize: '45px', width: 'max-content' }}
-            >
-              {item.content}
-            </Text>
-            <StarSvg
-              style={{
-                fill: 'white',
-                marginInline: 24,
-              }}
-            />
-          </Flex>
-        ))}
-      </Flex>
+    <Marquee
+      className="ticker-bg"
+      direction={direction}
+      autoFill
+      speed={speed}
+      style={{ width: '100%' }}
+    >
+      {data.map((item, id) => (
+        <HadithComponent id={id} item={item.content} key={id} />
+      ))}
     </Marquee>
   );
 };
+
+const HadithComponent = ({ id, item }: { id: number; item: string }) => (
+    <Flex>
+      <Flex key={id} justify="center" align="center">
+        <Text
+          className={font.className}
+          style={{ color: 'white', fontSize: '45px', width: 'max-content' }}
+        >
+          {item}
+        </Text>
+        <StarSvg
+          style={{
+            fill: 'white',
+            marginInline: 24,
+          }}
+        />
+      </Flex>
+    </Flex>
+  );
