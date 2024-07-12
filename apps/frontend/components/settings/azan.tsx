@@ -8,7 +8,13 @@ import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import { SupportedLanguages } from '../../app/i18n/dictionaries';
 import { PrayerTimesDictionary } from './displayScreen/hideDisplayScreen';
 
-const getIndex = (name: string, list: string[]) => list.indexOf(name);
+const getIndex = (name: string, list: string[]) => {
+  const prayerName = name.charAt(0).toUpperCase() + name.slice(1);
+  console.log('getindex ;', prayerName);
+  const i = list.indexOf(prayerName);
+  console.log('getindex ;', i);
+  return i;
+};
 export default function Azan({ language }: { language: SupportedLanguages }) {
   const dictionary = useDictionary();
   const show = useSelector(selectShowAzanTime);
@@ -16,9 +22,9 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const arabicPrayerName = ['الفجر', 'الشروق', 'الظهر', 'العصر', 'المغرب', 'العشاء'];
-  const englishPrayerName = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+  const englishPrayerName = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'isha'];
   const isArabic = language === 'ar';
-  const index = getIndex(prayName, isArabic ? arabicPrayerName : englishPrayerName);
+  const index = getIndex(prayName, englishPrayerName);
   const actualIndex = index === 0 ? 5 : index === 2 ? 0 : index - 1;
   return show ? (
     <div
