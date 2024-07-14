@@ -10,7 +10,7 @@ export default function Azkar() {
   const ShowAzKar = useSelector(selectShowAzkar);
 
   console.log('azkar image = ', azkarImg);
-  return ShowAzKar ? (
+  return  ShowAzKar ? (
     <div
       style={{
         display: 'flex',
@@ -23,14 +23,14 @@ export default function Azkar() {
         zIndex: '30',
       }}
     >
-      <Image
-        src={azkarImg === '' || azkarImg === undefined ? img : azkarImg}
-        alt="Azkar Image"
-        // layout="responsive"
-        style={{ height: '100%' }}
-        width={700}
-        height={500}
-      />
+      <div style={{ maxWidth: '100%', maxHeight: '100%', overflow: 'hidden' }}>
+        <Image
+          src={azkarImg === '' || azkarImg === undefined ? img : azkarImg}
+          alt="Azkar Image"
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
     </div>
   ) : (
     <></>
