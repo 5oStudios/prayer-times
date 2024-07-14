@@ -18,8 +18,9 @@ import AfterAzanTime from './displayScreen/afterAzanTime';
 import ImamName from './general/imamName';
 import Location from './general/location';
 import DisplayNextPrayTime from './general/displayNextPrayTime';
-import HideSunRise from './displayScreen/hideSunRise';
+import HideSunRise from './general/hideSunRise';
 import AdsControl from './ads/adsControl';
+import DiableSunRiseAzan from './general/diableSunRiseAzan';
 
 type SettingsAccordionProps = {
   language: string;
@@ -59,6 +60,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <Location isArabic={isArabic} />
             <DisplayNextPrayTime isArabic={isArabic} />
             <HideSunRise isArabic={isArabic} />
+            <DiableSunRiseAzan isArabic={isArabic} />
           </div>
         )}
         {item.value === dictionary.settings.news && (
@@ -78,7 +80,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         )}
         {item.value === dictionary.settings.ads.title && (
           <div>
-            <AdsControl isArabic={isArabic}  />
+            <AdsControl isArabic={isArabic} />
           </div>
         )}
       </MantineAccordion.Panel>

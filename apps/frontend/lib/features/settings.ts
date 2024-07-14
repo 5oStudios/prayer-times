@@ -43,6 +43,7 @@ export type SettingsState = {
   adEveryHowManyMinutes: number;
   adDuration: number;
   enableAd: boolean;
+  disableSunRiseAzan: boolean;
 };
 
 const initialState: SettingsState = {
@@ -75,6 +76,7 @@ const initialState: SettingsState = {
   adEveryHowManyMinutes: 1,
   adDuration: 1,
   enableAd: false,
+  disableSunRiseAzan: false,
 };
 
 const settingsSlice = createSlice({
@@ -168,6 +170,9 @@ const settingsSlice = createSlice({
     setEnableAd: (state, action) => {
       state.enableAd = action.payload;
     },
+    setDisableSunRiseAzan: (state, action) => {
+      state.disableSunRiseAzan = action.payload;
+    },
   },
 });
 
@@ -201,6 +206,7 @@ export const {
   setAdEveryHowManyMinutes,
   setAdDuration,
   setEnableAd,
+  setDisableSunRiseAzan,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -236,3 +242,4 @@ export const selectAdEveryHowManyMinutes = (state: RootState) =>
   state.settings.adEveryHowManyMinutes;
 export const selectAdDuration = (state: RootState) => state.settings.adDuration;
 export const selectEnableAd = (state: RootState) => state.settings.enableAd;
+export const selectDisableSunRiseAzan = (state: RootState) => state.settings.disableSunRiseAzan;

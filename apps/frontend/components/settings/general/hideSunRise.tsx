@@ -8,9 +8,11 @@ function HideSunRise({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const hideSunRise = useSelector(selectHideSunRise);
+
   const toggleNextPrayDisplay = () => {
     dispatch(setHideSunRise(!hideSunRise));
   };
+
   return (
     <div
       style={{

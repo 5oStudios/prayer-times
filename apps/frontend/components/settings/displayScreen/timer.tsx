@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { publish } from '@enegix/events';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Text, Center } from '@mantine/core';
@@ -35,14 +34,18 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const isVertical = orientation === '';
   const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
   const index = getPrayerIndex(capitalized);
-  const actualIndex = index === 0 ? 5 : index === 2 ? 0 : index - 1;
+  const actualIndex = index === 0 ? 5 : index - 1;
   const beforeAzanTimes = useSelector(selectBeforeAzanTimes);
+  // const [show,setShow] = useState<boolean>(true);
 
   useEffect(() => {
     if (enableCountDown) {
       console.log('name = ', name);
       console.log('index = ', index);
-      setTimeLeft(beforeAzanTimes[actualIndex] * 60); // Setting timeLeft to countdown time in seconds
+      if (actualIndex !== 1) {
+        setTimeLeft(beforeAzanTimes[actualIndex] * 60); // Setting timeLeft to countdown time in seconds
+        // setShow(true);
+      } else setEnableCountDown(false);
     }
   }, [enableCountDown, beforeAzanTimes]);
 
@@ -84,9 +87,9 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
     return `${mins.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  if (timeLeft === 0 && !enableCountDown) {
-    return null;
-  }
+  // if (timeLeft === 0 && !enableCountDown) {
+  //   return <></>;
+  // }
 
   return (
     enableCountDown && (

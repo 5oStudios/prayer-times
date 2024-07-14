@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Text } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import { selectShowAzanTime, selectCurrentPrayTimeName } from '../../lib/features/settings';
+import {
+  selectShowAzanTime,
+  selectCurrentPrayTimeName,
+  selectDisableSunRiseAzan,
+} from '../../lib/features/settings';
 import { ClockSection } from '../../sections/clock';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import { SupportedLanguages } from '../../app/i18n/dictionaries';
-import { PrayerTimesDictionary } from './displayScreen/hideDisplayScreen';
-
 const getIndex = (name: string, list: string[]) => {
   const prayerName = name.charAt(0).toUpperCase() + name.slice(1);
   console.log('namexxxxx', prayerName);
@@ -26,9 +28,12 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const englishPrayerName = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
   const isArabic = language === 'ar';
   const index = getIndex(prayName, englishPrayerName);
+  const disableSunRiseAzan = useSelector(selectDisableSunRiseAzan);
+  const [disable, setDisable] = useState<boolean>(true);
   console.log('actualIndex ;', index);
-  const actualIndex = index === 0 ? 5 : index === 2 ? 0 : index - 1;
+  const actualIndex = index === 0 ? 5 : index - 1;
   console.log('actualIndex ;', actualIndex);
+
   return show ? (
     <div
       className="azan-wrapper"
@@ -48,9 +53,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
         {dictionary.azan}
       </Text>
       <Text style={{ fontSize: isPortrait ? '5rem' : '12rem', color: '#ffffff' }}>
-        {
-          isArabic ? arabicPrayerName[actualIndex] : englishPrayerName[actualIndex]
-        }
+        {isArabic ? arabicPrayerName[actualIndex] : englishPrayerName[actualIndex]}
       </Text>
     </div>
   ) : (
