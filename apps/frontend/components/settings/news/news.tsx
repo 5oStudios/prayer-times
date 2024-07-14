@@ -42,7 +42,7 @@ function NewsForm({ language }: { language: string }) {
       <Text style={{ marginTop: '0.5rem' }}>{dictionary.settings.newsComp.createNews}</Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="content">{dictionary.settings.newsComp.newsContent}:</label>
+          <label htmlFor="content">{dictionary.settings.newsComp.newsContent}</label>
           <Textarea
             id="content"
             minRows={2}

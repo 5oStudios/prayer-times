@@ -65,7 +65,7 @@
       "createNews": "Create News",
       "newsTitle": "News Title",
       "newsTitlePlaceholder": "add title",
-      "newsContent": "News Content",
+      "newsContent": "News Content:",
       "newsContentPlaceholder": "add Content",
       "previousNews": "Previous News",
       "NoNewsAvailable": "No news available"

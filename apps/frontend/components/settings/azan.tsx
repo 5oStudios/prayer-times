@@ -28,12 +28,10 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const englishPrayerName = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
   const isArabic = language === 'ar';
   const index = getIndex(prayName, englishPrayerName);
-  const disableSunRiseAzan = useSelector(selectDisableSunRiseAzan);
-  const [disable, setDisable] = useState<boolean>(true);
   console.log('actualIndex ;', index);
   const actualIndex = index === 0 ? 5 : index - 1;
   console.log('actualIndex ;', actualIndex);
-
+  
   return show ? (
     <div
       className="azan-wrapper"
