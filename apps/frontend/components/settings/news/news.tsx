@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, Textarea, Button } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
@@ -36,6 +36,7 @@ function NewsForm({ language }: { language: string }) {
     const updatedNews = newsLocal.filter((_, i) => i !== index);
     dispatch(setNews(updatedNews));
   };
+
 
   return (
     <div style={{ width: '100%' }}>
