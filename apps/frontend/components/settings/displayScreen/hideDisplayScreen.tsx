@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Text, Switch, NumberInput } from '@mantine/core';
 import '../accordion.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { PrayerTime } from '@islamic-kit/prayer-times';
-import { subscribe, publish } from '@enegix/events';
+import { subscribe } from '@enegix/events';
 
 import {
   selectTimePeriod,

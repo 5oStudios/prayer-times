@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Text } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
