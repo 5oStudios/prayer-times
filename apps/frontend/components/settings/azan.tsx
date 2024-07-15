@@ -29,8 +29,8 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const isArabic = language === 'ar';
   const index = getIndex(prayName, englishPrayerName);
   console.log('actualIndex ;', index);
-  const actualIndex = index === 0 ? 5 : index - 1;
-  console.log('actualIndex ;', actualIndex);
+  // const actualIndex = index === 0 ? 5 : index - 1;
+  // console.log('actualIndex ;', actualIndex);
   
   return show ? (
     <div
@@ -51,7 +51,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
         {dictionary.azan}
       </Text>
       <Text style={{ fontSize: isPortrait ? '5rem' : '12rem', color: '#ffffff' }}>
-        {isArabic ? arabicPrayerName[actualIndex] : englishPrayerName[actualIndex]}
+        {isArabic ? arabicPrayerName[index] : englishPrayerName[index]}
       </Text>
     </div>
   ) : (

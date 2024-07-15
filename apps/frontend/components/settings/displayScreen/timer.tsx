@@ -34,7 +34,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const isVertical = orientation === '';
   const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
   const index = getPrayerIndex(capitalized);
-  const actualIndex = index === 0 ? 5 : index - 1;
+  // const actualIndex = index === 0 ? 5 : index - 1;
   const beforeAzanTimes = useSelector(selectBeforeAzanTimes);
   // const [show,setShow] = useState<boolean>(true);
 
@@ -42,8 +42,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
     if (enableCountDown) {
       console.log('name = ', name);
       console.log('index = ', index);
-      if (actualIndex !== 1) {
-        setTimeLeft(beforeAzanTimes[actualIndex] * 60); // Setting timeLeft to countdown time in seconds
+      if (index !== 1) {
+        setTimeLeft(beforeAzanTimes[index] * 60); // Setting timeLeft to countdown time in seconds
         // setShow(true);
       } else setEnableCountDown(false);
     }
@@ -68,7 +68,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
                   // publish('adState', { state: true });
                 }, 60 * 1000); //azkar time
               },
-              60 * 1000 * timePeriod[actualIndex] // hide screen
+              60 * 1000 * timePeriod[index] // hide screen
             );
             clearInterval(timerId);
             return 0;
