@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, Textarea, Button } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { setNews, selectNews } from '../../../lib/features/settings';
+import {
+  createContent,
+  deleteContent,
+  getHadith,
+  hadithSupbaseType,
+} from '../../../lib/database/actions';
+
+import supabase from '../../../lib/database/CreateClient';
 
 type NewsType = {
   content: string;
@@ -13,10 +21,10 @@ type NewsType = {
 type NewsFormType = {
   content: string;
 };
-
 function NewsForm({ language }: { language: string }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
+  const [supbaseData, setSupbaseData] = useState<hadithSupbaseType[]>([]);
   const newsLocal: NewsType[] = useSelector(selectNews);
   const isArabic = language === 'ar';
   const {
@@ -26,16 +34,38 @@ function NewsForm({ language }: { language: string }) {
     reset,
   } = useForm<NewsFormType>();
 
-  const onSubmit = (data: NewsFormType) => {
-    const newNewsItem = { content: data.content };
-    dispatch(setNews([...newsLocal, newNewsItem]));
+  const onSubmit = async (data: NewsFormType) => {
+    // const newNewsItem = { content: data.content };
+    await createContent(data.content);
     reset();
   };
 
-  const handleDelete = (index: number) => {
-    const updatedNews = newsLocal.filter((_, i) => i !== index);
-    dispatch(setNews(updatedNews));
+  const handleDelete = async (index: number) => {
+    // const updatedNews = newsLocal.filter((_, i) => i !== index);
+    await deleteContent(index);
   };
+
+  useEffect(() => {
+    async function getSupabaseData() {
+      const data = await getHadith();
+      setSupbaseData(data);
+      dispatch(setNews(data));
+    }
+    
+    // Subscribe to changes in the 'hadith' table
+    const subscription = supabase
+    .channel('custom-all-channel')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'hadith' }, (payload) => {
+      console.log('Change received!', payload);
+      getSupabaseData();
+    })
+    .subscribe();
+    
+    getSupabaseData();
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
   return (
     <div style={{ width: '100%' }}>
@@ -60,13 +90,13 @@ function NewsForm({ language }: { language: string }) {
 
       <div style={{ marginTop: '1rem', textAlign: isArabic ? 'left' : 'normal' }}>
         <Text>{dictionary.settings.newsComp.previousNews}</Text>
-        {!newsLocal || newsLocal.length === 0 ? (
+        {!supbaseData || supbaseData.length === 0 ? (
           <p>{dictionary.settings.newsComp.NoNewsAvailable}</p>
         ) : (
-          newsLocal.map((item, index) => (
-            <div style={{ display: 'flex', flexWrap: 'wrap' }} key={index}>
+          supbaseData.map((item, index) => (
+            <div style={{ display: 'flex', flexWrap: 'wrap' }} key={item.id}>
               <strong style={{ width: '85%', marginTop: '1rem' }}>{item.content}</strong>
-              <Button onClick={() => handleDelete(index)} style={{ backgroundColor: 'red' }}>
+              <Button onClick={() => handleDelete(item.id)} style={{ backgroundColor: 'red' }}>
                 <MdDelete />
               </Button>
             </div>

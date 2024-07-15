@@ -24,6 +24,7 @@
     "@react-aria/ssr": "^3.9.1",
     "@react-aria/visually-hidden": "^3.8.9",
     "@reduxjs/toolkit": "^2.2.3",
+    "@supabase/supabase-js": "^2.44.3",
     "@tabler/icons-react": "^3.0.0",
     "accept-language": "^3.0.18",
     "adhan": "^4.4.3",

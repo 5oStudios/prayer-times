@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
+import { hadithSupbaseType } from '../database/actions';
 
 export enum ORIENTATION {
   DEFAULT = '',
@@ -8,16 +9,16 @@ export enum ORIENTATION {
   RIGHT = 'vrRIGHT',
 }
 
-export type NewsType = {
-  title: string;
-  content: string;
-};
+// export type NewsType = {
+//   title: string;
+//   content: string;
+// };
 
 export type SettingsState = {
   hadithTickerSpeed: number;
   orientation: ORIENTATION;
   masjidName: string;
-  news: NewsType[];
+  news: hadithSupbaseType[];
   hideScreen: boolean;
   url: string;
   enableURL: boolean;

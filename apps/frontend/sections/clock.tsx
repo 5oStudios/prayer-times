@@ -34,7 +34,7 @@ export const ClockSection = ({
 
   // Function to format the time as a string
   const formatTime = (time: Date): string => {
-    const formattedTime = time.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
+    const formattedTime = time.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' });
     return formattedTime;
   };
 
