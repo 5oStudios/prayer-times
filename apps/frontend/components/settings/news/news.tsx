@@ -10,7 +10,7 @@ import {
   deleteContent,
   getHadith,
   hadithSupbaseType,
-} from 'apps/frontend/lib/database/actions';
+} from '../../../lib/database/actions';
 
 import supabase from '../../../lib/database/CreateClient';
 
