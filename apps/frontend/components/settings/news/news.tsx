@@ -49,8 +49,8 @@ function NewsForm({ language }: { language: string }) {
 
   useEffect(() => {
     async function getSupabaseData() {
-      const supbaseData = await getHadith();
-      setSupbaseData(supbaseData);
+      const data = await getHadith();
+      setSupbaseData(data);
     }
     
     // Subscribe to changes in the 'hadith' table
