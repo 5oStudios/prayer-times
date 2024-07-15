@@ -43,12 +43,12 @@ jobs:
 
       - run: pnpm i nx -g
 
-      - name: Set environment variables
-        run: echo "NEXT_PUBLIC_PROJECT_URL=${{ vars.NEXT_PUBLIC_PROJECT_URL }}" >> $GITHUB_ENV
-        shell: bash
-      - name: Set another environment variable
-        run: echo "NEXT_PUBLIC_API_Key=${{ vars.NEXT_PUBLIC_API_Key }}" >> $GITHUB_ENV
-        shell: bash
+      - name: Set environment variables from vars
+        run: echo "NEXT_PUBLIC_PROJECT_URL=$vars.NEXT_PUBLIC_PROJECT_URL" >> $GITHUB_ENV
+      - name: Set environment variables from vars
+        run: echo "NEXT_PUBLIC_API_Key=$vars.NEXT_PUBLIC_API_Key" >> $GITHUB_ENV
+
+
 
       - run: nx affected:lint --fix --parallel
       - run: nx affected -t format:write,build --parallel
