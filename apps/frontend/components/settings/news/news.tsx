@@ -36,14 +36,12 @@ function NewsForm({ language }: { language: string }) {
 
   const onSubmit = async (data: NewsFormType) => {
     // const newNewsItem = { content: data.content };
-    // dispatch(setNews([...newsLocal, newNewsItem]));
     await createContent(data.content);
     reset();
   };
 
   const handleDelete = async (index: number) => {
     // const updatedNews = newsLocal.filter((_, i) => i !== index);
-    // dispatch(setNews(updatedNews));
     await deleteContent(index);
   };
 
@@ -51,6 +49,7 @@ function NewsForm({ language }: { language: string }) {
     async function getSupabaseData() {
       const data = await getHadith();
       setSupbaseData(data);
+      dispatch(setNews(data));
     }
     
     // Subscribe to changes in the 'hadith' table

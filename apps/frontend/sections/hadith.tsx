@@ -9,7 +9,6 @@ import { Hadith } from '@islamic-kit/hadith';
 import { useMediaQuery } from 'react-responsive';
 import { StarSvg } from '../assets/hadith/star';
 import {
-  NewsType,
   selectHadithTickerSpeed,
   selectNews,
   selectOrientation,
@@ -17,7 +16,7 @@ import {
 } from '../lib/features/settings';
 // import { fetchHadithList } from '../lib/features/hadith';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import { createContent, getHadith } from '../lib/database/actions';
+import { createContent, getHadith, hadithSupbaseType } from '../lib/database/actions';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
@@ -88,7 +87,7 @@ const HadithTicker = ({
   speed: number;
   direction: 'right' | 'left';
 }) => {
-  const news: NewsType[] = useSelector(selectNews);
+  const news: hadithSupbaseType[] = useSelector(selectNews);
   const data = news.length > 0 ? news : hadith;
 
   return (

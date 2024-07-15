@@ -1,4 +1,4 @@
-import supabase from './CreateClient';
+import supabase  from './CreateClient';
 
 export type hadithSupbaseType = {
   id: number;
