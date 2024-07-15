@@ -35,6 +35,7 @@ export default async function RootLayout({
         <head>
           <ColorSchemeScript />
           <link rel="shortcut icon" href="/favicon.svg" />
+          <link rel="manifest" href="/manifest.json" />
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"

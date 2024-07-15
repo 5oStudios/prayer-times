@@ -1,0 +1,9 @@
+{
+    "name": "Prayer Times",
+    "short_name": "Prayer Times",
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }
