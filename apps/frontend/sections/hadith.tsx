@@ -4,7 +4,7 @@ import Marquee from 'react-fast-marquee';
 import { Flex, Text } from '@mantine/core';
 import localFont from 'next/font/local';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Hadith } from '@islamic-kit/hadith';
 import { useMediaQuery } from 'react-responsive';
 import { StarSvg } from '../assets/hadith/star';
@@ -15,9 +15,9 @@ import {
   selectOrientation,
   setHadithTickerSpeed,
 } from '../lib/features/settings';
-import { fetchHadithList } from '../lib/features/hadith';
+// import { fetchHadithList } from '../lib/features/hadith';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import { supabase } from '../lib/database/CreateClient';
+import { createContent, getHadith } from '../lib/database/actions';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
@@ -29,6 +29,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const tickerSpeed = useSelector(selectHadithTickerSpeed);
   const [data, setData] = useState<string[]>([]);
+  const hasFetched = useRef(false); // Add this line
 
   // const hadith = useSelector(selectHadith);
   const hadith: Hadith[] = [
@@ -41,15 +42,30 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const direction = lang === 'ar' ? 'right' : 'left';
 
   useEffect(() => {
-    // @ts-expect-error - This fix this
-    dispatch(fetchHadithList(lang));
-  }, [dispatch, lang]);
+    // if (hasFetched.current) return; // Add this line
 
-  // async function featchHadith() {
-  //   const hadithData = supabase.from('hadith').select('*');
-  //   console.log('hadith data =', hadithData);
-  //   setData(hadithData);
-  // }
+    // const addContent = async () => {
+    //   try {
+    //     await createContent('bb');
+    //   } catch (error) {
+    //     console.error('Error creating content:', error);
+    //   }
+    // };
+
+    // const readContent = async () => {
+    //   try {
+    //     const data = await getHadith();
+    //     console.log(data);
+    //   } catch (error) {
+    //     console.error('Error reading content:', error);
+    //   }
+    // };
+
+    // // readContent();
+    // addContent();
+
+    // hasFetched.current = true; // Add this line
+  }, [dispatch, lang]); // Updated dependencies
 
   return (
     <div
