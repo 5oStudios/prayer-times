@@ -45,6 +45,8 @@ export type SettingsState = {
   adDuration: number;
   enableAd: boolean;
   disableSunRiseAzan: boolean;
+  arabicHadith:string[];
+  englishHadith:string[];
 };
 
 const initialState: SettingsState = {
@@ -78,6 +80,8 @@ const initialState: SettingsState = {
   adDuration: 1,
   enableAd: false,
   disableSunRiseAzan: false,
+  arabicHadith:[],
+  englishHadith:[]
 };
 
 const settingsSlice = createSlice({
@@ -174,6 +178,12 @@ const settingsSlice = createSlice({
     setDisableSunRiseAzan: (state, action) => {
       state.disableSunRiseAzan = action.payload;
     },
+    setArabicHadith: (state, action) => {
+      state.arabicHadith = action.payload;
+    },
+    setEnglishHadith: (state, action) => {
+      state.englishHadith = action.payload;
+    },
   },
 });
 
@@ -208,6 +218,8 @@ export const {
   setAdDuration,
   setEnableAd,
   setDisableSunRiseAzan,
+  setArabicHadith,
+  setEnglishHadith,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -244,3 +256,5 @@ export const selectAdEveryHowManyMinutes = (state: RootState) =>
 export const selectAdDuration = (state: RootState) => state.settings.adDuration;
 export const selectEnableAd = (state: RootState) => state.settings.enableAd;
 export const selectDisableSunRiseAzan = (state: RootState) => state.settings.disableSunRiseAzan;
+export const selectArabicHadith = (state: RootState) => state.settings.arabicHadith;
+export const selectEnglishHadith = (state: RootState) => state.settings.englishHadith;

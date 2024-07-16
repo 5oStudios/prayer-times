@@ -4,19 +4,24 @@ import Marquee from 'react-fast-marquee';
 import { Flex, Text } from '@mantine/core';
 import localFont from 'next/font/local';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, use } from 'react';
 import { Hadith } from '@islamic-kit/hadith';
 import { useMediaQuery } from 'react-responsive';
 import { StarSvg } from '../assets/hadith/star';
 import {
+  selectArabicHadith,
+  selectEnglishHadith,
   selectHadithTickerSpeed,
   selectNews,
   selectOrientation,
+  setArabicHadith,
+  setEnglishHadith,
   setHadithTickerSpeed,
 } from '../lib/features/settings';
 // import { fetchHadithList } from '../lib/features/hadith';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 import { createContent, getHadith, hadithSupbaseType } from '../lib/database/actions';
+import { getAllHadithArabic, getAllHadithEnglish } from '../lib/hadith/actions';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
@@ -25,46 +30,8 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const orientation = useSelector(selectOrientation);
   if (orientation !== '') dispatch(setHadithTickerSpeed(10));
   else dispatch(setHadithTickerSpeed(75));
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const tickerSpeed = useSelector(selectHadithTickerSpeed);
-  const [data, setData] = useState<string[]>([]);
-  const hasFetched = useRef(false); // Add this line
-
-  // const hadith = useSelector(selectHadith);
-  const hadith: Hadith[] = [
-    {
-      content: 'برنامج تجريبي',
-      id: '1',
-      translations: [],
-    },
-  ];
   const direction = lang === 'ar' ? 'right' : 'left';
-
-  useEffect(() => {
-    // if (hasFetched.current) return; // Add this line
-
-    // const addContent = async () => {
-    //   try {
-    //     await createContent('bb');
-    //   } catch (error) {
-    //     console.error('Error creating content:', error);
-    //   }
-    // };
-
-    // const readContent = async () => {
-    //   try {
-    //     const data = await getHadith();
-    //     console.log(data);
-    //   } catch (error) {
-    //     console.error('Error reading content:', error);
-    //   }
-    // };
-
-    // // readContent();
-    // addContent();
-
-    // hasFetched.current = true; // Add this line
-  }, [dispatch, lang]); // Updated dependencies
 
   return (
     <div
@@ -73,23 +40,31 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
         maxWidth: '100vw',
       }}
     >
-      <HadithTicker hadith={hadith} speed={tickerSpeed} direction={direction} />
+      <HadithTicker speed={tickerSpeed} direction={direction} lang={lang} />
     </div>
   );
 };
 
 const HadithTicker = ({
-  hadith,
   speed,
   direction,
+  lang,
 }: {
-  hadith: Hadith[];
   speed: number;
   direction: 'right' | 'left';
+  lang: SupportedLanguages;
 }) => {
-  const news: hadithSupbaseType[] = useSelector(selectNews);
-  const data = news.length > 0 ? news : hadith;
-
+  const [hadith, setHadith] = useState<string[]>([]);
+  const [index, setIndex] = useState<number>(0);
+  useEffect(() => {
+    const fetchHadith = async () => {
+      const hadithData =
+        lang === 'ar' ? await getAllHadithArabic(index) : await getAllHadithEnglish(index);
+      setHadith((prevNews) => [...prevNews, ...hadithData]);
+    };
+    fetchHadith();
+  }, [index]);
+  console.log({ hadith });
   return (
     <Marquee
       className="ticker-bg"
@@ -97,9 +72,10 @@ const HadithTicker = ({
       autoFill
       speed={speed}
       style={{ width: '100%' }}
+      onCycleComplete={() => setIndex(index + 1)}
     >
-      {data.map((item, id) => (
-        <HadithComponent id={id} item={item.content} key={id} />
+      {hadith.map((item, id) => (
+        <HadithComponent id={id} item={item} key={id} />
       ))}
     </Marquee>
   );

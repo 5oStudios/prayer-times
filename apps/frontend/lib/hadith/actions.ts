@@ -1,18 +1,29 @@
+'use server';
+
 import hadith from './sahih_bukhari.json';
 import { SahihAlBukhari } from './type.js';
 
 const db: SahihAlBukhari = hadith as SahihAlBukhari;
 
-export function getAllHadithEnglish() {
+function getAllHadithEnglish(index: number): string[] {
   const allBooks = db.all_books;
-  return allBooks.map((sentence) => {
-    sentence.english_title;
+  const allEnglishHadiths: string[] = [];
+  allBooks[index].hadith_list.forEach((hadith) => {
+    allEnglishHadiths.push(hadith.english_text);
   });
+
+  return allEnglishHadiths;
 }
 
-export function getAllHadithArabic() {
+function getAllHadithArabic(index: number): string[] {
   const allBooks = db.all_books;
-  return allBooks.map((sentence) => {
-    sentence.arabic_title;
+  const allArabicHadiths: string[] = [];
+
+  allBooks[index].hadith_list.forEach((hadith) => {
+    allArabicHadiths.push(hadith.arabic_text);
   });
+
+  return allArabicHadiths;
 }
+
+export { getAllHadithEnglish, getAllHadithArabic };
