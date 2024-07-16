@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
@@ -11,16 +11,7 @@ import { AzkarSection } from '../../sections/azkar';
 import { ClockSection } from '../../sections/clock';
 import DateSection from '../../sections/date';
 import { Settings } from '../../components';
-import {
-  selectBackground,
-  selectOrientation,
-  selectMasjidName,
-  setHideScreen,
-  setShowAzanTime,
-  setShowAzKar,
-  setEnableCountDown,
-  selectImamName,
-} from '../../lib/features/settings';
+import { selectSettings } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
 import styles from '../../assets/css/settings.module.css';
@@ -33,25 +24,15 @@ import NextPrayTime from '../../components/nextPrayTime';
 import AdScreen from '../../components/settings/ads/adScreen';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
-  const orientation = useSelector(selectOrientation);
-  const backgroundImageIndex = useSelector(selectBackground);
-  const imamName = useSelector(selectImamName);
+  const { orientation, background, ImamName, masjidName } = useSelector(selectSettings);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dictionary = useDictionary();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setShowAzanTime(false));
-    dispatch(setHideScreen(false));
-    dispatch(setShowAzKar(false));
-    dispatch(setEnableCountDown(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
+  const changeBG = background === 1 || background === 3;
   return (
     <div className={`${orientation}`}>
       <Settings language={lang} changeBtnColor={changeBG} />
-      <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
+      <div className={`screen-wrapper theme-red screen-wrapper${background}`}>
         <AdScreen />
         <BlackScreen />
         <Azkar />
@@ -66,7 +47,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <div
           className={`mosquee-name ${changeBG ? 'whiteText' : ''} ${isTabletOrMobile ? styles.mobileTextSizeName : ''}`}
         >
-          {useSelector(selectMasjidName)}
+          {masjidName}
         </div>
         <div
           style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}
@@ -78,7 +59,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <PrayerTimesSection lang={lang} />
         {/* <div className="emam-name">إمام المسجد: الشيخ مشاري العفاسي</div> */}
         <div className="emam-name" style={{ color: changeBG ? 'white' : 'black' }}>
-          {imamName.length > 0 ? `${dictionary.settings.imamName.ImamElMasjid} : ${imamName}` : ''}
+          {ImamName.length > 0 ? `${dictionary.settings.imamName.ImamElMasjid} : ${ImamName}` : ''}
         </div>
 
         <div className="hadith-marquee">
