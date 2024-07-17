@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
-import { hadithSupbaseType } from '../database/actions';
 
 export enum ORIENTATION {
   DEFAULT = '',
@@ -18,7 +17,6 @@ export type SettingsState = {
   hadithTickerSpeed: number;
   orientation: ORIENTATION;
   masjidName: string;
-  news: hadithSupbaseType[];
   hideScreen: boolean;
   url: string;
   enableURL: boolean;
@@ -53,7 +51,6 @@ const initialState: SettingsState = {
   hadithTickerSpeed: 4000,
   orientation: ORIENTATION.DEFAULT,
   masjidName: '',
-  news: [],
   hideScreen: false,
   url: '',
   enableURL: false,
@@ -99,9 +96,6 @@ const settingsSlice = createSlice({
     },
     setHideScreen: (state, action) => {
       state.hideScreen = action.payload;
-    },
-    setNews: (state, action) => {
-      state.news = action.payload;
     },
     setURL: (state, action) => {
       state.url = action.payload;
@@ -191,7 +185,6 @@ export const {
   setHadithTickerSpeed,
   setOrientation,
   setMasjidName,
-  setNews,
   setHideScreen,
   setURL,
   setEnableURL,
@@ -227,7 +220,6 @@ export default settingsSlice;
 export const selectHadithTickerSpeed = (state: RootState) => state.settings.hadithTickerSpeed;
 export const selectOrientation = (state: RootState) => state.settings.orientation;
 export const selectMasjidName = (state: RootState) => state.settings.masjidName;
-export const selectNews = (state: RootState) => state.settings.news;
 export const selectHideScreen = (state: RootState) => state.settings.hideScreen;
 export const selectURL = (state: RootState) => state.settings.url;
 export const selectEnableURL = (state: RootState) => state.settings.enableURL;

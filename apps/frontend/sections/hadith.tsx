@@ -12,7 +12,6 @@ import {
   setHadithTickerSpeed,
 } from '../lib/features/settings';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import { getHadith } from '../lib/database/actions';
 import { getHadithLocal } from '../lib/hadith/actions';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
