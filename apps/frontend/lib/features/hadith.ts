@@ -23,7 +23,7 @@ export const fetchHadithList = createAsyncThunk('hadith/fetchHadithList', async 
       return response;
     }
   } catch (error) {
-    console.log('Error fetching hadith list:', error);
+    throw error;
   }
 });
 
