@@ -17,10 +17,12 @@ export class OnlineClient {
   }
 
   async getHadithList({
+    index,
     categoryId,
     page,
     perPage,
   }: {
+    index: number;
     categoryId?: number;
     page?: number;
     perPage?: number;

@@ -6,28 +6,6 @@ import { SahihAlBukhari } from './type.js';
 const db: SahihAlBukhari = hadith as SahihAlBukhari;
 const indexLimit = 96;
 
-type GetHadithProps = {
-  index: number;
-  lang: string;
-  currentHadith: string[];
-};
-
-export async function getHadithLocal({
-  index,
-  lang,
-  currentHadith,
-}: GetHadithProps): Promise<string[]> {
-  if (lang === 'ar') {
-    const allArabicHadiths = getAllHadithArabic(index);
-    currentHadith.push(...allArabicHadiths);
-    return currentHadith;
-  } else {
-    const allEnglishHadiths = getAllHadithEnglish(index);
-    currentHadith.push(...allEnglishHadiths);
-    return currentHadith;
-  }
-}
-
 function getAllHadithEnglish(index: number): string[] {
   if (index > indexLimit) return [];
   const allBooks = db.all_books;
@@ -50,3 +28,9 @@ function getAllHadithArabic(index: number): string[] {
 
   return allArabicHadiths;
 }
+
+function getAllRoots() {
+  return db.all_books.map((book) => book.arabic_title);
+}
+
+export { getAllHadithArabic, getAllHadithEnglish, getAllRoots };
