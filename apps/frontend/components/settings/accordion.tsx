@@ -8,7 +8,6 @@ import styles from './accordion.module.css';
 import style from '../../assets/css/settings.module.css';
 import Language from './general/language';
 import MasjidName from './general/masjidName';
-import NewsForm from './news/news';
 import HideDisplayScreen from './displayScreen/hideDisplayScreen';
 import { QRCodeGenerator } from './displayScreen/displayQRcode';
 import Themes from './displayScreen/themes';
@@ -34,10 +33,6 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
       value: dictionary.settings.general,
     },
     {
-      emoji: '📰',
-      value: dictionary.settings.news,
-    },
-    {
       emoji: '📺',
       value: dictionary.settings.displayScreen.title,
     },
@@ -61,11 +56,6 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <DisplayNextPrayTime isArabic={isArabic} />
             <HideSunRise isArabic={isArabic} />
             <DiableSunRiseAzan isArabic={isArabic} />
-          </div>
-        )}
-        {item.value === dictionary.settings.news && (
-          <div>
-            <NewsForm language={language} />
           </div>
         )}
         {item.value === dictionary.settings.displayScreen.title && (
