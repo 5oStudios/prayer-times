@@ -1,4 +1,4 @@
-import { Hadith, Meta, OnlineAPIResponse } from "libs/hadith/src/interfaces";
+import { Hadith, Meta, OnlineAPIResponse } from "../../../../src/interfaces";
 
 
 export const convertStringsToHadithResponse = (strings: string[]): OnlineAPIResponse<Hadith[]> => {
