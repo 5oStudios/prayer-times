@@ -1,3 +1,4 @@
+import { SupportedLanguages } from 'apps/frontend/app/i18n/dictionaries';
 import supabase  from './CreateClient';
 
 export type hadithSupbaseType = {
@@ -19,7 +20,7 @@ async function createContent(content: string) {
   return data;
 }
 
-async function getHadith(): Promise<hadithSupbaseType[]> {
+async function getHadith(index: number, lang: SupportedLanguages, setHadith: unknown, hadith: string[]): Promise<hadithSupbaseType[]> {
   const { data, error } = await supabase.from('hadith').select('*');
 
   if (error) {

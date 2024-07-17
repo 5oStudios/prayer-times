@@ -4,24 +4,16 @@ import Marquee from 'react-fast-marquee';
 import { Flex, Text } from '@mantine/core';
 import localFont from 'next/font/local';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState, useRef, use } from 'react';
-import { Hadith } from '@islamic-kit/hadith';
-import { useMediaQuery } from 'react-responsive';
+import { useEffect, useState } from 'react';
 import { StarSvg } from '../assets/hadith/star';
 import {
-  selectArabicHadith,
-  selectEnglishHadith,
   selectHadithTickerSpeed,
-  selectNews,
   selectOrientation,
-  setArabicHadith,
-  setEnglishHadith,
   setHadithTickerSpeed,
 } from '../lib/features/settings';
-// import { fetchHadithList } from '../lib/features/hadith';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import { createContent, getHadith, hadithSupbaseType } from '../lib/database/actions';
-import { getAllHadithArabic, getAllHadithEnglish } from '../lib/hadith/actions';
+import { getHadith } from '../lib/database/actions';
+import { getHadithLocal } from '../lib/hadith/actions';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
@@ -56,14 +48,14 @@ const HadithTicker = ({
 }) => {
   const [hadith, setHadith] = useState<string[]>([]);
   const [index, setIndex] = useState<number>(0);
+
   useEffect(() => {
     const fetchHadith = async () => {
-      const hadithData =
-        lang === 'ar' ? await getAllHadithArabic(index) : await getAllHadithEnglish(index);
-      setHadith((prevNews) => [...prevNews, ...hadithData]);
+      setHadith(await getHadithLocal({ index, lang, currentHadith: hadith }));
     };
     fetchHadith();
-  }, [index]);
+  }, [index, lang]);
+
   console.log({ hadith });
   return (
     <Marquee
