@@ -7,23 +7,19 @@ export const fetchHadithList = createAsyncThunk('hadith/fetchHadithList', async 
     strategy: 'offline',
   });
 
-  try {
-    const response = await hadithClient.getHadithList({
-      index: 0,
-      page: 1,
-      perPage: 100,
-      categoryId: 4,
-    });
+  const response = await hadithClient.getHadithList({
+    index: 0,
+    page: 1,
+    perPage: 100,
+    categoryId: 4,
+  });
 
-    if (Array.isArray(response)) {
-      // Handle the case where response is string[]
-      return convertStringsToHadithResponse(response);
-    } else {
-      // Handle the case where response is OnlineAPIResponse<Hadith[]>
-      return response;
-    }
-  } catch (error) {
-    throw error;
+  if (Array.isArray(response)) {
+    // Handle the case where response is string[]
+    return convertStringsToHadithResponse(response);
+  } else {
+    // Handle the case where response is OnlineAPIResponse<Hadith[]>
+    return response;
   }
 });
 
