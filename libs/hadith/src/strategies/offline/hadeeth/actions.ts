@@ -1,6 +1,6 @@
 'use server';
 
-// @ts-ignore
+// @ts-expect-error
 import hadith from './sahih_bukhari.json';
 import { SahihAlBukhari } from './type.js';
 
