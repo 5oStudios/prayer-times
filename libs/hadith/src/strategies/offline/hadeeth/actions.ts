@@ -1,6 +1,6 @@
 'use server';
 
-// @ts-expect-error
+// @ts-expect-error: Needed because TypeScript doesn't recognize JSON files without resolveJsonModule enabled
 import hadith from './sahih_bukhari.json';
 import { SahihAlBukhari } from './type.js';
 
