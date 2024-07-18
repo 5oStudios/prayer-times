@@ -97,5 +97,5 @@ export function localTimer(time: string, lang: string) {
 }
 
 export function localNumber(number: number, lang: string): string {
-  return new Intl.NumberFormat(lang).format(number);
+  return new Intl.NumberFormat('en').format(number);
 }

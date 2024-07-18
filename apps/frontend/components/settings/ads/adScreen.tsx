@@ -81,7 +81,9 @@ export default function AdScreen() {
           zIndex: '30',
         }}
       >
-        <Image src={adImg} alt="Ad Image" style={{ height: '100%' }} width={700} height={500} />
+        <div style={{ maxWidth: '100%', maxHeight: '100%', overflow: 'hidden' }}>
+          <Image src={adImg} alt="Ad Image" layout="fill" objectFit="contain" />
+        </div>
       </div>
     )
   );

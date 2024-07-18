@@ -44,7 +44,7 @@
       "createNews": "إنشاء خبر",
       "newsTitle": "عنوان الخبر",
       "newsTitlePlaceholder": "أضف العنوان",
-      "newsContent": "محتوى الخبر",
+      "newsContent": ":محتوى الخبر",
       "newsContentPlaceholder": "أضف المحتوى",
       "previousNews": "الأخبار السابقة",
       "NoNewsAvailable": "لا توجد أخبار متاحة"
@@ -67,7 +67,8 @@
       "uploadAzkarImage": "رفع صورة الأذكار",
       "uploadAzkarImagePlaceholder": "رفع صورة",
       "AfterAzanTimer": "مؤقت بعد الأذان",
-      "hideSunrisePrayer": "إخفاء صلاة الشروق"
+      "hideSunrisePrayer": "إخفاء صلاة الشروق",
+      "hideSunRiseAzan": "إخفاء أذان الشروق"
     },
     "masjidName": {
       "title": "اسم المسجد",

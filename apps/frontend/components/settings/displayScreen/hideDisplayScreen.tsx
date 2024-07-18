@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { Text, Switch, NumberInput } from '@mantine/core';
 import '../accordion.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { PrayerTime } from '@islamic-kit/prayer-times';
-import { subscribe, publish } from '@enegix/events';
+import { subscribe } from '@enegix/events';
 
 import {
   selectTimePeriod,
@@ -19,6 +18,7 @@ import {
   setAkamaAfter,
   setEnableCountDown,
   setEnableAd,
+  selectDisableSunRiseAzan,
 } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
@@ -41,6 +41,10 @@ export const getPrayerIndex = (name: string): number => {
     case 'Fajr':
     case 'الفجر': {
       return 0;
+    }
+    case 'Sunrise':
+    case 'الشروق': {
+      return 1;
     }
     case 'Dhuhr':
     case 'الظهر': {
@@ -72,6 +76,8 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const timePeriod = useSelector(selectTimePeriod);
   const akamaAfter = useSelector(selectAkamaAfter);
   // const [alert, setAlert] = useState<boolean>(true);
+  const disableSunRiseAzan = useSelector(selectDisableSunRiseAzan);
+
   const toggleOverlay = () => {
     dispatch(setHideScreen(!value));
   };
@@ -86,18 +92,32 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
     if (index !== -1) {
       dispatch(setEnableAd(false));
       dispatch(setCurrentPrayTimeName(name));
-      console.log('name hide = ', name);
-      dispatch(setShowAzanTime(true));
-      console.log('hello2');
-      setTimeout(
-        () => {
-          dispatch(setShowAzanTime(false));
-          dispatch(setEnableCountDown(true));
-          dispatch(setCurrentTimePeriod(prayerTimePeriod));
-        },
-        akamaAfter * 60 * 1000
-      ); //  azan time
-      // setAlert(true);
+      if (index === 2) {
+        if (!disableSunRiseAzan) {
+          dispatch(setShowAzanTime(true));
+          console.log('tab 2eh');
+          setTimeout(
+            () => {
+              dispatch(setShowAzanTime(false));
+              dispatch(setEnableCountDown(false));
+            },
+            akamaAfter * 60 * 1000
+          ); //  azan time
+        }
+      } else {
+        console.log('name hide = ', name);
+        dispatch(setShowAzanTime(true));
+        console.log('hello2');
+        setTimeout(
+          () => {
+            dispatch(setShowAzanTime(false));
+            dispatch(setEnableCountDown(true));
+            dispatch(setCurrentTimePeriod(prayerTimePeriod));
+          },
+          akamaAfter * 60 * 1000
+        ); //  azan time
+        // setAlert(true);
+      }
     }
   };
 
@@ -109,7 +129,6 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
     console.log('name here = ', prayer.name);
     console.log('azan time fire data = ', prayer);
   });
-
   return (
     <div style={{ marginTop: '2rem' }} className={isArabic ? styles.rightAligned : ''}>
       <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>

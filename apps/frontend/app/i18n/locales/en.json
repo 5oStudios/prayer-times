@@ -58,13 +58,14 @@
       "uploadAzkarImage": "Upload Azkar Image",
       "uploadAzkarImagePlaceholder": "Upload Image",
       "AfterAzanTimer": "After Azan Timer",
-      "hideSunrisePrayer": "hide Sunrise prayer"
+      "hideSunrisePrayer": "hide Sunrise prayer",
+      "hideSunRiseAzan": "hide Sunrise Azan"
     },
     "newsComp": {
       "createNews": "Create News",
       "newsTitle": "News Title",
       "newsTitlePlaceholder": "add title",
-      "newsContent": "News Content",
+      "newsContent": "News Content:",
       "newsContentPlaceholder": "add Content",
       "previousNews": "Previous News",
       "NoNewsAvailable": "No news available"

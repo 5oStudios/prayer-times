@@ -8,16 +8,15 @@ export enum ORIENTATION {
   RIGHT = 'vrRIGHT',
 }
 
-export type NewsType = {
-  title: string;
-  content: string;
-};
+// export type NewsType = {
+//   title: string;
+//   content: string;
+// };
 
 export type SettingsState = {
   hadithTickerSpeed: number;
   orientation: ORIENTATION;
   masjidName: string;
-  news: NewsType[];
   hideScreen: boolean;
   url: string;
   enableURL: boolean;
@@ -43,13 +42,15 @@ export type SettingsState = {
   adEveryHowManyMinutes: number;
   adDuration: number;
   enableAd: boolean;
+  disableSunRiseAzan: boolean;
+  arabicHadith:string[];
+  englishHadith:string[];
 };
 
 const initialState: SettingsState = {
   hadithTickerSpeed: 4000,
   orientation: ORIENTATION.DEFAULT,
   masjidName: '',
-  news: [],
   hideScreen: false,
   url: '',
   enableURL: false,
@@ -75,6 +76,9 @@ const initialState: SettingsState = {
   adEveryHowManyMinutes: 1,
   adDuration: 1,
   enableAd: false,
+  disableSunRiseAzan: false,
+  arabicHadith:[],
+  englishHadith:[]
 };
 
 const settingsSlice = createSlice({
@@ -92,9 +96,6 @@ const settingsSlice = createSlice({
     },
     setHideScreen: (state, action) => {
       state.hideScreen = action.payload;
-    },
-    setNews: (state, action) => {
-      state.news = action.payload;
     },
     setURL: (state, action) => {
       state.url = action.payload;
@@ -168,6 +169,15 @@ const settingsSlice = createSlice({
     setEnableAd: (state, action) => {
       state.enableAd = action.payload;
     },
+    setDisableSunRiseAzan: (state, action) => {
+      state.disableSunRiseAzan = action.payload;
+    },
+    setArabicHadith: (state, action) => {
+      state.arabicHadith = action.payload;
+    },
+    setEnglishHadith: (state, action) => {
+      state.englishHadith = action.payload;
+    },
   },
 });
 
@@ -175,7 +185,6 @@ export const {
   setHadithTickerSpeed,
   setOrientation,
   setMasjidName,
-  setNews,
   setHideScreen,
   setURL,
   setEnableURL,
@@ -201,6 +210,9 @@ export const {
   setAdEveryHowManyMinutes,
   setAdDuration,
   setEnableAd,
+  setDisableSunRiseAzan,
+  setArabicHadith,
+  setEnglishHadith,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -208,7 +220,6 @@ export default settingsSlice;
 export const selectHadithTickerSpeed = (state: RootState) => state.settings.hadithTickerSpeed;
 export const selectOrientation = (state: RootState) => state.settings.orientation;
 export const selectMasjidName = (state: RootState) => state.settings.masjidName;
-export const selectNews = (state: RootState) => state.settings.news;
 export const selectHideScreen = (state: RootState) => state.settings.hideScreen;
 export const selectURL = (state: RootState) => state.settings.url;
 export const selectEnableURL = (state: RootState) => state.settings.enableURL;
@@ -236,3 +247,6 @@ export const selectAdEveryHowManyMinutes = (state: RootState) =>
   state.settings.adEveryHowManyMinutes;
 export const selectAdDuration = (state: RootState) => state.settings.adDuration;
 export const selectEnableAd = (state: RootState) => state.settings.enableAd;
+export const selectDisableSunRiseAzan = (state: RootState) => state.settings.disableSunRiseAzan;
+export const selectArabicHadith = (state: RootState) => state.settings.arabicHadith;
+export const selectEnglishHadith = (state: RootState) => state.settings.englishHadith;

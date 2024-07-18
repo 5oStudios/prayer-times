@@ -8,7 +8,6 @@ import styles from './accordion.module.css';
 import style from '../../assets/css/settings.module.css';
 import Language from './general/language';
 import MasjidName from './general/masjidName';
-import NewsForm from './news/news';
 import HideDisplayScreen from './displayScreen/hideDisplayScreen';
 import { QRCodeGenerator } from './displayScreen/displayQRcode';
 import Themes from './displayScreen/themes';
@@ -18,8 +17,9 @@ import AfterAzanTime from './displayScreen/afterAzanTime';
 import ImamName from './general/imamName';
 import Location from './general/location';
 import DisplayNextPrayTime from './general/displayNextPrayTime';
-import HideSunRise from './displayScreen/hideSunRise';
+import HideSunRise from './general/hideSunRise';
 import AdsControl from './ads/adsControl';
+import DiableSunRiseAzan from './general/diableSunRiseAzan';
 
 type SettingsAccordionProps = {
   language: string;
@@ -31,10 +31,6 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
     {
       emoji: '︎⚙️',
       value: dictionary.settings.general,
-    },
-    {
-      emoji: '📰',
-      value: dictionary.settings.news,
     },
     {
       emoji: '📺',
@@ -59,11 +55,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <Location isArabic={isArabic} />
             <DisplayNextPrayTime isArabic={isArabic} />
             <HideSunRise isArabic={isArabic} />
-          </div>
-        )}
-        {item.value === dictionary.settings.news && (
-          <div>
-            <NewsForm language={language} />
+            <DiableSunRiseAzan isArabic={isArabic} />
           </div>
         )}
         {item.value === dictionary.settings.displayScreen.title && (
@@ -78,7 +70,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         )}
         {item.value === dictionary.settings.ads.title && (
           <div>
-            <AdsControl isArabic={isArabic}  />
+            <AdsControl isArabic={isArabic} />
           </div>
         )}
       </MantineAccordion.Panel>
