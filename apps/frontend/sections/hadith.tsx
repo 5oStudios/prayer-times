@@ -5,19 +5,21 @@ import localFont from 'next/font/local';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectHadithTickerSpeed,
+  selectNews,
   selectOrientation,
   setHadithTickerSpeed,
 } from '../lib/features/settings';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 import { HadithClient, Hadith } from '@islamic-kit/hadith';
 import { StarSvg } from '../assets/hadith/star';
+import { NewsType } from '../components/settings/news/news';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
 export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const orientation = useSelector(selectOrientation);
-  
+
   useEffect(() => {
     if (orientation !== '') {
       dispatch(setHadithTickerSpeed(10));
@@ -52,6 +54,7 @@ const HadithTicker = ({
 }) => {
   const [currentHadith, setCurrentHadith] = useState<string[]>([]);
   const [index, setIndex] = useState<number>(0);
+  const news = useSelector(selectNews) as NewsType[];
   const hadithClient = new HadithClient({
     language: lang === 'ar' ? 'ARABIC' : 'ENGLISH',
     strategy: 'offline',
@@ -60,7 +63,7 @@ const HadithTicker = ({
   useEffect(() => {
     const fetchHadith = async () => {
       const response = await hadithClient.getHadithList({ index });
-      
+
       if (Array.isArray(response)) {
         setCurrentHadith(response); // Handle direct array response
       } else {
@@ -73,6 +76,8 @@ const HadithTicker = ({
 
   console.log(currentHadith);
 
+  const isNews = news.length > 0;
+  const data = isNews ? news.map((item) => item.content) : currentHadith;
   return (
     <Marquee
       className="ticker-bg"
@@ -82,7 +87,7 @@ const HadithTicker = ({
       style={{ width: '100%' }}
       onCycleComplete={() => setIndex(index + 1)}
     >
-      {currentHadith.map((item, id) => (
+      {data.map((item, id) => (
         <HadithComponent id={id} item={item} key={id} />
       ))}
     </Marquee>
