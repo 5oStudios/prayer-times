@@ -12,6 +12,7 @@ import {
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 import { HadithClient, Hadith } from '@islamic-kit/hadith';
 import { StarSvg } from '../assets/hadith/star';
+// eslint-disable-next-line import/no-cycle
 import { NewsType } from '../components/settings/news/news';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
