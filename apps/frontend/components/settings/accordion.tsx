@@ -20,6 +20,7 @@ import DisplayNextPrayTime from './general/displayNextPrayTime';
 import HideSunRise from './general/hideSunRise';
 import AdsControl from './ads/adsControl';
 import DiableSunRiseAzan from './general/diableSunRiseAzan';
+import NewsForm from './news/news';
 
 type SettingsAccordionProps = {
   language: string;
@@ -31,6 +32,10 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
     {
       emoji: '︎⚙️',
       value: dictionary.settings.general,
+    },
+    {
+      emoji: '📰',
+      value: dictionary.settings.news,
     },
     {
       emoji: '📺',
@@ -56,6 +61,11 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <DisplayNextPrayTime isArabic={isArabic} />
             <HideSunRise isArabic={isArabic} />
             <DiableSunRiseAzan isArabic={isArabic} />
+          </div>
+        )}
+        {item.value === dictionary.settings.news && (
+          <div>
+            <NewsForm language={language} />
           </div>
         )}
         {item.value === dictionary.settings.displayScreen.title && (

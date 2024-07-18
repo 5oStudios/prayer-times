@@ -2,6 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
 
+type NewsType = {
+  content: string;
+};
+
 export enum ORIENTATION {
   DEFAULT = '',
   LEFT = 'vrLEFT',
@@ -27,6 +31,7 @@ export type SettingsState = {
   showAzanTime: boolean;
   currentPrayTimeName: string;
   onlyFriday: boolean;
+  news: NewsType[];
   AkamaAfter: number;
   enableCountDown: boolean;
   showAzKar: boolean;
@@ -43,8 +48,8 @@ export type SettingsState = {
   adDuration: number;
   enableAd: boolean;
   disableSunRiseAzan: boolean;
-  arabicHadith:string[];
-  englishHadith:string[];
+  arabicHadith: string[];
+  englishHadith: string[];
 };
 
 const initialState: SettingsState = {
@@ -77,8 +82,9 @@ const initialState: SettingsState = {
   adDuration: 1,
   enableAd: false,
   disableSunRiseAzan: false,
-  arabicHadith:[],
-  englishHadith:[]
+  arabicHadith: [],
+  englishHadith: [],
+  news: [],
 };
 
 const settingsSlice = createSlice({
@@ -178,6 +184,9 @@ const settingsSlice = createSlice({
     setEnglishHadith: (state, action) => {
       state.englishHadith = action.payload;
     },
+    setNews: (state, action) => {
+      state.news = action.payload;
+    },
   },
 });
 
@@ -213,6 +222,7 @@ export const {
   setDisableSunRiseAzan,
   setArabicHadith,
   setEnglishHadith,
+  setNews,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -250,3 +260,4 @@ export const selectEnableAd = (state: RootState) => state.settings.enableAd;
 export const selectDisableSunRiseAzan = (state: RootState) => state.settings.disableSunRiseAzan;
 export const selectArabicHadith = (state: RootState) => state.settings.arabicHadith;
 export const selectEnglishHadith = (state: RootState) => state.settings.englishHadith;
+export const selectNews = (state: RootState) => state.settings.news;
