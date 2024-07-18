@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
-import { NewsType } from 'apps/frontend/components/settings/news/news';
+import { NewsType } from '../../components/settings/news/news';
 
 export enum ORIENTATION {
   DEFAULT = '',
