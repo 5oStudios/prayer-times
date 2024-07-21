@@ -68,7 +68,8 @@
       "uploadAzkarImagePlaceholder": "رفع صورة",
       "AfterAzanTimer": "مؤقت بعد الأذان",
       "hideSunrisePrayer": "إخفاء صلاة الشروق",
-      "hideSunRiseAzan": "إخفاء أذان الشروق"
+      "hideSunRiseAzan": "إخفاء أذان الشروق",
+      "adjustTime": "ضبط وقت الصلاة"
     },
     "masjidName": {
       "title": "اسم المسجد",

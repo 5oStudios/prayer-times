@@ -21,6 +21,7 @@ import HideSunRise from './general/hideSunRise';
 import AdsControl from './ads/adsControl';
 import DiableSunRiseAzan from './general/diableSunRiseAzan';
 import NewsForm from './news/news';
+import AdjustTimes from './displayScreen/adjustTimes';
 
 type SettingsAccordionProps = {
   language: string;
@@ -75,6 +76,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <Themes isArabic={isArabic} />
             <HideDisplayScreen isArabic={isArabic} />
             <AfterAzanTime isArabic={isArabic} />
+            <AdjustTimes isArabic={isArabic} />
             <Toggle />
           </div>
         )}

@@ -48,12 +48,21 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [coordinates, dispatch, timesStatus]);
 
   const localizedTimes = useMemo(() => {
-    const newTimes = displayTime.map(({ name, time, remaining, isNext }) => ({
-      name: dictionary.times[capitalize(name) as keyof typeof dictionary.times], // simplify this
-      time: formatTime(time, lang),
-      remaining,
-      isNext,
-    }));
+    const minutesToAdjust = 1; // Add one minute
+  
+    const newTimes = displayTime.map(({ name, time, remaining, isNext }) => {
+      // Adjust the time by adding one minute
+      const adjustedTime = new Date(time);
+      adjustedTime.setMinutes(adjustedTime.getMinutes() + minutesToAdjust);
+  
+      return {
+        name: dictionary.times[capitalize(name) as keyof typeof dictionary.times],
+        time: formatTime(adjustedTime, lang),
+        remaining,
+        isNext,
+      };
+    });
+  
     return newTimes;
   }, [dictionary, times, lang, displayTime]);
 
@@ -74,7 +83,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       style={isTabletOrMobile ? { gap: '1rem' } : { gap: '0.5rem' }}
       className="times-section"
     >
-      {localizedTimes.map((prayer) =>
+      {localizedTimes.map((prayer) => //add here
         (prayer.name === 'Sunrise' || prayer.name === 'الشروق') && hideSunRise ? (
           <></>
         ) : (
