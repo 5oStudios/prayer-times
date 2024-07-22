@@ -178,7 +178,7 @@ type BlackScreenInputCardProps = {
   isArabic: boolean;
 };
 
-function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardProps) {
+export function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardProps) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const timePeriod = useSelector(selectTimePeriod);
