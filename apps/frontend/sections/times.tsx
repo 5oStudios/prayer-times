@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
@@ -15,6 +15,7 @@ import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 import {
+  selectAdjustPrayTimes,
   selectHideSunRise,
   setCurrentPrayTimeName,
   setRemainingTime,
@@ -30,6 +31,9 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
   const hideSunRise = useSelector(selectHideSunRise);
+  const adjustedPrayerTimes = useSelector(selectAdjustPrayTimes);
+  const isArabic = lang === 'ar';
+  const arIndex = [5, 4, 3, 2, 1, 0];
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     // alert(`It's time for from store ${prayer.name}`);
@@ -48,32 +52,35 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [coordinates, dispatch, timesStatus]);
 
   const localizedTimes = useMemo(() => {
-    const minutesToAdjust = 1; // Add one minute
-  
-    const newTimes = displayTime.map(({ name, time, remaining, isNext }) => {
-      // Adjust the time by adding one minute
-      const adjustedTime = new Date(time);
-      adjustedTime.setMinutes(adjustedTime.getMinutes() + minutesToAdjust);
-  
+    return displayTime.map((prayer, index) => {
+      const adjustedTime = new Date(prayer.time);
+      adjustedTime.setMinutes(
+        adjustedTime.getMinutes() +
+          adjustedPrayerTimes[isArabic && !isPortrait ? arIndex[index] : index]
+      );
+      console.log('prayer ', prayer.name, ' remainingTime ', prayer.remaining);
       return {
-        name: dictionary.times[capitalize(name) as keyof typeof dictionary.times],
+        ...prayer,
+        remaining:
+          prayer.remaining +
+          adjustedPrayerTimes[isArabic && !isPortrait ? arIndex[index] : index] * 60000,
+        name: dictionary.times[capitalize(prayer.name) as keyof typeof dictionary.times],
         time: formatTime(adjustedTime, lang),
-        remaining,
-        isNext,
       };
     });
-  
-    return newTimes;
-  }, [dictionary, times, lang, displayTime]);
+  }, [displayTime, dictionary, adjustedPrayerTimes, lang]);
 
   useEffect(() => {
-    const prayer = times.find((e) => e.isNext);
-    if (!prayer) return;
-    dispatch(setRemainingTime(prayer.remaining));
+    const prayerIndex = times.findIndex((e) => e.isNext);
+    if (prayerIndex === -1) return;
+    const prayer = times[prayerIndex];
+    dispatch(setRemainingTime(prayer.remaining + adjustedPrayerTimes[prayerIndex] * 60000));
     dispatch(setCurrentPrayTimeName(prayer.name));
-    console.log(prayer.name);
-    console.log('time set remaining', prayer.remaining);
-  }, [dispatch, times, displayTime]);
+
+    console.log('Next prayer:', prayer.name);
+    console.log('Time remaining:', prayer.remaining);
+    console.log('Prayer index:', prayerIndex);
+  }, [dispatch, times, adjustedPrayerTimes]);
 
   return (
     <Flex
@@ -83,17 +90,20 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       style={isTabletOrMobile ? { gap: '1rem' } : { gap: '0.5rem' }}
       className="times-section"
     >
-      {localizedTimes.map((prayer) => //add here
-        (prayer.name === 'Sunrise' || prayer.name === 'الشروق') && hideSunRise ? (
-          <></>
-        ) : (
-          <PrayerTimesCard
-            key={prayer.name}
-            prayer={prayer}
-            coordinates={coordinates}
-            lang={lang}
-          />
-        )
+      {localizedTimes.map(
+        (
+          prayer //add here
+        ) =>
+          (prayer.name === 'Sunrise' || prayer.name === 'الشروق') && hideSunRise ? (
+            <></>
+          ) : (
+            <PrayerTimesCard
+              key={prayer.name}
+              prayer={prayer}
+              coordinates={coordinates}
+              lang={lang}
+            />
+          )
       )}
     </Flex>
   );
