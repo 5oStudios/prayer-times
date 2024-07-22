@@ -1,12 +1,12 @@
 import { NumberInput, Text } from '@mantine/core';
-import { useDictionary } from 'apps/frontend/app/[lang]/dictionary-provider';
-import { selectTimes } from 'apps/frontend/lib/features/times';
+import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import { selectTimes } from '../../../lib/features/times';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../../assets/css/settings.module.css';
 import { PrayerTimesDictionary } from './hideDisplayScreen';
 import { PrayerTime } from '@islamic-kit/prayer-times';
-import { selectAdjustPrayTimes, setAdjustPrayTimes } from 'apps/frontend/lib/features/settings';
+import { selectAdjustPrayTimes, setAdjustPrayTimes } from '../../../lib/features/settings';
 
 export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
