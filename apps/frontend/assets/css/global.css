@@ -40,6 +40,25 @@
 
 .ticker-bg {
   background: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  max-width: 100vw;
+}
+
+/* For the inner Marquee */
+.ticker-inner {
+  display: flex;
+  gap: var(--gap, 3rem); /* Default gap between elements */
+  --gap: 3rem; /* Default gap value */
+  --speed: 2500; /* Speed factor */
+
+  /* Example animation using --duration and --speed */
+  animation: tickerAnimation var(--duration, 2500s) linear infinite;
+
+  /* Optional: Keyframes for the animation */
+  @keyframes tickerAnimation {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-100% - var(--gap))); }
+  }
 }
 
 body {

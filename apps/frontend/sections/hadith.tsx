@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Marquee from 'react-fast-marquee';
+// import Marquee from 'react-fast-marquee';
 import { Flex, Text } from '@mantine/core';
 import localFont from 'next/font/local';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +14,8 @@ import { HadithClient, Hadith } from '@islamic-kit/hadith';
 import { StarSvg } from '../assets/hadith/star';
 // eslint-disable-next-line import/no-cycle
 import { NewsType } from '../components/settings/news/news';
+import { Marquee } from '@devnomic/marquee';
+import '@devnomic/marquee/dist/index.css';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
@@ -25,7 +27,7 @@ export const HadithSection = ({ lang }: { lang: SupportedLanguages }) => {
     if (orientation !== '') {
       dispatch(setHadithTickerSpeed(10));
     } else {
-      dispatch(setHadithTickerSpeed(75));
+      dispatch(setHadithTickerSpeed(90));
     }
   }, [orientation, dispatch]);
 
@@ -76,17 +78,30 @@ const HadithTicker = ({
   }, [index, lang]);
 
   console.log(currentHadith);
-
+  const reverse = direction === 'right' ? true :false;
   const isNews = news.length > 0;
   const data = isNews ? news.map((item) => item.content) : currentHadith;
   return (
+    // <Marquee
+    //   className="ticker-bg gap-[3rem] [--duration:5s]"
+    //   innerClassName="gap-[3rem] [--gap:3rem]"
+    //   direction="left"
+    //   reverse={reverse}
+
+    //   // direction={direction}
+    //   // autoFill
+    //   // speed={speed}
+    //   // style={{ width: '100%' }}
+    //   // onCycleComplete={() => setIndex(index + 1)}
+    // >
+
+    // </Marquee>
     <Marquee
+      direction="left"
+      reverse={reverse}
+      pauseOnHover={false}
       className="ticker-bg"
-      direction={direction}
-      autoFill
-      speed={speed}
-      style={{ width: '100%' }}
-      onCycleComplete={() => setIndex(index + 1)}
+      innerClassName="ticker-inner"
     >
       {data.map((item, id) => (
         <HadithComponent id={id} item={item} key={id} />
