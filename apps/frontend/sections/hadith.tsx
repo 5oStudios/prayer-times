@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { Flex, Text } from '@mantine/core';
 import localFont from 'next/font/local';
 import { useDispatch, useSelector } from 'react-redux';
+import { Marquee } from '@devnomic/marquee';
+import { Hadith, HadithClient } from '@islamic-kit/hadith';
 import {
   selectHadithTickerSpeed,
   selectNews,
@@ -10,11 +12,9 @@ import {
   setHadithTickerSpeed,
 } from '../lib/features/settings';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import { HadithClient, Hadith } from '@islamic-kit/hadith';
 import { StarSvg } from '../assets/hadith/star';
 // eslint-disable-next-line import/no-cycle
 import { NewsType } from '../components/settings/news/news';
-import { Marquee } from '@devnomic/marquee';
 import '@devnomic/marquee/dist/index.css';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
@@ -78,9 +78,23 @@ const HadithTicker = ({
   }, [index, lang]);
 
   console.log(currentHadith);
-  const reverse = direction === 'right' ? true :false;
+  const reverse = direction === 'right';
   const isNews = news.length > 0;
   const data = isNews ? news.map((item) => item.content) : currentHadith;
+  function updateTickerDuration() {
+    const screenWidth = window.innerWidth;
+    const duration = screenWidth / 0.5;
+    document.querySelector('.ticker-inner')?.setAttribute('style', `--duration:${duration}s`);
+  }
+
+  useEffect(() => {
+    updateTickerDuration();
+    window.addEventListener('resize', updateTickerDuration);
+    return () => {
+      window.removeEventListener('resize', updateTickerDuration);
+    };
+  }, []);
+
   return (
     // <Marquee
     //   className="ticker-bg gap-[3rem] [--duration:5s]"
@@ -130,3 +144,13 @@ const HadithComponent = ({ id, item }: { id: number; item: string }) => (
 );
 
 export default HadithTicker;
+
+const calculateDuration = () => {
+  const screenWidth = window.innerWidth;
+  const baseDuration = 5; // Base duration in seconds
+
+  // Adjust the duration based on screen width
+  const duration = baseDuration * (screenWidth / 1920); // Assuming 1920px as the reference width
+
+  return `${duration}s`;
+};
