@@ -15,7 +15,8 @@ import {
   setCountry,
 } from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
-import { getCities, getCoordinates, getCountries } from '../../../lib/coordinatesActions/actions';
+import { getCities } from '../../../lib/coordinatesActions/actions';
+import { getPrayerTimes } from 'apps/frontend/lib/kuwaitTimes/actions';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
@@ -25,63 +26,15 @@ const kuwaitCoordinates = {
 export default function Location({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
-  const countryLoc = useSelector(selectCountry);
-  const cityloc = useSelector(selectCity);
-  const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
   const autoLocation = useSelector(selectAutoLocation);
-  const countries = getCountries();
-  const [cities, setCities] = useState([]);
-  const [cityData, setCityData] = useState<string>(cityloc);
-  const [countryC, setCountryC] = useState<string>(countryLoc);
+  const [cities, setCities] = useState<string[]>([]);
 
   useEffect(() => {
-    if (countryLoc) {
-      const data = getCities(countryLoc);
-      const citiesData = data.map((city: { name: string }) => city.name);
-      setCities(citiesData);
-    }
+    const citiesList = getCities();
+    setCities(citiesList);
+    console.log('cities = ', citiesList);
+    console.log('times = ', getPrayerTimes('july', '23'));
   }, []);
-
-  const AutoSet = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const newCoordinates = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
-        setCoordinates(newCoordinates);
-      },
-      () => setCoordinates(kuwaitCoordinates)
-    );
-  };
-
-  useEffect(() => {
-    if (autoLocation) AutoSet();
-    console.log('country = ', countryLoc, ' ', 'city = ', cityloc);
-  }, []);
-
-  const onCountrySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCountry = event.target.value;
-    setCountryC(selectedCountry);
-    dispatch(setCountry(selectedCountry));
-    const data = getCities(selectedCountry);
-    const citiesData = data.map((city: { name: string }) => city.name);
-    console.log(citiesData);
-    setCities(citiesData);
-  };
-  const onCitySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCity = event.target.value;
-    setCityData(selectedCity);
-    console.log(selectedCity);
-    dispatch(setCity(selectedCity));
-    const data = getCoordinates(countryC, selectedCity);
-    console.log('lat = ', data?.latitude, ' ', 'long = ', data?.longitude);
-    setCoordinates({ latitude: data?.latitude, longitude: data?.longitude });
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  };
 
   return (
     <div style={{ marginTop: '1rem' }} className={isArabic ? style.alRight : ''}>
@@ -92,18 +45,21 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
       >
         <NativeSelect
           disabled={autoLocation}
-          defaultValue={countryC}
+          defaultValue={'الكويت'}
           label={dictionary.settings.location.country}
-          data={countries}
-          onChange={onCountrySelect}
+          data={['الكويت']}
           style={{ width: '45%' }}
         />
+
         <NativeSelect
           disabled={autoLocation}
-          value={cityData}
+          value={cities[0]}
           label={dictionary.settings.location.city}
           data={cities}
-          onChange={onCitySelect}
+          onChange={(event) => {
+            const selectedCity = event.currentTarget.value;
+            dispatch(setCity(selectedCity));
+          }}
           style={{ width: '45%' }}
         />
       </div>
@@ -112,7 +68,6 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         defaultChecked={autoLocation}
         onChange={() => {
           dispatch(setAutoLocation(!autoLocation));
-          AutoSet();
           setTimeout(() => {
             window.location.reload();
           }, 100);
