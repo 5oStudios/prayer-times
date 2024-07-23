@@ -30,6 +30,7 @@ export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
         )}
       </div>
       <button
+        type="button"
         onClick={() => {
           setTimeout(() => {
             window.location.reload();
