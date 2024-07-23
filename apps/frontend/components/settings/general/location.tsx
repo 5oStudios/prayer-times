@@ -26,6 +26,7 @@ const kuwaitCoordinates = {
 export default function Location({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
+  const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
   const autoLocation = useSelector(selectAutoLocation);
   const [cities, setCities] = useState<string[]>([]);
 
@@ -33,7 +34,25 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
     const citiesList = getCities();
     setCities(citiesList);
     console.log('cities = ', citiesList);
-    console.log('times = ', getPrayerTimes('july', '23'));
+    console.log('times = ', getPrayerTimes('JUL', '7-23'));
+  }, []);
+
+  const AutoSet = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const newCoordinates = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
+        setCoordinates(newCoordinates);
+      },
+      () => setCoordinates(kuwaitCoordinates)
+    );
+  };
+
+  useEffect(() => {
+    if (autoLocation) AutoSet();
   }, []);
 
   return (
