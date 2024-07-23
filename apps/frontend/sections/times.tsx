@@ -60,8 +60,12 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     return displayTime.map((prayer, index) => {
       console.log('time here = ', todayTimes);
       let date;
+      let remaining;
       if (!autoLocation) {
         const hour = todayTimes[isArabic && !isPortrait ? arIndex[index] : index];
+        const holder = timeStringToDate(hour);
+        const now = new Date();
+        remaining = holder.getTime() - now.getTime();
         console.log(' This time ', hour);
         const prayTime = timeStringToDate(hour);
         date = prayTime;
@@ -75,8 +79,9 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       return {
         ...prayer,
         remaining:
+          remaining ??
           prayer.remaining +
-          adjustedPrayerTimes[isArabic && !isPortrait ? arIndex[index] : index] * 60000,
+            adjustedPrayerTimes[isArabic && !isPortrait ? arIndex[index] : index] * 60000,
         name: dictionary.times[capitalize(prayer.name) as keyof typeof dictionary.times],
         time: formatTime(date ?? adjustedTime, lang),
       };
