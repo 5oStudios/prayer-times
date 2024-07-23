@@ -16,10 +16,13 @@ import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 import {
   selectAdjustPrayTimes,
+  selectAutoLocation,
   selectHideSunRise,
+  selectTodayPrayerTimes,
   setCurrentPrayTimeName,
   setRemainingTime,
 } from '../lib/features/settings';
+import { timeStringToDate } from '../lib/kuwaitTimes/actions';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -33,7 +36,9 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const hideSunRise = useSelector(selectHideSunRise);
   const adjustedPrayerTimes = useSelector(selectAdjustPrayTimes);
   const isArabic = lang === 'ar';
+  const autoLocation = useSelector(selectAutoLocation);
   const arIndex = [5, 4, 3, 2, 1, 0];
+  const todayTimes = useSelector(selectTodayPrayerTimes);
 
   subscribe<PrayerTime>('next-prayer', (prayer) => {
     // alert(`It's time for from store ${prayer.name}`);
@@ -53,6 +58,14 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
 
   const localizedTimes = useMemo(() => {
     return displayTime.map((prayer, index) => {
+      console.log('time here = ', todayTimes);
+      let date;
+      if (!autoLocation) {
+        const hour = todayTimes[isArabic && !isPortrait ? arIndex[index] : index];
+        console.log(' This time ', hour);
+        const prayTime = timeStringToDate(hour);
+        date = prayTime;
+      }
       const adjustedTime = new Date(prayer.time);
       adjustedTime.setMinutes(
         adjustedTime.getMinutes() +
@@ -65,7 +78,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
           prayer.remaining +
           adjustedPrayerTimes[isArabic && !isPortrait ? arIndex[index] : index] * 60000,
         name: dictionary.times[capitalize(prayer.name) as keyof typeof dictionary.times],
-        time: formatTime(adjustedTime, lang),
+        time: formatTime(date ?? adjustedTime, lang),
       };
     });
   }, [displayTime, dictionary, adjustedPrayerTimes, lang]);

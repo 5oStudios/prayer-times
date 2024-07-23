@@ -51,6 +51,7 @@ export type SettingsState = {
   arabicHadith: string[];
   englishHadith: string[];
   adjustPrayTimes: number[];
+  todayPrayerTimes: string[];
 };
 
 const initialState: SettingsState = {
@@ -73,7 +74,7 @@ const initialState: SettingsState = {
   showAzKar: false,
   azkarImage: '',
   ImamName: '',
-  autoLocation: true,
+  autoLocation: false,
   remainingTime: 0,
   enableNextPrayDisplay: false,
   country: '',
@@ -87,6 +88,7 @@ const initialState: SettingsState = {
   arabicHadith: [],
   englishHadith: [],
   news: [],
+  todayPrayerTimes: [],
 };
 
 const settingsSlice = createSlice({
@@ -192,6 +194,9 @@ const settingsSlice = createSlice({
     setAdjustPrayTimes: (state, action) => {
       state.adjustPrayTimes = action.payload;
     },
+    setTodayPrayerTimes: (state, action) => {
+      state.todayPrayerTimes = action.payload;
+    },
   },
 });
 
@@ -229,6 +234,7 @@ export const {
   setEnglishHadith,
   setNews,
   setAdjustPrayTimes,
+  setTodayPrayerTimes,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -268,3 +274,4 @@ export const selectArabicHadith = (state: RootState) => state.settings.arabicHad
 export const selectEnglishHadith = (state: RootState) => state.settings.englishHadith;
 export const selectNews = (state: RootState) => state.settings.news;
 export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
+export const selectTodayPrayerTimes = (state: RootState) => state.settings.todayPrayerTimes;

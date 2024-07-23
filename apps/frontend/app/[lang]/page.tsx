@@ -20,6 +20,7 @@ import {
   setShowAzKar,
   setEnableCountDown,
   selectImamName,
+  setTodayPrayerTimes,
 } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
@@ -31,6 +32,11 @@ import Azkar from '../../components/showAzkar';
 import { useDictionary } from './dictionary-provider';
 import NextPrayTime from '../../components/nextPrayTime';
 import AdScreen from '../../components/settings/ads/adScreen';
+import {
+  getFormattedDate,
+  getMonthAbbreviation,
+  getPrayerTimes,
+} from '../../lib/kuwaitTimes/actions';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -40,6 +46,11 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   useEffect(() => {
+    const getDate = getFormattedDate();
+    const getMonth = getMonthAbbreviation();
+    const getTimes = getPrayerTimes(getMonth, getDate);
+    console.log('times ==', getTimes?.times);
+    dispatch(setTodayPrayerTimes(getTimes?.times));
     dispatch(setShowAzanTime(false));
     dispatch(setHideScreen(false));
     dispatch(setShowAzKar(false));

@@ -34,7 +34,6 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
     const citiesList = getCities();
     setCities(citiesList);
     console.log('cities = ', citiesList);
-    console.log('times = ', getPrayerTimes('JUL', '7-23'));
   }, []);
 
   const AutoSet = () => {
@@ -50,9 +49,22 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
       () => setCoordinates(kuwaitCoordinates)
     );
   };
-
+  const setDefult = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const newCoordinates = {
+          latitude: 0,
+          longitude: 0,
+        };
+        localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
+        setCoordinates(newCoordinates);
+      },
+      () => setCoordinates(kuwaitCoordinates)
+    );
+  };
   useEffect(() => {
     if (autoLocation) AutoSet();
+    else setDefult();
   }, []);
 
   return (
