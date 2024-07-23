@@ -1,27 +1,22 @@
-export type PrayerTimes = {
-  date: string;
-  fajr: string;
-  shurooq: string;
-  dhuhr: string;
-  asr: string;
-  maghrib: string;
-  isha: string;
+export type TimeEntry = {
+  date: string; // Format: "MM-DD"
+  times: string[]; // Array of times in "HH:MM" format
 };
 
-export type PrayerTimesData = {
-  [key in Months]: PrayerTimes[];
+export type MonthlyData = {
+  [month: string]: TimeEntry[]; // Keys are month abbreviations (e.g., "JAN", "FEB")
 };
 
 export type Months =
-  | 'january'
-  | 'february'
-  | 'march'
-  | 'april'
-  | 'may'
-  | 'june'
-  | 'july'
-  | 'august'
-  | 'september'
-  | 'october'
-  | 'november'
-  | 'december';
+  | 'JAN'
+  | 'FEB'
+  | 'MAR'
+  | 'APR'
+  | 'MAY'
+  | 'JUN'
+  | 'JUL'
+  | 'AUG'
+  | 'SEP'
+  | 'OCT'
+  | 'NOV'
+  | 'DEC';
