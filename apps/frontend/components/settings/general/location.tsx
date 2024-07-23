@@ -16,7 +16,7 @@ import {
 } from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
 import { getCities } from '../../../lib/coordinatesActions/actions';
-import { getPrayerTimes } from 'apps/frontend/lib/kuwaitTimes/actions';
+import { getPrayerTimes } from '../../../lib/kuwaitTimes/actions';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
