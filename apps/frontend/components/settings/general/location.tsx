@@ -49,22 +49,22 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
       () => setCoordinates(kuwaitCoordinates)
     );
   };
-  // const setDefult = () => {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       const newCoordinates = {
-  //         latitude: 0,
-  //         longitude: 0,
-  //       };
-  //       localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
-  //       setCoordinates(newCoordinates);
-  //     },
-  //     () => setCoordinates(kuwaitCoordinates)
-  //   );
-  // };
+  const setDefult = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const newCoordinates = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.latitude,
+        };
+        localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
+        setCoordinates(newCoordinates);
+      },
+      () => setCoordinates(kuwaitCoordinates)
+    );
+  };
   useEffect(() => {
     if (autoLocation) AutoSet();
-    // else setDefult();
+    else setDefult();
   }, []);
 
   return (
