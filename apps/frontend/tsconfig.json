@@ -1,16 +1,8 @@
 {
   "compilerOptions": {
-    "types": [
-      "node",
-      "jest",
-      "@testing-library/jest-dom"
-    ],
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "target": "ESNext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -34,10 +26,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "../../dist/apps/frontend/.next/types/**/*.ts"
-, "lib/coordinatesActions/actions.js"  ],
-  "exclude": [
-    "node_modules"
+    "../../dist/apps/frontend/.next/types/**/*.ts",
+    "lib/coordinatesActions/actions.ts"
   ],
+  "exclude": ["node_modules"],
   "extends": "../../tsconfig.base.json"
 }

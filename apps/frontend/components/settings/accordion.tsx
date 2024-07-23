@@ -46,6 +46,10 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
       emoji: '📢',
       value: dictionary.settings.ads.title,
     },
+    {
+      emoji: '⏱️',
+      value: dictionary.settings.prayerTime.title,
+    },
   ];
   const isArabic = language === 'ar';
   const items = groceries.map((item) => (
@@ -76,7 +80,6 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <Themes isArabic={isArabic} />
             <HideDisplayScreen isArabic={isArabic} />
             <AfterAzanTime isArabic={isArabic} />
-            <AdjustTimes isArabic={isArabic} />
             <Toggle />
           </div>
         )}
@@ -85,6 +88,13 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <AdsControl isArabic={isArabic} />
           </div>
         )}
+
+        {item.value === dictionary.settings.prayerTime.title && (
+          <div className={isArabic ? style.alRight : ''}>
+            <AdjustTimes isArabic={isArabic} />
+          </div>
+        )}
+
       </MantineAccordion.Panel>
     </MantineAccordion.Item>
   ));
