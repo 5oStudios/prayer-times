@@ -1,4 +1,6 @@
-import { NumberInput, Text } from '@mantine/core';
+'use Client';
+
+import { Button, NumberInput, Text } from '@mantine/core';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectTimes } from '../../../lib/features/times';
 import React from 'react';
@@ -12,7 +14,7 @@ export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
   const dictionary = useDictionary();
   return (
-    <div style={{ marginTop: '2rem' }} className={isArabic ? styles.rightAligned : ''}>
+    <div className={isArabic ? styles.rightAligned : ''}>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.adjustTime}
       </Text>
@@ -27,6 +29,26 @@ export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
             )
         )}
       </div>
+      <button
+        type="button"
+        onClick={() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+        }}
+        style={{
+          backgroundColor: 'green',
+          paddingRight: '1rem',
+          paddingLeft: '1rem',
+          paddingTop: '0.5rem',
+          paddingBottom: '0.5rem',
+          border: 'none',
+          borderRadius: '8px',
+          color: 'white',
+        }}
+      >
+        حفظ
+      </button>
     </div>
   );
 }
@@ -55,9 +77,6 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
     const updatedTimePeriod = [...timePeriod];
     updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
     dispatch(setAdjustPrayTimes(updatedTimePeriod));
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
 
   return (
@@ -72,8 +91,8 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
     >
       <Text style={{ marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
       <NumberInput
-        defaultValue={timePeriod[index]}
         onChange={handleChange}
+        defaultValue={timePeriod[index]}
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },
         }}

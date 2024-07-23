@@ -49,6 +49,9 @@
       "previousNews": "الأخبار السابقة",
       "NoNewsAvailable": "لا توجد أخبار متاحة"
     },
+    "prayerTime":{
+      "title":"أوقات الصلاة"
+    },
     "ads": {
       "title": "الإعلانات",
       "labelFile": "صورة الإعلان",

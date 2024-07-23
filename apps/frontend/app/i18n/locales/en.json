@@ -40,6 +40,9 @@
       "enable": "Enable",
       "onlyFriday": "On Friday"
     },
+    "prayerTime":{
+      "title":"Prayer Times"
+    },
     "ads": {
       "title": "Ads",
       "labelFile": "Ad Img",
