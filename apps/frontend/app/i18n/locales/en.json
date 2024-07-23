@@ -59,7 +59,8 @@
       "uploadAzkarImagePlaceholder": "Upload Image",
       "AfterAzanTimer": "After Azan Timer",
       "hideSunrisePrayer": "hide Sunrise prayer",
-      "hideSunRiseAzan": "hide Sunrise Azan"
+      "hideSunRiseAzan": "hide Sunrise Azan",
+      "adjustTime": "adjust prayer time"
     },
     "newsComp": {
       "createNews": "Create News",

@@ -50,6 +50,7 @@ export type SettingsState = {
   disableSunRiseAzan: boolean;
   arabicHadith: string[];
   englishHadith: string[];
+  adjustPrayTimes: number[];
 };
 
 const initialState: SettingsState = {
@@ -62,6 +63,7 @@ const initialState: SettingsState = {
   background: 0,
   timePeriod: [2, 0, 2, 2, 2, 2],
   beforeAzanTimes: [25, 0, 20, 25, 10, 10],
+  adjustPrayTimes: [0, 0, 0, 0, 0, 0],
   currentTimePeriod: 0,
   showAzanTime: false,
   currentPrayTimeName: '',
@@ -187,6 +189,9 @@ const settingsSlice = createSlice({
     setNews: (state, action) => {
       state.news = action.payload;
     },
+    setAdjustPrayTimes: (state, action) => {
+      state.adjustPrayTimes = action.payload;
+    },
   },
 });
 
@@ -223,6 +228,7 @@ export const {
   setArabicHadith,
   setEnglishHadith,
   setNews,
+  setAdjustPrayTimes,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -261,3 +267,4 @@ export const selectDisableSunRiseAzan = (state: RootState) => state.settings.dis
 export const selectArabicHadith = (state: RootState) => state.settings.arabicHadith;
 export const selectEnglishHadith = (state: RootState) => state.settings.englishHadith;
 export const selectNews = (state: RootState) => state.settings.news;
+export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
