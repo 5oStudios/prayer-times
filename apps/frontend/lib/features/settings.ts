@@ -277,5 +277,5 @@ export const selectDisableSunRiseAzan = (state: RootState) => state.settings.dis
 export const selectArabicHadith = (state: RootState) => state.settings.arabicHadith;
 export const selectEnglishHadith = (state: RootState) => state.settings.englishHadith;
 export const selectNews = (state: RootState) => state.settings.news;
-export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
+// export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
 export const selectTodayPrayerTimes = (state: RootState) => state.settings.todayPrayerTimes;

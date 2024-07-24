@@ -10,7 +10,6 @@ export const prayerTimesAdapter = (
 ): PrayerTime[] => {
   const currentTime = new Date().getTime();
   const prayers: PrayerTime[] = Object.entries(times).map(([rawName, time]) => {
-    console.log('prayerTimesAdapter', rawName, time);
     const remaining = computeRemainingTime(currentTime, time.getTime());
     return {
       id: rawName,
@@ -32,7 +31,7 @@ export const prayerTimesAdapter = (
   return prayers;
 };
 
-const computeRemainingTime = (
+export const computeRemainingTime = (
   currentTime: number,
   targetTime: number,
 ): number => {

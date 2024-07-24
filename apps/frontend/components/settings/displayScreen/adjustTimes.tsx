@@ -7,7 +7,7 @@ import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectTimes } from '../../../lib/features/times';
 import styles from '../../../assets/css/settings.module.css';
-import { selectAdjustPrayTimes, setAdjustPrayTimes } from '../../../lib/features/settings';
+import { adjustTime, selectAdjustedTimes } from '../../../lib/features/adjustedTimes';
 
 export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
@@ -28,26 +28,6 @@ export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
             )
         )}
       </div>
-      <button
-        type="button"
-        onClick={() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 100);
-        }}
-        style={{
-          backgroundColor: 'green',
-          paddingRight: '1rem',
-          paddingLeft: '1rem',
-          paddingTop: '0.5rem',
-          paddingBottom: '0.5rem',
-          border: 'none',
-          borderRadius: '8px',
-          color: 'white',
-        }}
-      >
-        حفظ
-      </button>
     </div>
   );
 }
@@ -60,15 +40,17 @@ type AdjustPrayTimesInputCardProps = {
 
 function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInputCardProps) {
   const dispatch = useDispatch();
-  const timePeriod = useSelector(selectAdjustPrayTimes);
+  const adjustTimes = useSelector(selectAdjustedTimes);
 
   const handleChange = (value: number | string) => {
-    if (value === null || value === undefined || value === '') {
+    // TODO: find a better way
+    if (value === null || value === undefined || value === '' || value === '-' || value === '+') {
       return;
     }
-    const updatedTimePeriod = [...timePeriod];
-    updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
-    dispatch(setAdjustPrayTimes(updatedTimePeriod));
+
+    console.log('value', value);
+
+    dispatch(adjustTime({ id: time.id, extraMinutes: Number(value) }));
   };
 
   const name = isArabic ? time.name.ar : time.name.en;
@@ -86,7 +68,7 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
       <Text style={{ marginLeft: '1rem' }}>{name}</Text>
       <NumberInput
         onChange={handleChange}
-        defaultValue={timePeriod[index]}
+        defaultValue={adjustTimes.find((t) => t.id === time.id)?.extraMinutes || 0}
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },
         }}

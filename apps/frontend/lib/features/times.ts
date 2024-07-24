@@ -40,6 +40,12 @@ const initialState: {
   error: null,
 };
 
+// const adjustMinutes = (date: Date, minutes: number) => {
+//   const newDate = new Date(date);
+//   newDate.setMinutes(newDate.getMinutes() + minutes);
+//   return newDate;
+// };
+
 const timesSlice = createSlice({
   name: 'times',
   initialState,
@@ -47,6 +53,18 @@ const timesSlice = createSlice({
     setNextPrayer(state, action) {
       state.nextPrayer = action.payload;
     },
+    setTimes(state, action) {
+      state.times = action.payload;
+    },
+    // adjustPrayerTime(state, action: { payload: { id: string; minutes: number } }) {
+    //   const { id, minutes } = action.payload;
+    //   const targetPrayer = state.times.find((prayer) => prayer.id === id);
+    //   if (!targetPrayer) return;
+    //   const adjustedTime = adjustMinutes(targetPrayer.time, minutes);
+    //
+    //   const newPrayer = Object.assign(targetPrayer, { time: adjustedTime });
+    //   state.times = state.times.map((prayer) => (prayer.id === id ? newPrayer : prayer));
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -72,7 +90,7 @@ const timesSlice = createSlice({
 
 export default timesSlice;
 
-export const { setNextPrayer } = timesSlice.actions;
+export const { setNextPrayer, setTimes } = timesSlice.actions;
 
 export const { selectTimes, selectTimesStatus, selectTimesError, selectNextPrayer } =
   timesSlice.selectors;

@@ -3,7 +3,6 @@
 import { Flex } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
 import { useEffect, useMemo } from 'react';
@@ -53,7 +52,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     const localizedTimes = times.map(({ name, time, remaining, isNext, id }) => ({
       id,
       name,
-      time: formatTime(time, lang),
+      time,
       remaining,
       isNext,
     }));
@@ -121,11 +120,6 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   );
 };
 
-const formatTime = (time: Date, lang: string): string => {
-  moment.locale('en');
-  return moment(time).format('hh:mm');
-};
-
 const playAthan = () => {
   const audio = new Audio(
     'https://download.tvquran.com/download/TvQuran.com__Athan/TvQuran.com__01.athan.mp3'
@@ -137,5 +131,5 @@ export type FormatedPrayerTime = Pick<PrayerTime, 'name' | 'id' | 'isNext' | 're
   time: string;
 };
 
-const reverseTimes = (time: FormatedPrayerTime[], lang: string, isPortrait: boolean) =>
+const reverseTimes = (time: PrayerTime[], lang: string, isPortrait: boolean) =>
   lang === 'ar' ? (isPortrait ? time : time.slice().reverse()) : time;
