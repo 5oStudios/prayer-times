@@ -78,7 +78,7 @@ const initialState: SettingsState = {
   showAzKar: false,
   azkarImage: '',
   ImamName: '',
-  autoLocation: false,
+  autoLocation: true,
   remainingTime: 0,
   enableNextPrayDisplay: false,
   country: '',
