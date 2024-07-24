@@ -51,7 +51,6 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
     const getDate = getFormattedDate();
     const getMonth = getMonthAbbreviation();
     const getTimes = getPrayerTimes(getMonth, getDate);
-    console.log('times ==', getTimes?.times);
     dispatch(setTodayPrayerTimes(getTimes?.times));
     dispatch(setShowAzanTime(false));
     dispatch(setHideScreen(false));

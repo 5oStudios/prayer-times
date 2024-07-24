@@ -1,6 +1,6 @@
 'use client';
 
-import { Text, NumberInput } from '@mantine/core';
+import { NumberInput, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { PrayerTime } from '@islamic-kit/prayer-times';
 import styles from '../../../assets/css/settings.module.css';
@@ -63,7 +63,6 @@ export function BeforeAzanCard({ index, isArabic, time }: BeforeAzanCardProp) {
     const updatedTimePeriod = [...timePeriod];
     updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
     dispatch(setBeforeAzanTimes(updatedTimePeriod));
-    console.log('updatedTimes = ', updatedTimePeriod);
   };
 
   return (

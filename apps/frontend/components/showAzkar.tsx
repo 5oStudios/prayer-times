@@ -9,8 +9,7 @@ export default function Azkar() {
   const azkarImg = useSelector(selectAzkarImage);
   const ShowAzKar = useSelector(selectShowAzkar);
 
-  console.log('azkar image = ', azkarImg);
-  return  ShowAzKar ? (
+  return ShowAzKar ? (
     <div
       style={{
         display: 'flex',

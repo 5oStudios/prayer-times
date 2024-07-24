@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { FileInput, Button } from '@mantine/core';
+import { Button, FileInput } from '@mantine/core';
 import { setAzkarImage } from '../../../lib/features/settings';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 
@@ -13,7 +13,6 @@ export default function LoadAzkarImg() {
     if (file) {
       getBase64Image(file, (base64Image: string) => {
         setFileImg(base64Image);
-        console.log('image =', base64Image);
       });
     } else {
       setFileImg('');
@@ -26,7 +25,7 @@ export default function LoadAzkarImg() {
       callback(reader.result as string);
     };
     reader.onerror = (error) => {
-      console.error('Error converting image to Base64: ', error);
+      // console.error('Error converting image to Base64: ', error);
     };
   };
 

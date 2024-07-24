@@ -1,22 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { NativeSelect, Text, Switch } from '@mantine/core';
+import { NativeSelect, Switch, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Coordinates } from '@islamic-kit/prayer-times';
 import useLocalStorage from 'use-local-storage';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import {
-  selectAutoLocation,
-  selectCity,
-  selectCountry,
-  setAutoLocation,
-  setCity,
-  setCountry,
-} from '../../../lib/features/settings';
+import { selectAutoLocation, setAutoLocation, setCity } from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
 import { getCities } from '../../../lib/coordinatesActions/actions';
-import { getPrayerTimes } from '../../../lib/kuwaitTimes/actions';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
@@ -33,7 +25,6 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
   useEffect(() => {
     const citiesList = getCities();
     setCities(citiesList);
-    console.log('cities = ', citiesList);
   }, []);
 
   const AutoSet = () => {
@@ -76,7 +67,7 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
       >
         <NativeSelect
           disabled={autoLocation}
-          defaultValue={'الكويت'}
+          defaultValue="الكويت"
           label={dictionary.settings.location.country}
           data={['الكويت']}
           style={{ width: '45%' }}

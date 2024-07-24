@@ -3,12 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, Center } from '@mantine/core';
+import { Center, Text } from '@mantine/core';
 import styles from '../../../assets/css/settings.module.css';
 import {
   selectBeforeAzanTimes,
   selectCurrentPrayTimeName,
-  selectCurrentTimePeriod,
   selectEnableCountDown,
   selectOrientation,
   selectTimePeriod,
@@ -40,8 +39,6 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
 
   useEffect(() => {
     if (enableCountDown) {
-      console.log('name = ', name);
-      console.log('index = ', index);
       if (index !== 1) {
         setTimeLeft(beforeAzanTimes[index] * 60); // Setting timeLeft to countdown time in seconds
         // setShow(true);

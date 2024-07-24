@@ -1,5 +1,5 @@
 import { FileInput, NumberInput, Switch, Text } from '@mantine/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import {
   selectAdDuration,
@@ -25,7 +25,6 @@ export default function AdsControl({ isArabic }: { isArabic: boolean }) {
     if (file) {
       getBase64Image(file, (base64Image: string) => {
         dispatch(setAdImg(base64Image));
-        console.log('AdImage =', base64Image);
       });
     } else {
       dispatch(setAdImg(''));

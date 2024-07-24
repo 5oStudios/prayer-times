@@ -1,13 +1,13 @@
 'use Client';
 
-import { Button, NumberInput, Text } from '@mantine/core';
-import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import { selectTimes } from '../../../lib/features/times';
+import { NumberInput, Text } from '@mantine/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { PrayerTime } from '@islamic-kit/prayer-times';
+import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import { selectTimes } from '../../../lib/features/times';
 import styles from '../../../assets/css/settings.module.css';
 import { PrayerTimesDictionary } from './hideDisplayScreen';
-import { PrayerTime } from '@islamic-kit/prayer-times';
 import { selectAdjustPrayTimes, setAdjustPrayTimes } from '../../../lib/features/settings';
 
 export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
@@ -70,7 +70,6 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
   };
 
   const handleChange = (value: number | string) => {
-    console.log('ADvalue', value);
     if (value === null || value === undefined || value === '') {
       return;
     }
