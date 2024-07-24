@@ -1,11 +1,10 @@
 export enum MuslimPrayers {
-  FAJR = 'fajr',
-  SUNRISE = 'sunrise',
-  DHUHR = 'dhuhr',
-  ASR = 'asr',
-  SUNSET = 'sunset',
-  MAGHRIB = 'maghrib',
-  ISHA = 'isha',
+  fajr = 'fajr',
+  sunrise = 'sunrise',
+  dhuhr = 'dhuhr',
+  asr = 'asr',
+  maghrib = 'maghrib',
+  isha = 'isha',
 }
 
 export enum MuslimPrayersAr {
@@ -17,10 +16,16 @@ export enum MuslimPrayersAr {
   isha = 'العشاء',
 }
 
+export type PrayerTimeName = {
+  ar: MuslimPrayersAr;
+  en: MuslimPrayers;
+};
+
 export type SupportedPrayerTimes = { [key in MuslimPrayers]: Date };
 
 export type PrayerTime = {
-  name: MuslimPrayers | MuslimPrayersAr;
+  id: string;
+  name: PrayerTimeName;
   time: Date;
   isNext: boolean;
   remaining: number;

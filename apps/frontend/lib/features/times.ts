@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Coordinates, PrayerTime, PrayerTimesClient } from '@islamic-kit/prayer-times';
+import {
+  Coordinates,
+  MuslimPrayers,
+  MuslimPrayersAr,
+  PrayerTime,
+  PrayerTimesClient,
+} from '@islamic-kit/prayer-times';
 
 export const prayerTimesClient = new PrayerTimesClient({
   strategy: 'OFFLINE',
@@ -15,10 +21,21 @@ export const fetchTimes = createAsyncThunk('times/fetchTimes', async (coordinate
 
 const initialState: {
   times: PrayerTime[];
+  nextPrayer: PrayerTime;
   status: string;
   error: unknown;
 } = {
   times: [],
+  nextPrayer: {
+    id: 'fajr',
+    name: {
+      ar: MuslimPrayersAr.fajr,
+      en: MuslimPrayers.fajr,
+    },
+    time: new Date(),
+    isNext: false,
+    remaining: 0,
+  },
   status: 'idle',
   error: null,
 };
@@ -26,7 +43,11 @@ const initialState: {
 const timesSlice = createSlice({
   name: 'times',
   initialState,
-  reducers: {},
+  reducers: {
+    setNextPrayer(state, action) {
+      state.nextPrayer = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTimes.pending, (state) => {
@@ -43,6 +64,7 @@ const timesSlice = createSlice({
   },
   selectors: {
     selectTimes: (state) => state.times,
+    selectNextPrayer: (state) => state.nextPrayer,
     selectTimesStatus: (state) => state.status,
     selectTimesError: (state) => state.error,
   },
@@ -50,4 +72,7 @@ const timesSlice = createSlice({
 
 export default timesSlice;
 
-export const { selectTimes, selectTimesStatus, selectTimesError } = timesSlice.selectors;
+export const { setNextPrayer } = timesSlice.actions;
+
+export const { selectTimes, selectTimesStatus, selectTimesError, selectNextPrayer } =
+  timesSlice.selectors;

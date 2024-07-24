@@ -6,21 +6,15 @@ import { useMediaQuery } from 'react-responsive';
 import moment from 'moment/moment';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
-import { useMemo } from 'react';
-import { Coordinates, MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
+import { useEffect, useMemo } from 'react';
+import { Coordinates, MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
 import { PrayerTimesCard } from '../components/times/times-card';
 import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
-import {
-  selectAdjustPrayTimes,
-  selectAutoLocation,
-  selectHideSunRise,
-  selectTodayPrayerTimes,
-  setCurrentPrayTimeName,
-} from '../lib/features/settings';
+import { selectHideSunRise } from '../lib/features/settings';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -33,19 +27,19 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const [coordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
   const hideSunRise = useSelector(selectHideSunRise);
-  const adjustedPrayerTimes = useSelector(selectAdjustPrayTimes);
-  const isArabic = lang === 'ar';
-  const autoLocation = useSelector(selectAutoLocation);
-  const arIndex = [5, 4, 3, 2, 1, 0];
-  const todayTimes = useSelector(selectTodayPrayerTimes);
-
-  subscribe<PrayerTime>('next-prayer', (prayer) => {
-    // alert(`It's time for from store ${prayer.name}`);
-    dispatch(setCurrentPrayTimeName(prayer.name));
-    // @ts-expect-error - This expression is not callable.
-    dispatch(fetchTimes(coordinates));
-    //todo: add more actions here
-  });
+  // const adjustedPrayerTimes = useSelector(selectAdjustPrayTimes);
+  // const isArabic = lang === 'ar';
+  // const autoLocation = useSelector(selectAutoLocation);
+  // const arIndex = [5, 4, 3, 2, 1, 0];
+  // const todayTimes = useSelector(selectTodayPrayerTimes);
+  useEffect(() => {
+    subscribe<PrayerTime>('next-prayer', () => {
+      // alert(`It's time for from store ${prayer.name}`);
+      // dispatch(setCurrentPrayTimeName(prayer.name));
+      // @ts-expect-error - This expression is not callable.
+      dispatch(fetchTimes(coordinates));
+    });
+  }, []);
 
   useDeepCompareEffect(() => {
     if (timesStatus !== 'idle') return;
@@ -56,17 +50,21 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   }, [coordinates, dispatch, timesStatus]);
 
   const localizedReversedTimes = useMemo(() => {
-    const localizedTimes = times.map(({ name, time, remaining, isNext }) => ({
-      name: dictionary.times[capitalize(name) as keyof typeof dictionary.times] as unknown as
-        | MuslimPrayersAr
-        | MuslimPrayers,
+    const localizedTimes = times.map(({ name, time, remaining, isNext, id }) => ({
+      id,
+      name,
       time: formatTime(time, lang),
       remaining,
       isNext,
     }));
 
-    return reverseTimes(localizedTimes, lang, isPortrait);
-  }, [times, lang, isPortrait, dictionary]);
+    const reversedTimes = reverseTimes(localizedTimes, lang, isPortrait);
+
+    if (hideSunRise) {
+      return reversedTimes.filter((prayer) => prayer.id !== MuslimPrayers.sunrise);
+    }
+    return reversedTimes;
+  }, [times, hideSunRise, lang, isPortrait]);
 
   // const localizedTimes = useMemo(
   //   () =>
@@ -116,28 +114,14 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       style={isTabletOrMobile ? { gap: '1rem' } : { gap: '0.5rem' }}
       className="times-section"
     >
-      {localizedReversedTimes.map(
-        (
-          prayer //add here
-        ) =>
-          (prayer.name === MuslimPrayers.SUNRISE || prayer.name === MuslimPrayersAr.sunrise) &&
-          hideSunRise ? (
-            <></>
-          ) : (
-            <PrayerTimesCard
-              key={prayer.name}
-              prayer={prayer}
-              coordinates={coordinates}
-              lang={lang}
-            />
-          )
-      )}
+      {localizedReversedTimes.map((prayer) => (
+        <PrayerTimesCard key={prayer.id} prayer={prayer} coordinates={coordinates} lang={lang} />
+      ))}
     </Flex>
   );
 };
 
-export const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1); // TODO: make util
-const formatTime = (time: Date, lang: string) => {
+const formatTime = (time: Date, lang: string): string => {
   moment.locale('en');
   return moment(time).format('hh:mm');
 };
@@ -149,13 +133,9 @@ const playAthan = () => {
   audio.play();
 };
 
-const reverseTimes = (
-  time: {
-    name: MuslimPrayers | MuslimPrayersAr;
-    time: string;
-    remaining: number;
-    isNext: boolean;
-  }[],
-  lang: string,
-  isPortrait: boolean
-) => (lang === 'ar' ? (isPortrait ? time : time.slice().reverse()) : time);
+export type FormatedPrayerTime = Pick<PrayerTime, 'name' | 'id' | 'isNext' | 'remaining'> & {
+  time: string;
+};
+
+const reverseTimes = (time: FormatedPrayerTime[], lang: string, isPortrait: boolean) =>
+  lang === 'ar' ? (isPortrait ? time : time.slice().reverse()) : time;

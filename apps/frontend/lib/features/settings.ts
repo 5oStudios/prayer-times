@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
+import { MuslimPrayers, MuslimPrayersAr, PrayerTimeName } from '@islamic-kit/prayer-times';
 import { RootState } from '../store';
 
 type NewsType = {
@@ -29,7 +30,7 @@ export type SettingsState = {
   beforeAzanTimes: number[];
   currentTimePeriod: number;
   showAzanTime: boolean;
-  currentPrayTimeName: string;
+  currentPrayTimeName: PrayerTimeName;
   onlyFriday: boolean;
   news: NewsType[];
   showAzanDuration: number;
@@ -67,7 +68,10 @@ const initialState: SettingsState = {
   adjustPrayTimes: [0, 0, 0, 0, 0, 0],
   currentTimePeriod: 0,
   showAzanTime: false,
-  currentPrayTimeName: '',
+  currentPrayTimeName: {
+    ar: MuslimPrayersAr.dhuhr,
+    en: MuslimPrayers.dhuhr,
+  },
   onlyFriday: true,
   showAzanDuration: 1,
   enableCountDown: false,

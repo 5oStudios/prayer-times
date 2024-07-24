@@ -1,10 +1,10 @@
 'use client';
 
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import hadithSlice from './features/hadith';
-import timesSlice from './features/times';
+import timesSlice, { setNextPrayer } from './features/times';
 // eslint-disable-next-line import/no-cycle
 import settingsReducer from './features/settings';
 
@@ -42,6 +42,15 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
+});
+
+store.subscribe(() => {
+  const lastNextPrayer = store.getState().times.nextPrayer;
+  const nextPrayer = store.getState().times.times.find((time) => time.isNext);
+
+  if (lastNextPrayer.id === nextPrayer?.id) return;
+
+  if (nextPrayer) store.dispatch(setNextPrayer(nextPrayer));
 });
 
 const persister = persistStore(store);

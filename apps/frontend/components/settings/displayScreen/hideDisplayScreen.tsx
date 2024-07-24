@@ -3,7 +3,7 @@
 import { NumberInput, Switch, Text } from '@mantine/core';
 import '../accordion.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { PrayerTime } from '@islamic-kit/prayer-times';
+import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
 import {
   selectHideScreen,
   selectShowAzanDuration,
@@ -15,18 +15,6 @@ import {
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
 import { selectTimes } from '../../../lib/features/times';
-
-export type PrayerTimesDictionary = {
-  [key: string]: string;
-  Fajr: string;
-  Dhuhr: string;
-  Asr: string;
-  Maghrib: string;
-  Isha: string;
-  Sunrise: string;
-  Sunset: string;
-  Midnight: string;
-};
 
 function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const dispatch = useDispatch();
@@ -57,7 +45,7 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
       >
         {times.map(
           (time, index) =>
-            time.name !== 'sunrise' && (
+            time.id !== MuslimPrayers.sunrise && (
               <BlackScreenInputCard key={index} index={index} isArabic={isArabic} time={time} />
             )
         )}
@@ -86,20 +74,16 @@ type BlackScreenInputCardProps = {
 };
 
 export function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInputCardProps) {
-  const dictionary = useDictionary();
   const dispatch = useDispatch();
   const timePeriod = useSelector(selectTimePeriod);
-
-  const getPrayerTimeNames = (name: string) => {
-    const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-    return (dictionary.times as PrayerTimesDictionary)[capitalized];
-  };
 
   const handleChange = (value: number | string) => {
     const updatedTimePeriod = [...timePeriod];
     updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
     dispatch(setTimePeriod(updatedTimePeriod));
   };
+
+  const name = isArabic ? time.name.ar : time.name.en;
 
   return (
     <div
@@ -111,7 +95,7 @@ export function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInput
         marginBottom: '1rem',
       }}
     >
-      <Text style={{ marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
+      <Text style={{ marginLeft: '1rem' }}>{name}</Text>
       <NumberInput
         defaultValue={timePeriod[index]}
         onChange={handleChange}
@@ -128,36 +112,4 @@ export default HideDisplayScreen;
 const playAlert = () => {
   const audioAlert = new Audio('https://cdn.pixabay.com/audio/2023/01/01/audio_a178429b06.mp3');
   audioAlert.play();
-};
-
-export const getPrayerIndex = (name: string): number => {
-  switch (name) {
-    case 'Fajr':
-    case 'الفجر': {
-      return 0;
-    }
-    case 'Sunrise':
-    case 'الشروق': {
-      return 1;
-    }
-    case 'Dhuhr':
-    case 'الظهر': {
-      return 2;
-    }
-    case 'Asr':
-    case 'العصر': {
-      return 3;
-    }
-    case 'Maghrib':
-    case 'المغرب': {
-      return 4;
-    }
-    case 'Isha':
-    case 'العشاء': {
-      return 5;
-    }
-    default: {
-      return -1;
-    }
-  }
 };

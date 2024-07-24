@@ -7,6 +7,7 @@ import { Coordinates } from '@islamic-kit/prayer-times';
 import Countdown from 'react-countdown';
 import { publish } from '@enegix/events';
 import 'moment/locale/ar';
+import { FormatedPrayerTime } from '../../sections/times';
 
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
@@ -14,18 +15,13 @@ export const PrayerTimesCard = ({
   prayer,
   lang,
 }: {
-  prayer: {
-    name: string;
-    time: string;
-    remaining: number;
-    isNext: boolean;
-  };
+  prayer: FormatedPrayerTime;
   coordinates: Coordinates | null;
   lang: string;
 }) => {
   const localizedTime = localTimer(prayer.time, lang);
   const counter = Date.now() + prayer.remaining;
-  // const counter = Date.now() + 5000;
+  console.log('prayer', prayer);
 
   return (
     <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}>
@@ -46,7 +42,7 @@ export const PrayerTimesCard = ({
           </div>
         </>
       )}
-      <div className="prayer-name">{prayer.name}</div>
+      <div className="prayer-name">{lang === 'ar' ? prayer.name.ar : prayer.name.en}</div>
 
       <div className="remaining-timer vrLayout">
         {prayer.isNext && (

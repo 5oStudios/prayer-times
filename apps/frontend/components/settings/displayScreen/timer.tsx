@@ -1,22 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Center, Text } from '@mantine/core';
 import styles from '../../../assets/css/settings.module.css';
 import {
-  selectBeforeAzanTimes,
-  selectCurrentPrayTimeName,
   selectEnableCountDown,
   selectOrientation,
   selectTimePeriod,
-  setCurrentTimePeriod,
-  setEnableCountDown,
-  setHideScreen,
-  setShowAzKar,
 } from '../../../lib/features/settings';
-import { getPrayerIndex } from './hideDisplayScreen';
 
 const playAlert = () => {
   const audio = new Audio('/assets/media/alert/blip.mp3'); // Path relative to public folder
@@ -26,67 +19,15 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const timePeriod = useSelector(selectTimePeriod);
   const orientation = useSelector(selectOrientation);
   const enableCountDown = useSelector(selectEnableCountDown);
-  const name = useSelector(selectCurrentPrayTimeName);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
-  const dispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const isVertical = orientation === '';
-  const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-  const index = getPrayerIndex(capitalized);
-  // const actualIndex = index === 0 ? 5 : index - 1;
-  const beforeAzanTimes = useSelector(selectBeforeAzanTimes);
-  // const [show,setShow] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (enableCountDown) {
-      if (index !== 1) {
-        setTimeLeft(beforeAzanTimes[index] * 60); // Setting timeLeft to countdown time in seconds
-        // setShow(true);
-      } else setEnableCountDown(false);
-    }
-  }, [enableCountDown, beforeAzanTimes]);
-
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    if (enableCountDown && timeLeft > 0) {
-      const timerId = setInterval(() => {
-        setTimeLeft((prevTime) => {
-          if (prevTime <= 1) {
-            dispatch(setEnableCountDown(false));
-            dispatch(setHideScreen(true));
-            dispatch(setCurrentTimePeriod(-1));
-            playAlert();
-            setTimeout(
-              () => {
-                dispatch(setHideScreen(false));
-                dispatch(setShowAzKar(true));
-                setTimeout(() => {
-                  dispatch(setShowAzKar(false));
-                  // publish('adState', { state: true });
-                }, 60 * 1000); //azkar time
-              },
-              60 * 1000 * timePeriod[index] // hide screen
-            );
-            clearInterval(timerId);
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(timerId);
-    }
-  }, [enableCountDown, timeLeft, dispatch, timePeriod]);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
-
-  // if (timeLeft === 0 && !enableCountDown) {
-  //   return <></>;
-  // }
 
   return (
     enableCountDown && (

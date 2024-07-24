@@ -25,7 +25,7 @@ export default function LoadAzkarImg() {
       callback(reader.result as string);
     };
     reader.onerror = (error) => {
-      // console.error('Error converting image to Base64: ', error);
+      console.error('Error converting image to Base64: ', error);
     };
   };
 

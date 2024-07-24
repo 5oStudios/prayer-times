@@ -29,6 +29,7 @@ export class OfflineClient {
       date,
       this.params,
     ).getTimings();
+    console.log('OfflineClient.getTimings', this.times);
     return this.times;
   }
 

@@ -3,11 +3,10 @@
 import { NumberInput, Text } from '@mantine/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PrayerTime } from '@islamic-kit/prayer-times';
+import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectTimes } from '../../../lib/features/times';
 import styles from '../../../assets/css/settings.module.css';
-import { PrayerTimesDictionary } from './hideDisplayScreen';
 import { selectAdjustPrayTimes, setAdjustPrayTimes } from '../../../lib/features/settings';
 
 export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
@@ -24,7 +23,7 @@ export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
       >
         {times.map(
           (time, index) =>
-            time.name !== 'sunrise' && (
+            time.id !== MuslimPrayers.sunrise && (
               <AdjustPrayTimesInputCard key={index} index={index} isArabic={isArabic} time={time} />
             )
         )}
@@ -60,14 +59,8 @@ type AdjustPrayTimesInputCardProps = {
 };
 
 function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInputCardProps) {
-  const dictionary = useDictionary();
   const dispatch = useDispatch();
   const timePeriod = useSelector(selectAdjustPrayTimes);
-
-  const getPrayerTimeNames = (name: string) => {
-    const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-    return (dictionary.times as PrayerTimesDictionary)[capitalized];
-  };
 
   const handleChange = (value: number | string) => {
     if (value === null || value === undefined || value === '') {
@@ -77,6 +70,8 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
     updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
     dispatch(setAdjustPrayTimes(updatedTimePeriod));
   };
+
+  const name = isArabic ? time.name.ar : time.name.en;
 
   return (
     <div
@@ -88,7 +83,7 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
         marginBottom: '1rem',
       }}
     >
-      <Text style={{ marginLeft: '1rem' }}>{getPrayerTimeNames(time.name)}</Text>
+      <Text style={{ marginLeft: '1rem' }}>{name}</Text>
       <NumberInput
         onChange={handleChange}
         defaultValue={timePeriod[index]}
