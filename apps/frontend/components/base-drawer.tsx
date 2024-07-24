@@ -1,4 +1,4 @@
-import { Button, Burger } from '@mantine/core';
+import { Button } from '@mantine/core';
 import React, { ReactNode, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';

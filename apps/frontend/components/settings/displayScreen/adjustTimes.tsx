@@ -31,7 +31,6 @@ export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
     </div>
   );
 }
-
 type AdjustPrayTimesInputCardProps = {
   time: PrayerTime;
   index: number;
