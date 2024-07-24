@@ -11,7 +11,7 @@ export const prayerTimesAdapter = (
       time,
       isNext: false,
       remaining,
-    };
+    } as PrayerTime;
   });
 
   const lowestRemainingPrayer = prayers.reduce((prev, curr) =>
