@@ -9,6 +9,15 @@ interface CalculationMethod {
   OFFLINE: OfflineCalculationMethod;
 }
 
+export type Shifting = {
+  fajr: number;
+  dhuhr: number;
+  sunrise: number;
+  asr: number;
+  maghrib: number;
+  isha: number;
+};
+
 export class PrayerTimesClient<T extends keyof typeof Strategies> {
   private readonly client: OfflineClient;
   constructor(
@@ -36,9 +45,11 @@ export class PrayerTimesClient<T extends keyof typeof Strategies> {
   async getTimings({
     date,
     coordinates,
+    shifting,
   }: {
     coordinates: Coordinates;
     date: Date;
+    shifting: Shifting;
   }) {
     if (!this.client) throw new Error('Client not available');
 
@@ -47,6 +58,8 @@ export class PrayerTimesClient<T extends keyof typeof Strategies> {
       coordinates,
     });
 
-    return prayerTimesAdapter(rawTimings);
+    console.log('rawTimings', shifting);
+
+    return prayerTimesAdapter(rawTimings, shifting);
   }
 }

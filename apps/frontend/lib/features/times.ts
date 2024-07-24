@@ -5,6 +5,7 @@ import {
   MuslimPrayersAr,
   PrayerTime,
   PrayerTimesClient,
+  Shifting,
 } from '@islamic-kit/prayer-times';
 import { isPointInPolygon } from 'geolib';
 
@@ -20,13 +21,18 @@ export const prayerTimesClient = new PrayerTimesClient({
   region: detectRegion(sharedCoordinates),
 });
 
-export const fetchTimes = createAsyncThunk('times/fetchTimes', async (coordinates: Coordinates) => {
-  sharedCoordinates = coordinates;
-  return prayerTimesClient.getTimings({
-    date: new Date(),
-    coordinates,
-  });
-});
+export const fetchTimes = createAsyncThunk(
+  'times/fetchTimes',
+  async ({ coordinates, shifting }: { coordinates: Coordinates; shifting: Shifting }) => {
+    console.log('fetchTimes', coordinates, shifting);
+    sharedCoordinates = coordinates;
+    return prayerTimesClient.getTimings({
+      date: new Date(),
+      coordinates,
+      shifting,
+    });
+  }
+);
 
 const initialState: {
   times: PrayerTime[];

@@ -4,20 +4,38 @@ import {
   PrayerTime,
   SupportedPrayerTimes,
 } from './interfaces';
+import { Shifting } from './lib/prayer-times-client';
 
 export const prayerTimesAdapter = (
   times: SupportedPrayerTimes,
+  shifting: Shifting = {
+    fajr: 0,
+    dhuhr: 0,
+    sunrise: 0,
+    asr: 0,
+    maghrib: 0,
+    isha: 0,
+  },
 ): PrayerTime[] => {
-  const currentTime = new Date().getTime();
+  const currentTime = new Date();
   const prayers: PrayerTime[] = Object.entries(times).map(([rawName, time]) => {
-    const remaining = computeRemainingTime(currentTime, time.getTime());
+    const shiftMinutes = shifting[rawName as keyof Shifting];
+
+    console.log('shiftMinutes', shifting);
+    const finalTime = new Date(time);
+    finalTime.setMinutes(finalTime.getMinutes() + shiftMinutes);
+
+    const remaining = computeRemainingTime(
+      currentTime.getTime(),
+      finalTime.getTime(),
+    );
     return {
       id: rawName,
       name: {
         ar: MuslimPrayersAr[rawName],
         en: MuslimPrayers[rawName],
       },
-      time,
+      time: finalTime,
       isNext: false,
       remaining,
     };
