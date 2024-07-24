@@ -6,18 +6,27 @@ import {
   PrayerTime,
   PrayerTimesClient,
 } from '@islamic-kit/prayer-times';
+import { isPointInPolygon } from 'geolib';
 
+export const kuwaitCoordinates = {
+  latitude: 29.3759,
+  longitude: 47.9774,
+};
+
+let sharedCoordinates: Coordinates = kuwaitCoordinates;
 export const prayerTimesClient = new PrayerTimesClient({
   strategy: 'OFFLINE',
-  region: 'Egyptian',
+  // TODO: check if we really need it
+  region: detectRegion(sharedCoordinates),
 });
 
-export const fetchTimes = createAsyncThunk('times/fetchTimes', async (coordinates: Coordinates) =>
-  prayerTimesClient.getTimings({
+export const fetchTimes = createAsyncThunk('times/fetchTimes', async (coordinates: Coordinates) => {
+  sharedCoordinates = coordinates;
+  return prayerTimesClient.getTimings({
     date: new Date(),
     coordinates,
-  })
-);
+  });
+});
 
 const initialState: {
   times: PrayerTime[];
@@ -40,11 +49,18 @@ const initialState: {
   error: null,
 };
 
-// const adjustMinutes = (date: Date, minutes: number) => {
-//   const newDate = new Date(date);
-//   newDate.setMinutes(newDate.getMinutes() + minutes);
-//   return newDate;
-// };
+function detectRegion(coordinates: Coordinates): 'Egyptian' | 'Kuwait' {
+  const egyptPolygon = [
+    { latitude: 22.0, longitude: 25.0 },
+    { latitude: 22.0, longitude: 36.0 },
+    { latitude: 31.0, longitude: 36.0 },
+    { latitude: 31.0, longitude: 25.0 },
+  ];
+  if (isPointInPolygon(coordinates, egyptPolygon)) {
+    return 'Egyptian';
+  }
+  return 'Kuwait';
+}
 
 const timesSlice = createSlice({
   name: 'times',
@@ -56,15 +72,6 @@ const timesSlice = createSlice({
     setTimes(state, action) {
       state.times = action.payload;
     },
-    // adjustPrayerTime(state, action: { payload: { id: string; minutes: number } }) {
-    //   const { id, minutes } = action.payload;
-    //   const targetPrayer = state.times.find((prayer) => prayer.id === id);
-    //   if (!targetPrayer) return;
-    //   const adjustedTime = adjustMinutes(targetPrayer.time, minutes);
-    //
-    //   const newPrayer = Object.assign(targetPrayer, { time: adjustedTime });
-    //   state.times = state.times.map((prayer) => (prayer.id === id ? newPrayer : prayer));
-    // },
   },
   extraReducers: (builder) => {
     builder

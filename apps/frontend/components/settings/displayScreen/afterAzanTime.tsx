@@ -37,14 +37,17 @@ type BeforeAzanCardProp = {
   index: number;
   isArabic: boolean;
 };
-export function BeforeAzanCard({ index, isArabic, time }: BeforeAzanCardProp) {
+export function BeforeAzanCard({ isArabic, time }: BeforeAzanCardProp) {
   const dispatch = useDispatch();
-  const timePeriod = useSelector(selectBeforeAzanTimes);
+  const timesBeforeAzan = useSelector(selectBeforeAzanTimes);
 
   const handleChange = (value: number | string) => {
-    const updatedTimePeriod = [...timePeriod];
-    updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
-    dispatch(setBeforeAzanTimes(updatedTimePeriod));
+    dispatch(
+      setBeforeAzanTimes([
+        ...timesBeforeAzan.filter((t) => t.id !== time.id),
+        { id: time.id, minutes: Number(value) },
+      ])
+    );
   };
 
   const name = isArabic ? time.name.ar : time.name.en;
@@ -62,7 +65,7 @@ export function BeforeAzanCard({ index, isArabic, time }: BeforeAzanCardProp) {
     >
       <Text style={{ marginLeft: '1rem' }}>{name}</Text>
       <NumberInput
-        defaultValue={timePeriod[index]}
+        value={timesBeforeAzan.find((t) => t.id === time.id)?.minutes}
         onChange={handleChange}
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },

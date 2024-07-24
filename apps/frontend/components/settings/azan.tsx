@@ -2,7 +2,7 @@ import { Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
 import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
-import { subscribe } from '@enegix/events';
+import { publish, subscribe } from '@enegix/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { ClockSection } from '../../sections/clock';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
@@ -43,11 +43,15 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
 
       dispatch(setEnableAd(false));
 
-      await wait(minuetsToMilliseconds(showAzanDuration));
+      await wait(minuetsToMilliseconds(0.01));
 
       dispatch(setEnableCountDown(true));
       dispatch(setCurrentTimePeriod(prayer));
       setShow(false);
+      publish('start-countdown', {
+        prayer,
+        showAzanDuration,
+      });
     });
   }, []);
 

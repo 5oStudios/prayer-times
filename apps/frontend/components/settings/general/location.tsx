@@ -9,11 +9,7 @@ import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectAutoLocation, setCity } from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
 import { getCities } from '../../../lib/coordinatesActions/actions';
-
-const kuwaitCoordinates = {
-  latitude: 29.3759,
-  longitude: 47.9774,
-};
+import { kuwaitCoordinates } from '../../../lib/features/times';
 
 export default function Location({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();

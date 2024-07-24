@@ -1,6 +1,5 @@
 import '@mantine/core/styles.css';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/carousel/styles.css';
 import { theme } from '../../theme';

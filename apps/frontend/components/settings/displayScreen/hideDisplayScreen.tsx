@@ -78,9 +78,12 @@ export function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInput
   const timePeriod = useSelector(selectTimePeriod);
 
   const handleChange = (value: number | string) => {
-    const updatedTimePeriod = [...timePeriod];
-    updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
-    dispatch(setTimePeriod(updatedTimePeriod));
+    dispatch(
+      setTimePeriod([
+        ...timePeriod.filter((t) => t.id !== time.id),
+        { id: time.id, minutes: Number(value) },
+      ])
+    );
   };
 
   const name = isArabic ? time.name.ar : time.name.en;
@@ -97,7 +100,7 @@ export function BlackScreenInputCard({ index, isArabic, time }: BlackScreenInput
     >
       <Text style={{ marginLeft: '1rem' }}>{name}</Text>
       <NumberInput
-        defaultValue={timePeriod[index]}
+        value={timePeriod.find((t) => t.id === time.id)?.minutes}
         onChange={handleChange}
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },
