@@ -1,7 +1,7 @@
 import { Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
-import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
+import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { ClockSection } from '../../sections/clock';
@@ -15,15 +15,6 @@ import {
   setEnableCountDown,
 } from '../../lib/features/settings';
 import { minuetsToMilliseconds, wait } from '../../utils';
-
-enum MuslimPrayersAr {
-  fajr = 'الفجر',
-  sunrise = 'الشروق',
-  dhuhr = 'الظهر',
-  asr = 'العصر',
-  maghrib = 'المغرب',
-  isha = 'العشاء',
-}
 
 export default function Azan({ language }: { language: SupportedLanguages }) {
   const dictionary = useDictionary();
@@ -82,6 +73,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
         {dictionary.azan}
       </Text>
       <Text style={{ fontSize: isPortrait ? '5rem' : '12rem', color: '#ffffff' }}>
+        {/*// @ts-expect-error - fix ts.*/}
         {isArabic ? MuslimPrayersAr[prayTime.name] : prayTime.name}
       </Text>
     </div>
