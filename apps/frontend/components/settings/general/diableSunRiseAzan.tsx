@@ -1,23 +1,15 @@
 import React from 'react';
 import { Switch, Text } from '@mantine/core';
-import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectDisableSunRiseAzan,
-  setDisableSunRiseAzan,
-} from '../../../lib/features/settings';
+import { useDictionary } from '../../../app/[lang]/dictionary-provider';
+import { selectDisableSunRiseAzan, setDisableSunRiseAzan } from '../../../lib/features/settings';
 
 export default function DiableSunRiseAzan({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const disableAzan = useSelector(selectDisableSunRiseAzan);
-  console.log('disableAzan for sunrise ', disableAzan);
-  const onChange = () => {
-    dispatch(setDisableSunRiseAzan(!disableAzan));
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  };
+  const onChange = () => dispatch(setDisableSunRiseAzan(!disableAzan));
+
   return (
     <div
       style={{

@@ -11,7 +11,7 @@ export enum MuslimPrayers {
 export type SupportedPrayerTimes = { [key in MuslimPrayers]: Date };
 
 export type PrayerTime = {
-  name: string;
+  name: MuslimPrayers;
   time: Date;
   isNext: boolean;
   remaining: number;

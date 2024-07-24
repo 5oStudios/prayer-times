@@ -1,38 +1,69 @@
-import { useState } from 'react';
 import { Text } from '@mantine/core';
-import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import {
-  selectShowAzanTime,
-  selectCurrentPrayTimeName,
-  selectDisableSunRiseAzan,
-} from '../../lib/features/settings';
+import { useEffect, useState } from 'react';
+import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
+import { subscribe } from '@enegix/events';
+import { useDispatch, useSelector } from 'react-redux';
 import { ClockSection } from '../../sections/clock';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import { SupportedLanguages } from '../../app/i18n/dictionaries';
-const getIndex = (name: string, list: string[]) => {
-  const prayerName = name.charAt(0).toUpperCase() + name.slice(1);
-  console.log('namexxxxx', prayerName);
-  console.log('getindex ;', prayerName);
-  const i = list.indexOf(prayerName);
-  console.log('getindex ;', i);
-  return i;
-};
+import {
+  selectDisableSunRiseAzan,
+  selectShowAzanDuration,
+  setCurrentTimePeriod,
+  setEnableAd,
+  setEnableCountDown,
+} from '../../lib/features/settings';
+import { minuetsToMilliseconds, wait } from '../../utils';
+
+enum MuslimPrayersAr {
+  fajr = 'الفجر',
+  sunrise = 'الشروق',
+  dhuhr = 'الظهر',
+  asr = 'العصر',
+  maghrib = 'المغرب',
+  isha = 'العشاء',
+}
+
 export default function Azan({ language }: { language: SupportedLanguages }) {
   const dictionary = useDictionary();
-  const show = useSelector(selectShowAzanTime);
-  const prayName = useSelector(selectCurrentPrayTimeName);
-  const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
-  const arabicPrayerName = ['الفجر', 'الشروق', 'الظهر', 'العصر', 'المغرب', 'العشاء'];
-  const englishPrayerName = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
   const isArabic = language === 'ar';
-  const index = getIndex(prayName, englishPrayerName);
-  console.log('actualIndex ;', index);
-  // const actualIndex = index === 0 ? 5 : index - 1;
-  // console.log('actualIndex ;', actualIndex);
-  
-  return show ? (
+  const [show, setShow] = useState<boolean>(false);
+  const [prayTime, setPrayTime] = useState<PrayerTime | null>(null);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
+  const disableSunRiseAzan = useSelector(selectDisableSunRiseAzan);
+  const showAzanDuration = useSelector(selectShowAzanDuration);
+
+  const dispatch = useDispatch();
+
+  const shouldPlayAzan = (prayer: PrayerTime) => {
+    const isSunrise = prayer.name === MuslimPrayers.SUNRISE;
+    if (!isSunrise) return true;
+    return !disableSunRiseAzan;
+  };
+
+  useEffect(() => {
+    subscribe<PrayerTime>('next-prayer', async (prayer) => {
+      if (!shouldPlayAzan(prayer)) return;
+
+      setPrayTime(prayer);
+      setShow(true);
+
+      dispatch(setEnableAd(false));
+
+      await wait(minuetsToMilliseconds(showAzanDuration));
+
+      dispatch(setEnableCountDown(true));
+      dispatch(setCurrentTimePeriod(prayer));
+      setShow(false);
+    });
+  }, []);
+
+  if (!prayTime) return;
+  if (!show) return;
+
+  return (
     <div
       className="azan-wrapper"
       style={{
@@ -51,10 +82,8 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
         {dictionary.azan}
       </Text>
       <Text style={{ fontSize: isPortrait ? '5rem' : '12rem', color: '#ffffff' }}>
-        {isArabic ? arabicPrayerName[index] : englishPrayerName[index]}
+        {isArabic ? MuslimPrayersAr[prayTime.name] : prayTime.name}
       </Text>
     </div>
-  ) : (
-    <></>
   );
 }

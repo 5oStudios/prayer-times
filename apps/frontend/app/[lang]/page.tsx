@@ -3,6 +3,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
+import { publish } from '@enegix/events';
+import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
@@ -13,13 +15,13 @@ import DateSection from '../../sections/date';
 import { Settings } from '../../components';
 import {
   selectBackground,
-  selectOrientation,
+  selectImamName,
   selectMasjidName,
+  selectOrientation,
+  setEnableCountDown,
   setHideScreen,
   setShowAzanTime,
   setShowAzKar,
-  setEnableCountDown,
-  selectImamName,
   setTodayPrayerTimes,
 } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
@@ -63,6 +65,19 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
     <div className={`${orientation}`}>
       <Settings language={lang} changeBtnColor={changeBG} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
+        <button
+          onClick={() => {
+            const data: PrayerTime = {
+              name: MuslimPrayers.FAJR,
+              time: new Date(),
+              isNext: true,
+              remaining: 3000,
+            };
+            publish('next-prayer', data);
+          }}
+        >
+          TEST
+        </button>
         <AdScreen />
         <BlackScreen />
         <Azkar />
