@@ -1,7 +1,7 @@
 import { Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
-import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
+import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { ClockSection } from '../../sections/clock';
@@ -29,7 +29,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const dispatch = useDispatch();
 
   const shouldPlayAzan = (prayer: PrayerTime) => {
-    const isSunrise = prayer.name === MuslimPrayers.SUNRISE;
+    const isSunrise = prayer.id === MuslimPrayers.sunrise;
     if (!isSunrise) return true;
     return !disableSunRiseAzan;
   };
@@ -54,6 +54,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   if (!prayTime) return;
   if (!show) return;
 
+  // eslint-disable-next-line consistent-return
   return (
     <div
       className="azan-wrapper"
@@ -73,8 +74,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
         {dictionary.azan}
       </Text>
       <Text style={{ fontSize: isPortrait ? '5rem' : '12rem', color: '#ffffff' }}>
-        {/*// @ts-expect-error - fix ts.*/}
-        {isArabic ? MuslimPrayersAr[prayTime.name] : prayTime.name}
+        {isArabic ? prayTime.name.ar : prayTime.name.en}
       </Text>
     </div>
   );

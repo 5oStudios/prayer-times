@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { publish } from '@enegix/events';
-import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
+import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
@@ -67,7 +67,11 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <button
           onClick={() => {
             const data: PrayerTime = {
-              name: MuslimPrayers.FAJR,
+              id: MuslimPrayers.fajr,
+              name: {
+                ar: MuslimPrayersAr.fajr,
+                en: MuslimPrayers.fajr,
+              },
               time: new Date(),
               isNext: true,
               remaining: 3000,
