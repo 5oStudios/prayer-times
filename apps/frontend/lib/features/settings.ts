@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
+import { MuslimPrayers, MuslimPrayersAr, PrayerTimeName } from '@islamic-kit/prayer-times';
 import { RootState } from '../store';
 
 type NewsType = {
@@ -29,10 +30,10 @@ export type SettingsState = {
   beforeAzanTimes: number[];
   currentTimePeriod: number;
   showAzanTime: boolean;
-  currentPrayTimeName: string;
+  currentPrayTimeName: PrayerTimeName;
   onlyFriday: boolean;
   news: NewsType[];
-  AkamaAfter: number;
+  showAzanDuration: number;
   enableCountDown: boolean;
   showAzKar: boolean;
   azkarImage: string;
@@ -51,6 +52,7 @@ export type SettingsState = {
   arabicHadith: string[];
   englishHadith: string[];
   adjustPrayTimes: number[];
+  todayPrayerTimes: string[];
 };
 
 const initialState: SettingsState = {
@@ -66,9 +68,12 @@ const initialState: SettingsState = {
   adjustPrayTimes: [0, 0, 0, 0, 0, 0],
   currentTimePeriod: 0,
   showAzanTime: false,
-  currentPrayTimeName: '',
+  currentPrayTimeName: {
+    ar: MuslimPrayersAr.dhuhr,
+    en: MuslimPrayers.dhuhr,
+  },
   onlyFriday: true,
-  AkamaAfter: 1,
+  showAzanDuration: 1,
   enableCountDown: false,
   showAzKar: false,
   azkarImage: '',
@@ -87,6 +92,7 @@ const initialState: SettingsState = {
   arabicHadith: [],
   englishHadith: [],
   news: [],
+  todayPrayerTimes: [],
 };
 
 const settingsSlice = createSlice({
@@ -129,8 +135,8 @@ const settingsSlice = createSlice({
     setOnlyFriday: (state, action) => {
       state.onlyFriday = action.payload;
     },
-    setAkamaAfter: (state, action) => {
-      state.AkamaAfter = action.payload;
+    setShowAzanDuration: (state, action) => {
+      state.showAzanDuration = action.payload;
     },
     setEnableCountDown: (state, action) => {
       state.enableCountDown = action.payload;
@@ -192,6 +198,9 @@ const settingsSlice = createSlice({
     setAdjustPrayTimes: (state, action) => {
       state.adjustPrayTimes = action.payload;
     },
+    setTodayPrayerTimes: (state, action) => {
+      state.todayPrayerTimes = action.payload;
+    },
   },
 });
 
@@ -208,7 +217,7 @@ export const {
   setShowAzanTime,
   setCurrentPrayTimeName,
   setOnlyFriday,
-  setAkamaAfter,
+  setShowAzanDuration,
   setEnableCountDown,
   setShowAzKar,
   setAzkarImage,
@@ -229,6 +238,7 @@ export const {
   setEnglishHadith,
   setNews,
   setAdjustPrayTimes,
+  setTodayPrayerTimes,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -245,7 +255,7 @@ export const selectCurrentTimePeriod = (state: RootState) => state.settings.curr
 export const selectShowAzanTime = (state: RootState) => state.settings.showAzanTime;
 export const selectCurrentPrayTimeName = (state: RootState) => state.settings.currentPrayTimeName;
 export const selectOnlyFriday = (state: RootState) => state.settings.onlyFriday;
-export const selectAkamaAfter = (state: RootState) => state.settings.AkamaAfter;
+export const selectShowAzanDuration = (state: RootState) => state.settings.showAzanDuration;
 export const selectEnableCountDown = (state: RootState) => state.settings.enableCountDown;
 export const selectShowAzkar = (state: RootState) => state.settings.showAzKar;
 export const selectAzkarImage = (state: RootState) => state.settings.azkarImage;
@@ -267,4 +277,5 @@ export const selectDisableSunRiseAzan = (state: RootState) => state.settings.dis
 export const selectArabicHadith = (state: RootState) => state.settings.arabicHadith;
 export const selectEnglishHadith = (state: RootState) => state.settings.englishHadith;
 export const selectNews = (state: RootState) => state.settings.news;
-export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
+// export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
+export const selectTodayPrayerTimes = (state: RootState) => state.settings.todayPrayerTimes;

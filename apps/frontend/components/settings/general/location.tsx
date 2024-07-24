@@ -1,22 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { NativeSelect, Text, Switch } from '@mantine/core';
+import { NativeSelect, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Coordinates } from '@islamic-kit/prayer-times';
 import useLocalStorage from 'use-local-storage';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import {
-  selectAutoLocation,
-  selectCity,
-  selectCountry,
-  setAutoLocation,
-  setCity,
-  setCountry,
-} from '../../../lib/features/settings';
+import { selectAutoLocation, setCity } from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
 import { getCities } from '../../../lib/coordinatesActions/actions';
-import { getPrayerTimes } from '../../../lib/kuwaitTimes/actions';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
@@ -33,8 +25,6 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
   useEffect(() => {
     const citiesList = getCities();
     setCities(citiesList);
-    console.log('cities = ', citiesList);
-    console.log('times = ', getPrayerTimes('JUL', '7-23'));
   }, []);
 
   const AutoSet = () => {
@@ -50,9 +40,22 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
       () => setCoordinates(kuwaitCoordinates)
     );
   };
-
+  const setDefult = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const newCoordinates = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.latitude,
+        };
+        localStorage.setItem('cachedPosition', JSON.stringify(newCoordinates));
+        setCoordinates(newCoordinates);
+      },
+      () => setCoordinates(kuwaitCoordinates)
+    );
+  };
   useEffect(() => {
     if (autoLocation) AutoSet();
+    else setDefult();
   }, []);
 
   return (
@@ -64,7 +67,7 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
       >
         <NativeSelect
           disabled={autoLocation}
-          defaultValue={'الكويت'}
+          defaultValue="الكويت"
           label={dictionary.settings.location.country}
           data={['الكويت']}
           style={{ width: '45%' }}
@@ -82,17 +85,17 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
           style={{ width: '45%' }}
         />
       </div>
-      <Switch
-        style={{ marginTop: '0.5rem' }}
-        defaultChecked={autoLocation}
-        onChange={() => {
-          dispatch(setAutoLocation(!autoLocation));
-          setTimeout(() => {
-            window.location.reload();
-          }, 100);
-        }}
-        label={dictionary.settings.location.autoSetting}
-      />
+      {/*<Switch*/}
+      {/*  style={{ marginTop: '0.5rem' }}*/}
+      {/*  defaultChecked={autoLocation}*/}
+      {/*  onChange={() => {*/}
+      {/*    dispatch(setAutoLocation(!autoLocation));*/}
+      {/*    setTimeout(() => {*/}
+      {/*      window.location.reload();*/}
+      {/*    }, 100);*/}
+      {/*  }}*/}
+      {/*  label={dictionary.settings.location.autoSetting}*/}
+      {/*/>*/}
     </div>
   );
 }

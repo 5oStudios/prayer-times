@@ -1,13 +1,22 @@
-import { PrayerTime, SupportedPrayerTimes } from './interfaces';
+import {
+  MuslimPrayers,
+  MuslimPrayersAr,
+  PrayerTime,
+  SupportedPrayerTimes,
+} from './interfaces';
 
 export const prayerTimesAdapter = (
   times: SupportedPrayerTimes,
 ): PrayerTime[] => {
   const currentTime = new Date().getTime();
-  const prayers: PrayerTime[] = Object.entries(times).map(([name, time]) => {
+  const prayers: PrayerTime[] = Object.entries(times).map(([rawName, time]) => {
     const remaining = computeRemainingTime(currentTime, time.getTime());
     return {
-      name,
+      id: rawName,
+      name: {
+        ar: MuslimPrayersAr[rawName],
+        en: MuslimPrayers[rawName],
+      },
       time,
       isNext: false,
       remaining,
@@ -22,7 +31,7 @@ export const prayerTimesAdapter = (
   return prayers;
 };
 
-const computeRemainingTime = (
+export const computeRemainingTime = (
   currentTime: number,
   targetTime: number,
 ): number => {

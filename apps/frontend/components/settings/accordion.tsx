@@ -11,7 +11,6 @@ import MasjidName from './general/masjidName';
 import HideDisplayScreen from './displayScreen/hideDisplayScreen';
 import { QRCodeGenerator } from './displayScreen/displayQRcode';
 import Themes from './displayScreen/themes';
-import Toggle from './toggle';
 import LoadAzkarImg from './displayScreen/loadAzkarImg';
 import AfterAzanTime from './displayScreen/afterAzanTime';
 import ImamName from './general/imamName';
@@ -80,7 +79,6 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <Themes isArabic={isArabic} />
             <HideDisplayScreen isArabic={isArabic} />
             <AfterAzanTime isArabic={isArabic} />
-            <Toggle />
           </div>
         )}
         {item.value === dictionary.settings.ads.title && (
@@ -94,7 +92,6 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <AdjustTimes isArabic={isArabic} />
           </div>
         )}
-
       </MantineAccordion.Panel>
     </MantineAccordion.Item>
   ));

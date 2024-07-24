@@ -3,30 +3,49 @@
 import { Card } from '@mantine/core';
 import localFont from 'next/font/local';
 import moment from 'moment/moment';
-import { Coordinates } from '@islamic-kit/prayer-times';
+import { computeRemainingTime, Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import Countdown from 'react-countdown';
-import { publish } from '@enegix/events';
 import 'moment/locale/ar';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { publish } from '@enegix/events';
+import { selectAdjustedTimes } from '../../lib/features/adjustedTimes';
 
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
+
+const formatTime = (time: Date): string => {
+  moment.locale('en');
+  return moment(time).format('hh:mm');
+};
 
 export const PrayerTimesCard = ({
   prayer,
   lang,
 }: {
-  prayer: {
-    name: string;
-    time: string;
-    remaining: number;
-    isNext: boolean;
-  };
+  prayer: PrayerTime;
   coordinates: Coordinates | null;
   lang: string;
 }) => {
-  const localizedTime = localTimer(prayer.time, lang);
-  const counter = Date.now() + prayer.remaining;
-  // const counter = Date.now() + 5000;
+  const adjustedTimes = useSelector(selectAdjustedTimes);
+  const [adjustPrayer, setAdjustPrayer] = useState<PrayerTime>(prayer);
+  const localizedTime = localTimer(formatTime(adjustPrayer.time), lang);
 
+  useEffect(() => {
+    const adjustedPrayer = adjustedTimes.find((time) => time.id === prayer.id);
+    if (adjustedPrayer) {
+      const adjustedTime = new Date(prayer.time);
+      adjustedTime.setMinutes(adjustedTime.getMinutes() + adjustedPrayer.extraMinutes);
+      setAdjustPrayer({
+        ...prayer,
+        time: adjustedTime,
+        remaining: computeRemainingTime(Date.now(), adjustedTime.getTime()),
+      });
+    } else {
+      setAdjustPrayer(prayer);
+    }
+  }, [adjustedTimes, prayer]);
+
+  const counter = new Date().getTime() + adjustPrayer.remaining;
   return (
     <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}>
       {prayer.isNext && (
@@ -41,14 +60,12 @@ export const PrayerTimesCard = ({
               }
               onComplete={() => {
                 publish('next-prayer', prayer);
-                console.log('name = ', prayer.name);
-                console.log('ok done update everything ');
               }}
             />
           </div>
         </>
       )}
-      <div className="prayer-name">{prayer.name}</div>
+      <div className="prayer-name">{lang === 'ar' ? prayer.name.ar : prayer.name.en}</div>
 
       <div className="remaining-timer vrLayout">
         {prayer.isNext && (
@@ -59,8 +76,7 @@ export const PrayerTimesCard = ({
             }
             daysInHours
             onComplete={() => {
-              publish('next-prayer', prayer);
-              console.log('ok done update everything ');
+              // publish('next-prayer', prayer);
             }}
           />
         )}

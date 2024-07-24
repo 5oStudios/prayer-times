@@ -27,17 +27,9 @@ export default function AdScreen() {
   const [first, setFirst] = useState(0);
   useEffect(() => {
     const runAdChecker = () => {
-      console.log('enableAd = ', enableAd);
-      console.log('showAzkar = ', showAzkar);
-      console.log('hideScreen = ', hideScreen);
-      console.log('showAzan = ', showAzan);
-      console.log('showCounter = ', showCounter);
-
       if (enableAd && !showAzkar && !hideScreen && !showAzan && !showCounter) {
         setShow(true);
         setFirst(1);
-        console.log('Ad is running');
-        console.log('Ad duration', adDuration);
         setTimeout(
           () => {
             setShow(false);

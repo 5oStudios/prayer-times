@@ -77,7 +77,6 @@ const HadithTicker = ({
     fetchHadith();
   }, [index, lang]);
 
-  console.log(currentHadith);
   const reverse = direction === 'right';
   const isNews = news.length > 0;
   const data = isNews ? news.map((item) => item.content) : currentHadith;
