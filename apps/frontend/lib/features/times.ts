@@ -42,7 +42,7 @@ const initialState: {
 } = {
   times: [],
   nextPrayer: {
-    id: 'fajr',
+    id: '',
     name: {
       ar: MuslimPrayersAr.fajr,
       en: MuslimPrayers.fajr,

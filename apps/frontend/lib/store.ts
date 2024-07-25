@@ -51,6 +51,7 @@ store.subscribe(() => {
   const lastNextPrayer = store.getState().times.nextPrayer;
   const nextPrayer = store.getState().times.times.find((time) => time.isNext);
 
+  console.log({ nextPrayer });
   if (lastNextPrayer?.id === nextPrayer?.id) return;
 
   if (nextPrayer) store.dispatch(setNextPrayer(nextPrayer));
