@@ -3,13 +3,10 @@
 import { Card } from '@mantine/core';
 import localFont from 'next/font/local';
 import moment from 'moment/moment';
-import { computeRemainingTime, Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
+import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import Countdown from 'react-countdown';
 import 'moment/locale/ar';
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
 import { publish } from '@enegix/events';
-import { selectAdjustedTimes } from '../../lib/features/adjustedTimes';
 
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
@@ -26,26 +23,9 @@ export const PrayerTimesCard = ({
   coordinates: Coordinates | null;
   lang: string;
 }) => {
-  const adjustedTimes = useSelector(selectAdjustedTimes);
-  const [adjustPrayer, setAdjustPrayer] = useState<PrayerTime>(prayer);
-  const localizedTime = localTimer(formatTime(adjustPrayer.time), lang);
+  const localizedTime = localTimer(formatTime(prayer.time), lang);
 
-  useEffect(() => {
-    const adjustedPrayer = adjustedTimes.find((time) => time.id === prayer.id);
-    if (adjustedPrayer) {
-      const adjustedTime = new Date(prayer.time);
-      adjustedTime.setMinutes(adjustedTime.getMinutes() + adjustedPrayer.extraMinutes);
-      setAdjustPrayer({
-        ...prayer,
-        time: adjustedTime,
-        remaining: computeRemainingTime(Date.now(), adjustedTime.getTime()),
-      });
-    } else {
-      setAdjustPrayer(prayer);
-    }
-  }, [adjustedTimes, prayer]);
-
-  const counter = new Date().getTime() + adjustPrayer.remaining;
+  const counter = new Date().getTime() + prayer.remaining;
   return (
     <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}>
       {prayer.isNext && (
