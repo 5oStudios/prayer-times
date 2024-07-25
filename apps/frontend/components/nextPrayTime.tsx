@@ -4,6 +4,7 @@ import Countdown from 'react-countdown';
 import { Center, Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
 import { selectEnableNextPrayDisplay, selectOrientation } from '../lib/features/settings';
 import styles from '../assets/css/settings.module.css';
 import { countDownFormatter } from './times';
@@ -17,13 +18,34 @@ export default function NextPrayTime({
   changeTextColor: boolean;
 }) {
   const isArabic = lang === 'ar';
-  const { remaining } = useSelector(selectNextPrayer);
   const orientation = useSelector(selectOrientation);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const isVertical = orientation === '';
   const nextPrayer = useSelector(selectNextPrayer);
   const show = useSelector(selectEnableNextPrayDisplay);
-  const counter = new Date().getTime() + remaining;
+  const [counter, setCounter] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (!nextPrayer) return;
+
+    const { remaining } = nextPrayer;
+    setCounter(remaining);
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    intervalRef.current = setInterval(() => {
+      setCounter((prevState) => prevState - 1000);
+    }, 1000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [nextPrayer]);
 
   return (
     <div
@@ -53,7 +75,6 @@ export default function NextPrayTime({
           }}
           className={styles.ArStyle}
         >
-          {/* الصلاة التالية */}
           {isArabic ? nextPrayer.name.ar : nextPrayer.name.en + (isArabic ? ' بعد' : ' after')}
         </Text>
       </Center>
@@ -74,8 +95,7 @@ export default function NextPrayTime({
             }}
           >
             <Countdown
-              key={counter}
-              date={counter}
+              date={new Date().getTime() + counter}
               renderer={({ formatted: { hours, minutes, seconds } }) =>
                 countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
               }

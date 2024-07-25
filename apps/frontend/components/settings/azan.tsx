@@ -43,7 +43,8 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
 
       dispatch(setEnableAd(false));
 
-      await wait(minuetsToMilliseconds(showAzanDuration));
+      // await wait(minuetsToMilliseconds(showAzanDuration));
+      await wait(minuetsToMilliseconds(0.03));
 
       dispatch(setEnableCountDown(true));
       dispatch(setCurrentTimePeriod(prayer));
