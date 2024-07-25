@@ -1,15 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
 import { Center, Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
-import {
-  selectEnableNextPrayDisplay,
-  selectOrientation,
-  selectRemainingTime,
-} from '../lib/features/settings';
+import { selectEnableNextPrayDisplay, selectOrientation } from '../lib/features/settings';
 import styles from '../assets/css/settings.module.css';
 import { countDownFormatter } from './times';
 import { selectNextPrayer } from '../lib/features/times';
@@ -22,17 +17,13 @@ export default function NextPrayTime({
   changeTextColor: boolean;
 }) {
   const isArabic = lang === 'ar';
-  const nextRemaining = useSelector(selectRemainingTime);
+  const { remaining } = useSelector(selectNextPrayer);
   const orientation = useSelector(selectOrientation);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const isVertical = orientation === '';
   const nextPrayer = useSelector(selectNextPrayer);
   const show = useSelector(selectEnableNextPrayDisplay);
-  const [counter, setCounter] = useState(Date.now() + nextRemaining);
-
-  useEffect(() => {
-    setCounter(Date.now() + nextRemaining);
-  }, [nextRemaining]);
+  const counter = new Date().getTime() + remaining;
 
   return (
     <div
