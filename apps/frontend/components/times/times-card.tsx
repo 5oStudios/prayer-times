@@ -7,6 +7,7 @@ import { Coordinates, PrayerTime } from '@islamic-kit/prayer-times';
 import Countdown from 'react-countdown';
 import 'moment/locale/ar';
 import { publish } from '@enegix/events';
+import { useEffect, useRef, useState } from 'react';
 
 const font = localFont({ src: '../../assets/fonts/ReemKufi-Regular.ttf' });
 
@@ -24,16 +25,35 @@ export const PrayerTimesCard = ({
   lang: string;
 }) => {
   const localizedTime = localTimer(formatTime(prayer.time), lang);
+  const [counter, setCounter] = useState(prayer.remaining);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const counter = new Date().getTime() + prayer.remaining;
+  useEffect(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    intervalRef.current = setInterval(() => {
+      setCounter((prevState) => prevState - 1000);
+    }, 1000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [prayer]);
+
+  const counterEndDate = new Date().getTime() + counter;
+
   return (
-    <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''} `}>
+    <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''}`}>
       {prayer.isNext && (
         <>
           <div className="next-prayer-alert">الصلاة التالية</div>
           <div className="remaining-timer">
             <Countdown
-              date={counter}
+              date={counterEndDate}
               daysInHours
               renderer={({ formatted: { hours, minutes, seconds } }) =>
                 countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
@@ -50,7 +70,7 @@ export const PrayerTimesCard = ({
       <div className="remaining-timer vrLayout">
         {prayer.isNext && (
           <Countdown
-            date={counter}
+            date={counterEndDate}
             renderer={({ formatted: { hours, minutes, seconds } }) =>
               countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
             }
@@ -85,6 +105,7 @@ export const countDownFormatter = ({
     {localNumber(parseInt(seconds, 10), lang).toString().padStart(2, '0')}
   </div>
 );
+
 export function localTimer(time: string, lang: string) {
   moment.locale('en');
   const [hours, minutes] = time.split(':').map(Number);
