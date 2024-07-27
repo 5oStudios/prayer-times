@@ -92,7 +92,7 @@ const HadithTicker = ({
     return () => {
       window.removeEventListener('resize', updateTickerDuration);
     };
-  }, []);
+  }, [data]);
 
   return (
     // <Marquee
@@ -109,23 +109,45 @@ const HadithTicker = ({
     // >
 
     // </Marquee>
+    <div style={{ width: '100vw' }}>
+
+      {isNews ?
     <Marquee
+      direction="left"
+      reverse={reverse}
+      pauseOnHover={false}
+      className="marquee-bg"
+      innerClassName="innerNews"
+
+    >
+      {data.map((item, id) => (
+        <HadithComponent id={id} item={item} key={id} afterStar />
+      ))}
+    </Marquee> : <Marquee
       direction="left"
       reverse={reverse}
       pauseOnHover={false}
       className="ticker-bg"
       innerClassName="ticker-inner"
-    >
-      {data.map((item, id) => (
-        <HadithComponent id={id} item={item} key={id} />
-      ))}
-    </Marquee>
+      >
+        {data.map((item, id) => (
+          <HadithComponent id={id} item={item} key={id} afterStar={false} />
+        ))}
+                 </Marquee>
+      }
+    </div>
   );
 };
 
-const HadithComponent = ({ id, item }: { id: number; item: string }) => (
+const HadithComponent = ({ id, item, afterStar }: { id: number; item: string, afterStar:boolean }) => (
   <Flex>
     <Flex key={id} justify="center" align="center">
+      {afterStar && <StarSvg
+        style={{
+          fill: 'white',
+          marginInline: 24,
+        }}
+      /> }
       <Text
         className={font.className}
         style={{ color: 'white', fontSize: '45px', width: 'max-content' }}
