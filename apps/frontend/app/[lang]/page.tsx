@@ -37,6 +37,8 @@ import {
   getMonthAbbreviation,
   getPrayerTimes,
 } from '../../lib/kuwaitTimes/actions';
+import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
+import { publish } from '@enegix/events';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -62,23 +64,24 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
     <div className={`${orientation}`}>
       <Settings language={lang} changeBtnColor={changeBG} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
-        {/*<button*/}
-        {/*  onClick={() => {*/}
-        {/*    const data: PrayerTime = {*/}
-        {/*      id: MuslimPrayers.fajr,*/}
-        {/*      name: {*/}
-        {/*        ar: MuslimPrayersAr.fajr,*/}
-        {/*        en: MuslimPrayers.fajr,*/}
-        {/*      },*/}
-        {/*      time: new Date(),*/}
-        {/*      isNext: true,*/}
-        {/*      remaining: 3000,*/}
-        {/*    };*/}
-        {/*    publish('next-prayer', data);*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  TEST*/}
-        {/*</button>*/}
+        <button
+          onClick={() => {
+            const data: PrayerTime = {
+              id: MuslimPrayers.fajr,
+              name: {
+                ar: MuslimPrayersAr.fajr,
+                en: MuslimPrayers.fajr,
+              },
+              time: new Date(),
+              isNext: true,
+              remaining: 3000,
+            };
+            publish('next-prayer', data);
+          }}
+        >
+          TEST
+        </button>
+
         <AdScreen />
         <BlackScreen />
         <Azkar />

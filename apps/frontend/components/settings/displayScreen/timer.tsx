@@ -33,8 +33,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   useEffect(() => {
     subscribe(
       'start-countdown',
-      ({ prayer, showAzanDuration }: { prayer: { time: number }; showAzanDuration: number }) => {
-        setTimeLeft(showAzanDuration * 60);
+      ({ prayer, minutes }: { prayer: { time: number }; minutes: number }) => {
+        setTimeLeft(minutes * 60);
         const timer = setInterval(() => {
           setTimeLeft((prev) => {
             if (prev === 0) {
@@ -62,8 +62,15 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
               ? styles.circlePhoneSide
               : styles.circleSide
         }
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
       >
-        <Center>
+        <div>
           <Text
             style={{
               fontSize: isVertical
@@ -80,8 +87,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
           >
             متبقي على الإقامة
           </Text>
-        </Center>
-        <Center>
+        </div>
+        <div>
           <Text
             className={
               isVertical
@@ -96,10 +103,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
           >
             {formatTime(timeLeft)}
           </Text>
-        </Center>
-        {/* <Center>
-        <Text>{formatTime(timeLeft)}</Text>
-      </Center> */}
+        </div>
       </div>
     )
   );

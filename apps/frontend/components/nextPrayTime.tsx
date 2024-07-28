@@ -49,7 +49,14 @@ export default function NextPrayTime({
 
   return (
     <div
-      style={{ zIndex: show ? '5' : '-1' }}
+      style={{
+        zIndex: show ? '5' : '-1',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}
       className={
         isVertical
           ? isTabletOrMobile
@@ -60,7 +67,7 @@ export default function NextPrayTime({
             : styles.circleSideLeft
       }
     >
-      <Center>
+      <div>
         <Text
           style={{
             fontSize: isVertical
@@ -77,8 +84,8 @@ export default function NextPrayTime({
         >
           {isArabic ? nextPrayer.name.ar : nextPrayer.name.en + (isArabic ? ' بعد' : ' after')}
         </Text>
-      </Center>
-      <Center>
+      </div>
+      <div>
         <Text
           className={
             isVertical
@@ -103,7 +110,7 @@ export default function NextPrayTime({
             />
           </div>
         </Text>
-      </Center>
+      </div>
     </div>
   );
 }
