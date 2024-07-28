@@ -16,7 +16,7 @@ export default function Azkar() {
   useEffect(() => {
     subscribe('show-azkar', async () => {
       dispatch(setShowAzKar(true));
-      await wait(minuetsToMilliseconds(2));
+      await wait(minuetsToMilliseconds(6));
       dispatch(setShowAzKar(false));
     });
   }, []);

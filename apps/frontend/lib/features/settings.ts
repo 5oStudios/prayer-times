@@ -60,7 +60,6 @@ export type SettingsState = {
   englishHadith: string[];
   adjustPrayTimes: number[];
   todayPrayerTimes: string[];
-  reloaded: boolean;
 };
 
 const initialState: SettingsState = {
@@ -74,23 +73,23 @@ const initialState: SettingsState = {
   timePeriod: [
     {
       id: 'fajr',
-      minutes: 2,
+      minutes: 7,
     },
     {
       id: 'dhuhr',
-      minutes: 2,
+      minutes: 7,
     },
     {
       id: 'asr',
-      minutes: 2,
+      minutes: 7,
     },
     {
       id: 'maghrib',
-      minutes: 2,
+      minutes: 7,
     },
     {
       id: 'isha',
-      minutes: 2,
+      minutes: 7,
     },
   ],
   beforeAzanTimes: [
@@ -123,7 +122,7 @@ const initialState: SettingsState = {
     en: MuslimPrayers.dhuhr,
   },
   onlyFriday: true,
-  showAzanDuration: 1,
+  showAzanDuration: 25,
   enableCountDown: false,
   showAzKar: false,
   azkarImage: '',
@@ -135,7 +134,7 @@ const initialState: SettingsState = {
   city: '',
   hideSunRise: false,
   adImg: '',
-  adEveryHowManyMinutes: 1,
+  adEveryHowManyMinutes: 10,
   adDuration: 1,
   enableAd: false,
   disableSunRiseAzan: false,
@@ -143,7 +142,7 @@ const initialState: SettingsState = {
   englishHadith: [],
   news: [],
   todayPrayerTimes: [],
-  reloaded: false,
+
 };
 
 const settingsSlice = createSlice({
@@ -252,9 +251,6 @@ const settingsSlice = createSlice({
     setTodayPrayerTimes: (state, action) => {
       state.todayPrayerTimes = action.payload;
     },
-    setReloaded: (state, action) => {
-      state.reloaded = action.payload;
-    },
   },
 });
 
@@ -293,7 +289,6 @@ export const {
   setNews,
   setAdjustPrayTimes,
   setTodayPrayerTimes,
-  setReloaded,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -334,4 +329,3 @@ export const selectEnglishHadith = (state: RootState) => state.settings.englishH
 export const selectNews = (state: RootState) => state.settings.news;
 // export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
 export const selectTodayPrayerTimes = (state: RootState) => state.settings.todayPrayerTimes;
-export const selectReloaded = (state: RootState) => state.settings.reloaded;
