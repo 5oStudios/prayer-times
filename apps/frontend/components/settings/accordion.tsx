@@ -2,6 +2,7 @@
 
 import { Accordion as MantineAccordion } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
+import React from 'react';
 import { Orientation } from './general/orientation';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from './accordion.module.css';
@@ -90,6 +91,19 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
         {item.value === dictionary.settings.prayerTime.title && (
           <div className={isArabic ? style.alRight : ''}>
             <AdjustTimes isArabic={isArabic} />
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              style={{
+                marginTop: '1rem',
+                backgroundColor: '#479ea3',
+                padding: 8,
+                borderRadius: 4,
+                color: 'white',
+              }}
+            >
+              حفظ
+            </button>
           </div>
         )}
       </MantineAccordion.Panel>

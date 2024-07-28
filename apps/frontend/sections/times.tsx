@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
 import { useEffect, useMemo } from 'react';
-import { Coordinates, MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
+import { Coordinates, MuslimPrayers, PrayerTime, Shifting } from '@islamic-kit/prayer-times';
 import { subscribe } from '@enegix/events';
 import { fetchTimes, selectTimes, selectTimesStatus } from '../lib/features/times';
 import { PrayerTimesCard } from '../components/times/times-card';
@@ -14,6 +14,7 @@ import { useDictionary } from '../app/[lang]/dictionary-provider';
 import 'moment/locale/ar';
 import { SupportedLanguages } from '../app/i18n/dictionaries';
 import { selectHideSunRise } from '../lib/features/settings';
+import { selectAdjustedTimes } from '../lib/features/adjustedTimes';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -26,6 +27,20 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dispatch = useDispatch();
   const [coordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
   const hideSunRise = useSelector(selectHideSunRise);
+  const shiftingTimes = useSelector(selectAdjustedTimes);
+  const shifting = shiftingTimes.map(({ id, extraMinutes }) => ({ [id]: extraMinutes }));
+  const defaultShifting: Shifting = {
+    fajr: 0,
+    dhuhr: 0,
+    sunrise: 0,
+    asr: 0,
+    maghrib: 0,
+    isha: 0,
+  };
+
+  const shiftingObject = shifting.reduce((acc, val) => ({ ...acc, ...val }), defaultShifting);
+  console.log('shiftingObject', shiftingObject);
+
   // const adjustedPrayerTimes = useSelector(selectAdjustPrayTimes);
   // const isArabic = lang === 'ar';
   // const autoLocation = useSelector(selectAutoLocation);
@@ -35,18 +50,26 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
     subscribe<PrayerTime>('next-prayer', () => {
       // alert(`It's time for from store ${prayer.name}`);
       // dispatch(setCurrentPrayTimeName(prayer.name));
-      // @ts-expect-error - This expression is not callable.
-      dispatch(fetchTimes(coordinates));
+      dispatch(
+        fetchTimes({
+          coordinates,
+          shifting: shiftingObject,
+        })
+      );
     });
   }, []);
 
   useDeepCompareEffect(() => {
     if (timesStatus !== 'idle') return;
     if (coordinates) {
-      // @ts-expect-error - This expression is not callable.
-      dispatch(fetchTimes(coordinates));
+      dispatch(
+        fetchTimes({
+          coordinates,
+          shifting: shiftingObject,
+        })
+      );
     }
-  }, [coordinates, dispatch, timesStatus]);
+  }, [coordinates, dispatch, timesStatus, shifting]);
 
   const localizedReversedTimes = useMemo(() => {
     const localizedTimes = times.map(({ name, time, remaining, isNext, id }) => ({

@@ -1,15 +1,12 @@
+/* eslint-disable consistent-return */
 'use client';
 
-import { useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
 import { Center, Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
-import {
-  selectEnableNextPrayDisplay,
-  selectOrientation,
-  selectRemainingTime,
-} from '../lib/features/settings';
+import { useEffect, useRef, useState } from 'react';
+import { selectEnableNextPrayDisplay, selectOrientation } from '../lib/features/settings';
 import styles from '../assets/css/settings.module.css';
 import { countDownFormatter } from './times';
 import { selectNextPrayer } from '../lib/features/times';
@@ -22,21 +19,45 @@ export default function NextPrayTime({
   changeTextColor: boolean;
 }) {
   const isArabic = lang === 'ar';
-  const nextRemaining = useSelector(selectRemainingTime);
   const orientation = useSelector(selectOrientation);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const isVertical = orientation === '';
   const nextPrayer = useSelector(selectNextPrayer);
   const show = useSelector(selectEnableNextPrayDisplay);
-  const [counter, setCounter] = useState(Date.now() + nextRemaining);
+  const [counter, setCounter] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    setCounter(Date.now() + nextRemaining);
-  }, [nextRemaining]);
+    if (!nextPrayer) return;
+
+    const { remaining } = nextPrayer;
+    setCounter(remaining);
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    intervalRef.current = setInterval(() => {
+      setCounter((prevState) => prevState - 1000);
+    }, 1000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [nextPrayer]);
 
   return (
     <div
-      style={{ zIndex: show ? '5' : '-1' }}
+      style={{
+        zIndex: show ? '5' : '-1',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}
       className={
         isVertical
           ? isTabletOrMobile
@@ -47,7 +68,7 @@ export default function NextPrayTime({
             : styles.circleSideLeft
       }
     >
-      <Center>
+      <div>
         <Text
           style={{
             fontSize: isVertical
@@ -62,11 +83,10 @@ export default function NextPrayTime({
           }}
           className={styles.ArStyle}
         >
-          {/* الصلاة التالية */}
           {isArabic ? nextPrayer.name.ar : nextPrayer.name.en + (isArabic ? ' بعد' : ' after')}
         </Text>
-      </Center>
-      <Center>
+      </div>
+      <div>
         <Text
           className={
             isVertical
@@ -83,8 +103,7 @@ export default function NextPrayTime({
             }}
           >
             <Countdown
-              key={counter}
-              date={counter}
+              date={new Date().getTime() + counter}
               renderer={({ formatted: { hours, minutes, seconds } }) =>
                 countDownFormatter({ formatted: { hours, minutes, seconds }, lang })
               }
@@ -92,7 +111,7 @@ export default function NextPrayTime({
             />
           </div>
         </Text>
-      </Center>
+      </div>
     </div>
   );
 }

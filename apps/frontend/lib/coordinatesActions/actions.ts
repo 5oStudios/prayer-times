@@ -7,7 +7,7 @@ function getCountryName() {
   return db.country;
 }
 
-function getCities() {
+function getCities(country: string) {
   return db.cities.map((city) => city.name);
 }
 

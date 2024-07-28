@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Center, Text } from '@mantine/core';
+import { publish, subscribe } from '@enegix/events';
 import styles from '../../../assets/css/settings.module.css';
 import {
   selectEnableCountDown,
   selectOrientation,
-  selectTimePeriod,
+  setEnableCountDown,
 } from '../../../lib/features/settings';
 
 const playAlert = () => {
@@ -16,7 +17,7 @@ const playAlert = () => {
   audio.play();
 };
 const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
-  const timePeriod = useSelector(selectTimePeriod);
+  const dispatch = useDispatch();
   const orientation = useSelector(selectOrientation);
   const enableCountDown = useSelector(selectEnableCountDown);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
@@ -28,6 +29,26 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
     const remainingSeconds = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
+
+  useEffect(() => {
+    subscribe(
+      'start-countdown',
+      ({ prayer, minutes }: { prayer: { time: number }; minutes: number }) => {
+        setTimeLeft(minutes * 60);
+        const timer = setInterval(() => {
+          setTimeLeft((prev) => {
+            if (prev === 0) {
+              clearInterval(timer);
+              dispatch(setEnableCountDown(false));
+              publish('hide-screen', prayer);
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+      }
+    );
+  }, []);
 
   return (
     enableCountDown && (
@@ -41,8 +62,15 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
               ? styles.circlePhoneSide
               : styles.circleSide
         }
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
       >
-        <Center>
+        <div>
           <Text
             style={{
               fontSize: isVertical
@@ -59,8 +87,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
           >
             متبقي على الإقامة
           </Text>
-        </Center>
-        <Center>
+        </div>
+        <div>
           <Text
             className={
               isVertical
@@ -75,10 +103,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
           >
             {formatTime(timeLeft)}
           </Text>
-        </Center>
-        {/* <Center>
-        <Text>{formatTime(timeLeft)}</Text>
-      </Center> */}
+        </div>
       </div>
     )
   );

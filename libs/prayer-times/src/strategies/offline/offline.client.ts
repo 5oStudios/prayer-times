@@ -3,8 +3,7 @@ import {
   OfflineCalculationMethod,
 } from './adhan/adhan-package.strategy';
 import { CalculationMethod, PrayerTimes } from 'adhan';
-import { Coordinates, SupportedPrayerTimes } from '../../interfaces';
-import { prayerTimesAdapter } from '../../adapter';
+import { SupportedPrayerTimes } from '../../interfaces';
 
 export interface OfflineClientProps {
   param: OfflineCalculationMethod;
@@ -33,18 +32,18 @@ export class OfflineClient {
     return this.times;
   }
 
-  async getNextPrayerTime({
-    date,
-    coordinates,
-  }: {
-    date: Date;
-    coordinates: Coordinates;
-  }) {
-    if (!this.times) await this.getTimings({ date, coordinates });
-
-    if (!this.times) throw new Error('Prayer times are not available');
-    const adaptedTimes = prayerTimesAdapter(this.times);
-
-    return adaptedTimes.find((time) => time.isNext);
-  }
+  // async getNextPrayerTime({
+  //   date,
+  //   coordinates,
+  // }: {
+  //   date: Date;
+  //   coordinates: Coordinates;
+  // }) {
+  //   if (!this.times) await this.getTimings({ date, coordinates });
+  //
+  //   if (!this.times) throw new Error('Prayer times are not available');
+  //   const adaptedTimes = prayerTimesAdapter(this.times);
+  //
+  //   return adaptedTimes.find((time) => time.isNext);
+  // }
 }

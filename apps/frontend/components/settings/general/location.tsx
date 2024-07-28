@@ -8,24 +8,22 @@ import useLocalStorage from 'use-local-storage';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectAutoLocation, setCity } from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
-import { getCities } from '../../../lib/coordinatesActions/actions';
-
-const kuwaitCoordinates = {
-  latitude: 29.3759,
-  longitude: 47.9774,
-};
+import { kuwaitCoordinates } from '../../../lib/features/times';
+import { getCountries, getMethods } from '../../../lib/coordinatesActions/timeAction';
+import { CalculationMethods } from '../../../lib/coordinatesActions/type';
 
 export default function Location({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
   const autoLocation = useSelector(selectAutoLocation);
-  const [cities, setCities] = useState<string[]>([]);
-
+  const countries = getCountries();
+  const [country, setCountry] = useState<keyof CalculationMethods['countries']>('Egypt');
+  const [cities, setCities] = useState<string[]>();
   useEffect(() => {
-    const citiesList = getCities();
+    const citiesList = getMethods(country);
     setCities(citiesList);
-  }, []);
+  }, [country]);
 
   const AutoSet = () => {
     navigator.geolocation.getCurrentPosition(
@@ -57,7 +55,6 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
     if (autoLocation) AutoSet();
     else setDefult();
   }, []);
-
   return (
     <div style={{ marginTop: '1rem' }} className={isArabic ? style.alRight : ''}>
       <Text>{dictionary.settings.location.title}</Text>
@@ -66,16 +63,20 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         className={isArabic ? style.alRight : ''}
       >
         <NativeSelect
-          disabled={autoLocation}
-          defaultValue="الكويت"
+          // disabled={autoLocation}
           label={dictionary.settings.location.country}
-          data={['الكويت']}
+          data={countries}
           style={{ width: '45%' }}
+          onChange={(event) => {
+            const selectedCountry = event.currentTarget
+              .value as keyof CalculationMethods['countries'];
+            setCountry(selectedCountry);
+          }}
         />
 
         <NativeSelect
-          disabled={autoLocation}
-          value={cities[0]}
+          // disabled={autoLocation}
+          // value={cities[ }
           label={dictionary.settings.location.city}
           data={cities}
           onChange={(event) => {

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Text, Textarea, Button } from '@mantine/core';
+import React from 'react';
+import { Button, Text, Textarea } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import { setNews, selectNews } from '../../../lib/features/settings';
+import { selectNews, setNews } from '../../../lib/features/settings';
 
 export type NewsType = {
   content: string;
@@ -52,9 +52,18 @@ function NewsForm({ language }: { language: string }) {
           {errors.content && <span>{dictionary.settings.requiredField}</span>}
         </div>
 
-        <Button type="submit" style={{ marginTop: '1rem' }}>
+        <button
+          type="submit"
+          style={{
+            marginTop: '1rem',
+            backgroundColor: '#479ea3',
+            padding: 8,
+            borderRadius: 4,
+            color: 'white',
+          }}
+        >
           {dictionary.settings.add}
-        </Button>
+        </button>
       </form>
 
       <div style={{ marginTop: '1rem', textAlign: isArabic ? 'left' : 'normal' }}>

@@ -40,8 +40,8 @@
       "enable": "Enable",
       "onlyFriday": "On Friday"
     },
-    "prayerTime":{
-      "title":"Prayer Times"
+    "prayerTime": {
+      "title": "Prayer Times"
     },
     "ads": {
       "title": "Ads",
@@ -93,8 +93,8 @@
     },
     "location": {
       "title": "Location",
-      "country": "country",
-      "city": "City",
+      "country": "Country",
+      "city": "Value",
       "autoSetting": "Auto setting location"
     },
     "nextPrayTime": {

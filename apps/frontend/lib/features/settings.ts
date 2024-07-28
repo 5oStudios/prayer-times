@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { MuslimPrayers, MuslimPrayersAr, PrayerTimeName } from '@islamic-kit/prayer-times';
+// eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
 
 type NewsType = {
@@ -26,8 +27,14 @@ export type SettingsState = {
   url: string;
   enableURL: boolean;
   background: number;
-  timePeriod: number[];
-  beforeAzanTimes: number[];
+  timePeriod: {
+    id: string;
+    minutes: number;
+  }[];
+  beforeAzanTimes: {
+    id: string;
+    minutes: number;
+  }[];
   currentTimePeriod: number;
   showAzanTime: boolean;
   currentPrayTimeName: PrayerTimeName;
@@ -53,6 +60,7 @@ export type SettingsState = {
   englishHadith: string[];
   adjustPrayTimes: number[];
   todayPrayerTimes: string[];
+  reloaded: boolean;
 };
 
 const initialState: SettingsState = {
@@ -63,8 +71,50 @@ const initialState: SettingsState = {
   url: '',
   enableURL: false,
   background: 0,
-  timePeriod: [2, 0, 2, 2, 2, 2],
-  beforeAzanTimes: [25, 0, 20, 25, 10, 10],
+  timePeriod: [
+    {
+      id: 'fajr',
+      minutes: 2,
+    },
+    {
+      id: 'dhuhr',
+      minutes: 2,
+    },
+    {
+      id: 'asr',
+      minutes: 2,
+    },
+    {
+      id: 'maghrib',
+      minutes: 2,
+    },
+    {
+      id: 'isha',
+      minutes: 2,
+    },
+  ],
+  beforeAzanTimes: [
+    {
+      id: 'fajr',
+      minutes: 25,
+    },
+    {
+      id: 'dhuhr',
+      minutes: 20,
+    },
+    {
+      id: 'asr',
+      minutes: 25,
+    },
+    {
+      id: 'maghrib',
+      minutes: 10,
+    },
+    {
+      id: 'isha',
+      minutes: 10,
+    },
+  ],
   adjustPrayTimes: [0, 0, 0, 0, 0, 0],
   currentTimePeriod: 0,
   showAzanTime: false,
@@ -93,6 +143,7 @@ const initialState: SettingsState = {
   englishHadith: [],
   news: [],
   todayPrayerTimes: [],
+  reloaded: false,
 };
 
 const settingsSlice = createSlice({
@@ -201,6 +252,9 @@ const settingsSlice = createSlice({
     setTodayPrayerTimes: (state, action) => {
       state.todayPrayerTimes = action.payload;
     },
+    setReloaded: (state, action) => {
+      state.reloaded = action.payload;
+    },
   },
 });
 
@@ -239,6 +293,7 @@ export const {
   setNews,
   setAdjustPrayTimes,
   setTodayPrayerTimes,
+  setReloaded,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -279,3 +334,4 @@ export const selectEnglishHadith = (state: RootState) => state.settings.englishH
 export const selectNews = (state: RootState) => state.settings.news;
 // export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
 export const selectTodayPrayerTimes = (state: RootState) => state.settings.todayPrayerTimes;
+export const selectReloaded = (state: RootState) => state.settings.reloaded;

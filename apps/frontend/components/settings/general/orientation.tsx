@@ -16,9 +16,9 @@ export const Orientation = ({ language }: OrientationProps) => {
 
   const handleOrientation = (value: string) => {
     dispatch(setOrientation(value));
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 100);
   };
 
   return (
