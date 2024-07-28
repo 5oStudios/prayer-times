@@ -92,6 +92,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
           <div className={isArabic ? style.alRight : ''}>
             <AdjustTimes isArabic={isArabic} />
             <button
+              type="button"
               onClick={() => window.location.reload()}
               style={{
                 marginTop: '1rem',

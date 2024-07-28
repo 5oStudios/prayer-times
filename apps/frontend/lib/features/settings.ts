@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { MuslimPrayers, MuslimPrayersAr, PrayerTimeName } from '@islamic-kit/prayer-times';
+// eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
 
 type NewsType = {

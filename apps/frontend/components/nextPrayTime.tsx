@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 'use client';
 
 import Countdown from 'react-countdown';

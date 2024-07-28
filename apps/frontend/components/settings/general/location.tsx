@@ -9,8 +9,8 @@ import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectAutoLocation, setCity } from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
 import { kuwaitCoordinates } from '../../../lib/features/times';
-import { getCountries, getMethods } from 'apps/frontend/lib/coordinatesActions/timeAction';
-import { CalculationMethods } from 'apps/frontend/lib/coordinatesActions/type';
+import { getCountries, getMethods } from '../../../lib/coordinatesActions/timeAction';
+import { CalculationMethods } from '../../../lib/coordinatesActions/type';
 
 export default function Location({ isArabic }: { isArabic: boolean }) {
   const dictionary = useDictionary();
