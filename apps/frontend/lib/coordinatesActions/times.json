@@ -1,0 +1,26 @@
+{
+    "countries": {
+      "Egypt": {
+        "methods": ["Egyptian"]
+      },
+      "Kuwait": {
+        "methods": ["Kuwait"]
+      },
+      "Others": {
+        "methods": [
+          "Qatar",
+          "Dubai",
+          "MuslimWorldLeague",
+          "Karachi",
+          "UmmAlQura",
+          "MoonsightingCommittee",
+          "NorthAmerica",
+          "Singapore",
+          "Tehran",
+          "Turkey",
+          "Other"
+        ]
+      }
+    }
+  }
+  
