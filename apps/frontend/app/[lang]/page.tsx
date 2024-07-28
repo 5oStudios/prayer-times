@@ -46,25 +46,25 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const imamName = useSelector(selectImamName);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dictionary = useDictionary();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const getDate = getFormattedDate();
-    const getMonth = getMonthAbbreviation();
-    const getTimes = getPrayerTimes(getMonth, getDate);
-    dispatch(setTodayPrayerTimes(getTimes?.times));
-    dispatch(setShowAzanTime(false));
-    dispatch(setHideScreen(false));
-    dispatch(setShowAzKar(false));
-    dispatch(setEnableCountDown(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   const getDate = getFormattedDate();
+  //   const getMonth = getMonthAbbreviation();
+  //   const getTimes = getPrayerTimes(getMonth, getDate);
+  //   dispatch(setTodayPrayerTimes(getTimes?.times));
+  //   dispatch(setShowAzanTime(false));
+  //   dispatch(setHideScreen(false));
+  //   dispatch(setShowAzKar(false));
+  //   dispatch(setEnableCountDown(false));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
       <Settings language={lang} changeBtnColor={changeBG} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
-        <button
+        {/* <button
           onClick={() => {
             const data: PrayerTime = {
               id: MuslimPrayers.fajr,
@@ -80,7 +80,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
           }}
         >
           TEST
-        </button>
+        </button> */}
 
         <AdScreen />
         <BlackScreen />

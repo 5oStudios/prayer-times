@@ -84,30 +84,20 @@ const HadithTicker = ({
   const isNews = news.length > 0;
   const data = isNews ? news.map((item) => item.content) : currentHadith;
 
-  // function updateTickerDuration() {
-  //   const screenWidth = window.innerWidth;
-  //   const duration = isNews ? screenWidth : screenWidth / 0.5;
-  //   setCurrentDuration(duration);
-  //   document.querySelector('.ticker-inner')?.setAttribute('style', `--duration:${duration}s`);
-  // }
   function updateTickerDuration() {
     const screenWidth = window.innerWidth;
-    const dataLength = data.length; // Assuming data is an array
-    const durationPerItem = screenWidth / dataLength; // Adjust this calculation based on your needs
-    const totalDuration = durationPerItem * dataLength;
-    setCurrentDuration(totalDuration);
-    document.querySelector('.ticker-inner')?.setAttribute('style', `--duration:${totalDuration}s`);
+    const duration = isNews ? screenWidth : screenWidth / 0.5;
+    setCurrentDuration(duration);
+    document.querySelector('.ticker-inner')?.setAttribute('style', `--duration:${duration}s`);
   }
-
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setIndex((idx) => idx + 1);
-  //     updateTickerDuration();
-  //   }, 5000);
-
-  //   return () => clearInterval(intervalId);
-  // }, []);
-
+  // function updateTickerDuration() {
+  //   const screenWidth = window.innerWidth;
+  //   const dataLength = data.length; // Assuming data is an array
+  //   const durationPerItem = screenWidth / dataLength; // Adjust this calculation based on your needs
+  //   const totalDuration = durationPerItem * dataLength;
+  //   setCurrentDuration(totalDuration);
+  //   document.querySelector('.ticker-inner')?.setAttribute('style', `--duration:${totalDuration}s`);
+  // }
   useEffect(() => {
     updateTickerDuration();
     window.removeEventListener('resize', updateTickerDuration);
