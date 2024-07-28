@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Coordinates } from '@islamic-kit/prayer-times';
 import useLocalStorage from 'use-local-storage';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import { selectAutoLocation, setCity } from '../../../lib/features/settings';
+import { selectAutoLocation, selectCity, setCity } from '../../../lib/features/settings';
 import style from '../../../assets/css/settings.module.css';
 import { kuwaitCoordinates } from '../../../lib/features/times';
 import { getCountries, getMethods } from '../../../lib/coordinatesActions/timeAction';
@@ -17,12 +17,14 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useLocalStorage<Coordinates | null>('cachedPosition', null);
   const autoLocation = useSelector(selectAutoLocation);
+  const city = useSelector(selectCity);
   const countries = getCountries();
   const [country, setCountry] = useState<keyof CalculationMethods['countries']>('Egypt');
   const [cities, setCities] = useState<string[]>();
   useEffect(() => {
     const citiesList = getMethods(country);
     setCities(citiesList);
+    console.log('country: ', country, ' times:', city);
   }, [country]);
 
   const AutoSet = () => {
@@ -64,8 +66,10 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
       >
         <NativeSelect
           // disabled={autoLocation}
+          defaultValue={country}
           label={dictionary.settings.location.country}
           data={countries}
+          value={country}
           style={{ width: '45%' }}
           onChange={(event) => {
             const selectedCountry = event.currentTarget
@@ -77,8 +81,10 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         <NativeSelect
           // disabled={autoLocation}
           // value={cities[ }
+          defaultValue={city}
           label={dictionary.settings.location.city}
           data={cities}
+          value={city}
           onChange={(event) => {
             const selectedCity = event.currentTarget.value;
             dispatch(setCity(selectedCity));
