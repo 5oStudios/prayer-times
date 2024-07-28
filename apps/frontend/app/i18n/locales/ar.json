@@ -49,8 +49,8 @@
       "previousNews": "الأخبار السابقة",
       "NoNewsAvailable": "لا توجد أخبار متاحة"
     },
-    "prayerTime":{
-      "title":"أوقات الصلاة"
+    "prayerTime": {
+      "title": "أوقات الصلاة"
     },
     "ads": {
       "title": "الإعلانات",
@@ -95,7 +95,7 @@
     "location": {
       "title": "الموقع",
       "country": "الدولة",
-      "city": "المدينة",
+      "city": "قيمة",
       "autoSetting": "تعيين الموقع تلقائيًا"
     },
     "nextPrayTime": {

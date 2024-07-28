@@ -53,7 +53,6 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
     if (autoLocation) AutoSet();
     else setDefult();
   }, []);
-
   return (
     <div style={{ marginTop: '1rem' }} className={isArabic ? style.alRight : ''}>
       <Text>{dictionary.settings.location.title}</Text>
@@ -62,7 +61,7 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         className={isArabic ? style.alRight : ''}
       >
         <NativeSelect
-          disabled={autoLocation}
+          // disabled={autoLocation}
           defaultValue="الكويت"
           label={dictionary.settings.location.country}
           data={['الكويت']}
@@ -70,7 +69,7 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         />
 
         <NativeSelect
-          disabled={autoLocation}
+          // disabled={autoLocation}
           value={cities[0]}
           label={dictionary.settings.location.city}
           data={cities}

@@ -59,6 +59,7 @@ export type SettingsState = {
   englishHadith: string[];
   adjustPrayTimes: number[];
   todayPrayerTimes: string[];
+  reloaded: boolean;
 };
 
 const initialState: SettingsState = {
@@ -141,6 +142,7 @@ const initialState: SettingsState = {
   englishHadith: [],
   news: [],
   todayPrayerTimes: [],
+  reloaded: false,
 };
 
 const settingsSlice = createSlice({
@@ -249,6 +251,9 @@ const settingsSlice = createSlice({
     setTodayPrayerTimes: (state, action) => {
       state.todayPrayerTimes = action.payload;
     },
+    setReloaded: (state, action) => {
+      state.reloaded = action.payload;
+    },
   },
 });
 
@@ -287,6 +292,7 @@ export const {
   setNews,
   setAdjustPrayTimes,
   setTodayPrayerTimes,
+  setReloaded,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -327,3 +333,4 @@ export const selectEnglishHadith = (state: RootState) => state.settings.englishH
 export const selectNews = (state: RootState) => state.settings.news;
 // export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjustPrayTimes;
 export const selectTodayPrayerTimes = (state: RootState) => state.settings.todayPrayerTimes;
+export const selectReloaded = (state: RootState) => state.settings.reloaded;

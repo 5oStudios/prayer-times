@@ -53,9 +53,10 @@
 
 .innerNews {
   --duration: 10s;
-  width: 100vw;
+  gap: 3rem;
+  --gap: 3em;
 }
-.fullWidth{
+.fullWidth {
   width: 100vw;
 }
 
