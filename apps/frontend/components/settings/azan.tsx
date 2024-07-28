@@ -67,6 +67,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
     <div
       className="azan-wrapper"
       style={{
+        backgroundColor: 'black',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
