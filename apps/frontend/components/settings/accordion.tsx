@@ -3,6 +3,8 @@
 import { Accordion as MantineAccordion } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
 import React from 'react';
+import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
+import { publish } from '@enegix/events';
 import { Orientation } from './general/orientation';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from './accordion.module.css';
@@ -80,6 +82,23 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <Themes isArabic={isArabic} />
             <HideDisplayScreen isArabic={isArabic} />
             <AfterAzanTime isArabic={isArabic} />
+            <button
+              onClick={() => {
+                const data: PrayerTime = {
+                  id: MuslimPrayers.fajr,
+                  name: {
+                    ar: MuslimPrayersAr.fajr,
+                    en: MuslimPrayers.fajr,
+                  },
+                  time: new Date(),
+                  isNext: true,
+                  remaining: 3000,
+                };
+                publish('next-prayer', data);
+              }}
+            >
+              TEST
+            </button>
           </div>
         )}
         {item.value === dictionary.settings.ads.title && (

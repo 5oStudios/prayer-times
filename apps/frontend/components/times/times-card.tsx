@@ -29,6 +29,7 @@ export const PrayerTimesCard = ({
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    console.log('name ', prayer.id, ' next ', prayer.isNext);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }

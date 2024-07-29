@@ -1,9 +1,10 @@
 export type Country = {
   country: string;
-  cities: city[];
+  cities: City[];
 };
 
-type city = {
+export type City = {
+  id: number;
   name: string;
   adjustTime: number;
 };

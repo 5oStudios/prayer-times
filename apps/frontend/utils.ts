@@ -33,3 +33,19 @@ export function deepEqual(obj1: any, obj2: any): boolean {
 
   return true;
 }
+
+export function getShiftBy(cityId: number): number {
+  if (cityId >= 0 && cityId <= 24) {
+    return 1;
+  }
+  if (cityId >= 25 && cityId <= 35) {
+    return 2;
+  }
+  if (cityId >= 36 && cityId <= 39) {
+    return 4;
+  }
+  if (cityId === 40) {
+    return 5;
+  }
+  return 6;
+}

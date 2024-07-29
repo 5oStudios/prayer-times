@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+
 'use client';
 
 import Countdown from 'react-countdown';
@@ -6,7 +7,11 @@ import { Center, Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { selectEnableNextPrayDisplay, selectOrientation } from '../lib/features/settings';
+import {
+  selectEnableNextPrayDisplay,
+  selectNextRemaining,
+  selectOrientation,
+} from '../lib/features/settings';
 import styles from '../assets/css/settings.module.css';
 import { countDownFormatter } from './times';
 import { selectNextPrayer } from '../lib/features/times';
@@ -24,14 +29,17 @@ export default function NextPrayTime({
   const isVertical = orientation === '';
   const nextPrayer = useSelector(selectNextPrayer);
   const show = useSelector(selectEnableNextPrayDisplay);
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const nextRemainingTime = useSelector(selectNextRemaining);
 
   useEffect(() => {
     if (!nextPrayer) return;
 
     const { remaining } = nextPrayer;
-    setCounter(remaining);
+    // setCounter(remaining);
+    console.log('here: ', nextRemainingTime);
+    setCounter(nextRemainingTime);
 
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -46,7 +54,7 @@ export default function NextPrayTime({
         clearInterval(intervalRef.current);
       }
     };
-  }, [nextPrayer]);
+  }, [nextPrayer, nextRemainingTime]);
 
   return (
     <div
