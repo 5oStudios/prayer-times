@@ -80,8 +80,6 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <QRCodeGenerator isArabic={isArabic} />
             <LoadAzkarImg />
             <Themes isArabic={isArabic} />
-            <HideDisplayScreen isArabic={isArabic} />
-            <AfterAzanTime isArabic={isArabic} />
             <button
               type="button"
               onClick={() => {
@@ -110,6 +108,8 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
 
         {item.value === dictionary.settings.prayerTime.title && (
           <div className={isArabic ? style.alRight : ''}>
+            <HideDisplayScreen isArabic={isArabic} />
+            <AfterAzanTime isArabic={isArabic} />
             <AdjustTimes isArabic={isArabic} />
             <button
               type="button"

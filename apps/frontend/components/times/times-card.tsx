@@ -27,9 +27,11 @@ export const PrayerTimesCard = ({
   const localizedTime = localTimer(formatTime(prayer.time), lang);
   const [counter, setCounter] = useState(prayer.remaining);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
+  const [counterEndDate, setCounterEndDate] = useState(new Date().getTime() + counter);
   useEffect(() => {
     console.log('name ', prayer.id, ' next ', prayer.isNext);
+    console.log('counter ', counter);
+    setCounterEndDate(new Date().getTime() + counter);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -45,7 +47,7 @@ export const PrayerTimesCard = ({
     };
   }, [prayer]);
 
-  const counterEndDate = new Date().getTime() + counter;
+  // const counterEndDate = new Date().getTime() + counter;
 
   return (
     <Card className={`prayer-card ${font.className} ${prayer.isNext ? 'active-prayer' : ''}`}>
@@ -54,6 +56,7 @@ export const PrayerTimesCard = ({
           <div className="next-prayer-alert">الصلاة التالية</div>
           <div className="remaining-timer">
             <Countdown
+              key={counter}
               date={counterEndDate}
               daysInHours
               renderer={({ formatted: { hours, minutes, seconds } }) =>
@@ -71,6 +74,7 @@ export const PrayerTimesCard = ({
       <div className="remaining-timer vrLayout">
         {prayer.isNext && (
           <Countdown
+            key={counter}
             date={counterEndDate}
             renderer={({ formatted: { hours, minutes, seconds } }) =>
               countDownFormatter({ formatted: { hours, minutes, seconds }, lang })

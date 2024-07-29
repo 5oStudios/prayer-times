@@ -196,7 +196,6 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         />
 
         <NativeSelect
-          value={cityName}
           label={dictionary.settings.location.city}
           data={cities.map((city) => ({ value: city.id.toString(), label: city.name }))}
           onChange={(event) => {
@@ -206,6 +205,7 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
             dispatch(setShiftBy(shiftBy));
             console.log('cityName: ', cities[selectedCityId].name);
             dispatch(setCity(cities[selectedCityId].name));
+            window.location.reload();
           }}
           style={{ width: '45%' }}
         />

@@ -124,7 +124,7 @@ const initialState: SettingsState = {
     en: MuslimPrayers.dhuhr,
   },
   onlyFriday: true,
-  showAzanDuration: 25,
+  showAzanDuration: 1,
   enableCountDown: false,
   showAzKar: false,
   azkarImage: '',

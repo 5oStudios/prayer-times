@@ -19,23 +19,14 @@ import { selectTimes } from '../../../lib/features/times';
 function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
-  const hadithScreen = useSelector(selectHideScreen);
+
   const times = useSelector(selectTimes);
   const akamaAfter = useSelector(selectShowAzanDuration);
 
-  const toggleOverlay = () => {
-    dispatch(setHideScreen(!hadithScreen));
-  };
+
 
   return (
     <div style={{ marginTop: '2rem' }} className={isArabic ? styles.rightAligned : ''}>
-      <Text>{dictionary.settings.displayScreen.hideDisplayScreen}</Text>
-      <Switch
-        style={{ marginTop: '0.5rem' }}
-        defaultChecked={hadithScreen}
-        onClick={toggleOverlay}
-        label={dictionary.settings.displayScreen.hideManually}
-      />
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {dictionary.settings.displayScreen.prayTimeBanner}
       </Text>

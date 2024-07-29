@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { publish } from '@enegix/events';
 import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
+import Image from 'next/image';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
@@ -39,6 +40,7 @@ import {
   getMonthAbbreviation,
   getPrayerTimes,
 } from '../../lib/kuwaitTimes/actions';
+import refreshSvg from '../../assets/icons/refresh.svg';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -47,6 +49,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dictionary = useDictionary();
   const dispatch = useDispatch();
+  const isArabic = lang === 'ar';
   const [currentDate, setCurrentDate] = useState(getFormattedDate());
 
   useEffect(() => {
@@ -80,6 +83,22 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   return (
     <div className={`${orientation}`}>
       <Settings language={lang} changeBtnColor={changeBG} />
+      <button
+        type="button"
+        onClick={() => window.location.reload()}
+        style={{
+          all: 'unset', // Reset all styles to remove default button appearance
+          position: 'absolute',
+          top: '3dvh',
+          left: isArabic ? '2vw' : 'auto',
+          right: isArabic ? 'auto' : '2vw',
+          cursor: 'pointer',
+          zIndex: 10,
+        }}
+      >
+        <Image src={refreshSvg} alt="refresh button" width={25} height={25} />
+      </button>
+
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
         <AdScreen />
         <BlackScreen />

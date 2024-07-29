@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import useLocalStorage from 'use-local-storage';
 import { useDeepCompareEffect } from 'use-deep-compare';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Coordinates,
   MuslimPrayers,
@@ -63,13 +63,13 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const autoLocation = useSelector(selectAutoLocation);
   const arIndex = [5, 4, 3, 2, 1, 0];
   const todayTimes = useSelector(selectTodayPrayerTimes);
-  let stopIsNext = false;
+  const stopIsNextRef = useRef(false);
 
   const handleIsNext = useCallback(
     (remaining: number) => {
       if (remaining < 0) return false;
-      if (!stopIsNext) {
-        stopIsNext = true;
+      if (!stopIsNextRef.current) {
+        stopIsNextRef.current = true;
         dispatch(setNextRemaining(remaining));
         return true;
       }
@@ -131,9 +131,13 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
           const holder = timeStringToDate(hour);
 
           const now = new Date();
-          remaining = holder.getTime() + minuetsToMilliseconds(shiftCityBy) - now.getTime();
+          remaining =
+            holder.getTime() +
+            minuetsToMilliseconds(shiftCityBy) +
+            minuetsToMilliseconds(adjustedPrayerTimes[index]) -
+            now.getTime();
           date = timeStringToDate(hour);
-          date.setMinutes(date.getMinutes() + shiftCityBy);
+          date.setMinutes(date.getMinutes() + shiftCityBy + adjustedPrayerTimes[index]);
         }
         console.log('name ', prayer.id, ' remaining ', remaining, 'prayer is next ', prayer.isNext);
         const adjustedTime = new Date(prayer.time);
@@ -154,7 +158,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   );
 
   useEffect(() => {
-    stopIsNext = false;
+    stopIsNextRef.current = false;
   }, [localizedTimes]);
 
   return (
