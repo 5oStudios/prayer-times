@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
+import { publish } from '@enegix/events';
+import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
@@ -37,8 +39,6 @@ import {
   getMonthAbbreviation,
   getPrayerTimes,
 } from '../../lib/kuwaitTimes/actions';
-import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
-import { publish } from '@enegix/events';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -47,41 +47,40 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dictionary = useDictionary();
   const dispatch = useDispatch();
+  const [currentDate, setCurrentDate] = useState(getFormattedDate());
+
   useEffect(() => {
-    const getDate = getFormattedDate();
-    const getMonth = getMonthAbbreviation();
-    const getTimes = getPrayerTimes(getMonth, getDate);
-    dispatch(setTodayPrayerTimes(getTimes?.times));
-    dispatch(setShowAzanTime(false));
-    dispatch(setHideScreen(false));
-    dispatch(setShowAzKar(false));
-    dispatch(setEnableCountDown(false));
+    const updateTimes = () => {
+      const getDate = getFormattedDate();
+      const getMonth = getMonthAbbreviation();
+      const getTimes = getPrayerTimes(getMonth, getDate);
+      console.log('getTimes: ', getTimes?.times);
+      dispatch(setTodayPrayerTimes(getTimes?.times));
+      dispatch(setShowAzanTime(false));
+      dispatch(setHideScreen(false));
+      dispatch(setShowAzKar(false));
+      dispatch(setEnableCountDown(false));
+    };
+
+    updateTimes(); // Initial call
+
+    const intervalId = setInterval(() => {
+      const newDate = getFormattedDate();
+      if (newDate !== currentDate) {
+        setCurrentDate(newDate);
+        updateTimes();
+      }
+    }, 60000); // Check every minute
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentDate, dispatch]);
 
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
       <Settings language={lang} changeBtnColor={changeBG} />
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
-        {/* <button
-          onClick={() => {
-            const data: PrayerTime = {
-              id: MuslimPrayers.fajr,
-              name: {
-                ar: MuslimPrayersAr.fajr,
-                en: MuslimPrayers.fajr,
-              },
-              time: new Date(),
-              isNext: true,
-              remaining: 3000,
-            };
-            publish('next-prayer', data);
-          }}
-        >
-          TEST
-        </button> */}
-        
         <AdScreen />
         <BlackScreen />
         <Azkar />

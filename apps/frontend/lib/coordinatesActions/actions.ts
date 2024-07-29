@@ -1,5 +1,5 @@
 import countryCityDB from './cities.json';
-import { Country } from './type';
+import { City, Country } from './type';
 
 const db: Country = countryCityDB as unknown as Country;
 
@@ -7,8 +7,8 @@ function getCountryName() {
   return db.country;
 }
 
-function getCities(country: string) {
-  return db.cities.map((city) => city.name);
+function getCities(): City[] {
+  return db.cities.map((city) => city);
 }
 
 function getCityAdjustTime(index: number) {
