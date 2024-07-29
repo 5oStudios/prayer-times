@@ -83,6 +83,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <HideDisplayScreen isArabic={isArabic} />
             <AfterAzanTime isArabic={isArabic} />
             <button
+              type="button"
               onClick={() => {
                 const data: PrayerTime = {
                   id: MuslimPrayers.fajr,

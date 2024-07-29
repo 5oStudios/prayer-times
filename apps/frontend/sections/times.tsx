@@ -142,7 +142,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
         return {
           ...prayer,
           isNext: handleIsNext(remaining as number),
-          remaining,
+          remaining: remaining ?? 0,
           // (prayer.remaining ?? 0) +
           //   minuetsToMilliseconds(adjustedPrayerTimes[index] || 0)
           // name: dictionary.times[capitalize(prayer.name) as keyof typeof dictionary.times],
