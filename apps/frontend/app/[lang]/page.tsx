@@ -129,9 +129,9 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
           {imamName.length > 0 ? `${dictionary.settings.imamName.ImamElMasjid} : ${imamName}` : ''}
         </div>
 
-        {/* <div className="hadith-marquee">
+        <div className="hadith-marquee">
           <HadithSection lang={lang} />
-        </div> */}
+        </div>
       </div>
     </div>
   );
