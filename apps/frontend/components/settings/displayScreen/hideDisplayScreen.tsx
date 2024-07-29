@@ -23,8 +23,6 @@ function HideDisplayScreen({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
   const akamaAfter = useSelector(selectShowAzanDuration);
 
-
-
   return (
     <div style={{ marginTop: '2rem' }} className={isArabic ? styles.rightAligned : ''}>
       <Text style={{ marginTop: '1rem', marginBottom: '1rem' }}>

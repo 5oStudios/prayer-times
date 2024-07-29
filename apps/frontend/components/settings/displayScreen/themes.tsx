@@ -1,11 +1,8 @@
-import { Radio, Group } from '@mantine/core';
-import { useDispatch } from 'react-redux';
-import { setBackground } from '../../../lib/features/settings';
+import { Radio, Group, Switch, Text } from '@mantine/core';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
-import { useSelector } from 'react-redux';
-import { selectHideScreen, setHideScreen } from '../../../lib/features/settings';
-import { Switch, Text } from '@mantine/core';
+import { selectHideScreen, setHideScreen,setBackground } from '../../../lib/features/settings';
 
 export default function Themes({ isArabic }: { isArabic: boolean }) {
   const dispatch = useDispatch();

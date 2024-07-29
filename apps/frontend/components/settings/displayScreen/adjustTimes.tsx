@@ -7,7 +7,7 @@ import { MuslimPrayers, PrayerTime } from '@islamic-kit/prayer-times';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import { selectTimes } from '../../../lib/features/times';
 import styles from '../../../assets/css/settings.module.css';
-import { adjustTime, selectAdjustedTimes } from '../../../lib/features/adjustedTimes';
+import { selectAdjustPrayTimes, setAdjustPrayTimes } from '../../../lib/features/settings';
 
 export default function AdjustTimes({ isArabic }: { isArabic: boolean }) {
   const times = useSelector(selectTimes);
@@ -39,7 +39,8 @@ type AdjustPrayTimesInputCardProps = {
 
 function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInputCardProps) {
   const dispatch = useDispatch();
-  const adjustTimes = useSelector(selectAdjustedTimes);
+  // const adjustTimes = useSelector(selectAdjustedTimes);
+  const timePeriod = useSelector(selectAdjustPrayTimes);
 
   const handleChange = (value: number | string) => {
     // TODO: find a better way
@@ -49,7 +50,10 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
 
     console.log('value', value);
 
-    dispatch(adjustTime({ id: time.id, extraMinutes: Number(value) }));
+    // dispatch(adjustTime({ id: time.id, extraMinutes: Number(value) }));
+    const updatedTimePeriod = [...timePeriod];
+    updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
+    dispatch(setAdjustPrayTimes(updatedTimePeriod));
   };
 
   const name = isArabic ? time.name.ar : time.name.en;
@@ -67,7 +71,8 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
       <Text style={{ marginLeft: '1rem' }}>{name}</Text>
       <NumberInput
         onChange={handleChange}
-        defaultValue={adjustTimes.find((t) => t.id === time.id)?.extraMinutes || 0}
+        // defaultValue={adjustTimes.find((t) => t.id === time.id)?.extraMinutes || 0}
+        defaultValue={timePeriod[index]}
         styles={{
           input: { paddingLeft: isArabic ? '2rem' : '' },
         }}
