@@ -11,7 +11,7 @@ import settingsReducer from './features/settings';
 import { adjustedTimesSlice } from './features/adjustedTimes';
 
 const LOCAL_STORAGE_VERSION_KEY = 'localStorageVersion';
-const CURRENT_VERSION = '1.0.0';
+const CURRENT_VERSION = '1.0.1';
 
 const createNoopStorage = () => ({
   getItem(_key: string) {

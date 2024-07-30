@@ -22,7 +22,7 @@ export enum ORIENTATION {
 export type SettingsState = {
   hadithTickerSpeed: number;
   orientation: ORIENTATION;
-  masjidName: string;
+  masjedName: string;
   hideScreen: boolean;
   url: string;
   enableURL: boolean;
@@ -68,7 +68,7 @@ export type SettingsState = {
 const initialState: SettingsState = {
   hadithTickerSpeed: 4000,
   orientation: ORIENTATION.DEFAULT,
-  masjidName: '',
+  masjedName: '',
   hideScreen: false,
   url: '',
   enableURL: false,
@@ -160,8 +160,8 @@ const settingsSlice = createSlice({
     setOrientation: (state, action) => {
       state.orientation = action.payload;
     },
-    setMasjidName: (state, action) => {
-      state.masjidName = action.payload;
+    setMasjedName: (state, action) => {
+      state.masjedName = action.payload;
     },
     setHideScreen: (state, action) => {
       state.hideScreen = action.payload;
@@ -268,7 +268,7 @@ const settingsSlice = createSlice({
 export const {
   setHadithTickerSpeed,
   setOrientation,
-  setMasjidName,
+  setMasjedName,
   setHideScreen,
   setURL,
   setEnableURL,
@@ -308,7 +308,7 @@ export default settingsSlice;
 
 export const selectHadithTickerSpeed = (state: RootState) => state.settings.hadithTickerSpeed;
 export const selectOrientation = (state: RootState) => state.settings.orientation;
-export const selectMasjidName = (state: RootState) => state.settings.masjidName;
+export const selectMasjedName = (state: RootState) => state.settings.masjedName;
 export const selectHideScreen = (state: RootState) => state.settings.hideScreen;
 export const selectURL = (state: RootState) => state.settings.url;
 export const selectEnableURL = (state: RootState) => state.settings.enableURL;

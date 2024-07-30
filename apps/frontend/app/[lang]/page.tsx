@@ -17,7 +17,7 @@ import { Settings } from '../../components';
 import {
   selectBackground,
   selectImamName,
-  selectMasjidName,
+  selectMasjedName,
   selectOrientation,
   selectTodayPrayerTimes,
 } from '../../lib/features/settings';
@@ -37,7 +37,7 @@ import {
   getPrayerTimes,
 } from '../../lib/kuwaitTimes/actions';
 import refreshSvg from '../../assets/icons/refresh.svg';
-import { initReload, updateIshaTime, updateTimes } from '../../utils';
+import { updateTimes } from '../../utils';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -89,7 +89,7 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
         <div
           className={`mosquee-name ${changeBG ? 'whiteText' : ''} ${isTabletOrMobile ? styles.mobileTextSizeName : ''}`}
         >
-          {useSelector(selectMasjidName)}
+          {useSelector(selectMasjedName)}
         </div>
         <div
           style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}

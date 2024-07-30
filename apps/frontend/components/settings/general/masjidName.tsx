@@ -2,15 +2,15 @@ import React from 'react';
 import { Input, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
-import { selectMasjidName, setMasjidName } from '../../../lib/features/settings';
+import { selectMasjedName, setMasjedName } from '../../../lib/features/settings';
 
 export default function MasjidName() {
   const dictionary = useDictionary();
   const dispatch = useDispatch();
-  const masjidName = useSelector(selectMasjidName);
+  const masjidName = useSelector(selectMasjedName);
 
   const handleNameChange = (value: string) => {
-    dispatch(setMasjidName(value));
+    dispatch(setMasjedName(value));
   };
 
   return (
