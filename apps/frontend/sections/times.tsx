@@ -29,11 +29,7 @@ import {
 } from '../lib/features/settings';
 import { selectAdjustedTimes } from '../lib/features/adjustedTimes';
 import { timeStringToDate } from '../lib/kuwaitTimes/actions';
-import {
-  initReload,
-  minuetsToMilliseconds,
-  updateTimesTomorrow,
-} from '../utils';
+import { initReload, minuetsToMilliseconds, updateTimesTomorrow } from '../utils';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -133,41 +129,64 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   //   return reversedTimes;
   // }, [times, hideSunRise, lang, isPortrait]);
 
-  const localizedTimes = useMemo(
-    () =>
-      times.map((prayer, index) => {
-        let date;
-        let remaining;
-        if (!autoLocation) {
-          const hour = todayTimes[index];
-          const holder = timeStringToDate(hour);
+  const localizedTimes = useMemo(() => {
+    // Calculate remaining times and determine the next prayer
+    const timesWithRemaining = times.map((prayer, index) => {
+      let date;
+      let remaining = 0;
 
-          const now = new Date();
+      if (!autoLocation) {
+        const hour = todayTimes[index];
+        const holder = timeStringToDate(hour);
+        const now = new Date();
+
+        remaining =
+          holder.getTime() +
+          minuetsToMilliseconds(shiftCityBy) +
+          minuetsToMilliseconds(adjustedPrayerTimes[index]) -
+          now.getTime();
+
+        // If remaining time is negative, add one day to holder
+        if (remaining < 0) {
+          holder.setDate(holder.getDate() + 1);
           remaining =
             holder.getTime() +
             minuetsToMilliseconds(shiftCityBy) +
             minuetsToMilliseconds(adjustedPrayerTimes[index]) -
             now.getTime();
-          date = timeStringToDate(hour);
-          date.setMinutes(date.getMinutes() + shiftCityBy + adjustedPrayerTimes[index]);
         }
-        console.log('name ', prayer.id, ' remaining ', remaining, 'prayer is next ', prayer.isNext);
-        const adjustedTime = new Date(prayer.time);
-        adjustedTime.setMinutes(adjustedTime.getMinutes() + adjustedPrayerTimes[index]);
 
-        return {
-          ...prayer,
-          isNext: handleIsNext(remaining as number),
-          remaining: remaining ?? 0,
-          // (prayer.remaining ?? 0) +
-          //   minuetsToMilliseconds(adjustedPrayerTimes[index] || 0)
-          // name: dictionary.times[capitalize(prayer.name) as keyof typeof dictionary.times],
-          name: prayer.name,
-          time: date ?? adjustedTime,
-        };
-      }),
-    [times, autoLocation, adjustedPrayerTimes, handleIsNext, todayTimes, shiftCityBy]
-  );
+        date = holder;
+        date.setMinutes(date.getMinutes() + shiftCityBy + adjustedPrayerTimes[index]);
+      }
+
+      return {
+        ...prayer,
+        isNext: remaining < 0 ? false : remaining,
+        remaining: remaining ?? 0,
+        name: prayer.name,
+        time: date ?? new Date(prayer.time),
+      };
+    });
+
+    // Find the prayer with the minimum remaining time
+    const minRemainingTime = Math.min(...timesWithRemaining.map((prayer) => prayer.remaining));
+    const timesWithNextFlag = timesWithRemaining.map((prayer) => ({
+      ...prayer,
+      isNext: prayer.remaining === minRemainingTime,
+    }));
+
+    return reverseTimes(timesWithNextFlag, lang, isPortrait);
+  }, [
+    times,
+    autoLocation,
+    adjustedPrayerTimes,
+    handleIsNext,
+    todayTimes,
+    shiftCityBy,
+    lang,
+    isPortrait,
+  ]);
 
   useEffect(() => {
     stopIsNextRef.current = false;
@@ -181,7 +200,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       style={isTabletOrMobile ? { gap: '1rem' } : { gap: '0.5rem' }}
       className="times-section"
     >
-      {reverseTimes(localizedTimes, lang, isPortrait).map((prayer) => (
+      {localizedTimes.map((prayer) => (
         <PrayerTimesCard key={prayer.id} prayer={prayer} coordinates={coordinates} lang={lang} />
       ))}
     </Flex>
