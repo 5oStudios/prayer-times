@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Center, Text } from '@mantine/core';
@@ -23,6 +23,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const isVertical = orientation === '';
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -48,6 +49,11 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
         }, 1000);
       }
     );
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, []);
 
   return (

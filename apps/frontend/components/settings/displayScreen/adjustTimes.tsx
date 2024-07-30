@@ -51,8 +51,9 @@ function AdjustPrayTimesInputCard({ index, isArabic, time }: AdjustPrayTimesInpu
     console.log('value', value);
 
     // dispatch(adjustTime({ id: time.id, extraMinutes: Number(value) }));
+    const updatedTime = typeof value === 'string' ? parseInt(value, 10) : value;
     const updatedTimePeriod = [...timePeriod];
-    updatedTimePeriod[index] = typeof value === 'string' ? parseInt(value, 10) : value;
+    updatedTimePeriod[index] = updatedTime;
     dispatch(setAdjustPrayTimes(updatedTimePeriod));
   };
 

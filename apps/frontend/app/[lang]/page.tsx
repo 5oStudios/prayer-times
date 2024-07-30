@@ -19,11 +19,7 @@ import {
   selectImamName,
   selectMasjidName,
   selectOrientation,
-  setEnableCountDown,
-  setHideScreen,
-  setShowAzanTime,
-  setShowAzKar,
-  setTodayPrayerTimes,
+  selectTodayPrayerTimes,
 } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
@@ -41,6 +37,7 @@ import {
   getPrayerTimes,
 } from '../../lib/kuwaitTimes/actions';
 import refreshSvg from '../../assets/icons/refresh.svg';
+import { initReload, updateIshaTime, updateTimes } from '../../utils';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -51,33 +48,11 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const dispatch = useDispatch();
   const isArabic = lang === 'ar';
   const [currentDate, setCurrentDate] = useState(getFormattedDate());
+  const todayPrayerTimes = useSelector(selectTodayPrayerTimes);
 
   useEffect(() => {
-    const updateTimes = () => {
-      const getDate = getFormattedDate();
-      const getMonth = getMonthAbbreviation();
-      const getTimes = getPrayerTimes(getMonth, getDate);
-      console.log('getTimes: ', getTimes?.times);
-      dispatch(setTodayPrayerTimes(getTimes?.times));
-      dispatch(setShowAzanTime(false));
-      dispatch(setHideScreen(false));
-      dispatch(setShowAzKar(false));
-      dispatch(setEnableCountDown(false));
-    };
-
-    updateTimes(); // Initial call
-
-    const intervalId = setInterval(() => {
-      const newDate = getFormattedDate();
-      if (newDate !== currentDate) {
-        setCurrentDate(newDate);
-        updateTimes();
-      }
-    }, 60000); // Check every minute
-
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentDate, dispatch]);
+    updateTimes(dispatch);
+  }, []);
 
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (

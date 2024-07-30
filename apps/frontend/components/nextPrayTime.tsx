@@ -5,7 +5,7 @@
 import Countdown from 'react-countdown';
 import { Center, Text } from '@mantine/core';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import {
   selectEnableNextPrayDisplay,
@@ -15,6 +15,7 @@ import {
 import styles from '../assets/css/settings.module.css';
 import { countDownFormatter } from './times';
 import { selectNextPrayer } from '../lib/features/times';
+import { initReload } from '../utils';
 
 export default function NextPrayTime({
   lang,
@@ -32,7 +33,7 @@ export default function NextPrayTime({
   const [counter, setCounter] = useState<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const nextRemainingTime = useSelector(selectNextRemaining);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!nextPrayer) return;
 
@@ -52,6 +53,7 @@ export default function NextPrayTime({
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        initReload(dispatch);
       }
     };
   }, [nextPrayer, nextRemainingTime]);

@@ -29,7 +29,11 @@ import {
 } from '../lib/features/settings';
 import { selectAdjustedTimes } from '../lib/features/adjustedTimes';
 import { timeStringToDate } from '../lib/kuwaitTimes/actions';
-import { minuetsToMilliseconds } from '../utils';
+import {
+  initReload,
+  minuetsToMilliseconds,
+  updateTimesTomorrow,
+} from '../utils';
 
 export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const dictionary = useDictionary();
@@ -46,6 +50,7 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const shiftingTimes = useSelector(selectAdjustedTimes);
   const shifting = shiftingTimes.map(({ id, extraMinutes }) => ({ [id]: extraMinutes }));
   const shiftCityBy = useSelector(selectShiftBy);
+  const todayPrayerTimes = useSelector(selectTodayPrayerTimes);
   const defaultShifting: Shifting = {
     fajr: 0,
     dhuhr: 0,
@@ -79,7 +84,11 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   );
 
   useEffect(() => {
-    subscribe<PrayerTime>('next-prayer', () => {
+    subscribe<PrayerTime>('next-prayer', (prayer) => {
+      if (prayer.id === MuslimPrayers.isha) {
+        // setIshaPrevTime(dispatch);
+        updateTimesTomorrow(dispatch);
+      }
       // alert(`It's time for from store ${prayer.name}`);
       // dispatch(setCurrentPrayTimeName(prayer.name));
       dispatch(
@@ -89,6 +98,9 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
         })
       );
     });
+    return () => {
+      initReload(dispatch);
+    };
   }, []);
 
   useDeepCompareEffect(() => {

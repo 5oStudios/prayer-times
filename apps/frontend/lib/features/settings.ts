@@ -62,6 +62,7 @@ export type SettingsState = {
   todayPrayerTimes: string[];
   shiftBy: number;
   nextRemaining: number;
+  ishaTimeHolder: string;
 };
 
 const initialState: SettingsState = {
@@ -146,6 +147,7 @@ const initialState: SettingsState = {
   todayPrayerTimes: [],
   shiftBy: 0,
   nextRemaining: 0,
+  ishaTimeHolder: '',
 };
 
 const settingsSlice = createSlice({

@@ -80,14 +80,14 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <QRCodeGenerator isArabic={isArabic} />
             <LoadAzkarImg />
             <Themes isArabic={isArabic} />
-            <button
+            {/* <button
               type="button"
               onClick={() => {
                 const data: PrayerTime = {
-                  id: MuslimPrayers.fajr,
+                  id: MuslimPrayers.isha,
                   name: {
-                    ar: MuslimPrayersAr.fajr,
-                    en: MuslimPrayers.fajr,
+                    ar: MuslimPrayersAr.isha,
+                    en: MuslimPrayers.isha,
                   },
                   time: new Date(),
                   isNext: true,
@@ -97,7 +97,7 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
               }}
             >
               TEST
-            </button>
+            </button> */}
           </div>
         )}
         {item.value === dictionary.settings.ads.title && (

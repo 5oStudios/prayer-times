@@ -15,7 +15,7 @@ import {
   setEnableAd,
   setEnableCountDown,
 } from '../../lib/features/settings';
-import { minuetsToMilliseconds, wait } from '../../utils';
+import { initReload, minuetsToMilliseconds, wait } from '../../utils';
 
 export default function Azan({ language }: { language: SupportedLanguages }) {
   const dictionary = useDictionary();
@@ -57,6 +57,10 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
         // showAzanDuration,//check beforeAzanTimes
       });
     });
+       // Cleanup function called on component unmount
+       return () => {
+        initReload(dispatch);
+      };
   }, []);
 
   if (!prayTime) return;

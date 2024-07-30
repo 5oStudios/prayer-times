@@ -110,7 +110,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { NativeSelect, Text, Switch } from '@mantine/core';
+import { NativeSelect, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Coordinates } from '@islamic-kit/prayer-times';
 import useLocalStorage from 'use-local-storage';
@@ -128,7 +128,6 @@ import style from '../../../assets/css/settings.module.css';
 import { getCities } from '../../../lib/coordinatesActions/actions';
 import { getPrayerTimes } from '../../../lib/kuwaitTimes/actions';
 import { City } from '../../../lib/coordinatesActions/type';
-import { getShiftBy } from '../../../utils';
 
 const kuwaitCoordinates = {
   latitude: 29.3759,
@@ -198,9 +197,9 @@ export default function Location({ isArabic }: { isArabic: boolean }) {
         <NativeSelect
           label={dictionary.settings.location.city}
           data={cities.map((city) => ({ value: city.id.toString(), label: city.name }))}
-          onChange={(event) => {
+          onChange={(event: { currentTarget: { value: any } }) => {
             const selectedCityId = Number(event.currentTarget.value); // Convert the selectedCityId back to a number
-            const shiftBy = getShiftBy(selectedCityId);
+            const shiftBy = cities[selectedCityId].adjustTime;
             console.log('cityId: ', selectedCityId, 'shift: ', shiftBy);
             dispatch(setShiftBy(shiftBy));
             console.log('cityName: ', cities[selectedCityId].name);
