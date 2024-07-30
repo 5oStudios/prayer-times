@@ -3,6 +3,8 @@
 import { Accordion as MantineAccordion } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
 import React from 'react';
+import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
+import { publish } from '@enegix/events';
 import { Orientation } from './general/orientation';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import styles from './accordion.module.css';
@@ -78,8 +80,24 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
             <QRCodeGenerator isArabic={isArabic} />
             <LoadAzkarImg />
             <Themes isArabic={isArabic} />
-            <HideDisplayScreen isArabic={isArabic} />
-            <AfterAzanTime isArabic={isArabic} />
+            {/* <button
+              type="button"
+              onClick={() => {
+                const data: PrayerTime = {
+                  id: MuslimPrayers.isha,
+                  name: {
+                    ar: MuslimPrayersAr.isha,
+                    en: MuslimPrayers.isha,
+                  },
+                  time: new Date(),
+                  isNext: true,
+                  remaining: 3000,
+                };
+                publish('next-prayer', data);
+              }}
+            >
+              TEST
+            </button> */}
           </div>
         )}
         {item.value === dictionary.settings.ads.title && (
@@ -90,8 +108,11 @@ function SettingsAccordion({ language }: SettingsAccordionProps) {
 
         {item.value === dictionary.settings.prayerTime.title && (
           <div className={isArabic ? style.alRight : ''}>
+            <HideDisplayScreen isArabic={isArabic} />
+            <AfterAzanTime isArabic={isArabic} />
             <AdjustTimes isArabic={isArabic} />
             <button
+              type="button"
               onClick={() => window.location.reload()}
               style={{
                 marginTop: '1rem',

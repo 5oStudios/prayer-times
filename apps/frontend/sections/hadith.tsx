@@ -16,6 +16,7 @@ import { StarSvg } from '../assets/hadith/star';
 // eslint-disable-next-line import/no-cycle
 import { NewsType } from '../components/settings/news/news';
 import '@devnomic/marquee/dist/index.css';
+import { useRouter } from 'next/navigation';
 
 const font = localFont({ src: '../assets/fonts/SFArabicRounded/SFArabicRounded-Regular.woff2' });
 
@@ -58,6 +59,8 @@ const HadithTicker = ({
   const [currentHadith, setCurrentHadith] = useState<string[]>([]);
   const [index, setIndex] = useState<number>(0);
   const news = useSelector(selectNews) as NewsType[];
+  const router = useRouter();
+  const [currentDuration, setCurrentDuration] = useState<number>(0);
   const hadithClient = new HadithClient({
     language: lang === 'ar' ? 'ARABIC' : 'ENGLISH',
     strategy: 'offline',
@@ -68,7 +71,7 @@ const HadithTicker = ({
       const response = await hadithClient.getHadithList({ index });
 
       if (Array.isArray(response)) {
-        setCurrentHadith(response); // Handle direct array response
+        setCurrentHadith((prevHadith) => [...prevHadith, ...response.map((data) => data)]);
       } else {
         setCurrentHadith(response.data.map((hadith: Hadith) => hadith.content)); // Handle OnlineAPIResponse
       }
@@ -80,52 +83,76 @@ const HadithTicker = ({
   const reverse = direction === 'right';
   const isNews = news.length > 0;
   const data = isNews ? news.map((item) => item.content) : currentHadith;
+
   function updateTickerDuration() {
     const screenWidth = window.innerWidth;
-    const duration = screenWidth / 0.5;
+    const duration = isNews ? screenWidth : screenWidth / 0.5;
+    setCurrentDuration(duration);
     document.querySelector('.ticker-inner')?.setAttribute('style', `--duration:${duration}s`);
   }
-
+  // function updateTickerDuration() {
+  //   const screenWidth = window.innerWidth;
+  //   const dataLength = data.length; // Assuming data is an array
+  //   const durationPerItem = screenWidth / dataLength; // Adjust this calculation based on your needs
+  //   const totalDuration = durationPerItem * dataLength;
+  //   setCurrentDuration(totalDuration);
+  //   document.querySelector('.ticker-inner')?.setAttribute('style', `--duration:${totalDuration}s`);
+  // }
   useEffect(() => {
     updateTickerDuration();
-    window.addEventListener('resize', updateTickerDuration);
-    return () => {
-      window.removeEventListener('resize', updateTickerDuration);
-    };
-  }, []);
+    window.removeEventListener('resize', updateTickerDuration);
+  }, [data, isNews]);
 
   return (
-    // <Marquee
-    //   className="ticker-bg gap-[3rem] [--duration:5s]"
-    //   innerClassName="gap-[3rem] [--gap:3rem]"
-    //   direction="left"
-    //   reverse={reverse}
-
-    //   // direction={direction}
-    //   // autoFill
-    //   // speed={speed}
-    //   // style={{ width: '100%' }}
-    //   // onCycleComplete={() => setIndex(index + 1)}
-    // >
-
-    // </Marquee>
-    <Marquee
-      direction="left"
-      reverse={reverse}
-      pauseOnHover={false}
-      className="ticker-bg"
-      innerClassName="ticker-inner"
-    >
-      {data.map((item, id) => (
-        <HadithComponent id={id} item={item} key={id} />
-      ))}
-    </Marquee>
+    <div style={{ width: '100vw' }}>
+      {isNews ? (
+        <Marquee
+          direction="left"
+          reverse={reverse}
+          pauseOnHover={false}
+          className="marquee-bg"
+          innerClassName="innerNews fullWidth"
+        >
+          {data.map((item, id) => (
+            <HadithComponent id={id} item={item} key={id} afterStar />
+          ))}
+        </Marquee>
+      ) : (
+        <Marquee
+          direction="left"
+          reverse={reverse}
+          pauseOnHover={false}
+          className="ticker-bg"
+          innerClassName="ticker-inner"
+        >
+          {data.map((item, id) => (
+            <HadithComponent id={id} item={item} key={id} afterStar={false} />
+          ))}
+        </Marquee>
+      )}
+    </div>
   );
 };
 
-const HadithComponent = ({ id, item }: { id: number; item: string }) => (
+const HadithComponent = ({
+  id,
+  item,
+  afterStar,
+}: {
+  id: number;
+  item: string;
+  afterStar: boolean;
+}) => (
   <Flex>
     <Flex key={id} justify="center" align="center">
+      {afterStar && (
+        <StarSvg
+          style={{
+            fill: 'white',
+            marginInline: 24,
+          }}
+        />
+      )}
       <Text
         className={font.className}
         style={{ color: 'white', fontSize: '45px', width: 'max-content' }}

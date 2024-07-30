@@ -1,8 +1,11 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
+import { publish } from '@enegix/events';
+import { MuslimPrayers, MuslimPrayersAr, PrayerTime } from '@islamic-kit/prayer-times';
+import Image from 'next/image';
 import { HadithSection } from '../../sections/hadith';
 import { PrayerTimesSection } from '../../sections/times';
 import { SupportedLanguages } from '../i18n/dictionaries';
@@ -16,11 +19,7 @@ import {
   selectImamName,
   selectMasjidName,
   selectOrientation,
-  setEnableCountDown,
-  setHideScreen,
-  setShowAzanTime,
-  setShowAzKar,
-  setTodayPrayerTimes,
+  selectTodayPrayerTimes,
 } from '../../lib/features/settings';
 import BlackScreen from '../../components/blackScreen';
 import { DisplayQRcode } from '../../components/settings/displayScreen/displayQRcode';
@@ -37,6 +36,8 @@ import {
   getMonthAbbreviation,
   getPrayerTimes,
 } from '../../lib/kuwaitTimes/actions';
+import refreshSvg from '../../assets/icons/refresh.svg';
+import { initReload, updateIshaTime, updateTimes } from '../../utils';
 
 export default function MainPage({ params: { lang } }: { params: { lang: SupportedLanguages } }) {
   const orientation = useSelector(selectOrientation);
@@ -45,40 +46,35 @@ export default function MainPage({ params: { lang } }: { params: { lang: Support
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const dictionary = useDictionary();
   const dispatch = useDispatch();
+  const isArabic = lang === 'ar';
+  const [currentDate, setCurrentDate] = useState(getFormattedDate());
+  const todayPrayerTimes = useSelector(selectTodayPrayerTimes);
+
   useEffect(() => {
-    const getDate = getFormattedDate();
-    const getMonth = getMonthAbbreviation();
-    const getTimes = getPrayerTimes(getMonth, getDate);
-    dispatch(setTodayPrayerTimes(getTimes?.times));
-    dispatch(setShowAzanTime(false));
-    dispatch(setHideScreen(false));
-    dispatch(setShowAzKar(false));
-    dispatch(setEnableCountDown(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    updateTimes(dispatch);
   }, []);
 
   const changeBG = backgroundImageIndex === 1 || backgroundImageIndex === 3;
   return (
     <div className={`${orientation}`}>
       <Settings language={lang} changeBtnColor={changeBG} />
+      <button
+        type="button"
+        onClick={() => window.location.reload()}
+        style={{
+          all: 'unset', // Reset all styles to remove default button appearance
+          position: 'absolute',
+          top: '3dvh',
+          left: isArabic ? '2vw' : 'auto',
+          right: isArabic ? 'auto' : '2vw',
+          cursor: 'pointer',
+          zIndex: 10,
+        }}
+      >
+        <Image src={refreshSvg} alt="refresh button" width={25} height={25} />
+      </button>
+
       <div className={`screen-wrapper theme-red screen-wrapper${backgroundImageIndex}`}>
-        {/*<button*/}
-        {/*  onClick={() => {*/}
-        {/*    const data: PrayerTime = {*/}
-        {/*      id: MuslimPrayers.fajr,*/}
-        {/*      name: {*/}
-        {/*        ar: MuslimPrayersAr.fajr,*/}
-        {/*        en: MuslimPrayers.fajr,*/}
-        {/*      },*/}
-        {/*      time: new Date(),*/}
-        {/*      isNext: true,*/}
-        {/*      remaining: 3000,*/}
-        {/*    };*/}
-        {/*    publish('next-prayer', data);*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  TEST*/}
-        {/*</button>*/}
         <AdScreen />
         <BlackScreen />
         <Azkar />

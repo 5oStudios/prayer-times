@@ -24,6 +24,43 @@ export function getFormattedDate() {
   return `${formattedMonth}-${formattedDay}`;
 }
 
+export function getFormattedDateYesterday() {
+  const today = new Date();
+
+  // Create a new Date object for yesterday
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+
+  // Get the month and day from the yesterday Date object
+  const month = yesterday.getMonth() + 1; // getMonth() returns month index (0-11)
+  const day = yesterday.getDate(); // getDate() returns day of the month
+
+  // Format month and day to be always two digits
+  const formattedMonth = month.toString().padStart(2, '0');
+  const formattedDay = day.toString().padStart(2, '0');
+
+  // Return the formatted date as MM-DD
+  return `${formattedMonth}-${formattedDay}`;
+}
+export function getFormattedDateTomorrow() {
+  const today = new Date();
+
+  // Create a new Date object for yesterday
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() + 1);
+
+  // Get the month and day from the yesterday Date object
+  const month = yesterday.getMonth() + 1; // getMonth() returns month index (0-11)
+  const day = yesterday.getDate(); // getDate() returns day of the month
+
+  // Format month and day to be always two digits
+  const formattedMonth = month.toString().padStart(2, '0');
+  const formattedDay = day.toString().padStart(2, '0');
+
+  // Return the formatted date as MM-DD
+  return `${formattedMonth}-${formattedDay}`;
+}
+
 export function getMonthAbbreviation(): Months {
   const today = new Date();
   // Array of month abbreviations

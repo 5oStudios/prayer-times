@@ -1,3 +1,18 @@
+import { Dispatch } from 'redux';
+import {
+  getFormattedDate,
+  getFormattedDateTomorrow,
+  getMonthAbbreviation,
+  getPrayerTimes,
+} from './lib/kuwaitTimes/actions';
+import {
+  setTodayPrayerTimes,
+  setEnableCountDown,
+  setHideScreen,
+  setShowAzanTime,
+  setShowAzKar,
+} from './lib/features/settings';
+
 export const wait = async (ms: number) =>
   new Promise((resolve) => {
     setTimeout(resolve, ms);
@@ -32,4 +47,27 @@ export function deepEqual(obj1: any, obj2: any): boolean {
   }
 
   return true;
+}
+
+export function updateTimes(dispatch: Dispatch) {
+  const getDate = getFormattedDate();
+  const getMonth = getMonthAbbreviation();
+  const getTimes = getPrayerTimes(getMonth, getDate);
+  console.log('getTimes: ', getTimes?.times);
+  dispatch(setTodayPrayerTimes(getTimes?.times));
+}
+
+export function updateTimesTomorrow(dispatch: Dispatch) {
+  const getDate = getFormattedDateTomorrow();
+  const getMonth = getMonthAbbreviation();
+  const getTimes = getPrayerTimes(getMonth, getDate);
+  console.log('getTimes: ', getTimes?.times);
+  dispatch(setTodayPrayerTimes(getTimes?.times));
+}
+
+export function initReload(dispatch: Dispatch) {
+  dispatch(setShowAzanTime(false));
+  dispatch(setHideScreen(false));
+  dispatch(setShowAzKar(false));
+  dispatch(setEnableCountDown(false));
 }

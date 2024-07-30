@@ -1,12 +1,16 @@
-import { Radio, Group } from '@mantine/core';
-import { useDispatch } from 'react-redux';
-import { setBackground } from '../../../lib/features/settings';
+import { Radio, Group, Switch, Text } from '@mantine/core';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDictionary } from '../../../app/[lang]/dictionary-provider';
 import styles from '../../../assets/css/settings.module.css';
+import { selectHideScreen, setHideScreen, setBackground } from '../../../lib/features/settings';
 
 export default function Themes({ isArabic }: { isArabic: boolean }) {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
+  const hideScreen = useSelector(selectHideScreen);
+  const toggleHideScreen = () => {
+    dispatch(setHideScreen(!hideScreen));
+  };
   return (
     <div className={isArabic ? styles.alRight : ''} style={{ width: '100%', marginTop: '2rem' }}>
       <Radio.Group
@@ -24,6 +28,16 @@ export default function Themes({ isArabic }: { isArabic: boolean }) {
           <Radio value="2" label={dictionary.settings.themes.sunSet} />
         </Group>
       </Radio.Group>
+
+      <Text style={{ marginTop: '1rem' }}>
+        {dictionary.settings.displayScreen.hideDisplayScreen}
+      </Text>
+      <Switch
+        style={{ marginTop: '0.5rem', marginBottom: '1rem' }}
+        defaultChecked={hideScreen}
+        onClick={toggleHideScreen}
+        label={dictionary.settings.displayScreen.hideManually}
+      />
     </div>
   );
 }

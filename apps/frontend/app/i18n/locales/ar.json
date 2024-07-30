@@ -49,8 +49,8 @@
       "previousNews": "الأخبار السابقة",
       "NoNewsAvailable": "لا توجد أخبار متاحة"
     },
-    "prayerTime":{
-      "title":"أوقات الصلاة"
+    "prayerTime": {
+      "title": "أوقات الصلاة"
     },
     "ads": {
       "title": "الإعلانات",
@@ -69,7 +69,7 @@
       "prayTimeBanner": "مدة الصلاة لإخفاء الشاشة",
       "uploadAzkarImage": "رفع صورة الأذكار",
       "uploadAzkarImagePlaceholder": "رفع صورة",
-      "AfterAzanTimer": "مؤقت بعد الأذان",
+      "AfterAzanTimer": "مؤقت الأذان",
       "hideSunrisePrayer": "إخفاء صلاة الشروق",
       "hideSunRiseAzan": "إخفاء أذان الشروق",
       "adjustTime": "ضبط وقت الصلاة"
@@ -95,7 +95,7 @@
     "location": {
       "title": "الموقع",
       "country": "الدولة",
-      "city": "المدينة",
+      "city": "قيمة",
       "autoSetting": "تعيين الموقع تلقائيًا"
     },
     "nextPrayTime": {

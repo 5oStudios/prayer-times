@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Center, Text } from '@mantine/core';
@@ -23,6 +23,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const isVertical = orientation === '';
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -33,8 +34,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
   useEffect(() => {
     subscribe(
       'start-countdown',
-      ({ prayer, showAzanDuration }: { prayer: { time: number }; showAzanDuration: number }) => {
-        setTimeLeft(showAzanDuration * 60);
+      ({ prayer, minutes }: { prayer: { time: number }; minutes: number }) => {
+        setTimeLeft(minutes * 60);
         const timer = setInterval(() => {
           setTimeLeft((prev) => {
             if (prev === 0) {
@@ -48,6 +49,11 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
         }, 1000);
       }
     );
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, []);
 
   return (
@@ -62,8 +68,15 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
               ? styles.circlePhoneSide
               : styles.circleSide
         }
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
       >
-        <Center>
+        <div>
           <Text
             style={{
               fontSize: isVertical
@@ -80,8 +93,8 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
           >
             متبقي على الإقامة
           </Text>
-        </Center>
-        <Center>
+        </div>
+        <div>
           <Text
             className={
               isVertical
@@ -96,10 +109,7 @@ const Timer = ({ changeTextColor }: { changeTextColor: boolean }) => {
           >
             {formatTime(timeLeft)}
           </Text>
-        </Center>
-        {/* <Center>
-        <Text>{formatTime(timeLeft)}</Text>
-      </Center> */}
+        </div>
       </div>
     )
   );

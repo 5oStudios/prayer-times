@@ -8,13 +8,14 @@ import { ClockSection } from '../../sections/clock';
 import { useDictionary } from '../../app/[lang]/dictionary-provider';
 import { SupportedLanguages } from '../../app/i18n/dictionaries';
 import {
+  selectBeforeAzanTimes,
   selectDisableSunRiseAzan,
   selectShowAzanDuration,
   setCurrentTimePeriod,
   setEnableAd,
   setEnableCountDown,
 } from '../../lib/features/settings';
-import { minuetsToMilliseconds, wait } from '../../utils';
+import { initReload, minuetsToMilliseconds, wait } from '../../utils';
 
 export default function Azan({ language }: { language: SupportedLanguages }) {
   const dictionary = useDictionary();
@@ -25,7 +26,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
   const disableSunRiseAzan = useSelector(selectDisableSunRiseAzan);
   const showAzanDuration = useSelector(selectShowAzanDuration);
-
+  const beforeAzanTimes = useSelector(selectBeforeAzanTimes);
   const dispatch = useDispatch();
 
   const shouldPlayAzan = (prayer: PrayerTime) => {
@@ -37,6 +38,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
   useEffect(() => {
     subscribe<PrayerTime>('next-prayer', async (prayer) => {
       if (!shouldPlayAzan(prayer)) return;
+      // const minutes = (beforeAzanTimes?.find((time) => time.id === prayer.id)?.minutes) ?? 2;
 
       setPrayTime(prayer);
       setShow(true);
@@ -47,12 +49,18 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
 
       dispatch(setEnableCountDown(true));
       dispatch(setCurrentTimePeriod(prayer));
+      const minutes = beforeAzanTimes?.find((time) => time.id === prayer.id)?.minutes ?? 2;
       setShow(false);
       publish('start-countdown', {
         prayer,
-        showAzanDuration,
+        minutes, //Test it
+        // showAzanDuration,//check beforeAzanTimes
       });
     });
+       // Cleanup function called on component unmount
+       return () => {
+        initReload(dispatch);
+      };
   }, []);
 
   if (!prayTime) return;
@@ -63,6 +71,7 @@ export default function Azan({ language }: { language: SupportedLanguages }) {
     <div
       className="azan-wrapper"
       style={{
+        backgroundColor: 'black',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
