@@ -10,6 +10,9 @@ import timesSlice, { setNextPrayer } from './features/times';
 import settingsReducer from './features/settings';
 import { adjustedTimesSlice } from './features/adjustedTimes';
 
+const LOCAL_STORAGE_VERSION_KEY = 'localStorageVersion';
+const CURRENT_VERSION = '1.0.0';
+
 const createNoopStorage = () => ({
   getItem(_key: string) {
     return Promise.resolve(null);
@@ -22,7 +25,22 @@ const createNoopStorage = () => ({
   },
 });
 
-const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
+const isBrowser = typeof window !== 'undefined';
+const storage = isBrowser ? createWebStorage('local') : createNoopStorage();
+
+
+if (isBrowser) {
+  // Get the current version stored in localStorage
+  const storedVersion = localStorage.getItem(LOCAL_STORAGE_VERSION_KEY);
+
+  // Check if the stored version is different from the current version
+  if (storedVersion !== CURRENT_VERSION) {
+    // Clear localStorage if versions do not match
+    localStorage.clear();
+    // Set the new version in localStorage
+    localStorage.setItem(LOCAL_STORAGE_VERSION_KEY, CURRENT_VERSION);
+  }
+}
 
 const persistConfig = {
   key: 'root',
