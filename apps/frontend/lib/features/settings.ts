@@ -63,6 +63,7 @@ export type SettingsState = {
   shiftBy: number;
   nextRemaining: number;
   ishaTimeHolder: string;
+  prayerName: string;
 };
 
 const initialState: SettingsState = {
@@ -148,6 +149,7 @@ const initialState: SettingsState = {
   shiftBy: 0,
   nextRemaining: 0,
   ishaTimeHolder: '',
+  prayerName: '',
 };
 
 const settingsSlice = createSlice({
@@ -262,6 +264,9 @@ const settingsSlice = createSlice({
     setNextRemaining: (state, action) => {
       state.nextRemaining = action.payload;
     },
+    setPrayerName: (state, action) => {
+      state.prayerName = action.payload;
+    },
   },
 });
 
@@ -302,6 +307,7 @@ export const {
   setTodayPrayerTimes,
   setShiftBy,
   setNextRemaining,
+  setPrayerName,
 } = settingsSlice.actions;
 
 export default settingsSlice;
@@ -344,3 +350,4 @@ export const selectAdjustPrayTimes = (state: RootState) => state.settings.adjust
 export const selectTodayPrayerTimes = (state: RootState) => state.settings.todayPrayerTimes;
 export const selectShiftBy = (state: RootState) => state.settings.shiftBy;
 export const selectNextRemaining = (state: RootState) => state.settings.nextRemaining;
+export const selectPrayerName = (state: RootState) => state.settings.prayerName;
