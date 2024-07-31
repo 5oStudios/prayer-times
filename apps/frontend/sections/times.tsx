@@ -26,6 +26,7 @@ import {
   selectShiftBy,
   selectTodayPrayerTimes,
   setNextRemaining,
+  setPrayerName,
 } from '../lib/features/settings';
 import { selectAdjustedTimes } from '../lib/features/adjustedTimes';
 import { timeStringToDate } from '../lib/kuwaitTimes/actions';
@@ -65,19 +66,6 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
   const arIndex = [5, 4, 3, 2, 1, 0];
   const todayTimes = useSelector(selectTodayPrayerTimes);
   const stopIsNextRef = useRef(false);
-
-  const handleIsNext = useCallback(
-    (remaining: number) => {
-      if (remaining < 0) return false;
-      if (!stopIsNextRef.current) {
-        stopIsNextRef.current = true;
-        dispatch(setNextRemaining(remaining));
-        return true;
-      }
-      return false;
-    },
-    [dispatch]
-  );
 
   useEffect(() => {
     subscribe<PrayerTime>('next-prayer', (prayer) => {
@@ -175,13 +163,18 @@ export const PrayerTimesSection = ({ lang }: { lang: SupportedLanguages }) => {
       ...prayer,
       isNext: prayer.remaining === minRemainingTime,
     }));
+    dispatch(setNextRemaining(minRemainingTime));
+
+    const nextPrayer = timesWithNextFlag.find((prayer) => prayer.isNext)?.name;
+
+    dispatch(setPrayerName(isArabic ? nextPrayer?.ar : nextPrayer?.en));
 
     return reverseTimes(timesWithNextFlag, lang, isPortrait);
   }, [
     times,
     autoLocation,
     adjustedPrayerTimes,
-    handleIsNext,
+    // handleIsNext,
     todayTimes,
     shiftCityBy,
     lang,

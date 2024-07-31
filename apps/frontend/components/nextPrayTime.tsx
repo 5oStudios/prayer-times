@@ -11,6 +11,7 @@ import {
   selectEnableNextPrayDisplay,
   selectNextRemaining,
   selectOrientation,
+  selectPrayerName,
 } from '../lib/features/settings';
 import styles from '../assets/css/settings.module.css';
 import { countDownFormatter } from './times';
@@ -33,6 +34,8 @@ export default function NextPrayTime({
   const [counter, setCounter] = useState<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const nextRemainingTime = useSelector(selectNextRemaining);
+  const name = useSelector(selectPrayerName);
+  // const prayTimeName =
   const dispatch = useDispatch();
   useEffect(() => {
     if (!nextPrayer) return;
@@ -93,7 +96,7 @@ export default function NextPrayTime({
           }}
           className={styles.ArStyle}
         >
-          {isArabic ? nextPrayer.name.ar : nextPrayer.name.en + (isArabic ? ' بعد' : ' after')}
+          {name + (isArabic ? ' بعد' : ' after')}
         </Text>
       </div>
       <div>
